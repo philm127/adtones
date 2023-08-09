@@ -1,0 +1,3 @@
+﻿Add-Migration InitialRelease -ProjectName EFMVC.Data -StartUpProjectName EFMVC.Web -Verbose
+
+Update-Database -ProjectName EFMVC.Data -StartUpProjectName EFMVC.Web -Verbose

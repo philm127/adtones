@@ -1,0 +1,52 @@
+﻿<div class="row">
+    <div class="html5buttons">
+        <div class="dt-buttons btn-group">
+
+            <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0">
+                <span>Copy</span>
+            </a>
+            @*@Html.ActionLink("CSV", "ExportClientsListToCSV", new { @class = "btn btn-default buttons-csv buttons-html5" })*@
+            <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0">
+                <span>CSV</span>
+            </a><a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span></a><a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span></a><a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span></a>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-client">
+        <thead>
+            <tr>
+                <th>Question number</th>
+                <th>Client</th>
+                <th>Campaign Name</th>
+                <th>Question Date and time</th>
+                <th>Question title</th>
+                <th>Question subject</th>
+                <th>Status</th>
+                <th>Last response date time</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="gradeX">
+                <td>QA12545</td>
+                <td><a>Coca cola</a></td>
+                <td><a>Campaign0</a></td>
+                <td>18/12/2015 10:15</td>
+                <td>
+
+                    For Payment Issue
+                </td>
+                <td>
+                    Billing
+                </td>
+                <td>
+
+                    Closed
+                </td>
+                <td>18/12/2015 10:15</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

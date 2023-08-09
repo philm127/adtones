@@ -1,0 +1,7 @@
+﻿@model EFMVC.Web.ViewModels.QuestionOptionModel
+<label class="float-left">
+    @Html.HiddenFor(x => x.QuestionValue)
+    @Html.HiddenFor(x => x.QuestionName)
+    @Html.Hidden("DefaultAnswer", Model.DefaultAnswer)
+    <label class="float-left">@Html.CheckBoxFor(x => x.Selected) @Model.QuestionName</label>
+</label>

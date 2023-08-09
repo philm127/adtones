@@ -1,0 +1,94 @@
+﻿@using EFMVC.Web.ViewModels
+@model ClientModel
+@{
+    ViewBag.Title = "EditClient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Client Details</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Dashboard")">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>Clients</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Client Details</h5>
+
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("UpdateClient", "Client", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Name</label>
+
+                            <div class="col-lg-6">
+                                @Html.HiddenFor(Model=>Model.Id)
+                                @Html.TextBoxFor(Model => Model.Name, new { @class = "form-control", @placeholder = "Name" })
+                                @Html.ValidationMessageFor(Model => Model.Name, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Description</label>
+
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(Model => Model.Description, new { @class = "form-control", @placeholder = "Description" })
+                                @Html.ValidationMessageFor(Model => Model.Description, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Contact Info</label>
+
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(Model => Model.ContactInfo, new { @class = "form-control", @placeholder = "Contact Info" })
+                                @Html.ValidationMessageFor(Model => Model.ContactInfo, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Budget</label>
+
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.Budget, new { @class = "form-control", @placeholder = "Budget" })
+                                @Html.ValidationMessageFor(Model => Model.Budget, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Status</label>
+
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.Status, ViewBag.clientStatus as IEnumerable<SelectListItem>, "--Select Status--", new { @class = "input-sm form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.Status, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index","Client")'">Cancel</button>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

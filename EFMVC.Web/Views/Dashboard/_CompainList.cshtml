@@ -1,0 +1,80 @@
+﻿@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model List<CampaignProfileResult>
+<div class="row">
+    <div class="html5buttons">
+        <div class="dt-buttons btn-group">
+
+            <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0">
+                <span>Copy</span>
+            </a>
+            @*@Html.ActionLink("CSV", "ExportClientsListToCSV", new { @class = "btn btn-default buttons-csv buttons-html5" })*@
+            <a  class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0" >
+                <span>CSV</span>
+            </a><a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span></a><a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span></a><a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span></a>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-campaign">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Campaign Name</th>
+                <th>Advert</th>
+                <th>Created Date</th>
+                <th>Budget</th>
+                <th>Spend</th>
+                <th>Status</th>
+                <th>Plays</th>
+                <th>Average Bid</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+            foreach (CampaignProfileResult campaignProfile in Model)
+            {
+
+                <tr class="gradeX">
+                    <td><a href='@Url.Action("EditClient","Client",new {@id=campaignProfile.ClientId })'>@campaignProfile.Client.Name</a></td>
+                    <td><a href='@Url.Action("Campaign","Dashboard",new {@id=campaignProfile.CampaignProfileId })'>@campaignProfile.CampaignName</a></td>
+                    <td>
+                        @if (@campaignProfile.AdvertId != 0)
+                        {
+                            <a href='@Url.Action("AdvertDetails","Advert",new {@id=campaignProfile.AdvertId })'>@campaignProfile.advertname</a>
+                        }
+                        
+                        
+                    </td>
+                    <td>
+                        
+                        @campaignProfile.CreatedDateTime.ToString("dd/MM/yyyy")
+                    </td>
+                   
+                    <td>
+                        @campaignProfile.TotalBudget
+                    </td>
+                    <td>
+                        
+                        @campaignProfile.totalspend
+                    </td>
+                    <td>
+                      @campaignProfile.Status
+                    </td>
+                    <td>
+                        @campaignProfile.finaltotalplays
+                    </td>
+                    <td>
+                       @campaignProfile.totalaveragebid
+                       
+                    </td>
+                </tr>
+                }
+            }
+            
+        </tbody>
+    </table>
+</div>
+ 
+

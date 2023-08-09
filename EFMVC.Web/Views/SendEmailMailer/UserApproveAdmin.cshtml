@@ -1,0 +1,74 @@
+﻿@using EFMVC.Web.Mailer;
+@model SendEmailModel
+
+<table width="580" border="0" cellpadding="5" cellspacing="0">
+
+    <tr>
+        <td>
+            Dear Adtones,
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            The following user has registered to use the Campaign Manager
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table  cellspacing="0" cellpadding="5">
+                <tr>
+                    <td>First Name</td>
+                    <td>@Model.Fname</td>
+
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>
+                        @Model.Lname
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Organization</td>
+                    <td>
+                        @Model.Organisation
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>
+                        @Model.To[0].ToString()
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            The registration was completed  at @Model.CompletedDatetime
+        </td>
+    </tr>
+    <tr>
+        <td>
+            To approve the registration please go to
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a style="display: inline-block;padding: 6px 12px;margin-bottom: 0;font-size: 14px;font-weight: 400;line-height: 1.42857143;text-align: center;white-space: nowrap;vertical-align: middle;-ms-touch-action: manipulation;touch-action: manipulation;cursor: pointer;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;background-image: none;border: 1px solid transparent;border-radius: 4px;background-color: #1e90ff;border-color: #1e90ff;color: #FFFFFF;border-radius: 3px; padding: 10px 16px;font-size: 18px;line-height: 1.3333333;border-radius: 6px;" href='@Model.Link'>View registration </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Thanks
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            Registration
+        </td>
+    </tr>
+</table>

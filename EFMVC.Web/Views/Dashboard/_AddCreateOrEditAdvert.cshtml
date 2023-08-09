@@ -1,0 +1,479 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileAdvertFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>Advert</h5>
+
+                </div>*@
+            <div class="ibox-content" id="advertsdiv">
+                <div class="alert alert-success alert-dismissable" id="dvadvertsuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvadverterror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cadverterrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveAdvertsInfo", "Dashboard",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultadvertprofile", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @*@Html.HiddenFor(model => model.CampaignProfileAdvertsId)*@
+                    @Html.HiddenFor(model => model.CampaignProfileId)
+                    @Html.HiddenFor(model => model.CampaignProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            <button class="btn btn-sm btn-blue" type="button" id="selectalladvert">Select All</button>
+                            <button class="btn btn-sm btn-blue" type="button" id="deselectalladvert">Deselect All</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.FoodQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SweetSaltySnacksQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.AlcoholicDrinksQuestion)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.FoodQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.SweetSaltySnacksQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.AlcoholicDrinksQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.NonAlcoholicDrinksQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.HouseholdproductsQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ToiletriesCosmeticsQuestion)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.NonAlcoholicDrinksQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.HouseholdproductsQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.ToiletriesCosmeticsQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.PharmaceuticalChemistsProductsQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.TobaccoProductsQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.PetsPetFoodQuestion)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.PharmaceuticalChemistsProductsQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.TobaccoProductsQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.PetsPetFoodQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ShoppingRetailClothingQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.DIYGardeningQuestion)</h3>
+                            @*<h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.AppliancesOtherHouseholdDurablesQuestion)</h3>*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ElectronicsOtherPersonalItemsQuestion)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.ShoppingRetailClothingQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.DIYGardeningQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            @*<div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <ul>
+                                        @Html.EditorFor(model => model.AppliancesOtherHouseholdDurablesQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                    </ul>
+                                </div>*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.ElectronicsOtherPersonalItemsQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.CommunicationsInternetQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.FinancialServicesQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.HolidaysTravelQuestion)</h3>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.CommunicationsInternetQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.FinancialServicesQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.HolidaysTravelQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SportsLeisureQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.MotoringQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.NewspapersQuestion)</h3>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.SportsLeisureQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.MotoringQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.NewspapersQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+
+                            @*<h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.MagazinesQuestion)</h3>*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.TVQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.CinemaQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SocialNetworkingQuestion)</h3>
+                        </div>
+                        <div class="row">
+
+                            @*<div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <ul>
+                                        @Html.EditorFor(model => model.MagazinesQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                    </ul>
+                                </div>*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.TVQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.CinemaQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.SocialNetworkingQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @*<h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.RadioQuestion)</h3>*@
+
+
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ShoppingQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.FitnessQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.EnvironmentQuestion)</h3>
+                        </div>
+                        <div class="row">
+                            @*<div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <ul>
+                                        @Html.EditorFor(model => model.RadioQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                    </ul>
+
+                                </div>*@
+
+
+
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.ShoppingQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.FitnessQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.EnvironmentQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+                            @*<h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.HolidaysQuestion)</h3>*@
+
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.GoingOutQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ReligionQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.MusicQuestion)</h3>
+                        </div>
+                        <div class="row">
+                            @*<div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <ul>
+                                        @Html.EditorFor(model => model.HolidaysQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                    </ul>
+
+                                </div>*@
+
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.GoingOutQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.ReligionQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.MusicQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.BusinessOrOpportunitiesQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.GamblingQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.RestaurantsQuestion)</h3>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.BusinessOrOpportunitiesQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.GamblingQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.RestaurantsQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row" style="padding-top:15px;">
+
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.InsuranceQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.FurnitureQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.InformationTechnologyQuestion)</h3>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.InsuranceQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.FurnitureQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.InformationTechnologyQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.EnergyQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SupermarketsQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.HealthcareQuestion)</h3>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.EnergyQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.SupermarketsQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.HealthcareQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row" style="padding-top:15px;">
+
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.JobsAndEducationQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.GiftsQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.AdvocacyOrLegalQuestion)</h3>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.JobsAndEducationQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.GiftsQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.AdvocacyOrLegalQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row" style="padding-top:15px;">
+
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.DatingAndPersonalQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.RealEstateQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.GamesQuestion)</h3>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.DatingAndPersonalQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.RealEstateQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.GamesQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                        @if (ViewBag.Country == "Kenya")
+                        {
+                            @*<div class="row" style="padding-top:15px;">
+
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SkizaProfileQuestion)</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <ul>
+                                        @Html.EditorFor(model => model.SkizaProfileQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                    </ul>
+                                </div>
+                            </div>*@
+                        }
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-1">
+                            <button class="btn btn-blue" type="submit">Update</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultadvertprofile = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvadvertsuc").show();
+            $("#dvadverterror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing")';
+            }
+            $("#cadverterrror").html(data);
+            $("#dvadvertsuc").hide();
+            $("#dvadverterror").show();
+        }
+    };
+</script>

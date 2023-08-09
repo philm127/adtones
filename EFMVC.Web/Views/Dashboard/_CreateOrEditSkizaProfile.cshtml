@@ -1,0 +1,180 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileSkizaFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>Cinema</h5>
+
+                </div>*@
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvskizasuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvskizaerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cadverterrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveSkizaProfile", "Dashboard",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultskizaprofile", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.CampaignProfileSKizaId)
+                    @Html.HiddenFor(model => model.CampaignProfileId)
+                    @Html.HiddenFor(model => model.CountryId)
+                    @*<div class="form-group">
+
+                            <div class="row" style="padding-top:15px;">
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Hustlers_AdType)</h3>
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Youth_AdType)</h3>
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.DiscerningProfessionals_AdType)</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Hustlers_AdType, "A")Networked Youth</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Hustlers_AdType, "B")Stable Hustler</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Hustlers_AdType, "C")Savvy Loyalist</label></div>
+                                    @Html.ValidationMessageFor(model => model.Hustlers_AdType)
+                                </div>
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Youth_AdType, "A")Tween</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Youth_AdType, "B")Hi-Pot students</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Youth_AdType, "C")Prudent Young</label></div>
+                                    @Html.ValidationMessageFor(model => model.Youth_AdType)
+                                </div>
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, "A")Young Flashers</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, "B")Mature trendies</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, "C")Settled Middle Mgmt</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, "D")Affluent Influencers</label></div>
+                                    @Html.ValidationMessageFor(model => model.DiscerningProfessionals_AdType)
+                                </div>
+                            </div>
+
+
+                            <div class="row" style="padding-top:15px;">
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Mass_AdType)</h3>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "A")Young cautious caller</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "B")Toa Mpango</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "C")Young progressive worker</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "D")Older Toa Mpango</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "E")Progressive worker</label></div>
+                                    @Html.ValidationMessageFor(model => model.Mass_AdType)
+                                </div>
+
+                            </div>
+                        </div>*@
+                    <div class="form-group">
+
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.HustlersQuestion.Count() > 0)
+                            {
+                                if (Model.Hustlers_AdType != null || Model.Hustlers_AdType != "")
+                                {
+                                    <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Hustlers_AdType)</h3>
+                                }
+                            }
+                            @if (Model.YouthQuestion.Count() > 0)
+                            {
+                                if (Model.Youth_AdType != null || Model.Youth_AdType != "")
+                                {
+                                    <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Youth_AdType)</h3>
+                                }
+                            }
+                            @if (Model.DiscerningProfessionalsQuestion.Count() > 0)
+                            {
+                                if (Model.DiscerningProfessionals_AdType != null || Model.DiscerningProfessionals_AdType != "")
+                                {
+                                    <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.DiscerningProfessionals_AdType)</h3>
+                                }
+                            }
+                            </div>
+                        <div class="row">
+                            @if (Model.HustlersQuestion.Count() > 0)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    @foreach (var item in Model.HustlersQuestion)
+                                    {
+                                        <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Hustlers_AdType, item.QuestionValue)@item.QuestionName</label></div>
+                                    }
+                                </div>
+                            }
+                            @if (Model.YouthQuestion.Count() > 0)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    @foreach (var item in Model.YouthQuestion)
+                                    {
+                                        <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Youth_AdType, item.QuestionValue)@item.QuestionName</label></div>
+                                    }
+                                </div>
+                            }
+                            @if (Model.DiscerningProfessionalsQuestion.Count() > 0)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    @foreach (var item in Model.DiscerningProfessionalsQuestion)
+                                    {
+                                        <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, item.QuestionValue)@item.QuestionName</label></div>
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.MassQuestion.Count() > 0)
+                            {
+                                if (Model.Mass_AdType != null || Model.Mass_AdType != "")
+                                {
+                                    <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Mass_AdType)</h3>
+                                }
+                            }
+                            </div>
+                        <div class="row">
+                            @if (Model.MassQuestion.Count() > 0)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    @foreach (var item in Model.MassQuestion)
+                                    {
+                                        <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, item.QuestionValue)@item.QuestionName</label></div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-1">
+                            <button class="btn btn-blue" type="submit">Save</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultskizaprofile = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvskizasuc").show();
+            $("#dvskizaerror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing", new { Area = "" })';
+            }
+            $("#cadverterrror").html(data);
+            $("#dvskizasuc").hide();
+            $("#dvskizaerror").show();
+        }
+    };
+</script>

@@ -1,0 +1,18 @@
+﻿@model HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="middle-box text-center animated fadeInDown">
+    <h1>500</h1>
+    <h3 class="font-bold">Internal Server Error</h3>
+    <div class="error-desc">
+	  <b>Exception:</b> @Model.Exception.Message<br />
+        <b>Inner Exception:</b> @Model.Exception.InnerException<br />
+        <b>Controller:</b> @Model.ControllerName<br />
+        <b>Action:</b> @Model.ActionName
+        The server encountered something unexpected that didn't allow it to complete the request. We apologize.<br />
+        You can go back to main page: <br /><a href="@Url.Action("Index", "Dashboard")" class="btn btn-blue m-t">Dashboard</a>
+    </div>
+</div>

@@ -1,0 +1,283 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.Models;
+@model Tuple<List<OperatorMaxAdvertsResult>, OperatorMaxAdvertsFilter>
+@{
+    ViewBag.Title = "Operator Max Advert Rule";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        @Html.Partial("_OperatorMaxAdvertsManagement", Tuple.Create<List<OperatorMaxAdvertsResult>, OperatorMaxAdvertsFilter>(Model.Item1, Model.Item2))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    <script type="text/javascript">
+
+        function dataTableSetup() {
+            $('.dataTables-operatorMaxAdverts').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                "bLengthChange": false,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [-1]
+                    }
+                ],
+                exportOptions: {
+                    columns: ':not(:last-child)',
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+
+                    {
+                        extend: 'copy',
+                        text: 'Copy',
+                        titleAttr: 'Copy',
+                        title: 'OperatorMaxAdvertDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+
+                    },
+
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        titleAttr: 'Excel',
+                        title: 'OperatorMaxAdvertDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: 'CSV',
+                        titleAttr: 'CSV',
+                        title: 'OperatorMaxAdvertDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        titleAttr: 'PDF',
+                        title: 'OperatorMaxAdvertDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        },
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        },
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    setTimeout(function () {
+                        $(".spiner-example").hide();
+                    }, 1000);
+                },
+                "fnInitComplete": function () {
+                    setTimeout(function () {
+                        $(".spiner-example").hide();
+                    }, 1000);
+                }	
+            });
+        }
+
+        $(document).ready(function () {
+
+            var config = {
+                '.chosen-select': { width: "100%" },
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+
+            $("#operatorreset").click(function () {
+                $(".spiner-example").show();
+                $("#operatorId").val('');
+                $("#operatorId").trigger("chosen:updated");
+                $("#Item2_Key").val('');
+                $("#Item2_Value").val('');
+                $.ajax({
+                    data: null,
+                    datatype: "text/plain",
+                    type: "POST",
+                    url: '@Url.Action("SearchOperatorMaxAdvert", "OperatorMaxAdverts", new {area="Admin"})',
+                    cache: false,
+                    success: function (data) {
+                        $(".spiner-example").hide();
+                        $("#operatorMaxAdvertList").html(data);
+                        dataTableSetup();
+                    }
+                });
+            });
+
+            $('.dataTables-operatorMaxAdverts').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                "bLengthChange": false,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                aoColumnDefs: [
+                {
+                bSortable: false,
+                aTargets: [-1]
+                }
+                ],
+                exportOptions: {
+                    columns: ':not(:last-child)',
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+
+                    {
+                        extend: 'copy',
+                        text: 'Copy',
+                        titleAttr: 'Copy',
+                        title: 'OperatorMaxAdvertDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+
+                    },
+
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        titleAttr: 'Excel',
+                        title: 'OperatorMaxAdvertDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: 'CSV',
+                        titleAttr: 'CSV',
+                        title: 'OperatorMaxAdvertDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        titleAttr: 'PDF',
+                        title: 'OperatorMaxAdvertDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        },
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        },
+                        customize: function (win) {
+                                    $(win.document.body).addClass('white-bg');
+                                    $(win.document.body).css('font-size', '10px');
+
+                                    $(win.document.body).find('table')
+                                            .addClass('compact')
+                                            .css('font-size', 'inherit');
+                                }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    setTimeout(function () {
+                        $(".spiner-example").hide();
+                    }, 1000);
+                },
+                "fnInitComplete": function () {
+                    setTimeout(function () {
+                        $(".spiner-example").hide();
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+}

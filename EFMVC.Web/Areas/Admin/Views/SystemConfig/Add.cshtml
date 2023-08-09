@@ -1,0 +1,91 @@
+﻿@model EFMVC.Web.Areas.Admin.ViewModel.SystemConfigFormModel
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Add System Config</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "SystemConfig",new {area="Admin" })">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>System Config</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Add System Config</h5>
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("Save", "SystemConfig", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">SystemConfigKey <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(model => model.SystemConfigKey, new { @class = "form-control trimmed", @placeholder = "SystemConfigKey" })
+                                @Html.ValidationMessageFor(model => model.SystemConfigKey, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">SystemConfigValue <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(model => model.SystemConfigValue, new { @class = "form-control trimmed", @placeholder = "SystemConfigValue" })
+                                @Html.ValidationMessageFor(model => Model.SystemConfigValue, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">SystemConfigType <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.SystemConfigType, Model.GetSystemConfigType, "-- select an option --", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.SystemConfigType, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index","SystemConfig",new {area="Admin" })'">Cancel</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            trimmed();
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+    </script>
+}

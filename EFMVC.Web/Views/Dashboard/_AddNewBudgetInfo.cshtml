@@ -1,0 +1,99 @@
+﻿@using EFMVC.Web.ViewModels
+@model NewBudgetFormModel
+
+<style>
+    select.input-sm1 {
+        height: 40px;
+        line-height: 30px;
+    }
+</style>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    @*<h5>Budget</h5>*@
+                    <h5>
+                        Budget Information
+                        <i class="fa fa-info-circle"
+                           data-toggle="tooltip4"
+                           title="A campaign cannot run without a budget, please remember to pay via the billing section(Buy credit/Raise PO)."@*inform user the campaign cannot run without a budget and this will be added via the account screen*@
+                           id="budgettooltip"></i>
+                    </h5>
+
+                </div>
+                <div class="ibox-content">
+                    <div class="alert alert-success alert-dismissable" id="budgetdvcaminfosuc" style="display:none;">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" id="budgetclosesuccess" type="button">×</button>
+                        <span id="budgetcsuceess">Record updated successfully</span>
+                    </div>
+                    <div class="alert alert-danger alert-dismissable" id="budgetdvcaminfoerror" style="display:none;">
+                        <button aria-hidden="true" class="close" id="budgetcloseerror" type="button">×</button>
+                        <span id="budgetcerrror"></span>
+                    </div>
+                    @*, InsertionMode = InsertionMode.Replace, OnSuccess = "getresultclient"*@
+                    @*@using (Ajax.BeginForm("AddClientInfo", "Dashboard", null,
+                        new AjaxOptions() { HttpMethod = "post" }, new { @class = "form-horizontal" }))
+                                            {*@
+                    <div class="form-horizontal">
+                        @*Add 03-04-2019*@
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Currency</label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.CurrencyId, ViewBag.currencyList as IEnumerable<SelectListItem>, "--Select Currency--", new { @class = "input-sm form-control input-s-sm inline", @style = "Height:36px" })
+                                <span class="btn-danger" id="errormsg"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Monthly Budget <label id="lblmonthlybudget"></label></label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.MonthlyBudget, new { @class = "form-control trimmed", @placeholder = "Monthly Budget" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Weekly Budget <label id="lblweeklybudget"></label></label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.WeeklyBudget, new { @class = "form-control trimmed", @placeholder = "Weekly Budget" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Daily Budget <label id="lbldailybudget"></label></label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.DailyBudget, new { @class = "form-control trimmed", @placeholder = "Daily Budget" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Hourly Budget <label id="lblhourlybudget"></label></label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.HourlyBudget, new { @class = "form-control trimmed", @placeholder = "Hourly Budget" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @*<label class="col-lg-2 control-label">Maximum Bid (in <label id="countrycode"></label>) <label class="lbldanger">*</label></label>*@
+                            <label class="col-lg-2 control-label">Maximum Bid <label id="lblmaxbid"></label> <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.MaximumBid, new { @class = "form-control trimmed", @placeholder = "Maximum Bid" })
+                                @Html.ValidationMessageFor(model => model.MaximumBid, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit" id="budgetnextbtn">Next</button>
+                                <button class="btn btn-sm btn-blue" type="submit" id="budgetbackbtn">Back</button>
+                                <button class="btn btn-sm btn-blue" type="submit" id="budgetsubmit">Save</button>
+                                <button class="btn btn-sm btn-white" type="button" id="budgetcancelbtn">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    @*}*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+

@@ -1,0 +1,116 @@
+﻿@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model List<BillingResult>
+
+<div class="row">
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["success"]
+        </div>
+    }
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["error"]
+        </div>
+    }
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-billing">
+        <thead>
+            <tr>
+                <th>Invoice Number</th>
+                <th>PO Number</th>
+                <th>Client</th>
+                <th>Campaign Name</th>
+                <th>Invoice Date</th>
+                <th>Invoice Total</th>
+                <th>Status</th>
+                <th>Settled Date</th>
+                <th>Method of Payment</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (BillingResult billing in Model)
+            {
+                if (billing.ID != 0)
+                {
+                    var invoiceNo = "/Invoice/Adtones_invoice_" + @billing.InvoiceNO + ".pdf";
+                    var campaignLink = "/Dashboard/Campaign/" + @billing.CampaignId;
+                    <tr class="gradeX">
+
+                        @*<td>@billing.InvoiceNO</td>
+                            <td>@billing.PONumber</td>*@
+                        <td>
+                            @if (billing.InvoiceNO != "-")
+                            {
+                                <a class="clientname" href="@invoiceNo" target="_blank">@billing.InvoiceNO</a>
+                            }
+                            else
+                            {
+                                <label>-</label>
+                            }
+                        </td>
+                        <td>
+                            @if (billing.PONumber != "-")
+                            {
+                                <a class="clientname" href="@invoiceNo" target="_blank">@billing.PONumber</a>
+                            }
+                            else
+                            {
+                                <label>-</label>
+                            }
+                        </td>
+                        @*<td><a href='@Url.Action("EditClient","Client",new {@id=billing.ClienId })'>@billing.ClientName</a></td>*@
+                        @if (billing.ClientName != "-")
+                        {
+                            <td><a class="clientname" href='@Url.Action("EditClient", "Client", new { @id = billing.ClienId })'>@billing.ClientName</a></td>
+                        }
+                        else
+                        {
+                            <td>-</td>
+                        }
+                        <td>
+                            <a href="@campaignLink">@billing.CampaignName</a>
+                        </td>
+                        <td>
+
+                            @billing.InvoiceDate.ToString("dd/MM/yyyy")
+
+                        </td>
+                        <td>
+                            @*€@billing.InvoiceTotal*@
+                            @if (ViewBag.userCurrencyId == 4 || ViewBag.userCurrencyId == 7)
+                            {
+                                @billing.InvoiceTotal <lable> </lable>@billing.CurrencySymbol
+                            }
+                            else
+                            {
+                                @billing.CurrencySymbol <label></label>@billing.InvoiceTotal
+                            }
+                        </td>
+                        <td>
+                            @billing.status
+                        </td>
+
+                        <td>
+                            @billing.SettledDate.ToString("dd/MM/yyyy")
+
+
+                        </td>
+                        <td>
+                            @billing.MethodOfPayment
+
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>

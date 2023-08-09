@@ -1,0 +1,332 @@
+<div id="mobilediv" style="display:none;">
+    <div class="row border-bottom white-bg">
+        <nav class="navbar navbar-static-top" role="navigation">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <i class="fa fa-reorder"></i>
+                </button>
+                <span class="minimalize-styl-2 topnav-wel">Welcome to adtones admin</span>
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    <div class="navbar-collapse collapse" id="navbar">
+                        <ul class="nav navbar-nav">
+                            @*CommentLater<li id="adminIndex">
+                                    <a href='@Url.Action("Index", "Home",new { area = "Admin" })'>Index</a>
+
+                                </li>*@
+                            <li id="adminusermanagement">
+                                <a href='@Url.Action("Index", "UserManagement",new { area = "Admin" })'>Users</a>
+
+                            </li>
+                            <li id="admincountrymanagement">
+                                <a href='@Url.Action("Index", "Country",new { area = "Admin" })'>Country</a>
+
+                            </li>
+                            <li id="admincountryTaxmanagement">
+                                <a href='@Url.Action("Index", "CountryTax",new { area = "Admin" })'>Country Tax</a>
+
+                            </li>
+                            <li id="admincampaign">
+                                <a href='@Url.Action("Index", "Campaign",new { area = "Admin" })'>Campaigns</a>
+
+                            </li>
+                            <li id="adminadvert">
+                                <a href='@Url.Action("Index", "UserAdvert",new { area = "Admin" })'>Adverts</a>
+
+                            </li>
+                            <li id="admincredit">
+                                <a href='@Url.Action("Index", "UserCredit",new { area = "Admin" })'>UsersCredit</a>
+                            </li>
+                            <li id="adminuserPay">
+                                <a href='@Url.Action("Index", "UserPayment",new { area = "Admin" })'>Outstanding Invoice</a>
+                            </li>
+                            <li id="adminuserinvoice">
+                                <a href='@Url.Action("Index", "Invoice",new { area = "Admin" })'>Invoice</a>
+                            </li>
+                            <li id="adminHelp">
+                                <a href='@Url.Action("Index", "Question",new { area = "Admin" })'>Help</a>
+
+                            </li>
+                            <li id="adminSystemConfig">
+                                <a href='@Url.Action("Index", "SystemConfig",new { area = "Admin" })'>System Profile</a>
+
+                            </li>
+
+                            <li id="adminImportCsv">
+                                <a href='@Url.Action("Index", "ImportCSV",new { area = "Admin" })'>Import</a>
+                            </li>
+                            <li id="adminProfileMatchInformation">
+                                <a href='@Url.Action("Index", "ProfileMatchInformation",new { area = "Admin" })'>Profile Information</a>
+                            </li>
+                            <li id="adminArea">
+                                <a href='@Url.Action("Index", "Area",new { area = "Admin" })'>Area</a>
+                            </li>
+                            <li id="importFileTrack">
+                                <a href='@Url.Action("Index", "ManagementReport",new { area = "Admin" })'>Management Reports</a>
+                            </li>
+                            <li id="rewards">
+                                <a href='@Url.Action("Index", "Reward",new { area = "Admin" })'>Rewards</a>
+                            </li>
+                            <li id="advertcategory">
+                                <a href='@Url.Action("Index", "AdvertCategory",new { area = "Admin" })'>Advert Category</a>
+                            </li>
+                            <li id="copyRight">
+                                <a href='@Url.Action("Index", "CopyRight",new { area = "Admin" })'>CopyRight</a>
+                            </li>
+                            <li id="adminOperatorRegistration">
+                                <a href='@Url.Action("Index", "OperatorRegistration",new { area = "Admin" })'>Operator Registration</a>
+                            </li>
+                            <li id="adminCreditPeriod">
+                                <a href='@Url.Action("Index", "CampaignCredit",new { area = "Admin" })'>Campaign Credit Period</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-top-links navbar-right">
+
+                            <li id="adminOperator">
+                                <a href='@Url.Action("Index", "Operator",new { area = "Admin" })'>Operator</a>
+                            </li>
+                            <li id="admin_userprofile">
+                                @*CommentLater<a href="#">@User.Identity.Name</a>*@
+                                <a href='@Url.Action("Index", "AdminUserProfile",new { area = "Admin" })'>
+                                    @User.Identity.Name
+                                </a>
+                            </li>
+                            <li>
+                                <a href='@Url.Action("LogOff", "Home",new { area = "Admin" })' id="logoutbtn">
+                                    <i class="fa fa-sign-out"></i> Log out
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+            }
+        </nav>
+    </div>
+</div>
+
+<div id="desktopdiv">
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admin"))
+        {<div class="page-container horizontal-menu">
+                <header class="navbar navbar-fixed-top">
+                    <!-- set fixed position by adding class "navbar-fixed-top" -->
+                    <div class="navbar-inner" style="height: 61px;">
+                        <div class="navbar-header">
+                            @*<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                                    <i class="fa fa-reorder"></i>
+                                </button>*@
+                            @*<span class="minimalize-styl-2 topnav-wel">Welcome to adtones admin</span>*@
+                            <span class="minimalize-styl-2" style="margin-top: 15px;">Welcome to adtones admin</span>
+                        </div>
+
+                        <!-- main menu -->
+                        <ul class="navbar-nav">
+                            <li id="liuser">
+                                <a href="#">
+                                    <span>ADVERTISERS</span>&nbsp;
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                                <ul>
+                                    <li id="adminusermanagement1">
+                                        <a href='@Url.Action("Index", "UserManagement",new { area = "Admin" })'>
+                                            <span>Advertisers</span>
+                                        </a>
+                                    </li>
+                                    <li id="adminpromotionalusermanagement1">
+                                        <a href='@Url.Action("Index", "PromotionalUser",new { area = "Admin" })'>
+                                            <span>Promotional Users</span>
+                                        </a>
+                                    </li>
+                                    <li id="admincredit1">
+                                        <a href='@Url.Action("Index", "UserCredit",new { area = "Admin" })'>
+                                            <span>Advertisers Credit</span>
+                                        </a>
+                                    </li>
+                                    <li id="adminProfileMatchInformation1">
+                                        <a href='@Url.Action("Index", "ProfileMatchInformation",new { area = "Admin" })'>
+                                            <span>Profile Information</span>
+                                        </a>
+                                    </li>
+                                    <li id="adminImportCsv1">
+                                        <a href='@Url.Action("Index", "ImportCSV",new { area = "Admin" })'>
+                                            <span>Import</span>
+                                        </a>
+                                    </li>
+                                    <li id="adminProfileAdminRegistration1">
+                                        <a href='@Url.Action("Index", "ProfileAdminRegistration",new { area = "Admin" })'>
+                                            <span>Profile Admin Registration</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="licampaign">
+                                <a href="#">
+                                    <span>CAMPAIGNS</span>&nbsp;
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                                <ul>
+                                    <li id="admincampaign1">
+                                        <a href='@Url.Action("Index", "Campaign",new { area = "Admin" })'>
+                                            <span>Campaigns</span>
+                                        </a>
+                                    </li>
+                                    <li id="adminpromotionalcampaign1">
+                                        <a href='@Url.Action("Index", "PromotionalCampaign",new { area = "Admin" })'>
+                                            <span>Promotional Campaigns</span>
+                                        </a>
+                                    </li>
+                                    <li id="adminadvert1">
+                                        <a href='@Url.Action("Index", "UserAdvert",new { area = "Admin" })'>
+                                            <span>Adverts</span>
+                                        </a>
+                                    </li>
+                                    <li id="advertcategory1">
+                                        <a href='@Url.Action("Index", "AdvertCategory",new { area = "Admin" })'>
+                                            <span>Advert Category</span>
+                                        </a>
+                                    </li>
+                                    <li id="adminCreditPeriod1">
+                                        <a href='@Url.Action("Index", "CampaignCredit",new { area = "Admin" })'>
+                                            <span>Campaign Credit Period</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="liinvoice">
+                                <a href="#">
+                                    <span>INVOICE</span>&nbsp;
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                                <ul>
+                                    <li id="adminuserPay1">
+                                        <a href='@Url.Action("Index", "UserPayment",new { area = "Admin" })'>
+                                            <span>Outstanding Invoice</span>
+                                        </a>
+                                    </li>
+                                    <li id="adminuserinvoice1">
+                                        <a href='@Url.Action("Index", "Invoice",new { area = "Admin" })'>
+                                            <span>Invoice</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="licountry">
+                                <a href="#">
+                                    <span>COUNTRY</span>&nbsp;
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                                <ul>
+                                    <li id="admincountrymanagement1">
+                                        <a href='@Url.Action("Index", "Country",new { area = "Admin" })'>
+                                            <span>Country</span>
+                                        </a>
+                                    </li>
+                                    <li id="admincountryTaxmanagement1">
+                                        <a href='@Url.Action("Index", "CountryTax",new { area = "Admin" })'>
+                                            <span>Country Tax</span>
+                                        </a>
+                                    </li>
+                                    <li id="adminArea1">
+                                        <a href='@Url.Action("Index", "Area",new { area = "Admin" })'>
+                                            <span>Area</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="lioperator">
+                                <a href="#">
+                                    <span>OPERATOR</span>&nbsp;
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                                <ul>
+                                    <li id="adminOperatorRegistration1">
+                                        <a href='@Url.Action("Index", "OperatorRegistration",new { area = "Admin" })'>
+                                            <span>Operator Registration</span>
+                                        </a>
+                                    </li>
+                                    <li id="adminOperator1">
+                                        <a href='@Url.Action("Index", "Operator",new { area = "Admin" })'>
+                                            <span>Operator</span>
+                                        </a>
+                                    </li>
+                                    <li id="adminOperatorMaxAdvert1">
+                                        <a href='@Url.Action("Index", "OperatorMaxAdverts",new { area = "Admin" })'>
+                                            <span>Operator Max Advert Rule</span>
+                                        </a>
+                                    </li>
+                                    <li id="adminOperatorConfiguration1">
+                                        <a href='@Url.Action("Index", "OperatorConfiguration",new { area = "Admin" })'>
+                                            <span>Operator Configuration</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="importFileTrack1">
+                                <a href='@Url.Action("Index", "ManagementReport",new { area = "Admin" })'>
+                                    <span>MANAGEMENT REPORTS</span>
+                                </a>
+                            </li>
+                            <li id="lisystem">
+                                <a href="#">
+                                    <span>SYSTEM</span>&nbsp;
+                                    <i class="fa fa-chevron-down"></i>
+                                </a>
+                                <ul>
+                                    <li id="adminSystemConfig1">
+                                        <a href='@Url.Action("Index", "SystemConfig",new { area = "Admin" })'>
+                                            <span>System Profile</span>
+                                        </a>
+                                    </li>
+                                    <li id="copyRight1">
+                                        <a href='@Url.Action("Index", "CopyRight",new { area = "Admin" })'>
+                                            <span>Copyright</span>
+                                        </a>
+                                    </li>
+                                    <li id="rewards1">
+                                        <a href='@Url.Action("Index", "Reward",new { area = "Admin" })'>
+                                            <span>Rewards</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="adminHelp1">
+                                <a href='@Url.Action("Index", "Question",new { area = "Admin" })'>
+                                    <span>HELP</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav navbar-right pull-right">
+                            <!-- raw links -->
+                            <li class="dropdown" id="admin_userprofile1">
+                                <a href='@Url.Action("Index", "AdminUserProfile",new { area = "Admin" })'>
+                                    @User.Identity.Name.ToUpper()
+                                </a>
+                            </li>
+                            <li class="sep"></li>
+                            <li>
+                                <a href='@Url.Action("LogOff", "Home",new { area = "Admin" })' id="logoutbtn">
+                                    <i class="fa fa-sign-out"></i> LOG OUT
+                                </a>
+                            </li>
+                            <!-- mobile only -->
+                            <li class="visible-xs">
+                                <!-- open/close menu icon (do not remove if you want to enable menu on mobile devices) -->
+                                <div class="horizontal-mobile-menu visible-xs">
+                                    <a href="#" class="with-animation">
+                                        <!-- add class "with-animation" to support animation -->
+                                        <i class="entypo-menu"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </header>
+            </div>
+        }
+    }
+</div>

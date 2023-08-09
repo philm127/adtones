@@ -1,0 +1,139 @@
+﻿@using EFMVC.Web.Areas.Admin.ViewModel
+@model  ErrorUserCSVList
+@{
+    ViewBag.Title = "Import CSV";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper wrapper-content animated fadeIn">
+
+    <div class="p-w-md m-t-sm">
+        <div class="row" style="background-color:white">
+            @if (TempData["success"] != null)
+            {
+                <div class="alert alert-success alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    @TempData["success"]
+                </div>
+            }
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-title" style="border-style:none;">
+                        <h5>Import User</h5>
+                    </div>
+                    <div class="ibox-content">
+                        @using (Html.BeginForm("SaveUser", "ImportCSV", FormMethod.Post, new { enctype = "multipart/form-data", @id = "form1" }))
+                        {
+                        <div class="row">
+                            <div>
+                                <label class="col-lg-2 control-label" style="word-wrap:break-word;">Upload CSV <label class="lbldanger">*</label></label>
+
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <input type="file" name="file" id="file" class="form-control" required />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="col-lg-3">
+                                        <a href="~/UserCSV/SampleData.csv">View Sample</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <div class="col-lg-2"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <input class="btn btn-blue" id="btnSubmit" type="submit" name="Submit" value="Upload" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if(Model.Files != null && Model.Files.Count() > 0)
+        {
+            <div class="row" style="background-color:white">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-title" style="border-style:none;">
+                        <h5>Not Imported User</h5>
+                    </div>
+                    <div class="ibox-content">
+                            <div class="col-lg-12">
+                                @foreach (var item in Model.Files)
+                                {
+                                    <div class="col-lg-2">
+                                        <a href="~/ErrorUserCSV/@item">@item</a>
+                                    </div>
+                                }
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div> 
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                var ext = $('#file').val().split('.').pop().toLowerCase();
+                if (ext == "") {
+                    alert('Please choose file');
+                    return false;
+                }
+                else if ($.inArray(ext, ['csv']) == -1) {
+                    alert('Please upload only csv file');
+                    return false;
+                }
+
+            });
+        });
+
+    </script>
+}

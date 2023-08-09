@@ -1,0 +1,196 @@
+﻿@using EFMVC.Web.ViewModels
+@model QuestionCommentFormModel
+<div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                @if (ViewBag.QuestionCommentId == null)
+                {
+                    <h4 class="modal-title">Add Comment</h4>
+                }
+                else
+                {
+                    <h4 class="modal-title">Update Comment</h4>
+                }
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddComment", "Ticket", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                {
+                    @Html.HiddenFor(Model => Model.TicketCode)
+                    @Html.HiddenFor(Model => Model.QuestionId)
+                    @Html.HiddenFor(Model => Model.Title)
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Description <label class="lbldanger">*</label></label>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.TextAreaFor(Model => Model.Description, new { @class = "form-control trimmed", placeholder = "Description", rows = "6", cols = "10" })
+                                @Html.ValidationMessageFor(Model => Model.Description, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Upload Image</label>
+                        <div class="col-lg-6">
+                            <div class="btn-group">
+                                <label title="Upload image file" class="btn btn-gray">
+                                    <input type="file" name="commentfile" id="commentfile" class="hide">
+                                    Select Image
+                                </label>
+
+                            </div>
+                            <label id="filename">
+
+                            </label><br />
+                            <span class="field-validation-valid btn-danger" id="questionfileerrmsg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-10">
+                            <button class="btn btn-sm btn-blue" type="submit" id="btnsubmit">Submit</button>
+                            <button class="btn btn-sm btn-white" type="button" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //Add 04-03-2019
+            $("#commentfile").change(function () {
+                var files = $(this)[0].files;
+                var iSize = (files[0].size / 1024);
+                for (var i = 0; i < files.length; i++) {
+                    //if ($("#filename").html().trim() == "") {
+                        if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                            $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                            return false;
+                        }
+                        else if (iSize != "" || iSize != null) {
+                            iSize = (Math.round(iSize * 100) / 100)
+                            if (iSize > 250) {
+                                $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                                return false;
+                            }
+                            else {
+                                $("#questionfileerrmsg")[0].innerHTML = "";
+                                $("#filename").html("");
+                                $("#filename").append(files[i].name.trim());
+                            }
+                        }
+                        else {
+                            $("#questionfileerrmsg")[0].innerHTML = "";
+                            $("#filename").html("");
+                            $("#filename").append(files[i].name.trim());
+                        }
+                    //}
+                    //else {
+                    //    $("#questionfileerrmsg")[0].innerHTML = "";
+                    //    $("#filename").html("");
+                    //    $("#filename").append(files[i].name.trim());
+                    //}
+                    //else {
+                    //    if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                    //        $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                    //        return false;
+                    //    }
+                    //    else if (iSize != "" || iSize != null) {
+                    //        iSize = (Math.round(iSize * 100) / 100)
+                    //        if (iSize > 250) {
+                    //            $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                    //            return false;
+                    //        }
+                    //        else {
+                    //            $("#questionfileerrmsg")[0].innerHTML = "";
+                    //            $("#filename").append(files[i].name.trim());
+                    //        }
+                    //    }
+                    //    else {
+                    //        $("#questionfileerrmsg")[0].innerHTML = "";
+                    //        //$("#filename").append(" , " + files[i].name.trim());
+                    //        $("#filename").append(files[i].name.trim());
+                        //}
+                    //}
+                }
+            });
+
+            trimmed();
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+        function getCommentresult(id) {
+            $("#questioncomment").empty();
+            $.post('@Url.Action("UpdateComment", "Question", new { area = "Admin" })', { commentId: id }, function (data) {
+
+                $("#questioncomment").html(data);
+                $("#myModal2").modal();
+            });
+            $("#myModal2").modal({ backdrop: 'static', keyboard: false });
+        }
+
+        $("#btnsubmit").click(function () {
+            if ($("#Description").val() == "") {
+                $("#Description")[0].nextElementSibling.innerHTML = "The Description field is required.";
+                return false;
+            }
+            else {
+                if ($("#Description").val().length > 200) {
+                    $("#Description")[0].nextElementSibling.innerHTML = "The Description field cannot be more than 200 characters.";
+                    return false;
+                }
+                else {
+                    $("#Description")[0].nextElementSibling.innerHTML = "";
+                }
+            }
+            var files = $("#commentfile")[0].files;
+            var iSize = (files[0].size / 1024);
+            for (var i = 0; i < files.length; i++) {
+                if ($("#filename").html().trim() == "") {
+                    if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                        $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                        return false;
+                    }
+                    else if (iSize != "" || iSize != null) {
+                        iSize = (Math.round(iSize * 100) / 100)
+                        if (iSize > 250) {
+                            $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                            return false;
+                        }
+                    }
+                }
+                else {
+                    if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                        $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                        return false;
+                    }
+                    else if (iSize != "" || iSize != null) {
+                        iSize = (Math.round(iSize * 100) / 100)
+                        if (iSize > 250) {
+                            $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                            return false;
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+}

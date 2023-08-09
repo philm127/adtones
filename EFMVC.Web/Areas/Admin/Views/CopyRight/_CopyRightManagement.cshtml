@@ -1,0 +1,137 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.Models;
+@model Tuple<List<CopyRightResult>, CopyRightFilter>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title" style="border-style:none;">
+                <h5>Copy Right</h5>
+                @*<div style="text-align:right">
+                    <a class="btn btn-blue" href='@Url.Action("AddReward","Reward",new {area="Admin"})'><i class="fa fa-plus"></i>&nbsp;Reward</a>
+                </div>*@
+            </div>
+
+            @using (Ajax.BeginForm("SearchCopyRight", "CopyRight", null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getcopyrightresult", OnBegin = "progressbar" },
+null))
+            {
+
+                <div class="ibox-content">
+                    <div class="row">
+                        <div>
+                            <label class="col-lg-1 control-label">Copy Right Text</label>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(Model2 => Model2.Item2.Text, new { @class = "form-control", placeholder = "Copy Right Text" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <button class="btn btn-blue" type="submit">Search</button>
+                                <button class="btn btn-white" type="button" id="copyrightreset">Reset</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div id="copyrightList">
+                        @{ 
+                            Html.RenderPartial("_CopyRightDetails", Model.Item1);
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getcopyrightresult = function (data) {
+        if (data != "notauthorise") {
+            $(".spiner-example").hide();
+            $('.dataTables-copyright').remove();
+            $("#copyrightList").html(data);
+            dataTableSetup();
+        }
+        else {
+            window.location.href = '@Url.Action("Index","Landing",new { area = "" })';
+        }
+    };
+    function dataTableSetup() {
+        $('.dataTables-copyright').DataTable({
+            "preDrawCallback": function (settings) {
+                $(".spiner-example").show();
+            },
+            "info": false,
+            bFilter: false,
+            "searching": false,
+            "bLengthChange": false,
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            aoColumnDefs: [
+               {
+                   bSortable: false,
+                   aTargets: [-1]
+               }
+            ],
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                {
+                    extend: 'copy',
+                    title: 'CopyRightDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'csv',
+                    title: 'CopyRightDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'excel',
+                    title: 'CopyRightDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: 'CopyRightDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    title: 'CopyRightDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    },
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                    }
+                }
+            ],
+            "drawCallback": function (settings) {
+                $(".spiner-example").hide();
+            },
+            "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+        });
+    }
+</script>

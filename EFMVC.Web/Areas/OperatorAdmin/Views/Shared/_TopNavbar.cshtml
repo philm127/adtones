@@ -1,0 +1,51 @@
+<div class="row border-bottom white-bg">
+    <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <span class="minimalize-styl-2 topnav-wel">Welcome to operator admin</span>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="navbar-collapse collapse" id="navbar">
+                <ul class="nav navbar-nav">                       
+                    <li id="operatoradmin-ticket">
+                        <a href='@Url.Action("Index", "Ticket",new { area = "OperatorAdmin" })'>Tickets</a>
+                    </li>                     
+                </ul> 
+               
+                <ul class="nav navbar-nav">
+                    <li id="operatoradmin-useradvert">
+                        <a href='@Url.Action("Index", "UserAdvert",new { area = "OperatorAdmin" })'>Adverts</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    @*<li id="operatoradmin-user">
+                        <a href='@Url.Action("Index", "UserAccount",new { area = "OperatorAdmin" })'>Users</a>
+                    </li>*@
+                    <li id="operatoradmin-user">
+                        <a href='@Url.Action("Index", "AdvertisersManagement",new { area = "OperatorAdmin" })'>Advertisers</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li id="operatoradmin-campaign">
+                        <a href='@Url.Action("Index", "UserCampaign",new { area = "OperatorAdmin" })'>Campaigns</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-top-links navbar-right">                   
+                    <li id="operatoradmin-userprofile">
+                        <a href='@Url.Action("Index", "UserProfile",new { area = "OperatorAdmin" })'>
+                            @User.Identity.Name
+                        </a>
+                    </li>
+                    <li>
+                        <a href='@Url.Action("LogOff", "Login",new { area = "OperatorAdmin" })' id="logoutbtn">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>
+                </ul>                 
+            </div>            
+        }
+    </nav>
+</div>

@@ -1,0 +1,145 @@
+﻿@using EFMVC.Web.Areas.AdvertAdmin.Models;
+@model List<UserAdvertResult>
+<div class="row">
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["status"]
+        </div>
+    }
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-useradvert">
+        <thead>
+            <tr>
+
+                <th>Email</th>
+                <th>User</th>
+                <th>Client</th>
+                <th>Advert</th>
+                <th>Brand</th>
+                <th>SMS</th>
+                <th>Email</th>
+                <th>Scripts</th>
+                <th>Listen</th>
+                <th>Status</th>
+                <th>Created Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (UserAdvertResult result in Model)
+            {
+                @*string mediaLocation = @"~" + result.MediaFileLocation;
+                    string scriptLocation = result.ScriptsPath;*@
+                <tr class="gradeX">
+                    <td><a href='javascript:;;'>@result.Email</a></td>
+                    <td>@result.UserName</td>
+                    @*<td><a href='javascript:;;'>@result.ClientName</a></td>*@
+                    <td>@result.ClientName</td>
+                    <td>
+                        @*<a href='@Url.Action("AdvertDetails","UserAdvert",new {@id=result.AdvertId, userid=result.userId,area="AdvertAdmin"})'>@result.Name</a>*@
+                        <a href='javascript:;;'>@result.Name</a>
+                    </td>
+                    <td>@result.Brand</td>
+                    <td>@result.SMSbody</td>
+                    <td>@Html.Raw(result.Emailbody)</td>
+                    @if (!String.IsNullOrEmpty(result.Scripts))
+                    {
+                        <td><a title='@result.Scripts' onclick="getscripts(this);">View</a></td>
+                    }
+                    else
+                    {
+                        if (!String.IsNullOrEmpty(result.ScriptsPath))
+                        {
+                            <td><a href='@result.ScriptsPath' download="@result.ScriptsPath" target="_blank">Download</a></td>
+                        }
+                        else
+                        {
+                            <td>-</td>
+                        }
+                    }
+                    @if (result.MediaFileLocation == null)
+                    {
+                        <td><audio class="audio-small" controls="controls" id="+@result.Name+" src="+@result.MediaFileLocation + '"></audio></td>
+                    }
+                    else
+                    {
+                        <td>@Html.Html5().Media.Audio(result.Name, @result.MediaFileLocation, "", new { @class = "audio-small" })</td>
+                    }
+                        <td>
+                            @if (result.status == 1)
+                            {
+                                <label class="label label-primary">Live</label>
+                            }
+                            else if (result.status == 2)
+                            {
+                                <label class="label label-success">Suspended</label>
+                            }
+                            else if (result.status == 3)
+                            {
+                                <label class="label label-danger">Archived</label>
+                            }
+                            else if (result.status == 4)
+                            {
+                                <label class="label label-default">Waitingforapproval</label>
+                            }
+                            else if (result.status == 7)
+                            {
+                                <label class="label label-primary">InProgress</label>
+                            }
+                            else if (result.status == 8)
+                            {
+                                <label class="label label-danger">Campaign Paused Due To Insufficient Funds</label>
+                            }
+                            else if (result.status == 9)
+                            {
+                                <label class="label label-warning">Pending</label>
+                            }
+                            else
+                            {
+                                <label class="label label-danger">Rejected</label>
+                            }
+                        </td>
+                    <td>@result.CreatedDate</td>
+                    <td>
+                        @if (result.status == 1)
+                        {
+                            <a class="btn btn-success btn-xs" onclick='updatestatus(@result.AdvertId,2,@result.status)'>Suspend</a>@*Suspended*@
+                            <a class="btn btn-danger btn-xs" onclick='updatestatus(@result.AdvertId,3,@result.status)'>Archive</a>@*Archived*@
+                        }
+                        else if (result.status == 3)
+                        {
+                            <a class="btn btn-blue btn-xs" onclick='updatestatus(@result.AdvertId,1,@result.status)'>Live</a>
+                        }
+                        else if (result.status == 4)
+                        {
+                            <a class="btn btn-blue btn-xs" onclick='updatestatus(@result.AdvertId,1,@result.status)'>Live</a>
+                            @*<a class="btn btn-danger btn-xs" onclick='updatestatus(@result.AdvertId,5,@result.status)'>Rejected</a>*@
+                            <a class="btn btn-danger btn-xs" onclick='showModal(@result.AdvertId)'>Reject</a>@*Rejected*@
+                        }
+                        else if (result.status == 5)
+                        {
+                            <a class="btn btn-blue btn-xs" onclick='updatestatus(@result.AdvertId,1,@result.status)'>Live</a>
+                        }
+                        else if (result.status == 9 && result.UpdatedBy != ViewBag.UserId)
+                        {
+                            <a class="btn btn-blue btn-xs" onclick='updatestatus(@result.AdvertId,1,@result.status)'>Live</a>
+                            <a class="btn btn-danger btn-xs" onclick='showModal(@result.AdvertId)'>Reject</a>@*Rejected*@
+                        }
+                        else
+                        {
+                            <label>-</label>
+                        }
+                    </td>
+                    @*<td>
+                            <input type="button" class="mybutton btn btn-primary" onclick="showModal()" value="Open Model" />
+
+                        </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

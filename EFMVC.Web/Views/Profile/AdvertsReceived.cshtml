@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Unobtrusive Ajax";
+}
+
+@Styles.Render("~/Content/PagedList.css")
+
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<div class="row">
+    <h5>Received Adverts</h5>
+    <div id="unobtrusive">
+        @Html.Partial("_AdvertsReceivedPartial")
+    </div>
+    <div id="oncomplete"></div>
+    
+</div>

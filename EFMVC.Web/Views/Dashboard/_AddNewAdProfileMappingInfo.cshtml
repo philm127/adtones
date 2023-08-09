@@ -1,0 +1,627 @@
+﻿@using EFMVC.Web.ViewModels;
+@model NewAdProfileMappingFormModel
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Ad Profile Mapping</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="alert alert-success alert-dismissable" id="campaignwizarddvcaminfosuc" style="display:none;">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" id="campaignwizardclosesuccess" type="button">×</button>
+                        @*<span id="campaignwizardcsuceess">Record updated successfully</span>*@
+                        <span id="campaignwizardcsuceess"></span>
+                    </div>
+                    <div class="alert alert-danger alert-dismissable" id="campaignwizarddvcaminfoerror" style="display:none;">
+                        <button aria-hidden="true" class="close" id="campaignwizardcloseerror" type="button">×</button>
+                        <span id="campaignwizardcerrror"></span>
+                    </div>
+                    <div class="form-horizontal">
+                        <button class="accordion" id="geographicaccordion">Geographic</button>
+                        <div class="panel" id="GeographicPanel">
+                            @if (Model.CampaignProfileGeographicModel.LocationQuestion.Count() > 0)
+                            {
+                                @Html.Partial("_WizardCreateOrEditGeographic", Model.CampaignProfileGeographicModel)
+                            }
+                        </div>
+
+                        <button class="accordion" id="demographicaccordion">Demographic</button>
+                        <div class="panel" id="DemographicPanel">
+                            @if (Model.CampaignProfileDemographicsmodel.AgeQuestion.Count() > 0 || Model.CampaignProfileDemographicsmodel.GenderQuestion.Count() > 0 || Model.CampaignProfileDemographicsmodel.HouseholdStatusQuestion.Count() > 0 || Model.CampaignProfileDemographicsmodel.WorkingStatusQuestion.Count() > 0 || Model.CampaignProfileDemographicsmodel.RelationshipStatusQuestion.Count() > 0 || Model.CampaignProfileDemographicsmodel.EducationQuestion.Count() > 0 || Model.CampaignProfileDemographicsmodel.IncomeBracketQuestion.Count() > 0)
+                            {
+                                @Html.Partial("_WizardCreateOrEditDemographics", Model.CampaignProfileDemographicsmodel)
+                            }
+                        </div>
+
+                        @*<button class="accordion" id="behaviouralaccordion">Behavioural</button>*@
+                        <button class="accordion" id="behaviouralaccordion">Ad types</button>
+                        <div class="panel" id="AdvertPanel">
+                            @if (Model.CampaignProfileAd.FoodQuestion.Count() > 0 || Model.CampaignProfileAd.SweetSaltySnacksQuestion.Count() > 0 || Model.CampaignProfileAd.AlcoholicDrinksQuestion.Count() > 0 || Model.CampaignProfileAd.NonAlcoholicDrinksQuestion.Count() > 0 || Model.CampaignProfileAd.HouseholdproductsQuestion.Count() > 0 || Model.CampaignProfileAd.ToiletriesCosmeticsQuestion.Count() > 0 || Model.CampaignProfileAd.PharmaceuticalChemistsProductsQuestion.Count() > 0 || Model.CampaignProfileAd.TobaccoProductsQuestion.Count() > 0 || Model.CampaignProfileAd.PetsPetFoodQuestion.Count() > 0 || Model.CampaignProfileAd.ShoppingRetailClothingQuestion.Count() > 0 || Model.CampaignProfileAd.DIYGardeningQuestion.Count() > 0 || Model.CampaignProfileAd.ElectronicsOtherPersonalItemsQuestion.Count() > 0 || Model.CampaignProfileAd.CommunicationsInternetQuestion.Count() > 0 || Model.CampaignProfileAd.FinancialServicesQuestion.Count() > 0 || Model.CampaignProfileAd.HouseholdproductsQuestion.Count() > 0 || Model.CampaignProfileAd.SportsLeisureQuestion.Count() > 0 || Model.CampaignProfileAd.MotoringQuestion.Count() > 0 || Model.CampaignProfileAd.NewspapersQuestion.Count() > 0 || Model.CampaignProfileAd.TVQuestion.Count() > 0 || Model.CampaignProfileAd.CinemaQuestion.Count() > 0 || Model.CampaignProfileAd.SocialNetworkingQuestion.Count() > 0 || Model.CampaignProfileAd.ShoppingQuestion.Count() > 0 || Model.CampaignProfileAd.FitnessQuestion.Count() > 0 || Model.CampaignProfileAd.EnvironmentQuestion.Count() > 0 || Model.CampaignProfileAd.GoingOutQuestion.Count() > 0 || Model.CampaignProfileAd.ReligionQuestion.Count() > 0 || Model.CampaignProfileAd.MusicQuestion.Count() > 0 || Model.CampaignProfileAd.BusinessOrOpportunitiesQuestion.Count() > 0 || Model.CampaignProfileAd.GamblingQuestion.Count() > 0 || Model.CampaignProfileAd.RestaurantsQuestion.Count() > 0 || Model.CampaignProfileAd.InsuranceQuestion.Count() > 0 || Model.CampaignProfileAd.FurnitureQuestion.Count() > 0 || Model.CampaignProfileAd.InformationTechnologyQuestion.Count() > 0 || Model.CampaignProfileAd.EnergyQuestion.Count() > 0 || Model.CampaignProfileAd.SupermarketsQuestion.Count() > 0 || Model.CampaignProfileAd.HealthcareQuestion.Count() > 0 || Model.CampaignProfileAd.JobsAndEducationQuestion.Count() > 0 || Model.CampaignProfileAd.GiftsQuestion.Count() > 0 || Model.CampaignProfileAd.AdvocacyOrLegalQuestion.Count() > 0 || Model.CampaignProfileAd.DatingAndPersonalQuestion.Count() > 0 || Model.CampaignProfileAd.RealEstateQuestion.Count() > 0 || Model.CampaignProfileAd.GamesQuestion.Count() > 0)
+                            {
+                                @Html.Partial("_WizardCreateOrEditAdvert", Model.CampaignProfileAd)
+                            }
+                        </div>
+                        @if (Model.CampaignProfileSkizaFormModel.HustlersQuestion.Count() > 0 || Model.CampaignProfileSkizaFormModel.YouthQuestion.Count() > 0 || Model.CampaignProfileSkizaFormModel.DiscerningProfessionalsQuestion.Count() > 0 || Model.CampaignProfileSkizaFormModel.MassQuestion.Count() > 0)
+                        {
+                            <button class="accordion" id="questionnaireaccordion">Questionnaire</button>
+                            <div class="panel" id="SkizaProfilePanel">
+
+                                @Html.Partial("_WizardCreateOrEditSkizaProfile", Model.CampaignProfileSkizaFormModel)
+                               
+                            </div>
+                         }
+                            <button class="accordion" id="timebandsaccordion">Time Bands</button>
+                            <div class="panel" id="TimebandsPanel">
+                                @*@if (Model.CampaignProfileTimeSettingModel.MondaySelectedTimes.Count() > 0 || Model.CampaignProfileTimeSettingModel.TuesdaySelectedTimes.Count() > 0 || Model.CampaignProfileTimeSettingModel.WednesdaySelectedTimes.Count() > 0 || Model.CampaignProfileTimeSettingModel.ThursdaySelectedTimes.Count() > 0 || Model.CampaignProfileTimeSettingModel.FridaySelectedTimes.Count() > 0 || Model.CampaignProfileTimeSettingModel.SaturdaySelectedTimes.Count() > 0 || Model.CampaignProfileTimeSettingModel.SundaySelectedTimes.Count() > 0)
+                {*@
+                                <div class="row" style="margin-top: 15px;">
+                                    <h3 class="col-lg-12 col-lg-wth">
+                                        When do you want your adverts to be played?
+                                    </h3>
+                                </div>
+                                @Html.Partial("_WizardCreateOrEditTimeSettings", Model.CampaignProfileTimeSettingModel)
+                                @*}*@
+                            </div>
+
+                            @*<button class="accordion" id="timeperiodsaccordion">Time Periods</button>*@
+                            <button class="accordion" id="airtimeusageaccordion">Airtime usage</button>
+                            <div class="panel" id="MobilePanel">
+                                @if (Model.CampaignProfileMobileFormModel.ContractTypeQuestion.Count() > 0 || Model.CampaignProfileMobileFormModel.SpendQuestion.Count() > 0)
+                                {
+                                    @Html.Partial("_WizardCreateOrEditMobile", Model.CampaignProfileMobileFormModel)
+                                }
+                            </div>
+
+                            <div class="form-group" style="margin-top: 20px;">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button class="btn btn-sm btn-blue" type="submit" id="adprofilebackbtn">Back</button>
+                                    <button class="btn btn-sm btn-white" type="button" id="adprofilecancelbtnss">Cancel</button>
+                                    <button class="btn btn-sm btn-blue" type="button" id="adprofilesubmitss">Save / Launch Wizard</button>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script src="~/Scripts/jquery-1.10.2.js"></script>*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+        $('.i-checks').keyup(function (e) {
+            console.log('keyup called');
+            var code = e.keyCode || e.which;
+            if (code == '9') {
+                var thi$ = $(this);
+                if (thi$[0].parentNode.className == "icheckbox_square-green hover checked") {
+                    thi$[0].parentNode.className = 'icheckbox_square-green hover checked';
+                }
+                else {
+                    thi$[0].parentNode.className = 'icheckbox_square-green hover';
+                }
+            }
+        });
+        $('.i-checks').keydown(function (e) {
+            console.log('keyup called');
+            var code = e.keyCode || e.which;
+            if (code == '9') {
+                var thi$ = $(this);
+                if (thi$[0].parentNode.className == "icheckbox_square-green hover checked") {
+                    thi$[0].parentNode.className = 'icheckbox_square-green hover checked';
+                }
+                else {
+                    thi$[0].parentNode.className = 'icheckbox_square-green';
+                }
+            }
+        });
+    });
+
+    $("#geographicaccordion").click(function () {
+        var geographicPanel = $('#GeographicPanel')[0];
+        var demographicPanel = $('#DemographicPanel')[0];
+        var advertPanel = $('#AdvertPanel')[0];
+        var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+        var timebandsPanel = $('#TimebandsPanel')[0];
+        var mobilePanel = $('#MobilePanel')[0];
+        var current = this.nextElementSibling;
+        if ($(geographicPanel).attr("id") == $(current).attr("id")) {
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+
+            //hide other panel
+            $(demographicPanel).removeClass("show");
+            var demographicprevelement = $(demographicPanel).prev();
+            $(demographicprevelement).removeClass("active");
+
+            $(advertPanel).removeClass("show");
+            var adverprevelement = $(advertPanel).prev();
+            $(adverprevelement).removeClass("active");
+
+            $(skizaProfilePanel).removeClass("show");
+            var skizaprofileprevelement = $(skizaProfilePanel).prev();
+            $(skizaprofileprevelement).removeClass("active");
+
+            $(timebandsPanel).removeClass("show");
+            var timebandsprevelement = $(timebandsPanel).prev();
+            $(timebandsprevelement).removeClass("active");
+
+            $(mobilePanel).removeClass("show");
+            var mobileprevelement = $(mobilePanel).prev();
+            $(mobileprevelement).removeClass("active");
+        }
+    });
+
+    $("#demographicaccordion").click(function () {
+        var geographicPanel = $('#GeographicPanel')[0];
+        var demographicPanel = $('#DemographicPanel')[0];
+        var advertPanel = $('#AdvertPanel')[0];
+        var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+        var timebandsPanel = $('#TimebandsPanel')[0];
+        var mobilePanel = $('#MobilePanel')[0];
+        var current = this.nextElementSibling;
+        if ($(demographicPanel).attr("id") == $(current).attr("id")) {
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+
+            //hide other panel
+            $(geographicPanel).removeClass("show");
+            var geographicprevelement = $(geographicPanel).prev();
+            $(geographicprevelement).removeClass("active");
+
+            $(advertPanel).removeClass("show");
+            var adverprevelement = $(advertPanel).prev();
+            $(adverprevelement).removeClass("active");
+
+            $(skizaProfilePanel).removeClass("show");
+            var skizaprofileprevelement = $(skizaProfilePanel).prev();
+            $(skizaprofileprevelement).removeClass("active");
+
+            $(timebandsPanel).removeClass("show");
+            var timebandsprevelement = $(timebandsPanel).prev();
+            $(timebandsprevelement).removeClass("active");
+
+            $(mobilePanel).removeClass("show");
+            var mobileprevelement = $(mobilePanel).prev();
+            $(mobileprevelement).removeClass("active");
+        }
+    });
+
+    $("#behaviouralaccordion").click(function () {
+        var geographicPanel = $('#GeographicPanel')[0];
+        var demographicPanel = $('#DemographicPanel')[0];
+        var advertPanel = $('#AdvertPanel')[0];
+        var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+        var timebandsPanel = $('#TimebandsPanel')[0];
+        var mobilePanel = $('#MobilePanel')[0];
+        var current = this.nextElementSibling;
+        if ($(advertPanel).attr("id") == $(current).attr("id")) {
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+
+            //hide other panel
+            $(geographicPanel).removeClass("show");
+            var geographicprevelement = $(geographicPanel).prev();
+            $(geographicprevelement).removeClass("active");
+
+            $(demographicPanel).removeClass("show");
+            var demographicprevelement = $(demographicPanel).prev();
+            $(demographicprevelement).removeClass("active");
+
+            $(skizaProfilePanel).removeClass("show");
+            var skizaprofileprevelement = $(skizaProfilePanel).prev();
+            $(skizaprofileprevelement).removeClass("active");
+
+            $(timebandsPanel).removeClass("show");
+            var timebandsprevelement = $(timebandsPanel).prev();
+            $(timebandsprevelement).removeClass("active");
+
+            $(mobilePanel).removeClass("show");
+            var mobileprevelement = $(mobilePanel).prev();
+            $(mobileprevelement).removeClass("active");
+        }
+    });
+
+    $("#questionnaireaccordion").click(function () {
+        var geographicPanel = $('#GeographicPanel')[0];
+        var demographicPanel = $('#DemographicPanel')[0];
+        var advertPanel = $('#AdvertPanel')[0];
+        var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+        var timebandsPanel = $('#TimebandsPanel')[0];
+        var mobilePanel = $('#MobilePanel')[0];
+        var current = this.nextElementSibling;
+        if ($(skizaProfilePanel).attr("id") == $(current).attr("id")) {
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+
+            //hide other panel
+            $(geographicPanel).removeClass("show");
+            var geographicprevelement = $(geographicPanel).prev();
+            $(geographicprevelement).removeClass("active");
+
+            $(demographicPanel).removeClass("show");
+            var demographicprevelement = $(demographicPanel).prev();
+            $(demographicprevelement).removeClass("active");
+
+            $(advertPanel).removeClass("show");
+            var adverprevelement = $(advertPanel).prev();
+            $(adverprevelement).removeClass("active");
+
+            $(timebandsPanel).removeClass("show");
+            var timebandsprevelement = $(timebandsPanel).prev();
+            $(timebandsprevelement).removeClass("active");
+
+            $(mobilePanel).removeClass("show");
+            var mobileprevelement = $(mobilePanel).prev();
+            $(mobileprevelement).removeClass("active");
+        }
+    });
+
+    $("#timebandsaccordion").click(function () {
+        var geographicPanel = $('#GeographicPanel')[0];
+        var demographicPanel = $('#DemographicPanel')[0];
+        var advertPanel = $('#AdvertPanel')[0];
+        var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+        var timebandsPanel = $('#TimebandsPanel')[0];
+        var mobilePanel = $('#MobilePanel')[0];
+        var current = this.nextElementSibling;
+        if ($(timebandsPanel).attr("id") == $(current).attr("id")) {
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+
+            //hide other panel
+            $(geographicPanel).removeClass("show");
+            var geographicprevelement = $(geographicPanel).prev();
+            $(geographicprevelement).removeClass("active");
+
+            $(demographicPanel).removeClass("show");
+            var demographicprevelement = $(demographicPanel).prev();
+            $(demographicprevelement).removeClass("active");
+
+            $(advertPanel).removeClass("show");
+            var adverprevelement = $(advertPanel).prev();
+            $(adverprevelement).removeClass("active");
+
+            $(skizaProfilePanel).removeClass("show");
+            var skizaprofileprevelement = $(skizaProfilePanel).prev();
+            $(skizaprofileprevelement).removeClass("active");
+
+            $(mobilePanel).removeClass("show");
+            var mobileprevelement = $(mobilePanel).prev();
+            $(mobileprevelement).removeClass("active");
+        }
+    });
+
+    $("#airtimeusageaccordion").click(function () {
+        var geographicPanel = $('#GeographicPanel')[0];
+        var demographicPanel = $('#DemographicPanel')[0];
+        var advertPanel = $('#AdvertPanel')[0];
+        var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+        var timebandsPanel = $('#TimebandsPanel')[0];
+        var mobilePanel = $('#MobilePanel')[0];
+        var current = this.nextElementSibling;
+        if ($(mobilePanel).attr("id") == $(current).attr("id")) {
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+
+            //hide other panel
+            $(geographicPanel).removeClass("show");
+            var geographicprevelement = $(geographicPanel).prev();
+            $(geographicprevelement).removeClass("active");
+
+            $(demographicPanel).removeClass("show");
+            var demographicprevelement = $(demographicPanel).prev();
+            $(demographicprevelement).removeClass("active");
+
+            $(advertPanel).removeClass("show");
+            var adverprevelement = $(advertPanel).prev();
+            $(adverprevelement).removeClass("active");
+
+            $(skizaProfilePanel).removeClass("show");
+            var skizaprofileprevelement = $(skizaProfilePanel).prev();
+            $(skizaprofileprevelement).removeClass("active");
+
+            $(timebandsPanel).removeClass("show");
+            var timebandsprevelement = $(timebandsPanel).prev();
+            $(timebandsprevelement).removeClass("active");
+        }
+    });
+
+    $("#adprofilecancelbtnss").click(function () {
+        $(".loader").show();
+
+        var geographicPanel = $('#GeographicPanel')[0];
+        var demographicPanel = $('#DemographicPanel')[0];
+        var advertPanel = $('#AdvertPanel')[0];
+        var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+        var timebandsPanel = $('#TimebandsPanel')[0];
+        var mobilePanel = $('#MobilePanel')[0];
+
+        $(geographicPanel).removeClass("show");
+        var geographicprevelement = $(geographicPanel).prev();
+        $(geographicprevelement).removeClass("active");
+
+        $(demographicPanel).removeClass("show");
+        var demographicprevelement = $(demographicPanel).prev();
+        $(demographicprevelement).removeClass("active");
+
+        $(advertPanel).removeClass("show");
+        var adverprevelement = $(advertPanel).prev();
+        $(adverprevelement).removeClass("active");
+
+        $(skizaProfilePanel).removeClass("show");
+        var skizaprofileprevelement = $(skizaProfilePanel).prev();
+        $(skizaprofileprevelement).removeClass("active");
+
+        $(timebandsPanel).removeClass("show");
+        var timebandsprevelement = $(timebandsPanel).prev();
+        $(timebandsprevelement).removeClass("active");
+
+        $(mobilePanel).removeClass("show");
+        var mobileprevelement = $(mobilePanel).prev();
+        $(mobileprevelement).removeClass("active");
+
+        $(".loader").hide();
+    });
+
+    $("#selectalldemographic").click(function () {
+        $("#demographicsdiv input:checkbox").iCheck('check');
+        $('#demographicsdiv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectalldemographic").click(function () {
+        $("#demographicsdiv input:checkbox").iCheck('uncheck');
+        $('#demographicsdiv input:checkbox').iCheck('update');
+    });
+
+    $("#selectalladvert").click(function () {
+        $("#advertsdiv input:checkbox").iCheck('check');
+        $('#advertsdiv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectalladvert").click(function () {
+        $("#advertsdiv input:checkbox").iCheck('uncheck');
+        $('#advertsdiv input:checkbox').iCheck('update');
+    });
+
+    $("#selectalltimebands").click(function () {
+        $("#timesettingdiv input:checkbox").iCheck('check');
+        $('#timesettingdiv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectalltimebands").click(function () {
+        $("#timesettingdiv input:checkbox").iCheck('uncheck');
+        $('#timesettingdiv input:checkbox').iCheck('update');
+    });
+
+    $("#selectallmobile").click(function () {
+        $("#mobilediv input:checkbox").iCheck('check');
+        $('#mobilediv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectallmobile").click(function () {
+        $("#mobilediv input:checkbox").iCheck('uncheck');
+        $('#mobilediv input:checkbox').iCheck('update');
+    });
+
+    $("#adprofilesubmitss").click(function () {
+        //debugger
+        //alert("Hi");
+            $(".loader").show();
+            var countryId = $("#CountryId").val();
+            var campaignId = $("#CampaignId").val();
+            var campaignName = $("#CampaignName").val();
+            var campaignPhoneticAlphabet = $("#PhoneticAlphabet").val();
+            var clientId = $("#ClientId").val();
+            var clientName = $("#ClientName").val();
+            var clientPhoneticAlphabet = $("#ClientPhoneticAlphabet")[0].innerHTML;
+            var advertName = $("#AdvertName").val();
+            var advertPhoneticAlphabet = $("#AdvertPhoneticAlphabet")[0].innerHTML;
+            if (campaignId == "")
+                campaignId = 0;
+            if (clientId == "")
+                clientId = 0;
+            //if (campaignId != 0) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("UpdateCampaignWizard", "Dashboard")',
+                    data: { campaignId: campaignId, campaignName: campaignName, campaignPhoneticAlphabet: campaignPhoneticAlphabet, clientId: clientId, clientName: clientName, clientPhoneticAlphabet: clientPhoneticAlphabet, advertName: advertName, advertPhoneticAlphabet: advertPhoneticAlphabet, countryId: countryId },
+                    success: function (data) {
+                        if (data == "fail") {
+                            $("#campaignwizardcerrror").html(data);
+                            $('#campaignwizarddvcaminfoerror').css("display", "block");
+                            $("#campaignwizarddvcaminfosuc").hide();
+                            $(".loader").hide();
+                        }
+                        else if (data == "success") {
+                            var successmsg = "Campaign " + campaignName + " added successfully.";
+                            $("#campaignwizardcsuceess").html(successmsg);
+                            $("#campaignwizarddvcaminfosuc").css("display", "block");
+                            $("#campaignwizarddvcaminfoerror").hide();
+                            $("#CampaignOtherInfo").show();
+                            $(".loader").hide();
+                            @*window.location.href = '@Url.Action("Index", "Dashboard")';*@
+                            window.location.href = "/Dashboard/Index?campaignName=" + campaignName;
+                        }
+                    }
+                });
+            //}
+            //else {
+            //    $(".loader").hide();
+            //    return false;
+            //}
+        });
+
+
+    $("#adprofilecancelbtnss").click(function () {
+            $(".loader").show();
+
+            var demographicPanel = $('#DemographicPanel')[0];
+            var advertPanel = $('#AdvertPanel')[0];
+            var mobilePanel = $('#MobilePanel')[0];
+
+            $(demographicPanel).removeClass("show");
+            var demographicprevelement = $(demographicPanel).prev();
+            $(demographicprevelement).removeClass("active");
+
+            $(advertPanel).removeClass("show");
+            var adverprevelement = $(advertPanel).prev();
+            $(adverprevelement).removeClass("active");
+
+            $(mobilePanel).removeClass("show");
+            var mobileprevelement = $(mobilePanel).prev();
+            $(mobileprevelement).removeClass("active");
+
+            var countryId = $("#CountryId").val();
+            var campaignId = $("#CampaignId").val();
+            var campaignName = $("#CampaignName").val();
+            var campaignPhoneticAlphabet = $("#PhoneticAlphabet").val();
+            var clientId = $("#ClientId").val();
+            var clientName = $("#ClientName").val();
+            var clientPhoneticAlphabet = $("#ClientPhoneticAlphabet")[0].innerHTML;
+            var advertName = $("#AdvertName").val();
+            var advertPhoneticAlphabet = $("#AdvertPhoneticAlphabet")[0].innerHTML;
+            if (campaignId == "")
+                campaignId = 0;
+            if (clientId == "")
+                clientId = 0;
+            //if (campaignId != 0) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteCampaignWizard", "Dashboard")',
+                    data: { campaignId: campaignId, campaignName: campaignName, campaignPhoneticAlphabet: campaignPhoneticAlphabet, clientId: clientId, clientName: clientName, clientPhoneticAlphabet: clientPhoneticAlphabet, advertName: advertName, advertPhoneticAlphabet: advertPhoneticAlphabet, countryId: countryId },
+                    success: function (data) {
+                        if (data == "fail") {
+                            $("#campaignwizardcerrror").html(data);
+                            $('#campaignwizarddvcaminfoerror').css("display", "block");
+                            $("#campaignwizarddvcaminfosuc").hide();
+                            $(".loader").hide();
+                        }
+                        else if (data == "success") {
+                            window.location.href = '@Url.Action("AddNewCampaign", "Dashboard")';
+
+                            ////Clear Campaign
+                            //$("#CampaignId").val("");
+                            //$("#CampaignName").val("");
+                            //$("#CampaignDescription").val("");
+                            //$("#CountryId").val("");
+                            //$('.icheckbox_square-green').removeClass("checked");
+                            //$("#CampaignId")[0].nextElementSibling.innerHTML = "";
+                            //$("#CampaignName")[0].nextElementSibling.innerHTML = "";
+                            //$("#CampaignDescription")[0].nextElementSibling.innerHTML = "";
+                            //$("#CountryId")[0].nextElementSibling.innerHTML = "";
+                            //$("#cerrror").html("");
+                            //$('#dvcaminfoerror').css("display", "none");
+                            //$('#dvcaminfosuc').css("display", "none");
+
+                            ////Clear Client
+                            //$("#ClientId").val("");
+                            //$("#ClientName").val("");
+                            //$("#ClientDescription").val("");
+                            //$("#ClientEmail").val("");
+                            //$("#ClientContactPhone").val("");
+                            //$("#ClientId")[0].nextElementSibling.innerHTML = "";
+                            //$("#ClientName")[0].nextElementSibling.innerHTML = "";
+                            //$("#ClientDescription")[0].nextElementSibling.innerHTML = "";
+                            //$("#ClientEmail")[0].nextElementSibling.innerHTML = "";
+                            //$("#ClientContactPhone")[0].nextElementSibling.innerHTML = "";
+                            //$("#clientdvcaminfosuc").css("display", "none");
+                            //$("#clientdvcaminfoerror").css("display", "none");
+
+                            ////Clear Budget
+                            //$("#MonthlyBudget").val("");
+                            //$("#WeeklyBudget").val("");
+                            //$("#DailyBudget").val("");
+                            //$("#HourlyBudget").val("");
+                            //$("#MaximumBid").val("");
+                            //$("#MaximumBid")[0].nextElementSibling.innerHTML = "";
+                            //$("#budgetdvcaminfosuc").css("display", "none");
+                            //$("#budgetdvcaminfoerror").css("display", "none");
+
+                            ////Clear Advert
+                            //var clientId = $("#ClientId").val();
+                            //$("#AdvertName").val("");
+                            //$("#AdvertClientId").val(clientId);
+                            //$("#BrandName").val("");
+                            //$("#AdvertCategoryId").val("");
+                            //$("#filename").text("");
+                            //$("#filenamescripts").text("");
+                            //$("#Script").val("");
+                            //$('.icheckbox_square-green1').removeClass("checked");
+                            //$("#AdvertName")[0].nextElementSibling.innerHTML = "";
+                            //$("#AdvertClientId")[0].nextElementSibling.innerHTML = "";
+                            //$("#AdvertCategoryId")[0].nextElementSibling.innerHTML = "";
+                            //$("#mediafileerrmsg")[0].innerHTML = "";
+                            //$("#istermcheckederrmsg")[0].innerHTML = "";
+                            //$("#advertdvcaminfosuc").css("display", "none");
+                            //$("#advertdvcaminfoerror").css("display", "none");
+
+                            ////Clear Campaign Date and Interection
+                            //$("#StartDate").val("");
+                            //$("#EndDate").val("");
+                            //$("#SmsOriginator").val("");
+                            //$("#SmsBody").val("");
+                            //$("#EmailSubject").val("");
+                            //tinyMCE.activeEditor.setContent('');
+                            //$("#campaigndatedvcaminfosuc").css("display", "none");
+                            //$("#campaigndatedvcaminfoerror").css("display", "none");
+
+                            ////Clear Ad Profile Mapping
+                            //$("#demographicsdiv input:checkbox").iCheck('uncheck');
+                            //$('#demographicsdiv input:checkbox').iCheck('update');
+                            //$("#advertsdiv input:checkbox").iCheck('uncheck');
+                            //$('#advertsdiv input:checkbox').iCheck('update');
+                            //$("#mobilediv input:checkbox").iCheck('uncheck');
+                            //$('#mobilediv input:checkbox').iCheck('update');
+
+                            ////Move to Campaign Screen
+                            //$('#adprofilemappingdiv').css("display", "none");
+                            //$("#breadcrumbmenu").text("Campaigns");
+                            //$("#breadcrumbmenu").css("font-weight", "Bold");
+                            //$("#campaigndiv").css("display", "block");
+                            $(".loader").hide();
+                        }
+                    }
+                });
+            //}
+            //else {
+            //    $(".loader").hide();
+            //    return false;
+            //}
+            //$(".loader").hide();
+        });
+
+
+    $("#adprofilebackbtn").click(function () {
+        var clientCheck = $(".checkbox")[0].checked;
+        $(".loader").show();
+        $('#adprofilemappingdiv').css("display", "none");
+        $("#breadcrumbmenu").text("Ad Profile Mapping");
+        $("#breadcrumbmenu").css("font-weight", "Bold");
+        $("#campaigndatesandinteractiondiv").css("display", "block");
+        if (clientCheck == true) {
+            $("#campaigninformation").css('background-color', '#e6e6e6');
+            $("#clientinformation").css('background-color', '#e6e6e6');
+            $("#budgetmanagement").css('background-color', '#e6e6e6');
+            $("#advertinformation").css('background-color', '#e6e6e6');
+            $("#smsandemail").css('background-color', '#e6e6e6');
+            $("#adsprofilemapping").css('background-color', '');
+        }
+        else {
+            $("#campaigninformation").css('background-color', '#e6e6e6');
+            $("#clientinformation").css('background-color', '');
+            $("#budgetmanagement").css('background-color', '#e6e6e6');
+            $("#advertinformation").css('background-color', '#e6e6e6');
+            $("#smsandemail").css('background-color', '#e6e6e6');
+            $("#adsprofilemapping").css('background-color', '');
+        }
+        $(".loader").hide();
+    });
+
+</script>

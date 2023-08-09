@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Error404";
+    Layout = "~/Areas/AdvertAdmin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="middle-box text-center animated fadeInDown">
+    <h1>404</h1>
+    <h3 class="font-bold">Internal Server Error</h3>
+    <div class="error-desc">
+        The page you were looking is unavailable.<br />
+        You can go back to main page: <br /><a href="@Url.Action("Index", "Ticket",new {area="AdvertAdmin" })" class="btn btn-blue m-t">Dashboard</a>
+    </div>
+</div>

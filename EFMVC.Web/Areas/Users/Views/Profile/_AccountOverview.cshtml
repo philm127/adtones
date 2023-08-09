@@ -1,0 +1,45 @@
+﻿@using EFMVC.Web.ViewModels
+@using PagedList
+@model IEnumerable<UserProfileAdvertsReceivedFromModel>
+<div class="col-lg-12">
+    <button class="accordion_advertheader">Account Overview</button>
+    <div class="panel">
+
+        <div class="ibox-content">
+
+            <table class="table table-striped table-bordered table-hover dataTables-accountOverview">
+                <thead>
+                    <tr>
+                        <th>AdvertRef</th>
+                        <th>AdvertName</th>
+                        <th>Brand</th>
+                        <th>Date Played</th>
+                        <th>Time Played</th>
+                        <th>Credits Received</th>
+                        <th>Advert Played</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (UserProfileAdvertsReceivedFromModel result in Model)
+                        {
+                        <tr class="gradeX">
+                            <td>@result.AdvertRef</td>
+                            <td>@result.AdvertName</td>
+                            <td>@result.Brand</td>
+                            <td>@result.DateTimePlayed.ToString("dd/MM/yyyy")</td>
+                            <td>@result.DateTimePlayed.ToString("HH:mm")</td>
+                            <td>@result.CreditsReceived</td>
+                            <td>@Html.Html5().Media.Audio(result.AdvertName, @"~/Media/Archive/" + result.FileName, "", new { @class = "audio-small" })</td>
+                        </tr>
+                        }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+

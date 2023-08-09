@@ -1,0 +1,231 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.Models;
+@model Tuple<List<CampaignCreditResult>, CampaignCreditFilter>
+@{
+    ViewBag.Title = "Campaign Credit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        @Html.Partial("_CampaignCreditManagement", Tuple.Create<List<CampaignCreditResult>, CampaignCreditFilter>(Model.Item1, Model.Item2))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/daterangepickerNewStyles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/daterangepickerNew")
+    <script type="text/javascript">
+        
+
+           
+
+        function dataTableSetup() {
+            $('.dataTables-CampaignCredit').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                aoColumnDefs: [
+               {
+                   bSortable: false,
+                   aTargets: [-1]
+               }
+                ],
+                "bLengthChange": false,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        title: 'Campaign Credit',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        title: 'Campaign Credit',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        title: 'Campaign Credit',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        title: 'Campaign Credit',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+
+                    {
+                        extend: 'print',
+                        title: 'Campaign Credit',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        },
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    setTimeout(function () {
+                        $(".spiner-example").hide();
+                    }, 1000);
+                    //$(".spiner-example").hide();
+                },
+                "fnInitComplete": function () {
+                    setTimeout(function () {
+                        $(".spiner-example").hide();
+                    }, 1000);
+                    //$(".spiner-example").hide();
+                }	// Hide processingDiv when loading table is complete
+            });
+        }
+        $(document).ready(function () {
+
+            dataTableSetup();
+
+            // Enter Search 
+            $('body').bind('keyup', function (event) {
+                if (event.keyCode === 13) {
+                    $('#form0').submit();
+                }
+            });
+            $(".chosen-container").bind('keyup', function (e) {
+                if (e.which === 13) {
+                    $('#form0').submit();
+                    // or your stuff here...
+                }
+            });
+            
+            var config = {
+                '.chosen-select': { width: "100%" },
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+
+            $("#CampaignCreditreset").click(function () {
+                $(".spiner-example").show();               
+                $("#UserId").val('0');
+                $("#UserId").trigger("chosen:updated");
+                $("#CampaignProfileId").val('0');
+                $("#CampaignProfileId").trigger("chosen:updated");
+                getCampaignByUserId(null);
+                $.ajax({
+                    data: null,
+                    datatype: "text/plain",
+                    type: "POST",
+                    url: '@Url.Action("SearchCampaignCredit", "CampaignCredit")',
+                    cache: false,
+                    success: function (data) {
+                        $(".spiner-example").hide();
+                        $("#userList").html(data);
+                        dataTableSetup();
+                    }
+                });
+            });
+
+
+            $("#UserId").change(function () {
+                var UserId = new Array();
+                $("select#UserId option:selected").each(function () {
+                    UserId.push($(this).val());
+                });
+                getCampaignByUserId(UserId);
+            });
+
+            function getCampaignByUserId(UserId) {
+                $.ajax({
+                    traditional: true,
+                    url: '@Url.Action("GetCampaignDataByUserId", "CampaignCredit", new {area="Admin" })',
+                    type: "POST",
+                    data: { userId: UserId },
+                    success: function (campaigns) {
+                        $("#CampaignProfileId").empty();                       
+                        $.each(campaigns, function (i, data) {
+                            $("#CampaignProfileId").append('<option value="' + data.Id + '">' +
+                                data.Name + '</option>');
+                        });                        
+                        $("#CampaignProfileId").trigger("chosen:updated");
+                    },
+                    error: function (jqXHR, exception) {
+                        alert('Internal server error.Please try again.');
+                    }
+                });
+
+            }
+          
+        });
+
+    </script>
+}

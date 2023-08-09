@@ -1,0 +1,21 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileCinemaFormModel
+@{
+    ViewBag.Title = "Cinema";
+}
+<div class="row">
+    @using (Html.BeginForm("SaveCinema", "Campaign"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CreateOrEditCinema", Model)
+
+        <p>
+            <input type="submit" value="Submit" class="font12" />
+        </p>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

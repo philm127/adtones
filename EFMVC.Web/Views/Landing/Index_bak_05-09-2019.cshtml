@@ -1,0 +1,560 @@
+﻿@model EFMVC.Web.ViewModels.LogOnFormModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="referrer" content="never">
+    <!-- modified  -->
+
+    <title>Sign In/Sign Up - Adtones</title>
+
+    <!-- not sur you need yoast code   -->
+    <!-- This site is optimized with the Yoast SEO plugin v11.5 - https://yoast.com/wordpress/plugins/seo/ -->
+    <link rel="canonical" href="/" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Operators - Adtones" />
+    <meta property="og:url" content="/" />
+    <meta property="og:site_name" content="Adtones" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Operators - Adtones" />
+    @*<script type='application/ld+json' class='yoast-schema-graph yoast-schema-graph--main'>
+            {"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"http://test.adtones.com/#organization","name":"","url":"http://test.adtones.com/","sameAs":[]},{"@type":"WebSite","@id":"http://test.adtones.com/#website","url":"http://test.adtones.com/","name":"Adtones","publisher":{"@id":"http://test.adtones.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"http://test.adtones.com/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"http://test.adtones.com/operators/#webpage","url":"http://test.adtones.com/operators/","inLanguage":"en-GB","name":"Operators - Adtones","isPartOf":{"@id":"http://test.adtones.com/#website"},"datePublished":"2019-01-22T06:21:43+00:00","dateModified":"2019-08-14T16:51:57+00:00"}]}
+        </script>*@
+    <!-- / Yoast SEO plugin. -->
+    <!-- not sure you need this code   -->
+    <link rel='dns-prefetch' href='//s.w.org' />
+    <script type="text/javascript">
+        window._wpemojiSettings = { "baseUrl": "https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/72x72\/", "ext": ".png", "svgUrl": "https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/svg\/", "svgExt": ".svg", "source": { "concatemoji": "http:\/\/test.adtones.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.2.2" } };
+        !function (a, b, c) { function d(a, b) { var c = String.fromCharCode; l.clearRect(0, 0, k.width, k.height), l.fillText(c.apply(this, a), 0, 0); var d = k.toDataURL(); l.clearRect(0, 0, k.width, k.height), l.fillText(c.apply(this, b), 0, 0); var e = k.toDataURL(); return d === e } function e(a) { var b; if (!l || !l.fillText) return !1; switch (l.textBaseline = "top", l.font = "600 32px Arial", a) { case "flag": return !(b = d([55356, 56826, 55356, 56819], [55356, 56826, 8203, 55356, 56819])) && (b = d([55356, 57332, 56128, 56423, 56128, 56418, 56128, 56421, 56128, 56430, 56128, 56423, 56128, 56447], [55356, 57332, 8203, 56128, 56423, 8203, 56128, 56418, 8203, 56128, 56421, 8203, 56128, 56430, 8203, 56128, 56423, 8203, 56128, 56447]), !b); case "emoji": return b = d([55357, 56424, 55356, 57342, 8205, 55358, 56605, 8205, 55357, 56424, 55356, 57340], [55357, 56424, 55356, 57342, 8203, 55358, 56605, 8203, 55357, 56424, 55356, 57340]), !b }return !1 } function f(a) { var c = b.createElement("script"); c.src = a, c.defer = c.type = "text/javascript", b.getElementsByTagName("head")[0].appendChild(c) } var g, h, i, j, k = b.createElement("canvas"), l = k.getContext && k.getContext("2d"); for (j = Array("flag", "emoji"), c.supports = { everything: !0, everythingExceptFlag: !0 }, i = 0; i < j.length; i++)c.supports[j[i]] = e(j[i]), c.supports.everything = c.supports.everything && c.supports[j[i]], "flag" !== j[i] && (c.supports.everythingExceptFlag = c.supports.everythingExceptFlag && c.supports[j[i]]); c.supports.everythingExceptFlag = c.supports.everythingExceptFlag && !c.supports.flag, c.DOMReady = !1, c.readyCallback = function () { c.DOMReady = !0 }, c.supports.everything || (h = function () { c.readyCallback() }, b.addEventListener ? (b.addEventListener("DOMContentLoaded", h, !1), a.addEventListener("load", h, !1)) : (a.attachEvent("onload", h), b.attachEvent("onreadystatechange", function () { "complete" === b.readyState && c.readyCallback() })), g = c.source || {}, g.concatemoji ? f(g.concatemoji) : g.wpemoji && g.twemoji && (f(g.twemoji), f(g.wpemoji))) }(window, document, window._wpemojiSettings);
+    </script>
+    <style type="text/css">
+        img.wp-smiley,
+        img.emoji {
+            display: inline !important;
+            border: none !important;
+            box-shadow: none !important;
+            height: 1em !important;
+            width: 1em !important;
+            margin: 0 .07em !important;
+            vertical-align: -0.1em !important;
+            background: none !important;
+            padding: 0 !important;
+        }
+    </style>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Primary Inspinia style -->
+    <link href="~/Content/animate.css" rel="stylesheet" />
+    <link href="~/Content/style_campaign.css" rel="stylesheet" />
+    <link href="~/wp-includes/css/dist/block-library/style.min.css" rel="stylesheet" type='text/css' media='all' />
+    <link href="~/wp-includes/plugins/geotargeting-pro/public/css/geotarget-public.css" rel="stylesheet" type='text/css' media='all' />
+    <link href="~/wp-includes/plugins/simple-weather/css/simple-weather.css" rel="stylesheet" type='text/css' media='all' />
+    <link href="~/wp-includes/plugins/svg-support/css/svgs-attachment.css" rel="stylesheet" type='text/css' media='all' />
+    <link href="~/wp-includes/themes/adtones/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type='text/css' media='all' />
+    <link href="~/wp-includes/themes/adtones/assets/owl-carousel/css/owl.carousel.min.css" rel="stylesheet" type='text/css' media='all' />
+    <link href="~/wp-includes/themes/adtones/assets/owl-carousel/css/owl.theme.custom.css" rel="stylesheet" type='text/css' media='all' />
+    <link href="~/wp-includes/themes/adtones/style.css" rel="stylesheet" type='text/css' media='all' />
+    <script src="~/wp-includes/js/jquery/jquery.js" type='text/javascript'></script>
+    <script src="~/wp-includes/js/jquery/jquery-migrate.min.js" type='text/javascript'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var equalHeightColumnElements = { "element-groups": { "1": { "selector": ".row-1 .block", "breakpoint": 660 }, "2": { "selector": ".row-2 .block", "breakpoint": 660 }, "3": { "selector": ".row-3 .block", "breakpoint": 660 }, "4": { "selector": ".row-4 .block", "breakpoint": 660 }, "5": { "selector": ".row-5 .block", "breakpoint": 660 }, "6": { "selector": ".row-6 .block", "breakpoint": 660 }, "7": { "selector": ".row-7 .block", "breakpoint": 660 }, "8": { "selector": ".row-8 .block", "breakpoint": 660 }, "9": { "selector": ".row-9 .block", "breakpoint": 660 }, "10": { "selector": ".row-10 .block", "breakpoint": 660 } } };
+        /* ]]> */
+    </script>
+    <script src="~/wp-includes/plugins/equal-height-columns/public/js/equal-height-columns-public.js" type='text/javascript'></script>
+    <script src="~/wp-includes/themes/adtones/assets/js/main.js" type='text/javascript'></script>
+    <script src="~/wp-includes/plugins/responsive-menu-pro/public/js/noscroll.js" type='text/javascript'></script>
+    
+    @*<link rel='https://api.w.org/' href='http://test.adtones.com/wp-json/' />
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://test.adtones.com/xmlrpc.php?rsd" />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://test.adtones.com/wp-includes/wlwmanifest.xml" />*@
+    <meta name="generator" content="WordPress 5.2.2" />
+    <link rel='shortlink' href='/?p=120' />
+    @*<link rel="alternate" type="application/json+oembed" href="http://test.adtones.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Ftest.adtones.com%2Foperators%2F" />
+    <link rel="alternate" type="text/xml+oembed" href="http://test.adtones.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Ftest.adtones.com%2Foperators%2F&#038;format=xml" />*@
+
+    <link href="~/wp-includes/common.css" rel="stylesheet" />
+    <link href="~/wp-includes/style_sign.css" rel="stylesheet" />
+    @{
+        <style>
+            .btn-green {
+                background-color: #1ab394;
+                border-color: #1ab394;
+                color: #FFFFFF;
+                font-size: 14px;
+                padding: 10px 20px;
+                font-weight: 600;
+            }
+
+                .btn-green:hover {
+                    background-color: #1ab394;
+                    border-color: #1ab394;
+                    color: #FFFFFF;
+                }
+
+            .fa-sign-in:before {
+                content: "\f090";
+                display: block;
+                text-align: center;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .form-control1 {
+                display: block;
+                width: 100%;
+                padding: .375rem .75rem;
+                /*font-size: 2rem;*/
+                line-height: 1.5;
+                color: #495057;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 1px solid #ced4da;
+                border-radius: .25rem;
+                transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            }
+
+            strong {
+                font-weight: bold;
+                color: white;
+            }
+
+            .fogpwd {
+                color: black;
+                text-decoration: none !important;
+            }
+
+            .btn:focus {
+                box-shadow: 0 0 0 -0.8rem #094a82;
+            }
+                        
+        </style>
+    }
+
+    @Styles.Render("~/font-awesome/css")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+
+    <script>
+        jQuery(document).ready(function ($) {
+
+            var ResponsiveMenuPro = {
+                trigger: '#responsive-menu-pro-button',
+                animationSpeed: 500,
+                breakpoint: 950,
+                isOpen: false,
+                activeClass: 'is-active',
+                container: '#responsive-menu-pro-container',
+                openClass: 'responsive-menu-pro-open',
+                activeArrow: '▲',
+                inactiveArrow: '▼',
+                wrapper: '#responsive-menu-pro-wrapper',
+                linkElement: '.responsive-menu-pro-item-link',
+                subMenuTransitionTime: 200,
+                originalHeight: '',
+                openMenu: function () {
+                    $(this.trigger).addClass(this.activeClass);
+                    $('html').addClass(this.openClass);
+                    $('.responsive-menu-pro-button-icon-active').hide();
+                    $('.responsive-menu-pro-button-icon-inactive').show();
+                    this.setWrapperTranslate();
+                    this.isOpen = true;
+                },
+                closeMenu: function () {
+                    $(this.trigger).removeClass(this.activeClass);
+                    $('html').removeClass(this.openClass);
+                    $('.responsive-menu-pro-button-icon-inactive').hide();
+                    $('.responsive-menu-pro-button-icon-active').show();
+                    this.clearWrapperTranslate();
+                    $("#responsive-menu-pro > li").removeAttr('style');
+                    this.isOpen = false;
+                },
+                triggerMenu: function () {
+                    this.isOpen ? this.closeMenu() : this.openMenu();
+                },
+                triggerSubArrow: function (subarrow) {
+                    var sub_menu = $(subarrow).parent().siblings('.responsive-menu-pro-submenu');
+                    var self = this;
+                    if (sub_menu.hasClass('responsive-menu-pro-submenu-open')) {
+                        sub_menu.slideUp(self.subMenuTransitionTime, 'linear', function () {
+                            $(this).css('display', '');
+                        }).removeClass('responsive-menu-pro-submenu-open');
+                        $(subarrow).html(this.inactiveArrow);
+                        $(subarrow).removeClass('responsive-menu-pro-subarrow-active');
+                    } else {
+                        sub_menu.slideDown(self.subMenuTransitionTime, 'linear').addClass('responsive-menu-pro-submenu-open');
+                        $(subarrow).html(this.activeArrow);
+                        $(subarrow).addClass('responsive-menu-pro-subarrow-active');
+                    }
+                },
+                menuHeight: function () {
+                    return $(this.container).height();
+                },
+                menuWidth: function () {
+                    return $(this.container).width();
+                },
+                wrapperHeight: function () {
+                    return $(this.wrapper).height();
+                },
+                setWrapperTranslate: function () {
+                    switch ('left') {
+                        case 'left':
+                            translate = 'translateX(' + this.menuWidth() + 'px)'; break;
+                        case 'right':
+                            translate = 'translateX(-' + this.menuWidth() + 'px)'; break;
+                        case 'top':
+                            translate = 'translateY(' + this.wrapperHeight() + 'px)'; break;
+                        case 'bottom':
+                            translate = 'translateY(-' + this.menuHeight() + 'px)'; break;
+                    }
+                },
+                clearWrapperTranslate: function () {
+                    var self = this;
+                },
+                init: function () {
+                    var self = this;
+                    $(this.trigger).on('click', function (e) {
+                        e.stopPropagation();
+                        self.triggerMenu();
+                    });
+
+                    $(this.trigger).mouseup(function () {
+                        $(self.trigger).blur();
+                    });
+
+                    $('.responsive-menu-pro-subarrow').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        self.triggerSubArrow(this);
+                    });
+
+                    $(window).resize(function () {
+                        if ($(window).width() >= self.breakpoint) {
+                            if (self.isOpen) {
+                                self.closeMenu();
+                            }
+                            $('#responsive-menu-pro, .responsive-menu-pro-submenu').removeAttr('style');
+                        } else {
+
+                            if ($('.responsive-menu-pro-open').length > 0) {
+                                self.setWrapperTranslate();
+                            }
+                        }
+                    });
+                }
+            };
+            ResponsiveMenuPro.init();
+        });
+
+        /* Replace #your_subdomain# by the subdomain of a Site in your OneAll account */
+        // var oneall_subdomain = 'adtones';
+        var oneall_subdomain = 'adtones';
+
+        /* The library is loaded asynchronously */
+        var oa = document.createElement('script');
+        oa.type = 'text/javascript'; oa.async = true;
+        oa.src = '//' + oneall_subdomain + '.api.oneall.com/socialize/library.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(oa, s);
+
+    </script>
+</head>
+<body class="page-template-default page page-id-120 responsive-menu-pro-slide-left">
+    <header>
+        <div class="container d-flex justify-content-between">
+            <a href="http://test.adtones.com/"><img id="logo" src="~/wp-includes/wp-content/themes/adtones/assets/images/logo.png" alt="" title="" /></a>
+            <nav>
+                <div class="menu-main-menu-container">
+                    <ul id="menu-main-menu" class="menu">
+                        <li id="menu-item-127" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-127"><a href="http://test.adtones.com/advertisers/">Advertisers</a></li>
+                        <li id="menu-item-122" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-122"><a href="http://test.adtones.com/operators/" aria-current="page">Operators</a></li>
+                        <li id="menu-item-480" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-480"><a href="http://test.adtones.com/users/">Users</a></li>
+                        <li id="menu-item-244" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-244"><a href="http://test.adtones.com/about-us/">About Us</a></li>
+                        <li id="menu-item-87" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-87"><a href="@Url.Action("Index", "Landing")">Sign In/Sign Up</a></li>
+                        <li id="menu-item-491" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-491"><a href="http://test.adtones.com/contact/">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="extra_section" class="content-section" style="padding: 45px 0 20px;">
+        <div class="container">
+            <div class="section-header">
+                <h2>
+                    Sig In or Sign Up to Advertise
+                </h2>
+            </div>
+        </div>
+    </section>
+    <section id="row-1" class="two-columns" style="background: #fff;">
+        <div class="container ">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-header">
+                        <h2></h2>
+                        <p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row landing-page reg">
+                <div class="col-12 clearfix">
+                    <div class="col-sm-6 b-r signin">
+                        <h3 class="m-t-none m-b">Sign in</h3>
+
+                        @*<p>Sign in today for more expirience.</p>*@
+                        @using (Ajax.BeginForm("JsonLogin", "Landing",
+                        null,
+                        new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresult", UpdateTargetId = "result", },
+                        null))
+                        {
+                            <span id="result" class="btn-danger" style="display:none;"></span>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserName, new { @style = "font-weight: 600;" })
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control1", @placeholder = "Enter email" })
+                                @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "btn-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @style = "font-weight: 600;" })
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control1", @placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.Password, null, new { @class = "btn-danger" })
+                            </div>
+                            <div>
+                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs button1" type="submit" style="border-radius: 3px;margin-top:7px;"><strong>Log in</strong></button>
+                                <label style="font-weight: 600;margin-top:5px;">@Html.CheckBoxFor(m => m.RememberMe, new { @class = "i-checks" }) Remember me</label>
+                            </div>
+                            <div class="form-group" style="clear:both;">
+                                <a href='@Url.Action("ForgotPassword","AdvertRegister")' class="fogpwd"><small>Forgot password?</small></a>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-sm-6 signup">
+                        <h3>Sign up with your email</h3>
+                        @*<p>You can create an account:</p>*@
+                        <p class="text-center">
+                            <div>
+                                <a style="cursor:unset;"><i class="fa fa-sign-in big-icon" style="font-size:150px !important; width: 100%;"></i></a><br />
+                                <a href='@Url.Action("RegisterAdvertiser","AdvertRegister")' class="btn btn-sm btn-green pull-left m-t-n-xs" style="border-radius: 3px; color:white; background-color:#094a82;border-color: #094a82;"><strong>Sign Up</strong></a>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <hr />
+                    <p class="text-muted text-center"><small>OR Sign in / Sign Up using one of the following networks:</small></p>
+                    <div id="oa_social_login"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--add sign it functionality here -->
+    <!--Finish functionalty-->
+    @*<section id="extra_section" class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>
+                        Using Programatic Buying? Remember to Sign Up to our API
+                    </h2>
+                    <p>
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                    </div>
+                </div>
+            </div>
+        </section>*@
+    <!--REPEATER-->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-2 col-sm-12 mb-4">
+                    <div class="widget">
+                        <h3 class="footer-title">About Adtones</h3>			<div class="textwidget">
+                            <p>
+                                Talk to your customers who want to hear from you.<br>
+                                Increase your profits with no investment.<br>
+                                Get much more from your mobile.
+                            </p>
+                            <p>Mobile audio marketing that’s good for everyone.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-2 col-sm-12 mb-4">
+                    <div class="widget">
+                        <h3 class="footer-title">Who we are</h3><div class="menu-footer-column-1-container">
+                            <ul id="menu-footer-column-1" class="menu">
+                                <li id="menu-item-544" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-5 current_page_item menu-item-544"><a href="http://test.adtones.com/" aria-current="page">Home</a></li>
+                                <li id="menu-item-542" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-542"><a href="http://test.adtones.com/about-us/">About Us</a></li>
+                                <li id="menu-item-543" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-543"><a href="http://test.adtones.com/contact/">Contact</a></li>
+                                <li id="menu-item-789" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-789"><a href="http://test.adtones.com/cookie-policy/">Cookies</a></li>
+                                <li id="menu-item-790" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-privacy-policy menu-item-790"><a href="http://test.adtones.com/privacy-policy/">Privacy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-2 col-sm-12 mb-4">
+                    <div class="widget">
+                        <h3 class="footer-title">What we do</h3><div class="menu-footer-column-2-container">
+                            <ul id="menu-footer-column-2" class="menu">
+                                <li id="menu-item-547" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-547"><a href="http://test.adtones.com/operators/">Operators</a></li>
+                                <li id="menu-item-546" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-546"><a href="http://test.adtones.com/advertisers/">Advertisers</a></li>
+                                <li id="menu-item-545" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-545"><a href="http://test.adtones.com/users/">Users</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-2 col-sm-12 mb-4">
+                    <div class="widget">
+                        <h3 class="footer-title">Contact us</h3>			<div class="textwidget">
+                            <p>
+                                Adtones HQ<br>
+                                35a South Street<br>
+                                London W1K 2XF<br>
+                                United Kingdom<br>
+                                +44 333 444 2044<br>
+                                hello@adtones.com
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="copyright" style="background: #fff;">
+        <div class="container text-center" id="copyrighttext">  </div>
+    </div>
+
+    <button id="responsive-menu-pro-button"
+            class="responsive-menu-pro-button responsive-menu-pro-boring
+                 responsive-menu-pro-accessible"
+            type="button"
+            aria-label="Menu">
+
+
+        <span class="responsive-menu-pro-box">
+            <span class="responsive-menu-pro-inner"></span>
+        </span>
+
+    </button>
+
+    <div id="responsive-menu-pro-container" class="slide-left">
+        <div id="responsive-menu-pro-wrapper">
+            <ul id="responsive-menu-pro" class=""><li id="responsive-menu-pro-item-127" class=" menu-item menu-item-type-post_type menu-item-object-page responsive-menu-pro-item responsive-menu-pro-desktop-menu-col-auto"><a href="http://test.adtones.com/advertisers/" class="responsive-menu-pro-item-link">Advertisers</a></li><li id="responsive-menu-pro-item-122" class=" menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-120 current_page_item responsive-menu-pro-item responsive-menu-pro-current-item responsive-menu-pro-desktop-menu-col-auto"><a href="http://test.adtones.com/operators/" class="responsive-menu-pro-item-link">Operators</a></li><li id="responsive-menu-pro-item-480" class=" menu-item menu-item-type-post_type menu-item-object-page responsive-menu-pro-item responsive-menu-pro-desktop-menu-col-auto"><a href="http://test.adtones.com/users/" class="responsive-menu-pro-item-link">Users</a></li><li id="responsive-menu-pro-item-244" class=" menu-item menu-item-type-post_type menu-item-object-page responsive-menu-pro-item responsive-menu-pro-desktop-menu-col-auto"><a href="http://test.adtones.com/about-us/" class="responsive-menu-pro-item-link">About Us</a></li><li id="responsive-menu-pro-item-87" class=" menu-item menu-item-type-custom menu-item-object-custom responsive-menu-pro-item responsive-menu-pro-desktop-menu-col-auto"><a href="#" class="responsive-menu-pro-item-link">Sign In/Sign Up</a></li><li id="responsive-menu-pro-item-491" class=" menu-item menu-item-type-post_type menu-item-object-page responsive-menu-pro-item responsive-menu-pro-desktop-menu-col-auto"><a href="http://test.adtones.com/contact/" class="responsive-menu-pro-item-link">Contact</a></li></ul>
+        </div>
+    </div>
+
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var geot = { "ajax_url": "http:\/\/test.adtones.com\/wp-admin\/admin-ajax.php", "ajax": "", "is_archives": "", "is_search": "", "is_singular": "1", "is_page": "1", "is_single": "", "dropdown_search": "", "dropdown_redirect": "" };
+        /* ]]> */
+    </script>
+    <script src="~/wp-includes/plugins/geotargeting-pro/public/js/geotarget-public.js" type='text/javascript'></script>
+    <script src="~/wp-includes/plugins/geotargeting-pro/public/js/min/selectize.min.js" type='text/javascript'></script>
+    <script src="~/wp-includes/plugins/simple-weather/js/vue.min.js" type='text/javascript'></script>
+    <script src="~/wp-includes/plugins/simple-weather/js/vue-resource.min.js" type='text/javascript'></script>
+    <script src="~/wp-includes/plugins/simple-weather/js/moment.min.js" type='text/javascript'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var SimpleWeather = { "rest_route": "http:\/\/test.adtones.com\/wp-json\/", "locale": { "firstDay": 1, "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], "monthsShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], "weekdays": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "weekdaysShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], "weekdaysMin": ["S", "M", "T", "W", "T", "F", "S"], "gmtOffset": 3600 }, "settings": { "console_log": true } };
+        var SimpleWeatherAtts = [];
+        var SimpleWeatherFeeds = [];
+        /* ]]> */
+    </script>
+    <script src="~/wp-includes/plugins/simple-weather/js/simple-weather.js" type='text/javascript'></script>
+    <script src="~/wp-includes/themes/adtones/assets/bootstrap/js/bootstrap.min.js" type='text/javascript'></script>
+    <script src="~/wp-includes/themes/adtones/assets/owl-carousel/owl.carousel.min.js" type='text/javascript'></script>
+    <script src="~/wp-includes/js/wp-embed.min.js" type='text/javascript'></script>
+
+    <!--Script For Validation and Form Design-->
+    <script src="~/Scripts/jquery-ui-v1.12.0.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery-migrate")
+    @Scripts.Render("~/plugins/unobtrusive")
+    @Scripts.Render("~/plugins/iCheck")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action("GetCopyRight", "Landing")',
+                success: function (data) {
+                    $("#copyrighttext").text(data);
+                }
+            });
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+        });
+
+        var getresult = function (data) {
+            $("#result").html('');
+            $("#result").empty();
+            if (data != null) {
+                $("#result").hide();
+                if (data.success == true) {
+                    window.location.href = data.redirect;
+
+                }
+                else {
+                    $("#result").show();
+                    if (data.errors.length > 1) {
+                        $("#result").html(data.errors[0]);
+                    }
+                    else {
+                        $("#result").html(data.errors);
+                    }
+
+                }
+            }
+        };
+
+        /*
+        OLD One all login
+        var user_token = '';
+
+        var _oneall = _oneall || [];
+        _oneall.push(['social_link', 'set_providers', ['amazon', 'facebook', 'google', 'instagram', 'linkedin', 'paypal', 'pinterest', 'reddit', 'tumblr', 'twitter', 'windowslive', 'yahoo']]);
+        // _oneall.push(['social_link', 'set_providers', ['amazon', 'facebook']]);
+        _oneall.push(['social_link', 'set_callback_uri', window.location.href]);
+        _oneall.push(['social_link', 'set_user_token', user_token]);
+        _oneall.push(['social_link', 'do_render_ui', 'oa_social_login']);
+        // _oneall.push(['social_login', 'set_custom_css_uri', 'https://oneallcdn.com/css/api/socialize/themes/buildin/connect/large-v1.css']);
+        */
+
+        // New
+        var _oneall = _oneall || [];
+        _oneall.push(['social_login', 'set_providers', ['amazon', 'facebook', 'google', 'linkedin', 'paypal', 'pinterest', 'reddit', 'tumblr', 'twitter', 'windowslive', 'yahoo']]);//'instagram',
+        _oneall.push(['social_login', 'set_callback_uri', window.location.href]);
+        _oneall.push(['social_login', 'do_render_ui', 'oa_social_login']);
+
+    </script>
+
+    <script>
+        window.onload = function () {
+            //var es = document.getElementsByTagName('iframe');
+            //es.namedItem('OneAll Social Login').style.cssText = 'height: 120px !important;';
+            //$("#oa_social_login").css("min-height", "200px");
+            //$("#oa_social_login iframe").css("height", "200px");
+            $("#oa_social_login").css("min-height", "150px");
+            $("#oa_social_login iframe").css("height", "150px");
+            $("#oa_social_login iframe").css("width", "100%");
+            $("#oa_social_login").css("text-align", "center");
+            //$("#oa_social_login iframe div #branding").css("display", "none");
+        };
+    </script>
+
+</body>
+</html>

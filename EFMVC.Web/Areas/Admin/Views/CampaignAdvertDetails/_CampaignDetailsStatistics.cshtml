@@ -1,0 +1,188 @@
+﻿@using EFMVC.Web.Models;
+@model CampaignDashboardChartResult
+<div class="row">
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+
+                <h5>Plays to date</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@Model.PlaystoDate</h1>
+
+                <small>Total number of plays in period</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+
+                <h5>Spend to date (in euros)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@Model.SpendToDate.ToString("N0")</h1>
+
+                <small>Total spend to date</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+
+                <h5>Average Bid (in cent)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@Model.AverageBid cent</h1>
+
+                <small>Average bid over campaign life</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Average Play Time</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@Model.AveragePlayTime s</h1>
+                <small>Average play time over campaign life</small>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-sm-3 chartheader">
+
+        <div class="col-lg-6">
+            <div>
+                <h5 class="m-b-xs">Free plays</h5>
+                <h1 class="no-margins">@Model.FreePlays</h1>
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div>
+                <canvas id="doughnutFreePlays" height="100" width="150"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-12 chartheadersub">
+            <div class="font-bold text-navy text-break chartheadersubtext">@Model.FreePlaysPercantage% of total plays</div>
+
+        </div>
+    </div>
+    <div class="col-sm-3 chartheader">
+
+        <div class="col-lg-6">
+            <div>
+                <h5 class="m-b-xs">Total Budget</h5>
+                <h1 class="no-margins">@Model.TotalBudget</h1>
+
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div>
+                <canvas id="doughnutChartbudget" height="100" width="150"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-12 chartheadersub">
+            <div class="font-bold text-navy text-break chartheadersubtext">Spend as @Model.TotalBudgetPercantage% of budget</div>
+
+        </div>
+    </div>
+    <div class="col-sm-3 chartheader">
+
+        <div class="col-lg-6">
+            <div>
+                <h5 class="m-b-xs">Max bid</h5>
+                <h1 class="no-margins">@Model.MaxBid</h1>
+
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div>
+                <canvas id="doughnutMaxBid" height="100" width="150"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-12 chartheadersub">
+            <div class="font-bold text-navy text-break chartheadersubmaxbid">Average is @Model.MaxBidPercantage% of maximum bid</div>
+
+        </div>
+    </div>
+    <div class="col-sm-3 chartheader">
+
+        <div class="col-lg-6">
+            <div>
+                <h5 class="m-b-xs">Max play length</h5>
+                <h1 class="no-margins">@Model.MaxPlayLength</h1>
+
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div>
+                <span id="sparkline8"></span>
+            </div>
+        </div>
+        <div class="col-lg-12 chartheadersub">
+            <div class="font-bold text-navy text-break chartheadersubmaxplay">@Model.MaxPlayLengthPercantage% of maximum length</div>
+
+        </div>
+    </div>
+
+</div>
+<div class="row">&nbsp;</div>
+<div class="row">
+    @if (ViewBag.Campaignavgplayresult != null)
+    {
+        <div class="col-lg-9" style="background-color:#ffffff;min-height:220px;">
+            <div class="flot-chart" style="">
+
+                <div class="flot-chart-content" id="flot-dashboard-chart" style="padding: 0px; position: relative;"><canvas class="flot-base" width="772" height="200" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 772px; height: 200px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 74px; text-align: center;">Jan 03</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 145px; text-align: center;">Jan 06</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 215px; text-align: center;">Jan 09</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 286px; text-align: center;">Jan 12</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 356px; text-align: center;">Jan 15</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 427px; text-align: center;">Jan 18</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 498px; text-align: center;">Jan 21</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 568px; text-align: center;">Jan 24</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 639px; text-align: center;">Jan 27</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 709px; text-align: center;">Jan 30</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 173px; left: 19px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 132px; left: 6px; text-align: right;">250</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 92px; left: 6px; text-align: right;">500</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 52px; left: 6px; text-align: right;">750</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 12px; left: 0px; text-align: right;">1000</div></div><div class="flot-y-axis flot-y2-axis yAxis y2Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 173px; left: 760px;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 144px; left: 760px;">5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 115px; left: 760px;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 87px; left: 760px;">15</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 58px; left: 760px;">20</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 29px; left: 760px;">25</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 1px; left: 760px;">30</div></div></div><canvas class="flot-overlay" width="772" height="200" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 772px; height: 200px;"></canvas><div class="legend"><div style="position: absolute; width: 111px; height: 30px; top: 13px; left: 35px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div><table style="position:absolute;top:13px;left:35px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #000000;padding:1px"><div style="width:4px;height:0;border:5px solid #1ab394;overflow:hidden"></div></div></td><td class="legendLabel">Number of orders</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #000000;padding:1px"><div style="width:4px;height:0;border:5px solid #464f88;overflow:hidden"></div></div></td><td class="legendLabel">Payments</td></tr></tbody></table></div></div>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-lg-9">
+        </div>
+    }
+    <div class="col-lg-3">
+        <ul class="stat-list" style="text-align:center;">
+            <li>
+                <div class="row" style="font-size:14px;display:inline-block;margin: 0 0 7px;padding: 0;text-overflow: ellipsis;font-weight:600;">
+                    Additional Transactions
+                </div>
+            </li>
+        </ul>
+        <ul class="stat-list">
+            <li>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-xs-4">
+                            <small class="stats-label">SMS</small>
+                            <h4>@Model.SMSCost</h4>
+                        </div>
+                        <div class="col-xs-4">
+                            <small class="stats-label">Email</small>
+                            <h4>@Model.EmailCost</h4>
+                        </div>
+                        <div class="col-xs-4">
+                            <small class="stats-label">Cancelled</small>
+                            <h4>@Model.Cancelled</h4>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+
+        </ul>
+    </div>
+    
+</div>
+<div class="row">&nbsp;</div>

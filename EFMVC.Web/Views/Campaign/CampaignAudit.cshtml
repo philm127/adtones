@@ -1,0 +1,116 @@
+﻿@model EFMVC.Web.ViewModels.CampaignAuditFormModel
+
+@{
+    ViewBag.Title = "Campaign Audit";
+}
+
+@Html.HiddenFor(model => model.CampaignAuditId)
+@Html.HiddenFor(model => model.CampaignProfileId)
+
+<div class="row">
+    <div class="large-12 columns">
+        <h4>Campaign Audit</h4>
+    </div>
+</div>
+
+<div class="clr10"></div>
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.BidValue)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.BidValue)
+            </div>
+                
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StartTime)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StartTime)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.EndTime)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.EndTime)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PlayLengthTicks)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PlayLengthTicks)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PlayLength.Seconds)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PlayLength.Seconds)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.SMS)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.SMS)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.SMSCost)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.SMSCost)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Email)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Email)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.EmailCost)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.EmailCost)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.TotalCost)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.TotalCost)
+            </div>
+            
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Status)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Status)
+            </div>
+
+        </div>
+        
+        <div>
+            @Html.ActionLink("Back to List", "CampaignAuditList", new {id = Model.CampaignProfileId})
+        </div>
+
+    </div>
+
+</div>

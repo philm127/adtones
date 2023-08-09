@@ -1,0 +1,317 @@
+﻿.deleteLinkImg {
+    background: url('../images/icons/Delete32.png') no-repeat center right;
+    background-size: 24px, 24px;
+    display: block;
+    height: 24px;
+    width: 24px;
+}
+
+.editLinkImg {
+    background: url('../images/icons/Edit32.png') no-repeat center;
+    background-size: 24px, 24px;
+    display: block;
+    height: 24px;
+    width: 24px;
+}
+
+.addLinkImg {
+    background: url('../images/icons/Add32.png') no-repeat center right;
+    background-size: 24px, 24px;
+    display: block;
+    height: 24px;
+    width: 24px;
+}
+
+.searchLinkImg {
+    background: url('../images/icons/Search32.png') no-repeat center;
+    background-size: 24px, 24px;
+    display: block;
+    height: 24px;
+    width: 24px;
+}
+
+.clr1 {
+    clear: both;
+    height: 1px;
+    overflow: hidden;
+}
+
+.clr3 {
+    clear: both;
+    height: 3px;
+    overflow: hidden;
+}
+
+.clr5 {
+    clear: both;
+    height: 5px;
+    overflow: hidden;
+}
+
+.clr8 {
+    clear: both;
+    height: 8px;
+    overflow: hidden;
+}
+
+.clr10 {
+    clear: both;
+    height: 10px;
+    overflow: hidden;
+}
+
+.clr15 {
+    clear: both;
+    height: 15px;
+    overflow: hidden;
+}
+
+.clr17 {
+    clear: both;
+    height: 17px;
+    overflow: hidden;
+}
+
+.clr18 {
+    clear: both;
+    height: 18px;
+    overflow: hidden;
+}
+
+.clr20 {
+    clear: both;
+    height: 20px;
+    overflow: hidden;
+}
+
+.clr30 {
+    clear: both;
+    height: 30px;
+    overflow: hidden;
+}
+
+.clr25 {
+    clear: both;
+    height: 25px;
+    overflow: hidden;
+}
+
+.clr35 {
+    clear: both;
+    height: 35px;
+    overflow: hidden;
+}
+
+.clr40 {
+    clear: both;
+    height: 40px;
+    overflow: hidden;
+}
+
+.clr45 {
+    clear: both;
+    height: 45px;
+    overflow: hidden;
+}
+
+.clr50 {
+    clear: both;
+    height: 50px;
+    overflow: hidden;
+}
+
+.clr60 {
+    clear: both;
+    height: 60px;
+    overflow: hidden;
+}
+
+.clr65 {
+    clear: both;
+    height: 65px;
+    overflow: hidden;
+}
+
+.clr70 {
+    clear: both;
+    height: 70px;
+    overflow: hidden;
+}
+
+.clr100 {
+    clear: both;
+    height: 100px;
+    overflow: hidden;
+}
+
+.ml0 {
+    display: inline;
+    margin-left: 0px;
+}
+
+.ml5 {
+    display: inline;
+    margin-left: 5px;
+}
+
+.ml10 {
+    display: inline;
+    margin-left: 10px;
+}
+
+.ml15 {
+    display: inline;
+    margin-left: 15px;
+}
+
+.ml20 {
+    display: inline;
+    margin-left: 20px;
+}
+
+.ml40 {
+    display: inline;
+    margin-left: 40px;
+}
+
+.ml80 {
+    display: inline;
+    margin-left: 80px;
+}
+
+.ml100 {
+    display: inline;
+    margin-left: 100px;
+}
+
+.ml150 {
+    display: inline;
+    margin-left: 150px;
+}
+
+.ml160 {
+    display: inline;
+    margin-left: 160px;
+}
+
+.ml180 {
+    display: inline;
+    margin-left: 180px;
+}
+
+.ml127 {
+    display: inline;
+    margin-left: 127px;
+}
+
+.mr3 {
+    display: inline;
+    margin-right: 3px;
+}
+
+.mr5 {
+    display: inline;
+    margin-right: 5px;
+}
+
+.mr10 {
+    display: inline;
+    margin-right: 10px;
+}
+
+.mr15 {
+    display: inline;
+    margin-right: 15px;
+}
+
+.mr20 {
+    display: inline;
+    margin-right: 20px;
+}
+
+.mr30 {
+    display: inline;
+    margin-right: 30px;
+}
+
+.mr40 {
+    display: inline;
+    margin-right: 40px;
+}
+
+.mr48 {
+    display: inline;
+    margin-right: 48px;
+}
+
+.mr50 {
+    display: inline;
+    margin-right: 50px;
+}
+
+.mr55 {
+    display: inline;
+    margin-right: 55px;
+}
+
+.mr60 {
+    display: inline;
+    margin-right: 60px;
+}
+
+.mr82 {
+    display: inline;
+    margin-right: 82px;
+}
+
+.mu2 {
+    position: relative;
+    top: -2px;
+}
+
+.mu7 {
+    position: relative;
+    top: -7px;
+}
+
+.md3 {
+    position: relative;
+    top: 3px;
+}
+
+.md5 {
+    position: relative;
+    top: 5px;
+}
+
+.md8 {
+    position: relative;
+    top: 8px;
+}
+
+.md10 {
+    position: relative;
+    top: 10px;
+}
+
+.centerit { text-align: center; }
+
+.leftit { text-align: left; }
+
+.rightit { text-align: right; }
+
+.font19 { font-size: 19px; }
+
+.font15 { font-size: 15px; }
+
+.font14 { font-size: 14px; }
+
+.font13 { font-size: 13px; }
+
+.font12 { font-size: 12px; }
+
+.font11 { font-size: 11px; }
+
+.font8 { font-size: 8px; }
+
+.audio-small audio { width: 200px; }

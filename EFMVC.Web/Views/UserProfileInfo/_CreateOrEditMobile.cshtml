@@ -1,0 +1,75 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileMobileAdvertiserFormModel
+@*@using EFMVC.Web.Areas.Users.Models;
+    @model UserProfileResult*@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvmobilesuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvmobilerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cmobilerrror"></span>
+                </div>
+                @*@using (Ajax.BeginForm("SaveMobile", "UserProfileInfo",
+                    null,
+                    new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultmobile", OnBegin = "progressbar" },
+                    new { @class = "form-horizontal" }))
+                                    {*@
+                <div class="form-horizontal">
+                    @*@Html.HiddenFor(model => model.UserProfileMobileFormModel.Id)
+                        @Html.HiddenFor(model => model.UserProfileMobileFormModel.UserProfileId)
+                        @Html.HiddenFor(model => model.UserProfileMobileFormModel.UserId)*@
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContractType_Mobile, new { @class = "col-lg-2 control-label" })<label class="col-lg-2" style="margin-top: 5px;width: 0px;">:</label>
+                        <div class="col-lg-4">
+                            @Html.Label(Model.ContractType_Mobile, new { @class = "control-label" })
+                            @*@Html.DropDownListFor(model => model.UserProfileMobileFormModel.ContractType_Mobile, Model.UserProfileMobileFormModel.ContractTypeList, new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.UserProfileMobileFormModel.ContractType_Mobile)*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Spend_Mobile, new { @class = "col-lg-2 control-label" })<label class="col-lg-2" style="margin-top: 5px;width: 0px;">:</label>
+                        <div class="col-lg-4">
+                            @Html.Label(Model.Spend_Mobile, new { @class = "control-label" })
+                            @*@Html.DropDownListFor(model => model.UserProfileMobileFormModel.Spend_Mobile, Model.UserProfileMobileFormModel.SpendList, new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.UserProfileMobileFormModel.Spend_Mobile)*@
+                        </div>
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-1">
+                            <button class="btn btn-blue" type="submit">Save</button>
+                        </div>
+                    </div>
+                    }*@
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultmobile = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvmobilesuc").show();
+            $("#dvmobilerror").hide();
+        }
+        else
+        {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing", new { Area = "" })';
+            }
+            $("#cmobilerrror").html(data);
+            $("#dvmobilesuc").hide();
+            $("#dvmobilerror").show();
+        }
+    };
+</script>

@@ -1,0 +1,52 @@
+﻿@using EFMVC.Web.Areas.Admin.Models;
+@model List<CountryResult>
+<div class="row">
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["status"]
+        </div>
+    }
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-country">
+        <thead>
+            <tr>
+
+                <th>Country</th>
+                <th>Short Name</th>
+                <th>Code</th>
+                <th>Created Date</th>
+                @*<th>Status</th>*@
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CountryResult result in Model)
+            {
+            <tr class="gradeX">
+
+                <td>@result.Name</td>
+                <td>@result.ShortName</td>
+                <td>@result.CountryCode</td>
+                <td>@result.CreatedDate</td>
+               
+                @*<td>
+            @if (result.Status == 1)
+            {
+                <label class="label label-primary">Active</label>
+            }
+            else if (result.Status == 2)
+            {
+                <label class="label label-danger">Inactive</label>
+            }
+        </td>*@
+                <td>
+                    <a class="btn btn-danger btn-xs" href='@Url.Action("UpdateCountry","Country",new {@id=result.Id })'>Update</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

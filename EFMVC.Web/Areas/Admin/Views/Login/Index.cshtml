@@ -1,0 +1,79 @@
+﻿@model EFMVC.Web.ViewModels.LogOnFormModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Adtones | Admin Login</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            @*<div>
+
+            <h1 class="logo-name">IN+</h1>
+
+        </div>*@
+            <h3>Welcome to adtones admin</h3>
+            @*<p>
+            Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+        </p>*@
+            <p>Login in. To see it in action.</p>
+            @using (Html.BeginForm("CheckLogin", "Login", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true);
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Enter email" })@Html.ValidationMessageFor(m => m.UserName, null, new { @class = "btn-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })@Html.ValidationMessageFor(m => m.Password, null, new { @class = "btn-danger" })
+                </div>
+                <button type="submit" class="btn btn-blue block full-width m-b">Login</button>
+                <div class="form-group" style="clear:both;">
+                    <a href='@Url.Action("ForgotPassword", "Login", new { area = "Admin" })'><small style="font-size: 14px;">Forgot password?</small></a>
+                </div>
+            }
+            @*<p class="m-t"> <small>adtons admin &copy; @DateTime.Now.Year</small> </p>*@
+            <p class="m-t" style="font-family: sans-serif;"> <small id="copyright"></small> </p>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/plugins/unobtrusive")
+    @Scripts.Render("~/plugins/validate")
+    @Scripts.Render("~/bundles/validateunobtrusive")
+</body>
+
+</html>
+
+<script type="text/javascript">
+
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '@Url.Action("GetCopyRight", "Login", new { area = "Admin" })',
+            success: function (data) {
+                $("#copyright").text(data);
+            }
+        });
+    });
+</script>
+

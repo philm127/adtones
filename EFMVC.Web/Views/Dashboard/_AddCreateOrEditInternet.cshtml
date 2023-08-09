@@ -1,0 +1,109 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileInternetFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>Internet</h5>
+
+                </div>*@
+            <div class="ibox-content" id="internetdiv">
+                <div class="alert alert-success alert-dismissable" id="dvinternetsuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvinterneterror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cinterneterrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveInternetInfo", "Dashboard",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultinternet", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @*@Html.HiddenFor(model => model.CampaignProfileInternetId)*@
+                    @Html.HiddenFor(model => model.CampaignProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            <button class="btn btn-sm btn-blue" type="button" id="selectallinternet">Select All</button>
+                            <button class="btn btn-sm btn-blue" type="button" id="deselectallinternet">Deselect All</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SocialNetworkingQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.VideoQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ResearchQuestion)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul class="ProfileMappingUl">
+                                    @Html.EditorFor(model => model.SocialNetworkingQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul class="ProfileMappingUl">
+                                    @Html.EditorFor(model => model.VideoQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul class="ProfileMappingUl">
+                                    @Html.EditorFor(model => model.ResearchQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.AuctionsQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ShoppingQuestion)</h3>
+                          
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul class="ProfileMappingUl">
+                                    @Html.EditorFor(model => model.AuctionsQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul class="ProfileMappingUl">
+                                    @Html.EditorFor(model => model.ShoppingQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                        
+                      
+                        <div class="form-group">
+                            <div class="col-lg-1">
+                                <button class="btn btn-blue" type="submit">Update</button>
+
+                            </div>
+                        </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultinternet = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvinternetsuc").show();
+            $("#dvinterneterror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing")';
+            }
+            $("#cinterneterrror").html(data);
+            $("#dvinternetsuc").hide();
+            $("#dvinterneterror").show();
+        }
+    };
+</script>

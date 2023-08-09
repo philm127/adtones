@@ -1,0 +1,147 @@
+﻿@using System.Web.Optimization
+@model EFMVC.Web.ViewModels.UserFormModel
+@{
+    ViewBag.Title = "Verify Code";
+    Layout = "~/Areas/Users/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+<link href="~/Content/custom.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/jquery.mask.js"></script>
+<script src="~/Scripts/plugins/sweetalert/sweetalert.min.js"></script>
+<div class="row wrapper border-bottom white-bg page-heading">
+<div class="col-sm-4">
+    <h2>Verify Code</h2>
+</div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="preloader" style="display:none"></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                
+                <div class="ibox-content">
+
+                    @using (Html.BeginForm("NormalRegistration", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                       
+                    @*<form class="form-horizontal">*@
+                    if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissable">
+                            @TempData["Error"]
+                        </div>
+                    }
+                        @Html.HiddenFor(model=>model.FirstName)
+                        @Html.HiddenFor(model => model.LastName)
+                        @Html.HiddenFor(model => model.Email)
+                        @Html.HiddenFor(model => model.Organisation)
+                        @Html.HiddenFor(model => model.Password)
+                        @Html.HiddenFor(model => model.CountryCode)
+                        @Html.HiddenFor(model => model.MSISDN)
+                        @Html.HiddenFor(model => model.OperatorId)
+
+                        <div class="form-group">
+                            @*<label class="col-lg-3 control-label">Verifcation Number</label>*@
+                            <label class="col-lg-3 control-label">Verification Number</label>
+
+                            <div class="col-lg-4">
+                                @Html.TextBox("VerifcationCode", null, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-3 col-lg-1">
+                                <input type="button" id="btnConfirm" class="btn btn-blue block full-width m-b" value="Confirm" />
+                            </div>
+                            <div class="col-lg-1">
+                                <input type="button" id="btnResend" class="btn btn-primary block full-width m-b" value="Resend" />
+                            </div>
+                        </div>
+                    @*</form>*@
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#VerifcationCode").mask('00-00-00');
+
+    $("#btnConfirm").click(function () {
+        var confirmCode = $("#VerifcationCode").val();
+        if (confirmCode == "" || confirmCode == null)
+        {
+            swal("Oops!", "Please enter the confirm code", "success");
+            return false;
+        }
+        else
+        {
+
+
+            $("form").submit();
+
+            //var userFormModel = {
+            //    FirstName: $("#FirstName").val(),
+            //    LastName: $("#LastName").val(),
+            //    Email: $("#Email").val(),
+            //    Organisation: $("#Organisation").val(),
+            //    Password : $("#Password").val(),
+            //    CountryCode : $("#CountryCode").val(),
+            //    MSISDN : $("#MSISDN").val(),
+            //    OperatorId : $("#OperatorId").val(),
+            //    VerifcationCode : $("#VerifcationCode").val()
+            //};
+
+            @*var data = '@Html.Raw(Json.Encode(Model))';
+            $(".preloader").show();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("NormalRegistration", "Login", new {Area="Users" })',
+                //data: JSON.stringify(userFormModel),
+                data: data,
+                success: function (data) {
+                    $(".preloader").hide();
+                    if (data.status == "Success") {
+                        window.location.href = "/Users/AccountOverview/Index";
+                    }
+                    else if (data.status == "TechnicalError")
+                    {
+                        swal("Oops!", "I'm sorry we have experienced a technical error - please try again in 15 minutes - apologies for the inconvenience.if the interface is generating multiple time outs contact safaricom support at support@adtones.xyz or call  +44 (0) 7711 760 222", "error");
+                        return false;
+                    }
+                    else {
+                        swal("Oops!", "I'm sorry this code was not recognised - please re-enter the code or press the code re-send button below", "error");
+                       // swal("Oops!", data.Message, "error");
+                        return false;
+                    }
+                }
+            });*@
+        }
+
+    })
+
+    $("#btnResend").click(function () {
+        var phoneNumber = $("#MSISDN").val();
+        var countryCode = $("#CountryCode").val();
+        $(".preloader").show();
+        $.ajax({
+            url: '@Url.Action("ResendVerificationCode", "Login", new {Area="Users" })',
+            data: { phoneNumber: phoneNumber, countryCode: countryCode },
+            success: function (data) {
+                $(".preloader").hide();
+                if (data == "Success") {
+                    swal("Done", "Please enter the verifcation code", "success");
+                    return false;
+                }
+                else {
+                    swal("Oops!", "Something went wrong. Please try again!", "success");
+                    return false;
+                }
+            }
+        });
+    });
+
+</script>

@@ -1,0 +1,66 @@
+﻿@using EFMVC.Web.Models;
+@model List<UserCampaignResult>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover dataTables-usercampaign" id="usercampaign">
+            <thead>
+                <tr>
+                    <th>Advertiser</th>
+                    <th>Advertiser Mobile Number</th>
+                    <th>Client</th>
+                    <th>Campaign</th>
+                    <th>Budget</th>
+                    <th>Average Bid</th>
+                    <th>Spend</th>
+                    <th>Created Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (UserCampaignResult result in Model)
+                {
+                if (result.CampaignProfileId != 0)
+                {
+                <tr class="gradeX">
+                    <td>@result.AdvertiserCompanyName</td>
+                    <td>@result.AdvertiserMobileNumber</td>
+                    <td>@result.ClientName</td>
+                    <td>@result.CampaignName</td>
+                    <td>
+                        @if (result.CurrencyId == 4 || result.CurrencyId == 7)
+                        {
+                        @result.TotalBudget.ToString("F2") <lable> </lable>@result.CurrencyCode
+                        }
+                        else
+                        {
+                        @result.CurrencyCode <label></label>@result.TotalBudget.ToString("F2")
+                        }
+                    </td>
+                    <td>
+                        @if (result.CurrencyId == 4 || result.CurrencyId == 7)
+                        {
+                        @result.TotalAverageBid.ToString("F2") <lable> </lable>@result.CurrencyCode
+                        }
+                        else
+                        {
+                        @result.CurrencyCode <label></label>@result.TotalAverageBid.ToString("F2")
+                        }
+                    </td>
+                    <td>
+                        @if (result.CurrencyId == 4 || result.CurrencyId == 7)
+                        {
+                        @result.TotalSpend.ToString("F2") <lable> </lable>@result.CurrencyCode
+                        }
+                        else
+                        {
+                        @result.CurrencyCode <label></label>@result.TotalSpend.ToString("F2")
+                        }
+                    </td>
+                    <td>@result.CreatedDateTime.ToString("dd/MM/yyyy")</td>
+                    <td>@result.Status</td>
+                </tr>
+                }
+                }
+            </tbody>
+        </table>
+    </div>

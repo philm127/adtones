@@ -1,0 +1,175 @@
+﻿@using System.Web.Optimization
+@using MvcCheckBoxList.Model
+@model EFMVC.Web.ViewModels.UserProfileTimeSettingFormModel
+@{
+    ViewBag.Title = "Mobile";
+    Layout = "~/Areas/Users/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Time Settings (for usage)</h2>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Time Settings (for usage)</h5>
+
+                </div>
+               
+                <div class="ibox-content">
+
+                    @using (Html.BeginForm("SaveTimeSettings", "TimeSettings", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        if (ViewBag.UserProfileId == 0)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                <span id="cbudsuceess">Please update personal info</span>
+                            </div>
+                        }
+                        if (TempData["error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                <span id="cbudsuceess">@TempData["error"]</span>
+                            </div>
+                        }
+                        if (TempData["sucess"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                <span id="cbudsuceess">@TempData["sucess"]</span>
+                            </div>
+                        }
+                        @Html.HiddenFor(model => model.UserProfileTimeSettingsId)
+                        @Html.HiddenFor(model => model.UserProfileId)
+                        <div class="form-group">
+                            <div class="row" style="margin-left:0px;margin-right:0px;">
+                                <button class="btn btn-sm btn-blue" type="button" id="selectall">Select All</button>
+                                <button class="btn btn-sm btn-blue" type="button" id="deselectall">Deselect All</button>
+                            </div>
+
+                        </div>
+                        <div class="form-group" id="timesetting">
+                            <div class="row">
+                                <h3 class="col-lg-2 col-lg-wth">Monday</h3>
+                                <h3 class="col-lg-2 col-lg-wth">Tuesday</h3>
+                                <h3 class="col-lg-2 col-lg-wth">Wednesday</h3>
+                                <h3 class="col-lg-2 col-lg-wth">Thursday</h3>
+                                <h3 class="col-lg-2 col-lg-wth">Friday</h3>
+                                <h3 class="col-lg-2 col-lg-wth">Saturday</h3>
+                                <h3 class="col-lg-2 col-lg-wth">Sunday</h3>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                    @Html.CheckBoxListFor(m => m.MondayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.MondaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </div>
+                                <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                    @Html.CheckBoxListFor(m => m.TuesdayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.TuesdaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </div>
+                                <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                    @Html.CheckBoxListFor(m => m.WednesdayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.WednesdaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </div>
+                                <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                    @Html.CheckBoxListFor(m => m.ThursdayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.ThursdaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </div>
+                                <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                    @Html.CheckBoxListFor(m => m.FridayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.FridaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </div>
+                                <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                    @Html.CheckBoxListFor(m => m.SaturdayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.SaturdaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </div>
+                                <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                    @Html.CheckBoxListFor(m => m.SundayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.SundaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        if (ViewBag.UserProfileId != 0)
+                        {
+                            <div class="form-group">
+                                <div class="col-lg-offset-5 col-lg-1">
+                                    <button class="btn btn-blue" type="submit">Save</button>
+
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Styles {
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/iCheck")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#selectall").click(function () {
+                $("#timesetting input:checkbox").iCheck('check');
+                $('#timesetting input:checkbox').iCheck('update');
+
+            });
+            $("#deselectall").click(function () {
+                $("#timesetting input:checkbox").iCheck('uncheck');
+                $('#timesetting input:checkbox').iCheck('update');
+            });
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+}

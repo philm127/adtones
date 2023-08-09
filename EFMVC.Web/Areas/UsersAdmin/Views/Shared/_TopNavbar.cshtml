@@ -1,0 +1,58 @@
+<div class="row border-bottom white-bg">
+    <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <span class="minimalize-styl-2 topnav-wel">Welcome to adtones admin users</span>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("UserAdmin"))
+            {
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                     
+                        <li id="useradminIndex">
+                            <a href='@Url.Action("Index", "UserAccount",new { area = "UsersAdmin" })'>All Users</a>
+
+                        </li>
+                        <li id="useradminAccountOverview">
+                            <a href='@Url.Action("Index", "UserAdminAccountOverview",new { area = "UsersAdmin" })'>Account Overview</a>
+
+                        </li>
+                        <li id="useradminProfileManagement">
+                            <a href='@Url.Action("Index", "UserAdminProfile",new { area = "UsersAdmin" })'>Profile Management</a>
+
+                        </li>
+                        <li id="useradminPersonalInfo">
+                            <a href='@Url.Action("Index", "UserAdminPersonalInfo",new { area = "UsersAdmin" })'>Personal Info</a>
+
+                        </li>
+                        @*<li id="useradminBlockedNumber">
+                            <a href='@Url.Action("Index", "UserAdminBlockedNumber",new { area = "UsersAdmin" })'>Blocked Numbers</a>
+
+                        </li>*@
+                        <li id="useradminticket">
+                            <a href='@Url.Action("Index", "Ticket",new { area = "UsersAdmin" })'>Tickets</a>
+                        </li>
+
+                    </ul>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li id="useradmin_account">
+                            @*<a href="#">@User.Identity.Name</a>*@
+                            <a href='@Url.Action("Index", "Account",new { area = "UsersAdmin" })'>
+                                    @User.Identity.Name
+                                </a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("LogOff", "Login",new { area = "UsersAdmin" })' id="logoutbtn">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            }
+        }
+    </nav>
+</div>

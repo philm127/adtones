@@ -1,0 +1,1472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6A4C3B88-230D-4C19-945E-4685876AA31D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EFMVC.Data</RootNamespace>
+    <AssemblyName>EFMVC.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurations\BillingConfiguration.cs" />
+    <Compile Include="Configurations\BillingDetailsConfiguration.cs" />
+    <Compile Include="Configurations\BlockedNumberConfiguration.cs" />
+    <Compile Include="Configurations\CampaignAuditConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileAdvertConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileAttitudeConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileCinemaConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileDemographicsConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileInternetConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileMobileConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfilePreferenceConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfilePressConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileProductsServiceConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileRadioConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileTimeSettingConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileTvConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileDateSettingsConfiguration.cs" />
+    <Compile Include="Configurations\CampaignProfileUserProfileConfiguration.cs" />
+    <Compile Include="Configurations\BucketAuditConfiguration.cs" />
+    <Compile Include="Configurations\BucketAuditRowConfiguration.cs" />
+    <Compile Include="Configurations\ClientConfiguration.cs" />
+    <Compile Include="Configurations\CompanyDetailsConfiguration.cs" />
+    <Compile Include="Configurations\ContactsConfiguration.cs" />
+    <Compile Include="Configurations\Copy of AdvertConfiguration.cs" />
+    <Compile Include="Configurations\CountryConfiguration.cs" />
+    <Compile Include="Configurations\CountryTaxConfiguration.cs" />
+    <Compile Include="Configurations\PaymentMethodConfiguration.cs" />
+    <Compile Include="Configurations\QuestionCommentConfiguration.cs" />
+    <Compile Include="Configurations\QuestionCommentImagesConfiguration.cs" />
+    <Compile Include="Configurations\QuestionConfiguration.cs" />
+    <Compile Include="Configurations\QuestionImagesConfiguration.cs" />
+    <Compile Include="Configurations\QuestionSubjectConfiguration.cs" />
+    <Compile Include="Configurations\SystemConfigConfiguration.cs" />
+    <Compile Include="Configurations\UserProfileCreditsReceivedConfiguration.cs" />
+    <Compile Include="Configurations\UserProfileAdvertsReceivedConfiguration.cs" />
+    <Compile Include="Configurations\Order2Configuration.cs" />
+    <Compile Include="Configurations\Product2Configuration.cs" />
+    <Compile Include="Configurations\OrderConfiguration.cs" />
+    <Compile Include="Configurations\ProductConfiguration.cs" />
+    <Compile Include="Configurations\UserProfileConfiguration.cs" />
+    <Compile Include="Configurations\UserProfileAdvertConfiguration.cs" />
+    <Compile Include="Configurations\UserProfileAttitudeConfiguration.cs" />
+    <Compile Include="Configurations\UserProfileCinemaConfiguration.cs" />
+    <Compile Include="Configurations\UserProfileInternetConfiguration.cs" />
+    <Compile Include="Configurations\UserProfileMobileConfiguration.cs" />
+    <Compile Include="Configurations\UserProfilePreferenceConfiguration.cs" />
+    <Compile Include="Configurations\UserProfilePressConfiguration.cs" />
+    <Compile Include="Configurations\UserProfileProductsServiceConfiguration.cs" />
+    <Compile Include="Configurations\UserProfileRadioConfiguration.cs" />
+    <Compile Include="Configurations\UserProfileTimeSettingConfiguration.cs" />
+    <Compile Include="Configurations\UserProfileTvConfiguration.cs" />
+    <Compile Include="Configurations\UsersCreditConfiguration.cs" />
+    <Compile Include="Configurations\UsersCreditPaymentConfiguration.cs" />
+    <Compile Include="Infrastructure\DatabaseFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
+    <Compile Include="Infrastructure\IDatabaseFactory.cs" />
+    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="Infrastructure\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\PagedResult.cs" />
+    <Compile Include="Infrastructure\RepositoryBase.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="EFMVCDataContex.cs" />
+    <Compile Include="Migrations\201705101240142_Add NumberInBatch in campaingProfile Table.cs" />
+    <Compile Include="Migrations\201705101240142_Add NumberInBatch in campaingProfile Table.Designer.cs">
+      <DependentUpon>201705101240142_Add NumberInBatch in campaingProfile Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710300741025_Add BucketBatchStatus Table.cs" />
+    <Compile Include="Migrations\201710300741025_Add BucketBatchStatus Table.Designer.cs">
+      <DependentUpon>201710300741025_Add BucketBatchStatus Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301001417_Add CampaignMatch Table.cs" />
+    <Compile Include="Migrations\201710301001417_Add CampaignMatch Table.Designer.cs">
+      <DependentUpon>201710301001417_Add CampaignMatch Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301011256_Add 10 Duplicate CampaignMatch Table.cs" />
+    <Compile Include="Migrations\201710301011256_Add 10 Duplicate CampaignMatch Table.Designer.cs">
+      <DependentUpon>201710301011256_Add 10 Duplicate CampaignMatch Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301041236_Add UserMatch Table.cs" />
+    <Compile Include="Migrations\201710301041236_Add UserMatch Table.Designer.cs">
+      <DependentUpon>201710301041236_Add UserMatch Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301055250_Add 10 duplicate UserMatch Table.cs" />
+    <Compile Include="Migrations\201710301055250_Add 10 duplicate UserMatch Table.Designer.cs">
+      <DependentUpon>201710301055250_Add 10 duplicate UserMatch Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301124025_Add CampaignmatchUsermatch Table.cs" />
+    <Compile Include="Migrations\201710301124025_Add CampaignmatchUsermatch Table.Designer.cs">
+      <DependentUpon>201710301124025_Add CampaignmatchUsermatch Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301138211_Add 10 duplicate CampaignmatchUsermatch Table.cs" />
+    <Compile Include="Migrations\201710301138211_Add 10 duplicate CampaignmatchUsermatch Table.Designer.cs">
+      <DependentUpon>201710301138211_Add 10 duplicate CampaignmatchUsermatch Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301155587_Add BucketBatch Table.cs" />
+    <Compile Include="Migrations\201710301155587_Add BucketBatch Table.Designer.cs">
+      <DependentUpon>201710301155587_Add BucketBatch Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301201191_Add 10 duplicate BucketBatch Table.cs" />
+    <Compile Include="Migrations\201710301201191_Add 10 duplicate BucketBatch Table.Designer.cs">
+      <DependentUpon>201710301201191_Add 10 duplicate BucketBatch Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301212418_Add Bucket Table.cs" />
+    <Compile Include="Migrations\201710301212418_Add Bucket Table.Designer.cs">
+      <DependentUpon>201710301212418_Add Bucket Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301220267_Add 10 duplicate Bucket Table.cs" />
+    <Compile Include="Migrations\201710301220267_Add 10 duplicate Bucket Table.Designer.cs">
+      <DependentUpon>201710301220267_Add 10 duplicate Bucket Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301228180_Add BucketItem Table.cs" />
+    <Compile Include="Migrations\201710301228180_Add BucketItem Table.Designer.cs">
+      <DependentUpon>201710301228180_Add BucketItem Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301239554_Add 10 duplicate BucketItem Table.cs" />
+    <Compile Include="Migrations\201710301239554_Add 10 duplicate BucketItem Table.Designer.cs">
+      <DependentUpon>201710301239554_Add 10 duplicate BucketItem Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301257588_Add duplicate CampaignAudit Table.cs" />
+    <Compile Include="Migrations\201710301257588_Add duplicate CampaignAudit Table.Designer.cs">
+      <DependentUpon>201710301257588_Add duplicate CampaignAudit Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301305235_Add duplicate UserProfileAdvertsReceived Table.cs" />
+    <Compile Include="Migrations\201710301305235_Add duplicate UserProfileAdvertsReceived Table.Designer.cs">
+      <DependentUpon>201710301305235_Add duplicate UserProfileAdvertsReceived Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711131147274_Add Proceed Field on Campaign Audit Table.cs" />
+    <Compile Include="Migrations\201711131147274_Add Proceed Field on Campaign Audit Table.Designer.cs">
+      <DependentUpon>201711131147274_Add Proceed Field on Campaign Audit Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712040541204_Add GravityFormsTrack Table.cs" />
+    <Compile Include="Migrations\201712040541204_Add GravityFormsTrack Table.Designer.cs">
+      <DependentUpon>201712040541204_Add GravityFormsTrack Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712051127212_Add New AdType Field in CampaignProfilePrefernce and CampaignMatch.cs" />
+    <Compile Include="Migrations\201712051127212_Add New AdType Field in CampaignProfilePrefernce and CampaignMatch.Designer.cs">
+      <DependentUpon>201712051127212_Add New AdType Field in CampaignProfilePrefernce and CampaignMatch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712061123236_Add new adtype in UserProfilePreference and UserMatch Table.cs" />
+    <Compile Include="Migrations\201712061123236_Add new adtype in UserProfilePreference and UserMatch Table.Designer.cs">
+      <DependentUpon>201712061123236_Add new adtype in UserProfilePreference and UserMatch Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712070612219_Add CampaignConfig table.cs" />
+    <Compile Include="Migrations\201712070612219_Add CampaignConfig table.Designer.cs">
+      <DependentUpon>201712070612219_Add CampaignConfig table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712111058548_Add sub field for skiza profile.cs" />
+    <Compile Include="Migrations\201712111058548_Add sub field for skiza profile.Designer.cs">
+      <DependentUpon>201712111058548_Add sub field for skiza profile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712121050313_Add ProfileMatchInfo Table.cs" />
+    <Compile Include="Migrations\201712121050313_Add ProfileMatchInfo Table.Designer.cs">
+      <DependentUpon>201712121050313_Add ProfileMatchInfo Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712181058477_Add CountryId In CampaignProfile.cs" />
+    <Compile Include="Migrations\201712181058477_Add CountryId In CampaignProfile.Designer.cs">
+      <DependentUpon>201712181058477_Add CountryId In CampaignProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712181120528_Add CountryId In All CampaignMatch Table.cs" />
+    <Compile Include="Migrations\201712181120528_Add CountryId In All CampaignMatch Table.Designer.cs">
+      <DependentUpon>201712181120528_Add CountryId In All CampaignMatch Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712201059394_Add ConnectionString In CampaignProfile table.cs" />
+    <Compile Include="Migrations\201712201059394_Add ConnectionString In CampaignProfile table.Designer.cs">
+      <DependentUpon>201712201059394_Add ConnectionString In CampaignProfile table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712201246078_Add CountryConnectionString Table.cs" />
+    <Compile Include="Migrations\201712201246078_Add CountryConnectionString Table.Designer.cs">
+      <DependentUpon>201712201246078_Add CountryConnectionString Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801261048016_Add IsAdminApproval Field In CampaignProfile And Advert Tables.cs" />
+    <Compile Include="Migrations\201801261048016_Add IsAdminApproval Field In CampaignProfile And Advert Tables.Designer.cs">
+      <DependentUpon>201801261048016_Add IsAdminApproval Field In CampaignProfile And Advert Tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801310929010_Add Area Table.cs" />
+    <Compile Include="Migrations\201801310929010_Add Area Table.Designer.cs">
+      <DependentUpon>201801310929010_Add Area Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806041107477_Add Import table.cs" />
+    <Compile Include="Migrations\201806041107477_Add Import table.Designer.cs">
+      <DependentUpon>201806041107477_Add Import table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806131310343_Add 9 Import Table.cs" />
+    <Compile Include="Migrations\201806131310343_Add 9 Import Table.Designer.cs">
+      <DependentUpon>201806131310343_Add 9 Import Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806181052575_Add ImportFileTrack Table.cs" />
+    <Compile Include="Migrations\201806181052575_Add ImportFileTrack Table.Designer.cs">
+      <DependentUpon>201806181052575_Add ImportFileTrack Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806181230388_Add Procced filed in all import table.cs" />
+    <Compile Include="Migrations\201806181230388_Add Procced filed in all import table.Designer.cs">
+      <DependentUpon>201806181230388_Add Procced filed in all import table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806201200334_Add operator field in Importfile table.cs" />
+    <Compile Include="Migrations\201806201200334_Add operator field in Importfile table.Designer.cs">
+      <DependentUpon>201806201200334_Add operator field in Importfile table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806251220482_Add NumOfUpdateToAudit Filed in ImportFileTrack Table.cs" />
+    <Compile Include="Migrations\201806251220482_Add NumOfUpdateToAudit Filed in ImportFileTrack Table.Designer.cs">
+      <DependentUpon>201806251220482_Add NumOfUpdateToAudit Filed in ImportFileTrack Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806251227040_Add Proceed Filed in ImportFileTrack Table.cs" />
+    <Compile Include="Migrations\201806251227040_Add Proceed Filed in ImportFileTrack Table.Designer.cs">
+      <DependentUpon>201806251227040_Add Proceed Filed in ImportFileTrack Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806261011098_Add Num of play field in ImportFileTrack table.cs" />
+    <Compile Include="Migrations\201806261011098_Add Num of play field in ImportFileTrack table.Designer.cs">
+      <DependentUpon>201806261011098_Add Num of play field in ImportFileTrack table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806261212278_Add Num of User field in ImportFileTrack table.cs" />
+    <Compile Include="Migrations\201806261212278_Add Num of User field in ImportFileTrack table.Designer.cs">
+      <DependentUpon>201806261212278_Add Num of User field in ImportFileTrack table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806271230057_Add CampaignProfileId in Imports table.cs" />
+    <Compile Include="Migrations\201806271230057_Add CampaignProfileId in Imports table.Designer.cs">
+      <DependentUpon>201806271230057_Add CampaignProfileId in Imports table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806281119094_Add NumOfLiveCampaign in ImportFileTrack Table.cs" />
+    <Compile Include="Migrations\201806281119094_Add NumOfLiveCampaign in ImportFileTrack Table.Designer.cs">
+      <DependentUpon>201806281119094_Add NumOfLiveCampaign in ImportFileTrack Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806281212190_Add NumOfNewUser in ImportFileTrack Table.cs" />
+    <Compile Include="Migrations\201806281212190_Add NumOfNewUser in ImportFileTrack Table.Designer.cs">
+      <DependentUpon>201806281212190_Add NumOfNewUser in ImportFileTrack Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807041142566_Add added date in campaign audit table.cs" />
+    <Compile Include="Migrations\201807041142566_Add added date in campaign audit table.Designer.cs">
+      <DependentUpon>201807041142566_Add added date in campaign audit table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807101020396_Add numofbucket field in ImportFileTrack table.cs" />
+    <Compile Include="Migrations\201807101020396_Add numofbucket field in ImportFileTrack table.Designer.cs">
+      <DependentUpon>201807101020396_Add numofbucket field in ImportFileTrack table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807180650545_Add IsMsisdnMatch Field in User Table.cs" />
+    <Compile Include="Migrations\201807180650545_Add IsMsisdnMatch Field in User Table.Designer.cs">
+      <DependentUpon>201807180650545_Add IsMsisdnMatch Field in User Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807190529018_Change relation in CampaignmatchUsermatch Table.cs" />
+    <Compile Include="Migrations\201807190529018_Change relation in CampaignmatchUsermatch Table.Designer.cs">
+      <DependentUpon>201807190529018_Change relation in CampaignmatchUsermatch Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807201315407_Add Usermatch Refernce in CampaignUserMatchTable.cs" />
+    <Compile Include="Migrations\201807201315407_Add Usermatch Refernce in CampaignUserMatchTable.Designer.cs">
+      <DependentUpon>201807201315407_Add Usermatch Refernce in CampaignUserMatchTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807231117208_Add ImportUserCSV table.cs" />
+    <Compile Include="Migrations\201807231117208_Add ImportUserCSV table.Designer.cs">
+      <DependentUpon>201807231117208_Add ImportUserCSV table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807231139260_Update datatype of DateCreated field.cs" />
+    <Compile Include="Migrations\201807231139260_Update datatype of DateCreated field.Designer.cs">
+      <DependentUpon>201807231139260_Update datatype of DateCreated field.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807241340463_Add UserTokenLink Table.cs" />
+    <Compile Include="Migrations\201807241340463_Add UserTokenLink Table.Designer.cs">
+      <DependentUpon>201807241340463_Add UserTokenLink Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807261330542_Add Provider field in UserTokenLink Table.cs" />
+    <Compile Include="Migrations\201807261330542_Add Provider field in UserTokenLink Table.Designer.cs">
+      <DependentUpon>201807261330542_Add Provider field in UserTokenLink Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808091111460_Add IsEmailVerfication field in User Table.cs" />
+    <Compile Include="Migrations\201808091111460_Add IsEmailVerfication field in User Table.Designer.cs">
+      <DependentUpon>201808091111460_Add IsEmailVerfication field in User Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808130731384_Add PhoneticAlphabet column in user table.cs" />
+    <Compile Include="Migrations\201808130731384_Add PhoneticAlphabet column in user table.Designer.cs">
+      <DependentUpon>201808130731384_Add PhoneticAlphabet column in user table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808141135227_Add IsMobileVerfication field in user table.cs" />
+    <Compile Include="Migrations\201808141135227_Add IsMobileVerfication field in user table.Designer.cs">
+      <DependentUpon>201808141135227_Add IsMobileVerfication field in user table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808201245373_Add EmailVerificationCode table.cs" />
+    <Compile Include="Migrations\201808201245373_Add EmailVerificationCode table.Designer.cs">
+      <DependentUpon>201808201245373_Add EmailVerificationCode table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809140553181_Make email field optional.cs" />
+    <Compile Include="Migrations\201809140553181_Make email field optional.Designer.cs">
+      <DependentUpon>201809140553181_Make email field optional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809140929139_Add OrganisationType Table.cs" />
+    <Compile Include="Migrations\201809140929139_Add OrganisationType Table.Designer.cs">
+      <DependentUpon>201809140929139_Add OrganisationType Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809140934138_Add OrganisationTypeId In User Table.cs" />
+    <Compile Include="Migrations\201809140934138_Add OrganisationTypeId In User Table.Designer.cs">
+      <DependentUpon>201809140934138_Add OrganisationTypeId In User Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809141128021_Add AdvertiserPhoneNumber In User Table.cs" />
+    <Compile Include="Migrations\201809141128021_Add AdvertiserPhoneNumber In User Table.Designer.cs">
+      <DependentUpon>201809141128021_Add AdvertiserPhoneNumber In User Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809191021159_Add AdvertCategory table.cs" />
+    <Compile Include="Migrations\201809191021159_Add AdvertCategory table.Designer.cs">
+      <DependentUpon>201809191021159_Add AdvertCategory table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809191033166_Add AdvertCategoryId foreign key to advert table.cs" />
+    <Compile Include="Migrations\201809191033166_Add AdvertCategoryId foreign key to advert table.Designer.cs">
+      <DependentUpon>201809191033166_Add AdvertCategoryId foreign key to advert table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809260612142_Add TermAndConditionFileName field on country table.cs" />
+    <Compile Include="Migrations\201809260612142_Add TermAndConditionFileName field on country table.Designer.cs">
+      <DependentUpon>201809260612142_Add TermAndConditionFileName field on country table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809261131255_Add CountryId field on Adcert table.cs" />
+    <Compile Include="Migrations\201809261131255_Add CountryId field on Adcert table.Designer.cs">
+      <DependentUpon>201809261131255_Add CountryId field on Adcert table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809271319174_Add AdvertRejection table.cs" />
+    <Compile Include="Migrations\201809271319174_Add AdvertRejection table.Designer.cs">
+      <DependentUpon>201809271319174_Add AdvertRejection table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810041149047_Add SoapToneId field in advert table.cs" />
+    <Compile Include="Migrations\201810041149047_Add SoapToneId field in advert table.Designer.cs">
+      <DependentUpon>201810041149047_Add SoapToneId field in advert table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810090557430_Add PreMatch table.cs" />
+    <Compile Include="Migrations\201810090557430_Add PreMatch table.Designer.cs">
+      <DependentUpon>201810090557430_Add PreMatch table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810090612105_Remove Camapaign Match Relationship.cs" />
+    <Compile Include="Migrations\201810090612105_Remove Camapaign Match Relationship.Designer.cs">
+      <DependentUpon>201810090612105_Remove Camapaign Match Relationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810100555029_Add 10 Prematch Tables.cs" />
+    <Compile Include="Migrations\201810100555029_Add 10 Prematch Tables.Designer.cs">
+      <DependentUpon>201810100555029_Add 10 Prematch Tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810150625017_Add AddUserTrack Table.cs" />
+    <Compile Include="Migrations\201810150625017_Add AddUserTrack Table.Designer.cs">
+      <DependentUpon>201810150625017_Add AddUserTrack Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810151037424_Add UserMatchTableName Field in User Table.cs" />
+    <Compile Include="Migrations\201810151037424_Add UserMatchTableName Field in User Table.Designer.cs">
+      <DependentUpon>201810151037424_Add UserMatchTableName Field in User Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810151154398_Add OperatorId Field in CountryConnectionStrings Table.cs" />
+    <Compile Include="Migrations\201810151154398_Add OperatorId Field in CountryConnectionStrings Table.Designer.cs">
+      <DependentUpon>201810151154398_Add OperatorId Field in CountryConnectionStrings Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810231140372_Change 10 Bucket Tables Foreign Key.cs" />
+    <Compile Include="Migrations\201810231140372_Change 10 Bucket Tables Foreign Key.Designer.cs">
+      <DependentUpon>201810231140372_Change 10 Bucket Tables Foreign Key.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810250935089_Remove Bucket Batch Relation From All Bucket Tables.cs" />
+    <Compile Include="Migrations\201810250935089_Remove Bucket Batch Relation From All Bucket Tables.Designer.cs">
+      <DependentUpon>201810250935089_Remove Bucket Batch Relation From All Bucket Tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810311105014_Add Remaing Budget Field in Campaign Profile And Match Table.cs" />
+    <Compile Include="Migrations\201810311105014_Add Remaing Budget Field in Campaign Profile And Match Table.Designer.cs">
+      <DependentUpon>201810311105014_Add Remaing Budget Field in Campaign Profile And Match Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811011235489_Add CampaignBudget Table.cs" />
+    <Compile Include="Migrations\201811011235489_Add CampaignBudget Table.Designer.cs">
+      <DependentUpon>201811011235489_Add CampaignBudget Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811021343144_Add AvailableBudget field in CampaignBudget table.cs" />
+    <Compile Include="Migrations\201811021343144_Add AvailableBudget field in CampaignBudget table.Designer.cs">
+      <DependentUpon>201811021343144_Add AvailableBudget field in CampaignBudget table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811121115301_Add Country Code In Country Table.cs" />
+    <Compile Include="Migrations\201811121115301_Add Country Code In Country Table.Designer.cs">
+      <DependentUpon>201811121115301_Add Country Code In Country Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811140708392_Add CountryId in Contact table.cs" />
+    <Compile Include="Migrations\201811140708392_Add CountryId in Contact table.Designer.cs">
+      <DependentUpon>201811140708392_Add CountryId in Contact table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811141047412_Add Currency table.cs" />
+    <Compile Include="Migrations\201811141047412_Add Currency table.Designer.cs">
+      <DependentUpon>201811141047412_Add Currency table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811190525470_Add bucket count in campaign profile table.cs" />
+    <Compile Include="Migrations\201811190525470_Add bucket count in campaign profile table.Designer.cs">
+      <DependentUpon>201811190525470_Add bucket count in campaign profile table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811211328168_Add CurrencyRate table.cs" />
+    <Compile Include="Migrations\201811211328168_Add CurrencyRate table.Designer.cs">
+      <DependentUpon>201811211328168_Add CurrencyRate table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811231107533_Add RankNumber in PreMatch and PreMatch2 Table.cs" />
+    <Compile Include="Migrations\201811231107533_Add RankNumber in PreMatch and PreMatch2 Table.Designer.cs">
+      <DependentUpon>201811231107533_Add RankNumber in PreMatch and PreMatch2 Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811280715145_Delete RankNumber in PreMatch And PreMatch2 Table.cs" />
+    <Compile Include="Migrations\201811280715145_Delete RankNumber in PreMatch And PreMatch2 Table.Designer.cs">
+      <DependentUpon>201811280715145_Delete RankNumber in PreMatch And PreMatch2 Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811301101282_Add CampaignMetrics Table.cs" />
+    <Compile Include="Migrations\201811301101282_Add CampaignMetrics Table.Designer.cs">
+      <DependentUpon>201811301101282_Add CampaignMetrics Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811301312220_Add FlotChartMetrics and SparkLineMetrics Table and Add UserId in CampaignMetrics Table.cs" />
+    <Compile Include="Migrations\201811301312220_Add FlotChartMetrics and SparkLineMetrics Table and Add UserId in CampaignMetrics Table.Designer.cs">
+      <DependentUpon>201811301312220_Add FlotChartMetrics and SparkLineMetrics Table and Add UserId in CampaignMetrics Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812030945053_Add IsMerticsUpdated in CampaignAudit Table.cs" />
+    <Compile Include="Migrations\201812030945053_Add IsMerticsUpdated in CampaignAudit Table.Designer.cs">
+      <DependentUpon>201812030945053_Add IsMerticsUpdated in CampaignAudit Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812071250129_Add PhoneticAlphabet in CampaignProfile Table.cs" />
+    <Compile Include="Migrations\201812071250129_Add PhoneticAlphabet in CampaignProfile Table.Designer.cs">
+      <DependentUpon>201812071250129_Add PhoneticAlphabet in CampaignProfile Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812111153495_Add Email and PhoneticAlphabet in Client Table.cs" />
+    <Compile Include="Migrations\201812111153495_Add Email and PhoneticAlphabet in Client Table.Designer.cs">
+      <DependentUpon>201812111153495_Add Email and PhoneticAlphabet in Client Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812201229499_Add NextStatus in CampaignProfile And Client Table.cs" />
+    <Compile Include="Migrations\201812201229499_Add NextStatus in CampaignProfile And Client Table.Designer.cs">
+      <DependentUpon>201812201229499_Add NextStatus in CampaignProfile And Client Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812211057378_Add SocketSpentBucket And SocketSpentBucketItem Table.cs" />
+    <Compile Include="Migrations\201812211057378_Add SocketSpentBucket And SocketSpentBucketItem Table.Designer.cs">
+      <DependentUpon>201812211057378_Add SocketSpentBucket And SocketSpentBucketItem Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812240747105_Add PhoneticAlphabet in Advert Table.cs" />
+    <Compile Include="Migrations\201812240747105_Add PhoneticAlphabet in Advert Table.Designer.cs">
+      <DependentUpon>201812240747105_Add PhoneticAlphabet in Advert Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812240950590_Add NextStatus in Advert And CampaignAdvert Table.cs" />
+    <Compile Include="Migrations\201812240950590_Add NextStatus in Advert And CampaignAdvert Table.Designer.cs">
+      <DependentUpon>201812240950590_Add NextStatus in Advert And CampaignAdvert Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812261106274_Add Socket Spent Table.cs" />
+    <Compile Include="Migrations\201812261106274_Add Socket Spent Table.Designer.cs">
+      <DependentUpon>201812261106274_Add Socket Spent Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812261150493_Add ContactPhone in Client Table.cs" />
+    <Compile Include="Migrations\201812261150493_Add ContactPhone in Client Table.Designer.cs">
+      <DependentUpon>201812261150493_Add ContactPhone in Client Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812310613074_Add NextStatus in CampaignMatch and CampaignProfilePreference Table.cs" />
+    <Compile Include="Migrations\201812310613074_Add NextStatus in CampaignMatch and CampaignProfilePreference Table.Designer.cs">
+      <DependentUpon>201812310613074_Add NextStatus in CampaignMatch and CampaignProfilePreference Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812310649474_Add CampaignAuditTableName in CampaignAudit Table.cs" />
+    <Compile Include="Migrations\201812310649474_Add CampaignAuditTableName in CampaignAudit Table.Designer.cs">
+      <DependentUpon>201812310649474_Add CampaignAuditTableName in CampaignAudit Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901080624124_Add SoapApiResponseCode Table.cs" />
+    <Compile Include="Migrations\201901080624124_Add SoapApiResponseCode Table.Designer.cs">
+      <DependentUpon>201901080624124_Add SoapApiResponseCode Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901240715417_Add ProfileMatchLabel Table and TicketCode Field Add in QuestionComment Table.cs" />
+    <Compile Include="Migrations\201901240715417_Add ProfileMatchLabel Table and TicketCode Field Add in QuestionComment Table.Designer.cs">
+      <DependentUpon>201901240715417_Add ProfileMatchLabel Table and TicketCode Field Add in QuestionComment Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902050941564_Update ContactPhone Field int to string in Client Table.cs" />
+    <Compile Include="Migrations\201902050941564_Update ContactPhone Field int to string in Client Table.Designer.cs">
+      <DependentUpon>201902050941564_Update ContactPhone Field int to string in Client Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902110651507_Add UdatedBy Field in question table.cs" />
+    <Compile Include="Migrations\201902110651507_Add UdatedBy Field in question table.Designer.cs">
+      <DependentUpon>201902110651507_Add UdatedBy Field in question table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902120618066_Add UserName and Email in question table.cs" />
+    <Compile Include="Migrations\201902120618066_Add UserName and Email in question table.Designer.cs">
+      <DependentUpon>201902120618066_Add UserName and Email in question table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902131207515_Add Reward Table.cs" />
+    <Compile Include="Migrations\201902131207515_Add Reward Table.Designer.cs">
+      <DependentUpon>201902131207515_Add Reward Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902140917379_Add RewardId in User Table.cs" />
+    <Compile Include="Migrations\201902140917379_Add RewardId in User Table.Designer.cs">
+      <DependentUpon>201902140917379_Add RewardId in User Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902140936334_Allow Null RewardId in User Table.cs" />
+    <Compile Include="Migrations\201902140936334_Allow Null RewardId in User Table.Designer.cs">
+      <DependentUpon>201902140936334_Allow Null RewardId in User Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902191137083_Remove RewardId Field in User Table.cs" />
+    <Compile Include="Migrations\201902191137083_Remove RewardId Field in User Table.Designer.cs">
+      <DependentUpon>201902191137083_Remove RewardId Field in User Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902191146418_Add UserReward Table.cs" />
+    <Compile Include="Migrations\201902191146418_Add UserReward Table.Designer.cs">
+      <DependentUpon>201902191146418_Add UserReward Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902211016269_Add OperatorId in Reward Table.cs" />
+    <Compile Include="Migrations\201902211016269_Add OperatorId in Reward Table.Designer.cs">
+      <DependentUpon>201902211016269_Add OperatorId in Reward Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902281211455_Add CampProfileId in Advert Table.cs" />
+    <Compile Include="Migrations\201902281211455_Add CampProfileId in Advert Table.Designer.cs">
+      <DependentUpon>201902281211455_Add CampProfileId in Advert Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903010547146_Add CountryId in Client table .cs" />
+    <Compile Include="Migrations\201903010547146_Add CountryId in Client table .Designer.cs">
+      <DependentUpon>201903010547146_Add CountryId in Client table .cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903061220411_Add AdtoneServerTable Id to necessary table.cs" />
+    <Compile Include="Migrations\201903061220411_Add AdtoneServerTable Id to necessary table.Designer.cs">
+      <DependentUpon>201903061220411_Add AdtoneServerTable Id to necessary table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903080548352_Add AdtoneServeCountryId In Country Table.cs" />
+    <Compile Include="Migrations\201903080548352_Add AdtoneServeCountryId In Country Table.Designer.cs">
+      <DependentUpon>201903080548352_Add AdtoneServeCountryId In Country Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903111254263_Add AdtoneServerUserProfileId In UserProfile Table.cs" />
+    <Compile Include="Migrations\201903111254263_Add AdtoneServerUserProfileId In UserProfile Table.Designer.cs">
+      <DependentUpon>201903111254263_Add AdtoneServerUserProfileId In UserProfile Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903120552590_Add Adtone server Id in User Reward And Profile Time Setting Table.cs" />
+    <Compile Include="Migrations\201903120552590_Add Adtone server Id in User Reward And Profile Time Setting Table.Designer.cs">
+      <DependentUpon>201903120552590_Add Adtone server Id in User Reward And Profile Time Setting Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903120625002_Add Adtone server Id in Operator Table.cs" />
+    <Compile Include="Migrations\201903120625002_Add Adtone server Id in Operator Table.Designer.cs">
+      <DependentUpon>201903120625002_Add Adtone server Id in Operator Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903120657443_Add Adtone server Id in Reward Table.cs" />
+    <Compile Include="Migrations\201903120657443_Add Adtone server Id in Reward Table.Designer.cs">
+      <DependentUpon>201903120657443_Add Adtone server Id in Reward Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903221241151_Add CountryId Field in AdvertCategory Table.cs" />
+    <Compile Include="Migrations\201903221241151_Add CountryId Field in AdvertCategory Table.Designer.cs">
+      <DependentUpon>201903221241151_Add CountryId Field in AdvertCategory Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903221256085_Add AdtoneServerAdvertCategoryId Field in AdvertCategory Table.cs" />
+    <Compile Include="Migrations\201903221256085_Add AdtoneServerAdvertCategoryId Field in AdvertCategory Table.Designer.cs">
+      <DependentUpon>201903221256085_Add AdtoneServerAdvertCategoryId Field in AdvertCategory Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903251026288_Add CreatedDate and UpdatedDate Field in AdvertCategory Table.cs" />
+    <Compile Include="Migrations\201903251026288_Add CreatedDate and UpdatedDate Field in AdvertCategory Table.Designer.cs">
+      <DependentUpon>201903251026288_Add CreatedDate and UpdatedDate Field in AdvertCategory Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903260619127_Client Field Allow Null in Advert Table.cs" />
+    <Compile Include="Migrations\201903260619127_Client Field Allow Null in Advert Table.Designer.cs">
+      <DependentUpon>201903260619127_Client Field Allow Null in Advert Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903280538191_Add SoapUploadTone Table.cs" />
+    <Compile Include="Migrations\201903280538191_Add SoapUploadTone Table.Designer.cs">
+      <DependentUpon>201903280538191_Add SoapUploadTone Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904010614289_Add CopyRight Table.cs" />
+    <Compile Include="Migrations\201904010614289_Add CopyRight Table.Designer.cs">
+      <DependentUpon>201904010614289_Add CopyRight Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904011209532_Add UpdatedBy in advert table.cs" />
+    <Compile Include="Migrations\201904011209532_Add UpdatedBy in advert table.Designer.cs">
+      <DependentUpon>201904011209532_Add UpdatedBy in advert table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904151007541_Add IsActive field in operator table.cs" />
+    <Compile Include="Migrations\201904151007541_Add IsActive field in operator table.Designer.cs">
+      <DependentUpon>201904151007541_Add IsActive field in operator table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904170912482_Add OperatorId In Advert Table.cs" />
+    <Compile Include="Migrations\201904170912482_Add OperatorId In Advert Table.Designer.cs">
+      <DependentUpon>201904170912482_Add OperatorId In Advert Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904180556550_Add OperatorFTPDetail Table.cs" />
+    <Compile Include="Migrations\201904180556550_Add OperatorFTPDetail Table.Designer.cs">
+      <DependentUpon>201904180556550_Add OperatorFTPDetail Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904180616156_Add OperatorId Field in OperatorFtp detail table.cs" />
+    <Compile Include="Migrations\201904180616156_Add OperatorId Field in OperatorFtp detail table.Designer.cs">
+      <DependentUpon>201904180616156_Add OperatorId Field in OperatorFtp detail table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905081034023_Add TIBCOResponseCode Table.cs" />
+    <Compile Include="Migrations\201905081034023_Add TIBCOResponseCode Table.Designer.cs">
+      <DependentUpon>201905081034023_Add TIBCOResponseCode Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905101301279_Add TibcoMessageId in User Table.cs" />
+    <Compile Include="Migrations\201905101301279_Add TibcoMessageId in User Table.Designer.cs">
+      <DependentUpon>201905101301279_Add TibcoMessageId in User Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905161300171_Add SpentBucket Table.cs" />
+    <Compile Include="Migrations\201905161300171_Add SpentBucket Table.Designer.cs">
+      <DependentUpon>201905161300171_Add SpentBucket Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905161323230_Add SpentBucketItem Table.cs" />
+    <Compile Include="Migrations\201905161323230_Add SpentBucketItem Table.Designer.cs">
+      <DependentUpon>201905161323230_Add SpentBucketItem Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905240732345_Add AdtoneServerId In Campaign Audit Table.cs" />
+    <Compile Include="Migrations\201905240732345_Add AdtoneServerId In Campaign Audit Table.Designer.cs">
+      <DependentUpon>201905240732345_Add AdtoneServerId In Campaign Audit Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905281100385_Add CampaignCreditPeriod Table.cs" />
+    <Compile Include="Migrations\201905281100385_Add CampaignCreditPeriod Table.Designer.cs">
+      <DependentUpon>201905281100385_Add CampaignCreditPeriod Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906030732207_Add LinuxServerConnectionString Table.cs" />
+    <Compile Include="Migrations\201906030732207_Add LinuxServerConnectionString Table.Designer.cs">
+      <DependentUpon>201906030732207_Add LinuxServerConnectionString Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906040644511_Add BillingAddress2 field in BillingDetails table.cs" />
+    <Compile Include="Migrations\201906040644511_Add BillingAddress2 field in BillingDetails table.Designer.cs">
+      <DependentUpon>201906040644511_Add BillingAddress2 field in BillingDetails table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906040707290_Make CampaignAuditId Field Change in UserProfileAdvertReceived.cs" />
+    <Compile Include="Migrations\201906040707290_Make CampaignAuditId Field Change in UserProfileAdvertReceived.Designer.cs">
+      <DependentUpon>201906040707290_Make CampaignAuditId Field Change in UserProfileAdvertReceived.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906101036154_Add EmailCost And SMSCost in Operator Table.cs" />
+    <Compile Include="Migrations\201906101036154_Add EmailCost And SMSCost in Operator Table.Designer.cs">
+      <DependentUpon>201906101036154_Add EmailCost And SMSCost in Operator Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906110933021_Add CurrencyCode Field in Billing Table.cs" />
+    <Compile Include="Migrations\201906110933021_Add CurrencyCode Field in Billing Table.Designer.cs">
+      <DependentUpon>201906110933021_Add CurrencyCode Field in Billing Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906131048433_Add CurrencyCode Field in CampaignProfile and Client Table.cs" />
+    <Compile Include="Migrations\201906131048433_Add CurrencyCode Field in CampaignProfile and Client Table.Designer.cs">
+      <DependentUpon>201906131048433_Add CurrencyCode Field in CampaignProfile and Client Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906240910270_Add CampaignProfileId in UserCreditPaymentTable.cs" />
+    <Compile Include="Migrations\201906240910270_Add CampaignProfileId in UserCreditPaymentTable.Designer.cs">
+      <DependentUpon>201906240910270_Add CampaignProfileId in UserCreditPaymentTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907100657094_Add AdvertId in Ouestion Table.cs" />
+    <Compile Include="Migrations\201907100657094_Add AdvertId in Ouestion Table.Designer.cs">
+      <DependentUpon>201907100657094_Add AdvertId in Ouestion Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907181332524_Add MaximumAdvertPerDay Table.cs" />
+    <Compile Include="Migrations\201907181332524_Add MaximumAdvertPerDay Table.Designer.cs">
+      <DependentUpon>201907181332524_Add MaximumAdvertPerDay Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907241027172_Add IsMaxAdvertPerDay Field in UserProfileAdvertReceived.cs" />
+    <Compile Include="Migrations\201907241027172_Add IsMaxAdvertPerDay Field in UserProfileAdvertReceived.Designer.cs">
+      <DependentUpon>201907241027172_Add IsMaxAdvertPerDay Field in UserProfileAdvertReceived.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910101101229_Add UserRewardHistory Table.cs" />
+    <Compile Include="Migrations\201910101101229_Add UserRewardHistory Table.Designer.cs">
+      <DependentUpon>201910101101229_Add UserRewardHistory Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910170513556_Add IsRewardReceived and UnUsedCredit field in UserProfileAdvertsReceived Table.cs" />
+    <Compile Include="Migrations\201910170513556_Add IsRewardReceived and UnUsedCredit field in UserProfileAdvertsReceived Table.Designer.cs">
+      <DependentUpon>201910170513556_Add IsRewardReceived and UnUsedCredit field in UserProfileAdvertsReceived Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910181026209_Add UserRewardCount Table.cs" />
+    <Compile Include="Migrations\201910181026209_Add UserRewardCount Table.Designer.cs">
+      <DependentUpon>201910181026209_Add UserRewardCount Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912031210302_Update CampaignAudit 2to10 and UserProfileAdvertsReceived 2to10 Table.cs" />
+    <Compile Include="Migrations\201912031210302_Update CampaignAudit 2to10 and UserProfileAdvertsReceived 2to10 Table.Designer.cs">
+      <DependentUpon>201912031210302_Update CampaignAudit 2to10 and UserProfileAdvertsReceived 2to10 Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912170656461_Update decimal point changes in Billing table.cs" />
+    <Compile Include="Migrations\201912170656461_Update decimal point changes in Billing table.Designer.cs">
+      <DependentUpon>201912170656461_Update decimal point changes in Billing table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912170707595_Add new field CurrencyId in UsersCredit table.cs" />
+    <Compile Include="Migrations\201912170707595_Add new field CurrencyId in UsersCredit table.Designer.cs">
+      <DependentUpon>201912170707595_Add new field CurrencyId in UsersCredit table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912170721385_Add UserSMSCount table.cs" />
+    <Compile Include="Migrations\201912170721385_Add UserSMSCount table.Designer.cs">
+      <DependentUpon>201912170721385_Add UserSMSCount table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912170728220_Add MSISDN Field in UserRewardHistory Table.cs" />
+    <Compile Include="Migrations\201912170728220_Add MSISDN Field in UserRewardHistory Table.Designer.cs">
+      <DependentUpon>201912170728220_Add MSISDN Field in UserRewardHistory Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912170752579_Update data type fromreal to decimal in CampaignProfile table.cs" />
+    <Compile Include="Migrations\201912170752579_Update data type fromreal to decimal in CampaignProfile table.Designer.cs">
+      <DependentUpon>201912170752579_Update data type fromreal to decimal in CampaignProfile table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912170920170_Add Proceed Field in UserRewardHistory Table.cs" />
+    <Compile Include="Migrations\201912170920170_Add Proceed Field in UserRewardHistory Table.Designer.cs">
+      <DependentUpon>201912170920170_Add Proceed Field in UserRewardHistory Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912170927121_Update RewardId Field Nullable in UserRewardHistory Table.cs" />
+    <Compile Include="Migrations\201912170927121_Update RewardId Field Nullable in UserRewardHistory Table.Designer.cs">
+      <DependentUpon>201912170927121_Update RewardId Field Nullable in UserRewardHistory Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912170932317_Remove foreign Key from rewardid from UserRewardHistory Table.cs" />
+    <Compile Include="Migrations\201912170932317_Remove foreign Key from rewardid from UserRewardHistory Table.Designer.cs">
+      <DependentUpon>201912170932317_Remove foreign Key from rewardid from UserRewardHistory Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912261034505_Add CreditReceivedSMSCount Field in UserSMSCount Table.cs" />
+    <Compile Include="Migrations\201912261034505_Add CreditReceivedSMSCount Field in UserSMSCount Table.Designer.cs">
+      <DependentUpon>201912261034505_Add CreditReceivedSMSCount Field in UserSMSCount Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912300651000_Add MpesaHistory Table.cs" />
+    <Compile Include="Migrations\201912300651000_Add MpesaHistory Table.Designer.cs">
+      <DependentUpon>201912300651000_Add MpesaHistory Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912301350241_Update RewardId Nullable in UserReward Table.cs" />
+    <Compile Include="Migrations\201912301350241_Update RewardId Nullable in UserReward Table.Designer.cs">
+      <DependentUpon>201912301350241_Update RewardId Nullable in UserReward Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912312248476_Add OperatorMaxAdvert Table.cs" />
+    <Compile Include="Migrations\201912312248476_Add OperatorMaxAdvert Table.Designer.cs">
+      <DependentUpon>201912312248476_Add OperatorMaxAdvert Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912312338409_Add AdtoneServerOperatorMaxAdvertId Field in OperatorMaxAdvert Table.cs" />
+    <Compile Include="Migrations\201912312338409_Add AdtoneServerOperatorMaxAdvertId Field in OperatorMaxAdvert Table.Designer.cs">
+      <DependentUpon>201912312338409_Add AdtoneServerOperatorMaxAdvertId Field in OperatorMaxAdvert Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001061247229_Add OperatorConfiguration Table.cs" />
+    <Compile Include="Migrations\202001061247229_Add OperatorConfiguration Table.Designer.cs">
+      <DependentUpon>202001061247229_Add OperatorConfiguration Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001071353317_Add RotateAdvert Table.cs" />
+    <Compile Include="Migrations\202001071353317_Add RotateAdvert Table.Designer.cs">
+      <DependentUpon>202001071353317_Add RotateAdvert Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001221310108_Add PromotionalUser Table.cs" />
+    <Compile Include="Migrations\202001221310108_Add PromotionalUser Table.Designer.cs">
+      <DependentUpon>202001221310108_Add PromotionalUser Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001240732140_Add PromotionalCampaign And PromotionalAdvert Table.cs" />
+    <Compile Include="Migrations\202001240732140_Add PromotionalCampaign And PromotionalAdvert Table.Designer.cs">
+      <DependentUpon>202001240732140_Add PromotionalCampaign And PromotionalAdvert Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001270732525_Add AdtoneServerPromotionalCampaignId and AdtoneServerPromotionalAdvertId Field in PromotionalCampaign and PromotionalAdvert Table.cs" />
+    <Compile Include="Migrations\202001270732525_Add AdtoneServerPromotionalCampaignId and AdtoneServerPromotionalAdvertId Field in PromotionalCampaign and PromotionalAdvert Table.Designer.cs">
+      <DependentUpon>202001270732525_Add AdtoneServerPromotionalCampaignId and AdtoneServerPromotionalAdvertId Field in PromotionalCampaign and PromotionalAdvert Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001291308503_Add PromotionalUserId Field in Bucket1To10 and PromotionalCampaignId Field in BucketItem1To10 Table.cs" />
+    <Compile Include="Migrations\202001291308503_Add PromotionalUserId Field in Bucket1To10 and PromotionalCampaignId Field in BucketItem1To10 Table.Designer.cs">
+      <DependentUpon>202001291308503_Add PromotionalUserId Field in Bucket1To10 and PromotionalCampaignId Field in BucketItem1To10 Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001300734533_Add PromotionalUserId Field in SpentBucket1To10 and PromotionalCampaignId Field in SpentBucketItem1To10 Table.cs" />
+    <Compile Include="Migrations\202001300734533_Add PromotionalUserId Field in SpentBucket1To10 and PromotionalCampaignId Field in SpentBucketItem1To10 Table.Designer.cs">
+      <DependentUpon>202001300734533_Add PromotionalUserId Field in SpentBucket1To10 and PromotionalCampaignId Field in SpentBucketItem1To10 Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001301121429_Add ProvitionUser Table.cs" />
+    <Compile Include="Migrations\202001301121429_Add ProvitionUser Table.Designer.cs">
+      <DependentUpon>202001301121429_Add ProvitionUser Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001301246105_Add PromotionalUserId Field in MaximumAdvertPerDay Table.cs" />
+    <Compile Include="Migrations\202001301246105_Add PromotionalUserId Field in MaximumAdvertPerDay Table.Designer.cs">
+      <DependentUpon>202001301246105_Add PromotionalUserId Field in MaximumAdvertPerDay Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002201309038_Add PromotionalCampaignAudit Table.cs" />
+    <Compile Include="Migrations\202002201309038_Add PromotionalCampaignAudit Table.Designer.cs">
+      <DependentUpon>202002201309038_Add PromotionalCampaignAudit Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002241320366_Update DTMFKey Field to String in PromotionalCampaignAudit Table.cs" />
+    <Compile Include="Migrations\202002241320366_Update DTMFKey Field to String in PromotionalCampaignAudit Table.Designer.cs">
+      <DependentUpon>202002241320366_Update DTMFKey Field to String in PromotionalCampaignAudit Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003261308472_Add IsSessionFlag Field in User Table.cs" />
+    <Compile Include="Migrations\202003261308472_Add IsSessionFlag Field in User Table.Designer.cs">
+      <DependentUpon>202003261308472_Add IsSessionFlag Field in User Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003301315335_Add UserPasswordHistories Table.cs" />
+    <Compile Include="Migrations\202003301315335_Add UserPasswordHistories Table.Designer.cs">
+      <DependentUpon>202003301315335_Add UserPasswordHistories Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004021107507_Add LockOutTime field in User Table.cs" />
+    <Compile Include="Migrations\202004021107507_Add LockOutTime field in User Table.Designer.cs">
+      <DependentUpon>202004021107507_Add LockOutTime field in User Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004030912263_Add LastPasswordChangedDate field in User Table.cs" />
+    <Compile Include="Migrations\202004030912263_Add LastPasswordChangedDate field in User Table.Designer.cs">
+      <DependentUpon>202004030912263_Add LastPasswordChangedDate field in User Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004090705170_Add LoggedIn Table.cs" />
+    <Compile Include="Migrations\202004090705170_Add LoggedIn Table.Designer.cs">
+      <DependentUpon>202004090705170_Add LoggedIn Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AdvertCategoryRepository.cs" />
+    <Compile Include="Repositories\AdvertRejectionRepository.cs" />
+    <Compile Include="Repositories\AreaRepository.cs" />
+    <Compile Include="Repositories\CampaignCreditPeriodRepository.cs" />
+    <Compile Include="Repositories\CampaignMetricsRepository.cs" />
+    <Compile Include="Repositories\OperatorFTPDetailsRepository.cs" />
+    <Compile Include="Repositories\PromotionalAdvertRepository.cs" />
+    <Compile Include="Repositories\PromotionalCampaignAuditRepository.cs" />
+    <Compile Include="Repositories\PromotionalCampaignRepository.cs" />
+    <Compile Include="Repositories\PromotionalUserRepository.cs" />
+    <Compile Include="Repositories\CurrencyRateRepository.cs" />
+    <Compile Include="Repositories\CurrencyRepository.cs" />
+    <Compile Include="Repositories\FlotChartMetricsRepository.cs" />
+    <Compile Include="Repositories\OperatorConfigurationRepository.cs" />
+    <Compile Include="Repositories\OperatorMaxAdvertRepository.cs" />
+    <Compile Include="Repositories\OperatorRepository.cs" />
+    <Compile Include="Repositories\BillingDetailsRepository.cs" />
+    <Compile Include="Repositories\BillingRepository.cs" />
+    <Compile Include="Repositories\BlockedNumbersRepository.cs" />
+    <Compile Include="Repositories\AdvertRepository.cs" />
+    <Compile Include="Repositories\AttitudeRepository.cs" />
+    <Compile Include="Repositories\CampaignAuditRepository.cs" />
+    <Compile Include="Repositories\CampaignProfilePreferenceRepository.cs" />
+    <Compile Include="Repositories\CinemaRepository.cs" />
+    <Compile Include="Repositories\CampaignRepository.cs" />
+    <Compile Include="Repositories\CampaignProfileAdvertRepository.cs" />
+    <Compile Include="Repositories\CampaignAttitudeRepository.cs" />
+    <Compile Include="Repositories\CampaignCinemaRepository.cs" />
+    <Compile Include="Repositories\CampaignInternetRepository.cs" />
+    <Compile Include="Repositories\CampaignMobileRepository.cs" />
+    <Compile Include="Repositories\CampaignPressRepository.cs" />
+    <Compile Include="Repositories\CampaignProductsServicesRepository.cs" />
+    <Compile Include="Repositories\CampaignProfileRepository.cs" />
+    <Compile Include="Repositories\CampaignRadioRepository.cs" />
+    <Compile Include="Repositories\CampaignTimeSettingsRepository.cs" />
+    <Compile Include="Repositories\CampaignTvRepository.cs" />
+    <Compile Include="Repositories\CampaignDateSettingsRepository.cs" />
+    <Compile Include="Repositories\CampaignAdvertRepository.cs" />
+    <Compile Include="Repositories\CampaignProfileDemographicsRepository.cs" />
+    <Compile Include="Repositories\BucketAuditRepository.cs" />
+    <Compile Include="Repositories\BucketAuditRowRepository.cs" />
+    <Compile Include="Repositories\ClientRepository.cs" />
+    <Compile Include="Repositories\CompanyDetailsRepository.cs" />
+    <Compile Include="Repositories\ContactsRepository.cs" />
+    <Compile Include="Repositories\CountryRepository.cs" />
+    <Compile Include="Repositories\CountryTaxRepository.cs" />
+    <Compile Include="Repositories\PaymentMethodRepository.cs" />
+    <Compile Include="Repositories\ProfileMatchLabelRepository.cs" />
+    <Compile Include="Repositories\QuestionCommentImagesRepository.cs" />
+    <Compile Include="Repositories\QuestionCommentRepository.cs" />
+    <Compile Include="Repositories\QuestionImagesRepository.cs" />
+    <Compile Include="Repositories\QuestionRepository.cs" />
+    <Compile Include="Repositories\QuestionSubjectRepository.cs" />
+    <Compile Include="Repositories\CopyRightRepository.cs" />
+    <Compile Include="Repositories\TIBCOResponseCodeRepository.cs" />
+    <Compile Include="Repositories\UserPasswordHistoryRepository.cs" />
+    <Compile Include="Repositories\UserRewardHistoryRepository.cs" />
+    <Compile Include="Repositories\UserRewardRepository.cs" />
+    <Compile Include="Repositories\RewardRepository.cs" />
+    <Compile Include="Repositories\SoapApiResponseCodeRepository.cs" />
+    <Compile Include="Repositories\SparkLineMetricsRepository.cs" />
+    <Compile Include="Repositories\SystemConfigRepository.cs" />
+    <Compile Include="Repositories\UserProfileAdvertReceivedRepository.cs" />
+    <Compile Include="Repositories\UserProfileAdvertRepository.cs" />
+    <Compile Include="Repositories\TvRepository.cs" />
+    <Compile Include="Repositories\TimeSettingsRepository.cs" />
+    <Compile Include="Repositories\RadioRepository.cs" />
+    <Compile Include="Repositories\ProductsServicesRepository.cs" />
+    <Compile Include="Repositories\PressRepository.cs" />
+    <Compile Include="Repositories\InternetRepository.cs" />
+    <Compile Include="Repositories\MobileRepository.cs" />
+    <Compile Include="Repositories\ProfileRepository.cs" />
+    <Compile Include="Repositories\UserProfileAttitudeRepository.cs" />
+    <Compile Include="Repositories\UserProfileCinemaRepository.cs" />
+    <Compile Include="Repositories\UserProfileInternetRepository.cs" />
+    <Compile Include="Repositories\UserProfileMobileRepository.cs" />
+    <Compile Include="Repositories\UserProfilePreferenceRepository.cs" />
+    <Compile Include="Repositories\UserProfilePressRepository.cs" />
+    <Compile Include="Repositories\UserProfileProductsServiceRepository.cs" />
+    <Compile Include="Repositories\UserProfileRadioRepository.cs" />
+    <Compile Include="Repositories\UserProfileRepository.cs" />
+    <Compile Include="Repositories\UserProfileTvRepository.cs" />
+    <Compile Include="Repositories\ImportFileTracksRepository.cs" />
+    <Compile Include="Repositories\ImportsRepository.cs" />
+    <Compile Include="Repositories\UserTokenLinkRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\UsersCreditPaymentRepository.cs" />
+    <Compile Include="Repositories\ProfileMatchInformationRepository.cs" />
+    <Compile Include="Repositories\UsersCreditRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EFMVC.Core\EFMVC.Core.csproj">
+      <Project>{C73D0DF7-D21B-4E15-A8AA-70540236D452}</Project>
+      <Name>EFMVC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFMVC.Model\EFMVC.Model.csproj">
+      <Project>{0cb7b2db-aeca-421a-aa9f-bff8b532d535}</Project>
+      <Name>EFMVC.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFMVC.Web.Core\EFMVC.Web.Core.csproj">
+      <Project>{DBF57927-89DB-4526-A8E0-5C5AC90096B1}</Project>
+      <Name>EFMVC.Web.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Drop Database.sql" />
+    <Content Include="Migrations.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201705101240142_Add NumberInBatch in campaingProfile Table.resx">
+      <DependentUpon>201705101240142_Add NumberInBatch in campaingProfile Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710300741025_Add BucketBatchStatus Table.resx">
+      <DependentUpon>201710300741025_Add BucketBatchStatus Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301001417_Add CampaignMatch Table.resx">
+      <DependentUpon>201710301001417_Add CampaignMatch Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301011256_Add 10 Duplicate CampaignMatch Table.resx">
+      <DependentUpon>201710301011256_Add 10 Duplicate CampaignMatch Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301041236_Add UserMatch Table.resx">
+      <DependentUpon>201710301041236_Add UserMatch Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301055250_Add 10 duplicate UserMatch Table.resx">
+      <DependentUpon>201710301055250_Add 10 duplicate UserMatch Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301124025_Add CampaignmatchUsermatch Table.resx">
+      <DependentUpon>201710301124025_Add CampaignmatchUsermatch Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301138211_Add 10 duplicate CampaignmatchUsermatch Table.resx">
+      <DependentUpon>201710301138211_Add 10 duplicate CampaignmatchUsermatch Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301155587_Add BucketBatch Table.resx">
+      <DependentUpon>201710301155587_Add BucketBatch Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301201191_Add 10 duplicate BucketBatch Table.resx">
+      <DependentUpon>201710301201191_Add 10 duplicate BucketBatch Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301212418_Add Bucket Table.resx">
+      <DependentUpon>201710301212418_Add Bucket Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301220267_Add 10 duplicate Bucket Table.resx">
+      <DependentUpon>201710301220267_Add 10 duplicate Bucket Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301228180_Add BucketItem Table.resx">
+      <DependentUpon>201710301228180_Add BucketItem Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301239554_Add 10 duplicate BucketItem Table.resx">
+      <DependentUpon>201710301239554_Add 10 duplicate BucketItem Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301257588_Add duplicate CampaignAudit Table.resx">
+      <DependentUpon>201710301257588_Add duplicate CampaignAudit Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301305235_Add duplicate UserProfileAdvertsReceived Table.resx">
+      <DependentUpon>201710301305235_Add duplicate UserProfileAdvertsReceived Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711131147274_Add Proceed Field on Campaign Audit Table.resx">
+      <DependentUpon>201711131147274_Add Proceed Field on Campaign Audit Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712040541204_Add GravityFormsTrack Table.resx">
+      <DependentUpon>201712040541204_Add GravityFormsTrack Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712051127212_Add New AdType Field in CampaignProfilePrefernce and CampaignMatch.resx">
+      <DependentUpon>201712051127212_Add New AdType Field in CampaignProfilePrefernce and CampaignMatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712061123236_Add new adtype in UserProfilePreference and UserMatch Table.resx">
+      <DependentUpon>201712061123236_Add new adtype in UserProfilePreference and UserMatch Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712070612219_Add CampaignConfig table.resx">
+      <DependentUpon>201712070612219_Add CampaignConfig table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712111058548_Add sub field for skiza profile.resx">
+      <DependentUpon>201712111058548_Add sub field for skiza profile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712121050313_Add ProfileMatchInfo Table.resx">
+      <DependentUpon>201712121050313_Add ProfileMatchInfo Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712181058477_Add CountryId In CampaignProfile.resx">
+      <DependentUpon>201712181058477_Add CountryId In CampaignProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712181120528_Add CountryId In All CampaignMatch Table.resx">
+      <DependentUpon>201712181120528_Add CountryId In All CampaignMatch Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712201059394_Add ConnectionString In CampaignProfile table.resx">
+      <DependentUpon>201712201059394_Add ConnectionString In CampaignProfile table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712201246078_Add CountryConnectionString Table.resx">
+      <DependentUpon>201712201246078_Add CountryConnectionString Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801261048016_Add IsAdminApproval Field In CampaignProfile And Advert Tables.resx">
+      <DependentUpon>201801261048016_Add IsAdminApproval Field In CampaignProfile And Advert Tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801310929010_Add Area Table.resx">
+      <DependentUpon>201801310929010_Add Area Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806041107477_Add Import table.resx">
+      <DependentUpon>201806041107477_Add Import table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806131310343_Add 9 Import Table.resx">
+      <DependentUpon>201806131310343_Add 9 Import Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181052575_Add ImportFileTrack Table.resx">
+      <DependentUpon>201806181052575_Add ImportFileTrack Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181230388_Add Procced filed in all import table.resx">
+      <DependentUpon>201806181230388_Add Procced filed in all import table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806201200334_Add operator field in Importfile table.resx">
+      <DependentUpon>201806201200334_Add operator field in Importfile table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806251220482_Add NumOfUpdateToAudit Filed in ImportFileTrack Table.resx">
+      <DependentUpon>201806251220482_Add NumOfUpdateToAudit Filed in ImportFileTrack Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806251227040_Add Proceed Filed in ImportFileTrack Table.resx">
+      <DependentUpon>201806251227040_Add Proceed Filed in ImportFileTrack Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806261011098_Add Num of play field in ImportFileTrack table.resx">
+      <DependentUpon>201806261011098_Add Num of play field in ImportFileTrack table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806261212278_Add Num of User field in ImportFileTrack table.resx">
+      <DependentUpon>201806261212278_Add Num of User field in ImportFileTrack table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806271230057_Add CampaignProfileId in Imports table.resx">
+      <DependentUpon>201806271230057_Add CampaignProfileId in Imports table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806281119094_Add NumOfLiveCampaign in ImportFileTrack Table.resx">
+      <DependentUpon>201806281119094_Add NumOfLiveCampaign in ImportFileTrack Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806281212190_Add NumOfNewUser in ImportFileTrack Table.resx">
+      <DependentUpon>201806281212190_Add NumOfNewUser in ImportFileTrack Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807041142566_Add added date in campaign audit table.resx">
+      <DependentUpon>201807041142566_Add added date in campaign audit table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807101020396_Add numofbucket field in ImportFileTrack table.resx">
+      <DependentUpon>201807101020396_Add numofbucket field in ImportFileTrack table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807180650545_Add IsMsisdnMatch Field in User Table.resx">
+      <DependentUpon>201807180650545_Add IsMsisdnMatch Field in User Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807190529018_Change relation in CampaignmatchUsermatch Table.resx">
+      <DependentUpon>201807190529018_Change relation in CampaignmatchUsermatch Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807201315407_Add Usermatch Refernce in CampaignUserMatchTable.resx">
+      <DependentUpon>201807201315407_Add Usermatch Refernce in CampaignUserMatchTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807231117208_Add ImportUserCSV table.resx">
+      <DependentUpon>201807231117208_Add ImportUserCSV table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807231139260_Update datatype of DateCreated field.resx">
+      <DependentUpon>201807231139260_Update datatype of DateCreated field.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807241340463_Add UserTokenLink Table.resx">
+      <DependentUpon>201807241340463_Add UserTokenLink Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807261330542_Add Provider field in UserTokenLink Table.resx">
+      <DependentUpon>201807261330542_Add Provider field in UserTokenLink Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808091111460_Add IsEmailVerfication field in User Table.resx">
+      <DependentUpon>201808091111460_Add IsEmailVerfication field in User Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808130731384_Add PhoneticAlphabet column in user table.resx">
+      <DependentUpon>201808130731384_Add PhoneticAlphabet column in user table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808141135227_Add IsMobileVerfication field in user table.resx">
+      <DependentUpon>201808141135227_Add IsMobileVerfication field in user table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808201245373_Add EmailVerificationCode table.resx">
+      <DependentUpon>201808201245373_Add EmailVerificationCode table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809140553181_Make email field optional.resx">
+      <DependentUpon>201809140553181_Make email field optional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809140929139_Add OrganisationType Table.resx">
+      <DependentUpon>201809140929139_Add OrganisationType Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809140934138_Add OrganisationTypeId In User Table.resx">
+      <DependentUpon>201809140934138_Add OrganisationTypeId In User Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809141128021_Add AdvertiserPhoneNumber In User Table.resx">
+      <DependentUpon>201809141128021_Add AdvertiserPhoneNumber In User Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809191021159_Add AdvertCategory table.resx">
+      <DependentUpon>201809191021159_Add AdvertCategory table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809191033166_Add AdvertCategoryId foreign key to advert table.resx">
+      <DependentUpon>201809191033166_Add AdvertCategoryId foreign key to advert table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809260612142_Add TermAndConditionFileName field on country table.resx">
+      <DependentUpon>201809260612142_Add TermAndConditionFileName field on country table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809261131255_Add CountryId field on Adcert table.resx">
+      <DependentUpon>201809261131255_Add CountryId field on Adcert table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809271319174_Add AdvertRejection table.resx">
+      <DependentUpon>201809271319174_Add AdvertRejection table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810041149047_Add SoapToneId field in advert table.resx">
+      <DependentUpon>201810041149047_Add SoapToneId field in advert table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810090557430_Add PreMatch table.resx">
+      <DependentUpon>201810090557430_Add PreMatch table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810090612105_Remove Camapaign Match Relationship.resx">
+      <DependentUpon>201810090612105_Remove Camapaign Match Relationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810100555029_Add 10 Prematch Tables.resx">
+      <DependentUpon>201810100555029_Add 10 Prematch Tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810150625017_Add AddUserTrack Table.resx">
+      <DependentUpon>201810150625017_Add AddUserTrack Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810151037424_Add UserMatchTableName Field in User Table.resx">
+      <DependentUpon>201810151037424_Add UserMatchTableName Field in User Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810151154398_Add OperatorId Field in CountryConnectionStrings Table.resx">
+      <DependentUpon>201810151154398_Add OperatorId Field in CountryConnectionStrings Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810231140372_Change 10 Bucket Tables Foreign Key.resx">
+      <DependentUpon>201810231140372_Change 10 Bucket Tables Foreign Key.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810250935089_Remove Bucket Batch Relation From All Bucket Tables.resx">
+      <DependentUpon>201810250935089_Remove Bucket Batch Relation From All Bucket Tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810311105014_Add Remaing Budget Field in Campaign Profile And Match Table.resx">
+      <DependentUpon>201810311105014_Add Remaing Budget Field in Campaign Profile And Match Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811011235489_Add CampaignBudget Table.resx">
+      <DependentUpon>201811011235489_Add CampaignBudget Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021343144_Add AvailableBudget field in CampaignBudget table.resx">
+      <DependentUpon>201811021343144_Add AvailableBudget field in CampaignBudget table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811121115301_Add Country Code In Country Table.resx">
+      <DependentUpon>201811121115301_Add Country Code In Country Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811140708392_Add CountryId in Contact table.resx">
+      <DependentUpon>201811140708392_Add CountryId in Contact table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811141047412_Add Currency table.resx">
+      <DependentUpon>201811141047412_Add Currency table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811190525470_Add bucket count in campaign profile table.resx">
+      <DependentUpon>201811190525470_Add bucket count in campaign profile table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811211328168_Add CurrencyRate table.resx">
+      <DependentUpon>201811211328168_Add CurrencyRate table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811231107533_Add RankNumber in PreMatch and PreMatch2 Table.resx">
+      <DependentUpon>201811231107533_Add RankNumber in PreMatch and PreMatch2 Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811280715145_Delete RankNumber in PreMatch And PreMatch2 Table.resx">
+      <DependentUpon>201811280715145_Delete RankNumber in PreMatch And PreMatch2 Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811301101282_Add CampaignMetrics Table.resx">
+      <DependentUpon>201811301101282_Add CampaignMetrics Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811301312220_Add FlotChartMetrics and SparkLineMetrics Table and Add UserId in CampaignMetrics Table.resx">
+      <DependentUpon>201811301312220_Add FlotChartMetrics and SparkLineMetrics Table and Add UserId in CampaignMetrics Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812030945053_Add IsMerticsUpdated in CampaignAudit Table.resx">
+      <DependentUpon>201812030945053_Add IsMerticsUpdated in CampaignAudit Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812071250129_Add PhoneticAlphabet in CampaignProfile Table.resx">
+      <DependentUpon>201812071250129_Add PhoneticAlphabet in CampaignProfile Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812111153495_Add Email and PhoneticAlphabet in Client Table.resx">
+      <DependentUpon>201812111153495_Add Email and PhoneticAlphabet in Client Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812201229499_Add NextStatus in CampaignProfile And Client Table.resx">
+      <DependentUpon>201812201229499_Add NextStatus in CampaignProfile And Client Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812211057378_Add SocketSpentBucket And SocketSpentBucketItem Table.resx">
+      <DependentUpon>201812211057378_Add SocketSpentBucket And SocketSpentBucketItem Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812240747105_Add PhoneticAlphabet in Advert Table.resx">
+      <DependentUpon>201812240747105_Add PhoneticAlphabet in Advert Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812240950590_Add NextStatus in Advert And CampaignAdvert Table.resx">
+      <DependentUpon>201812240950590_Add NextStatus in Advert And CampaignAdvert Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812261106274_Add Socket Spent Table.resx">
+      <DependentUpon>201812261106274_Add Socket Spent Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812261150493_Add ContactPhone in Client Table.resx">
+      <DependentUpon>201812261150493_Add ContactPhone in Client Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812310613074_Add NextStatus in CampaignMatch and CampaignProfilePreference Table.resx">
+      <DependentUpon>201812310613074_Add NextStatus in CampaignMatch and CampaignProfilePreference Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812310649474_Add CampaignAuditTableName in CampaignAudit Table.resx">
+      <DependentUpon>201812310649474_Add CampaignAuditTableName in CampaignAudit Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901080624124_Add SoapApiResponseCode Table.resx">
+      <DependentUpon>201901080624124_Add SoapApiResponseCode Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901240715417_Add ProfileMatchLabel Table and TicketCode Field Add in QuestionComment Table.resx">
+      <DependentUpon>201901240715417_Add ProfileMatchLabel Table and TicketCode Field Add in QuestionComment Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902050941564_Update ContactPhone Field int to string in Client Table.resx">
+      <DependentUpon>201902050941564_Update ContactPhone Field int to string in Client Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902110651507_Add UdatedBy Field in question table.resx">
+      <DependentUpon>201902110651507_Add UdatedBy Field in question table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902120618066_Add UserName and Email in question table.resx">
+      <DependentUpon>201902120618066_Add UserName and Email in question table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902131207515_Add Reward Table.resx">
+      <DependentUpon>201902131207515_Add Reward Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902140917379_Add RewardId in User Table.resx">
+      <DependentUpon>201902140917379_Add RewardId in User Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902140936334_Allow Null RewardId in User Table.resx">
+      <DependentUpon>201902140936334_Allow Null RewardId in User Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902191137083_Remove RewardId Field in User Table.resx">
+      <DependentUpon>201902191137083_Remove RewardId Field in User Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902191146418_Add UserReward Table.resx">
+      <DependentUpon>201902191146418_Add UserReward Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902211016269_Add OperatorId in Reward Table.resx">
+      <DependentUpon>201902211016269_Add OperatorId in Reward Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902281211455_Add CampProfileId in Advert Table.resx">
+      <DependentUpon>201902281211455_Add CampProfileId in Advert Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903010547146_Add CountryId in Client table .resx">
+      <DependentUpon>201903010547146_Add CountryId in Client table .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903061220411_Add AdtoneServerTable Id to necessary table.resx">
+      <DependentUpon>201903061220411_Add AdtoneServerTable Id to necessary table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903080548352_Add AdtoneServeCountryId In Country Table.resx">
+      <DependentUpon>201903080548352_Add AdtoneServeCountryId In Country Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903111254263_Add AdtoneServerUserProfileId In UserProfile Table.resx">
+      <DependentUpon>201903111254263_Add AdtoneServerUserProfileId In UserProfile Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903120552590_Add Adtone server Id in User Reward And Profile Time Setting Table.resx">
+      <DependentUpon>201903120552590_Add Adtone server Id in User Reward And Profile Time Setting Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903120625002_Add Adtone server Id in Operator Table.resx">
+      <DependentUpon>201903120625002_Add Adtone server Id in Operator Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903120657443_Add Adtone server Id in Reward Table.resx">
+      <DependentUpon>201903120657443_Add Adtone server Id in Reward Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903221241151_Add CountryId Field in AdvertCategory Table.resx">
+      <DependentUpon>201903221241151_Add CountryId Field in AdvertCategory Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903221256085_Add AdtoneServerAdvertCategoryId Field in AdvertCategory Table.resx">
+      <DependentUpon>201903221256085_Add AdtoneServerAdvertCategoryId Field in AdvertCategory Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903251026288_Add CreatedDate and UpdatedDate Field in AdvertCategory Table.resx">
+      <DependentUpon>201903251026288_Add CreatedDate and UpdatedDate Field in AdvertCategory Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903260619127_Client Field Allow Null in Advert Table.resx">
+      <DependentUpon>201903260619127_Client Field Allow Null in Advert Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903280538191_Add SoapUploadTone Table.resx">
+      <DependentUpon>201903280538191_Add SoapUploadTone Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904010614289_Add CopyRight Table.resx">
+      <DependentUpon>201904010614289_Add CopyRight Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904011209532_Add UpdatedBy in advert table.resx">
+      <DependentUpon>201904011209532_Add UpdatedBy in advert table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904151007541_Add IsActive field in operator table.resx">
+      <DependentUpon>201904151007541_Add IsActive field in operator table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904170912482_Add OperatorId In Advert Table.resx">
+      <DependentUpon>201904170912482_Add OperatorId In Advert Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904180556550_Add OperatorFTPDetail Table.resx">
+      <DependentUpon>201904180556550_Add OperatorFTPDetail Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904180616156_Add OperatorId Field in OperatorFtp detail table.resx">
+      <DependentUpon>201904180616156_Add OperatorId Field in OperatorFtp detail table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905081034023_Add TIBCOResponseCode Table.resx">
+      <DependentUpon>201905081034023_Add TIBCOResponseCode Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905101301279_Add TibcoMessageId in User Table.resx">
+      <DependentUpon>201905101301279_Add TibcoMessageId in User Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905161300171_Add SpentBucket Table.resx">
+      <DependentUpon>201905161300171_Add SpentBucket Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905161323230_Add SpentBucketItem Table.resx">
+      <DependentUpon>201905161323230_Add SpentBucketItem Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905240732345_Add AdtoneServerId In Campaign Audit Table.resx">
+      <DependentUpon>201905240732345_Add AdtoneServerId In Campaign Audit Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905281100385_Add CampaignCreditPeriod Table.resx">
+      <DependentUpon>201905281100385_Add CampaignCreditPeriod Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906030732207_Add LinuxServerConnectionString Table.resx">
+      <DependentUpon>201906030732207_Add LinuxServerConnectionString Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906040644511_Add BillingAddress2 field in BillingDetails table.resx">
+      <DependentUpon>201906040644511_Add BillingAddress2 field in BillingDetails table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906040707290_Make CampaignAuditId Field Change in UserProfileAdvertReceived.resx">
+      <DependentUpon>201906040707290_Make CampaignAuditId Field Change in UserProfileAdvertReceived.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906101036154_Add EmailCost And SMSCost in Operator Table.resx">
+      <DependentUpon>201906101036154_Add EmailCost And SMSCost in Operator Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906110933021_Add CurrencyCode Field in Billing Table.resx">
+      <DependentUpon>201906110933021_Add CurrencyCode Field in Billing Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906131048433_Add CurrencyCode Field in CampaignProfile and Client Table.resx">
+      <DependentUpon>201906131048433_Add CurrencyCode Field in CampaignProfile and Client Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906240910270_Add CampaignProfileId in UserCreditPaymentTable.resx">
+      <DependentUpon>201906240910270_Add CampaignProfileId in UserCreditPaymentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907100657094_Add AdvertId in Ouestion Table.resx">
+      <DependentUpon>201907100657094_Add AdvertId in Ouestion Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907181332524_Add MaximumAdvertPerDay Table.resx">
+      <DependentUpon>201907181332524_Add MaximumAdvertPerDay Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907241027172_Add IsMaxAdvertPerDay Field in UserProfileAdvertReceived.resx">
+      <DependentUpon>201907241027172_Add IsMaxAdvertPerDay Field in UserProfileAdvertReceived.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910101101229_Add UserRewardHistory Table.resx">
+      <DependentUpon>201910101101229_Add UserRewardHistory Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910170513556_Add IsRewardReceived and UnUsedCredit field in UserProfileAdvertsReceived Table.resx">
+      <DependentUpon>201910170513556_Add IsRewardReceived and UnUsedCredit field in UserProfileAdvertsReceived Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910181026209_Add UserRewardCount Table.resx">
+      <DependentUpon>201910181026209_Add UserRewardCount Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912031210302_Update CampaignAudit 2to10 and UserProfileAdvertsReceived 2to10 Table.resx">
+      <DependentUpon>201912031210302_Update CampaignAudit 2to10 and UserProfileAdvertsReceived 2to10 Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912170656461_Update decimal point changes in Billing table.resx">
+      <DependentUpon>201912170656461_Update decimal point changes in Billing table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912170707595_Add new field CurrencyId in UsersCredit table.resx">
+      <DependentUpon>201912170707595_Add new field CurrencyId in UsersCredit table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912170721385_Add UserSMSCount table.resx">
+      <DependentUpon>201912170721385_Add UserSMSCount table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912170728220_Add MSISDN Field in UserRewardHistory Table.resx">
+      <DependentUpon>201912170728220_Add MSISDN Field in UserRewardHistory Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912170752579_Update data type fromreal to decimal in CampaignProfile table.resx">
+      <DependentUpon>201912170752579_Update data type fromreal to decimal in CampaignProfile table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912170920170_Add Proceed Field in UserRewardHistory Table.resx">
+      <DependentUpon>201912170920170_Add Proceed Field in UserRewardHistory Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912170927121_Update RewardId Field Nullable in UserRewardHistory Table.resx">
+      <DependentUpon>201912170927121_Update RewardId Field Nullable in UserRewardHistory Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912170932317_Remove foreign Key from rewardid from UserRewardHistory Table.resx">
+      <DependentUpon>201912170932317_Remove foreign Key from rewardid from UserRewardHistory Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912261034505_Add CreditReceivedSMSCount Field in UserSMSCount Table.resx">
+      <DependentUpon>201912261034505_Add CreditReceivedSMSCount Field in UserSMSCount Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912300651000_Add MpesaHistory Table.resx">
+      <DependentUpon>201912300651000_Add MpesaHistory Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912301350241_Update RewardId Nullable in UserReward Table.resx">
+      <DependentUpon>201912301350241_Update RewardId Nullable in UserReward Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912312248476_Add OperatorMaxAdvert Table.resx">
+      <DependentUpon>201912312248476_Add OperatorMaxAdvert Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912312338409_Add AdtoneServerOperatorMaxAdvertId Field in OperatorMaxAdvert Table.resx">
+      <DependentUpon>201912312338409_Add AdtoneServerOperatorMaxAdvertId Field in OperatorMaxAdvert Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001061247229_Add OperatorConfiguration Table.resx">
+      <DependentUpon>202001061247229_Add OperatorConfiguration Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001071353317_Add RotateAdvert Table.resx">
+      <DependentUpon>202001071353317_Add RotateAdvert Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001221310108_Add PromotionalUser Table.resx">
+      <DependentUpon>202001221310108_Add PromotionalUser Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001240732140_Add PromotionalCampaign And PromotionalAdvert Table.resx">
+      <DependentUpon>202001240732140_Add PromotionalCampaign And PromotionalAdvert Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001270732525_Add AdtoneServerPromotionalCampaignId and AdtoneServerPromotionalAdvertId Field in PromotionalCampaign and PromotionalAdvert Table.resx">
+      <DependentUpon>202001270732525_Add AdtoneServerPromotionalCampaignId and AdtoneServerPromotionalAdvertId Field in PromotionalCampaign and PromotionalAdvert Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001291308503_Add PromotionalUserId Field in Bucket1To10 and PromotionalCampaignId Field in BucketItem1To10 Table.resx">
+      <DependentUpon>202001291308503_Add PromotionalUserId Field in Bucket1To10 and PromotionalCampaignId Field in BucketItem1To10 Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001300734533_Add PromotionalUserId Field in SpentBucket1To10 and PromotionalCampaignId Field in SpentBucketItem1To10 Table.resx">
+      <DependentUpon>202001300734533_Add PromotionalUserId Field in SpentBucket1To10 and PromotionalCampaignId Field in SpentBucketItem1To10 Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001301121429_Add ProvitionUser Table.resx">
+      <DependentUpon>202001301121429_Add ProvitionUser Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001301246105_Add PromotionalUserId Field in MaximumAdvertPerDay Table.resx">
+      <DependentUpon>202001301246105_Add PromotionalUserId Field in MaximumAdvertPerDay Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002201309038_Add PromotionalCampaignAudit Table.resx">
+      <DependentUpon>202002201309038_Add PromotionalCampaignAudit Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002241320366_Update DTMFKey Field to String in PromotionalCampaignAudit Table.resx">
+      <DependentUpon>202002241320366_Update DTMFKey Field to String in PromotionalCampaignAudit Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003261308472_Add IsSessionFlag Field in User Table.resx">
+      <DependentUpon>202003261308472_Add IsSessionFlag Field in User Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003301315335_Add UserPasswordHistories Table.resx">
+      <DependentUpon>202003301315335_Add UserPasswordHistories Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004021107507_Add LockOutTime field in User Table.resx">
+      <DependentUpon>202004021107507_Add LockOutTime field in User Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004030912263_Add LastPasswordChangedDate field in User Table.resx">
+      <DependentUpon>202004030912263_Add LastPasswordChangedDate field in User Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004090705170_Add LoggedIn Table.resx">
+      <DependentUpon>202004090705170_Add LoggedIn Table.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

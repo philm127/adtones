@@ -1,0 +1,43 @@
+﻿@using EFMVC.Web.Areas.Admin.Models;
+@model List<CopyRightResult>
+<div class="row">
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success alert-dismissable" id="status">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["status"]
+        </div>
+    }
+    <div class="alert alert-success alert-dismissable" id="coprightlabelfosuc" style="display:none;">
+        <button aria-hidden="true" data-dismiss="alert" class="close" id="copyrightlabelclosesuccess" type="button">×</button>
+        <span id="copyrightlabelsuceess">Record updated successfully</span>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-copyright">
+        <thead>
+            <tr>
+
+                <th>Copy Right Text</th>
+                <th>IsActive</th>
+                <th>Created Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CopyRightResult result in Model)
+            {
+            <tr class="gradeX">
+
+                <td width="70%">@result.Text</td>
+                <td width="10%">@result.Status</td>
+                <td width="10%">@result.CreatedDate</td>
+                <td width="10%">
+                    <a class="btn btn-danger btn-xs" href='@Url.Action("UpdateCopyRight", "CopyRight", new { @id = result.Id })'>Update</a>
+                    @*<button class="btn btn-danger btn-xs deleteButton" type="button" data-id="@result.Id" data-name="@result.Text">Delete</button>*@
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

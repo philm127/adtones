@@ -1,0 +1,104 @@
+﻿@using EFMVC.Web.ViewModels
+@model CurrencyFormModel
+
+@{
+    ViewBag.Title = "Currency";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+<link href="~/Content/custom.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/jquery.mask.js" defer></script>
+<script src="~/Scripts/plugins/sweetalert/sweetalert.min.js"></script>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Currency</h2>
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Currency</h5>
+
+            </div>
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvcontactinfosuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    @*<span id="cbudsuceess">Record updated successfully</span>*@
+                    <span id="cbudsuceess"></span>
+                </div>
+                <div class="alert alert-danger alert-dismissable" id="dvcontactinfoerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="contactinfoerrror"></span>
+                </div>
+                @*<div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Currency :</label>
+                            <div class="col-lg-6" style="margin-top: 7px;">
+                                @Html.DisplayFor(Model => Model.CurrencyCode, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>*@
+                @using (Ajax.BeginForm("SaveCurrency", "Currency",
+                    null,
+                    new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultcontactinfo", OnBegin = "progressbar" },
+                    new { @class = "form-horizontal" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="preloader" style="display:none"></div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Currency</label>
+                        <div class="col-lg-4">
+                            @Html.DropDownListFor(Model => Model.CurrencyId, ViewBag.currencyList as IEnumerable<SelectListItem>, new { @class = "form-control input-s-sm inline" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-9">
+                            <button class="btn btn-sm btn-blue" type="submit">Update</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+
+    var getresultcontactinfo = function (data) {
+        $(".spiner-example").hide();
+        var currencyCode = $("#CurrencyId option:selected").text();
+        if (data == "success") {
+            var successmsg = "Currency successfully updated to " + currencyCode;
+            $("#cbudsuceess").html(successmsg);
+            $("#dvcontactinfosuc").show();
+            $("#dvcontactinfoerror").hide();
+            @*window.location.href = '@Url.Action("Index", "Currency")';*@
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing")';
+            }
+            $("#contactinfoerrror").html(data);
+            $("#dvcontactinfosuc").hide();
+            $("#dvcontactinfoerror").show();
+        }
+    };
+
+    </script>
+}

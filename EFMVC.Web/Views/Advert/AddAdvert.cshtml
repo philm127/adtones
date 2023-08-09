@@ -1,0 +1,740 @@
+﻿@model EFMVC.Web.ViewModels.AdvertFormModel
+@{
+    ViewBag.Title = "AddAdvert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="row wrapper border-bottom white-bg page-heading">*@
+<div class="spiner-example loader" style="display:none;">
+    <div class="sk-spinner sk-spinner-three-bounce">
+        <div class="sk-bounce1"></div>
+        <div class="sk-bounce2"></div>
+        <div class="sk-bounce3"></div>
+    </div>
+</div>
+@*</div>*@
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Add Advert</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Dashboard")">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>Adverts</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Add Advert</h5>
+
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("AddAdvert", "Advert", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        <div class="alert alert-success alert-dismissable" id="advertdvcaminfosuc" style="display:none;">
+                            <button aria-hidden="true" data-dismiss="alert" class="close" id="advertclosesuccess" type="button">×</button>
+                            <span id="advertcsuceess">Record added successfully.</span>
+                        </div>
+                        <div class="alert alert-danger alert-dismissable" id="advertdvcaminfoerror" style="display:none;">
+                            <button aria-hidden="true" class="close" id="advertcloseerror" type="button">×</button>
+                            <span id="advertcerrror"></span>
+                        </div>
+
+                        @*if (TempData["Error"] != null)
+                            {
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                    @TempData["Error"]
+                                </div>
+                            }*@
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Name <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.AdvertName, new { @class = "form-control trimmed", @placeholder = "Name" })
+                                @Html.ValidationMessageFor(Model => Model.AdvertName, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Client</label>
+
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.ClientId, ViewBag.client as IEnumerable<SelectListItem>, "--Select Client--", new { @class = "form-control input-s-sm inline" })
+                                @*@Html.ValidationMessageFor(Model => Model.ClientId, null, new { @class = "btn-danger" })*@
+                            </div>
+                            <div class="class=" col-lg-6"">
+                                <a href="/Client/AddClient" target="_blank">Add Client</a>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Description <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(Model => Model.AdvertDescription, new { @class = "form-control trimmed", @placeholder = "Description" })
+                                @Html.ValidationMessageFor(Model => Model.AdvertDescription, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Brand <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.Brand, new { @class = "form-control trimmed", @placeholder = "Brand Name" })
+                                @Html.ValidationMessageFor(Model => Model.Brand, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Campaign <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.CampaignProfileId, ViewBag.allCampaignList as IEnumerable<SelectListItem>, "--Select Campaign--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.CampaignProfileId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Advert Category <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.AdvertCategoryId, ViewBag.advertCategoryList as IEnumerable<SelectListItem>, "--Select Advert Category--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.AdvertCategoryId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Media File <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                <div class="btn-group">
+                                    @*<label title="Upload image file" for="inputImage" class="btn btn-blue">*@
+                                    @*<input type="file" name="mediaFile" id="inputImage" class="hide" onchange="get_filename(this);">*@
+                                    <label title="Upload image file" for="inputMediaFile" class="btn btn-blue">
+                                        <input type="file" name="mediaFile" id="inputMediaFile" class="hide" onchange="get_filename(this);">
+                                        Upload new Media file
+                                    </label>
+                                </div>&nbsp;
+                                <span class="field-validation-valid btn-danger" id="mediafileerrmsg"></span>
+                                <label id="filename">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Upload Script File <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                <div class="btn-group">
+                                    @*<label title="Upload script file" for="inputImage1" class="btn btn-blue" id="scripFile">*@
+                                    @*<input type="file" name="scriptFile" id="inputImage1" class="hide" onchange="get_filename_scripts(this);">*@
+                                    <label title="Upload script file" for="inputScriptFile" class="btn btn-blue" id="scripFile">
+                                        <input type="file" name="scriptFile" id="inputScriptFile" class="hide" onchange="get_filename_scripts(this);">
+                                        Upload new Script file
+                                    </label>
+                                </div>&nbsp;
+                                <span class="field-validation-valid btn-danger" id="scriptfileerrmsg"></span>
+                                <label id="filenamescripts">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">OR</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Paste Script <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(Model => Model.Script, new { @class = "form-control trimmed", @placeholder = "Script" })
+                                @Html.ValidationMessageFor(Model => Model.Script, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Country <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.CountryId, ViewBag.country as IEnumerable<SelectListItem>, "--Select Country--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.CountryId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Operator <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.OperatorId, ViewBag.OperatorList as IEnumerable<SelectListItem>, "--Select Operator--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.OperatorId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label"> </label>
+                            <div class="col-lg-6">
+                                @Html.CheckBoxFor(Model => Model.IsTermChecked)
+                                <a id="termLink" href="javascript:void(0)" target="_blank">I agree to the Terms and Conditions</a> <label class="lbldanger">*</label><br />
+                                @Html.ValidationMessageFor(Model => Model.IsTermChecked, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+
+
+                        @*<div class="form-group">
+                                <label class="col-lg-2 control-label">Status</label>
+
+                                <div class="col-lg-6">
+                                    @Html.DropDownListFor(Model => Model.Status, ViewBag.advertStatus as IEnumerable<SelectListItem>, "--Select Status--", new { @class = "form-control input-s-sm inline", @readonly = "true" })
+                                    @Html.ValidationMessageFor(Model => Model.Status, null, new { @class = "btn-danger" })
+                                </div>
+                            </div>*@
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                @*<button class="btn btn-sm btn-blue" type="submit" name="btnCommand" value="Save" id="advertsave">Save</button>
+                                    <button class="btn btn-sm btn-blue" type="submit" name="btnCommand" value="Submit" id="advertsubmit">Submit</button>*@
+                                <button class="btn btn-sm btn-blue" type="button" name="btnCommand" value="Save" id="advertsave">Save</button>
+                                <button class="btn btn-sm btn-blue" type="button" name="btnCommand" value="Submit" id="advertsubmit">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index","Advert")'">Cancel</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div id="log" style="display:none"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @*<script>
+            // extend jquery range validator to work for required checkboxes
+            var defaultRangeValidator = $.validator.methods.range;
+            $.validator.methods.range = function (value, element, param) {
+                if (element.type === 'checkbox') {
+                    // if it's a checkbox return true if it is checked
+                    return element.checked;
+                } else {
+                    // otherwise run the default validation function
+                    return defaultRangeValidator.call(this, value, element, param);
+                }
+            }
+        </script>*@
+    <script type="text/javascript">
+
+        $("#CountryId").change(function(){
+            var id = $(this).val();
+            var countryId = id == "" ? 0 : id;
+            $.ajax({
+                url: '@Url.Action("GetOperatorList", "Advert")',
+                data: { countryId: countryId },
+                success: function (data) {
+                    var items = "<option value=''>--Select Operator--</option>";
+                    if (data == "False") {
+                        $('#OperatorId').html(items);
+                    }
+                    else {
+                        $.each(data, function (i, us) {
+                            items += "<option value='" + us.Value + "'>" + us.Text + "</option>";
+                        });
+                        $('#OperatorId').html(items);
+                    }
+                }
+            });
+
+            if(id != "")
+            {
+                $.ajax({
+                    url: '@Url.Action("GetTermAndConditionFile", "Advert")',
+                    data: { countryId: id },
+                    success: function (data) {
+                        if(data != "fail")
+                        {
+                            $("#termLink").attr("href", "/TermAndCondition/" + data);
+                        }
+                        else
+                        {
+                            $("#termLink").attr("href", "javascript:void(0)");
+                        }
+                    },
+                    error: function (jqXHR, exception) {
+                        alert('Internal server error.Please try again.');
+                    }
+                });
+
+            }
+            else {
+                $("#termLink").attr("href", "javascript:void(0)");
+            }
+
+
+
+        });
+
+        //Commented 22-02-2019
+        //function get_filename_scripts(obj) {
+
+        //    var file = obj.value;
+        //    var array = file.split('\\');
+        //    $("#filenamescripts").html(array[array.length - 1]);
+        //}
+
+        //function get_filename(obj) {
+
+        //    var fileName = obj.value;
+        //    //var allowed_extensions = new Array("3gp", "aa", "aac", "aax", "act", "aiff", "amr", "ape",
+        //    //                        "au", "awb", "dct", "dss", "dvf", "flac", "gsm", "iklax", "ivs", "m4a",
+        //    //                        "m4b", "m4p", "mmf", "mp3", "mpc", "msv", "nsf", "ogg", "oga", "mogg",
+        //    //                        "opus", "ra", "rm", "raw", "sln", "tta", "vox", "wav", "wma", "wv",
+        //    //                        "webm", "8svx");
+
+        //    var allowed_extensions = new Array("aac", "ac3", "aif", "aifc", "aiff", "amr", "au", "caf",
+        //        "flac", "m4a", "m4b", "mp3", "oga", "ogg", "sfark", "voc", "wav", "weba", "wma");
+
+        //    var file_extension = fileName.split('.').pop().toLowerCase(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+
+        //    var isValid = false;
+        //    for(var i = 0; i <= allowed_extensions.length; i++)
+        //    {
+        //        if(allowed_extensions[i]==file_extension)
+        //        {
+        //            //return true; // valid file extension
+        //            isValid = true;
+        //            break;
+        //        }
+        //    }
+        //    if(isValid)
+        //    {
+        //        var array = fileName.split('\\');
+        //        $("#filename").html(array[array.length-1]);
+        //    }
+        //    else
+        //    {
+        //        alert("please upload audio file formats.")
+        //        return false;
+        //    }
+
+
+        //    //return false;
+
+        //    //var file = obj.value;
+        //    //var array = file.split('\\');
+        //    //$("#filename").html(array[array.length-1]);
+        //}
+
+        //Add 22-02-2019
+        function get_filename_scripts(obj) {
+
+            var file = obj.value;
+            var iSize;
+            //Add 05-07-2019
+            if (file != "") {
+                iSize = (obj.files[0].size / 1024);
+            }
+
+            var allowed_extensions = new Array("pdf", "PDF", "doc", "DOC", "docx", "DOCX");
+
+            var file_extension = file.split('.').pop().toLowerCase(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+
+            var isValid = false;
+            for (var i = 0; i <= allowed_extensions.length; i++) {
+                if (allowed_extensions[i] == file_extension) {
+                    isValid = true;
+                    break;
+                }
+            }
+            if (isValid) {
+                var array = file.split('\\');
+                $("#filenamescripts").html(array[array.length - 1]);
+                $("#scriptfileerrmsg")[0].innerHTML = "";
+                if ($("#filenamescripts").html != "") {
+                    $("#Script")[0].nextElementSibling.innerHTML = "";
+                    $("#Script").attr("disabled", "disabled");
+                }
+            }
+            else {
+                $("#filenamescripts").text("");
+                $("#scriptfileerrmsg")[0].innerHTML = "Please upload pdf or doc file formats.";
+                $("#Script")[0].nextElementSibling.innerHTML = "";
+                if ($("#filenamescripts").html != "") {
+                    $("#Script").removeAttr("disabled");
+                }
+                return false;
+            }
+            if (file != "") {
+                if (iSize != "" || iSize != null) {
+                    iSize = (Math.round(iSize * 100) / 100)
+                    if (iSize > 50) {
+                        $("#filenamescripts").text("");
+                        $("#scriptfileerrmsg")[0].innerHTML = "Please upload file size upto 50kb.";
+                        $("#Script")[0].nextElementSibling.innerHTML = "";
+                        if ($("#filenamescripts").html != "") {
+                            $("#Script").removeAttr("disabled");
+                        }
+                        return false;
+                    }
+                }
+            }
+        }
+
+        function get_filename(obj) {
+
+            var fileName = obj.value;
+            var iSize;
+            //Add 05-07-2019
+            if (fileName != "") {
+                iSize = (obj.files[0].size / 1024);
+            }
+            var allowed_extensions = new Array("aac", "ac3", "aif", "aifc", "aiff", "amr", "au", "caf",
+                "flac", "m4a", "m4b", "mp3", "oga", "ogg", "sfark", "voc", "wav", "weba", "wma");
+
+            var file_extension = fileName.split('.').pop().toLowerCase(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+
+            var isValid = false;
+            for (var i = 0; i <= allowed_extensions.length; i++) {
+                if (allowed_extensions[i] == file_extension) {
+                    isValid = true;
+                    break;
+                }
+            }
+            if (isValid) {
+                $("#mediafileerrmsg")[0].innerHTML = "";
+                var array = fileName.split('\\');
+                $("#filename").html(array[array.length - 1]);
+            }
+            else {
+                $("#filename").text("");
+                $("#mediafileerrmsg")[0].innerHTML = "Please upload audio file formats.";
+                return false;
+            }
+            if (fileName != "") {
+                if (iSize != "" || iSize != null) {
+                    if (iSize / 1024 > 1) {
+                        iSize = (Math.round((iSize / 1024) * 100) / 100)
+                        if (iSize > 1) {
+                            $("#filename").text("");
+                            $("#mediafileerrmsg")[0].innerHTML = "Please upload file size upto 1MB.";
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        $("#Script").change(function () {
+            var script = this.value;
+            if (script != "") {
+                $("#filenamescripts").text("");
+                $("#scriptfileerrmsg")[0].innerHTML = "";
+                $("#scripFile").attr("disabled", "disabled");
+                $("#inputScriptFile").attr("disabled", "disabled");
+                if (script.length > 400) {
+                    $("#Script")[0].nextElementSibling.innerHTML = "The Script field cannot be more than 400 characters.";
+                }
+                else {
+                    $("#Script")[0].nextElementSibling.innerHTML = "";
+                }
+            }
+            else {
+                $("#Script")[0].nextElementSibling.innerHTML = "";
+                $("#scripFile").removeAttr("disabled");
+                $("#inputScriptFile").removeAttr("disabled");
+            }
+        });
+
+        $("#CampaignProfileId").change(function () {
+            var campaignProfileId = this.value;
+            if (campaignProfileId == "") {
+                $("#CampaignProfileId")[0].nextElementSibling.innerHTML = "The Campaign field is required.";
+            }
+            else {
+                $("#CampaignProfileId")[0].nextElementSibling.innerHTML = "";
+            }
+        });
+
+        function advertvalidation() {
+            var advertName = $("#AdvertName").val();
+            //var advertClientId = $("#ClientId").val();
+            var advertDescription = $("#AdvertDescription").val();
+            var advertBrand = $("#Brand").val();
+            var advertCampaignProfileId = $("#CampaignProfileId").val();
+            var advertCategoryId = $("#AdvertCategoryId").val();
+            var mediaFileName = $("#filename").text().trim();
+            var scriptsFileName = $("#filenamescripts").text().trim();
+            var script = $("#Script").val();
+            var countryId = $("#CountryId").val();
+            var operatorId = $("#OperatorId").val();
+            var termscheck = $("#IsTermChecked")[0].checked;
+            var returnvalue = true;
+
+            if (advertName == "") {
+                $("#AdvertName")[0].nextElementSibling.innerHTML = "The Name field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#AdvertName")[0].nextElementSibling.innerHTML = "";
+            }
+            //if (advertClientId == "") {
+            //    $("#ClientId")[0].nextElementSibling.innerHTML = "The Client field is required.";
+            //    returnvalue = false;
+            //}
+            //else {
+            //    $("#ClientId")[0].nextElementSibling.innerHTML = "";
+            //}
+            if (advertDescription == "") {
+                $("#AdvertDescription")[0].nextElementSibling.innerHTML = "The Description field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#AdvertDescription")[0].nextElementSibling.innerHTML = "";
+            }
+            if (advertBrand == "") {
+                $("#Brand")[0].nextElementSibling.innerHTML = "The Brand field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#Brand")[0].nextElementSibling.innerHTML = "";
+            }
+            if (advertCampaignProfileId == "") {
+                $("#CampaignProfileId")[0].nextElementSibling.innerHTML = "The Campaign field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#CampaignProfileId")[0].nextElementSibling.innerHTML = "";
+            }
+            if (advertCategoryId == "") {
+                $("#AdvertCategoryId")[0].nextElementSibling.innerHTML = "The Advert Category field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#AdvertCategoryId")[0].nextElementSibling.innerHTML = "";
+            }
+            if (mediaFileName == "") {
+                $("#mediafileerrmsg")[0].innerHTML = "Please upload media file.";
+                returnvalue = false;
+            }
+            else {
+                $("#mediafileerrmsg")[0].innerHTML = "";
+            }
+            if ((scriptsFileName == "" && script == "")) {
+                if (scriptsFileName == "") {
+                    $("#scriptfileerrmsg")[0].innerHTML = "Please upload script file.";
+                    returnvalue = false;
+                }
+            }
+            else {
+                $("#scriptfileerrmsg")[0].innerHTML = "";
+            }
+
+            if (scriptsFileName != "") {
+                $("#Script").attr("disabled", "disabled");
+            }
+            if (script != "") {
+                if (script.length > 400) {
+                    $("#Script")[0].nextElementSibling.innerHTML = "The Script field cannot be more than 400 characters.";
+                    returnvalue = false;
+                }
+                else {
+                    $("#Script")[0].nextElementSibling.innerHTML = "";
+                }
+                $("#scripFile").attr("disabled", "disabled");
+                $("#inputScriptFile").attr("disabled", "disabled");
+            }
+
+            if (countryId == "") {
+                $("#CountryId")[0].nextElementSibling.innerHTML = "The Country field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#CountryId")[0].nextElementSibling.innerHTML = "";
+            }
+
+            if (operatorId == "") {
+                $("#OperatorId")[0].nextElementSibling.innerHTML = "The Operator field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#OperatorId")[0].nextElementSibling.innerHTML = "";
+            }
+            if (termscheck == false) {
+                $("#IsTermChecked")[0].nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML = "Please Accept Terms & Condition.";
+                returnvalue = false;
+            }
+            else {
+                $("#IsTermChecked")[0].nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML = "";
+            }
+
+            return returnvalue;
+        }
+
+        $("#advertsave").click(function () {
+            $(".loader").show();
+            $("#advertdvcaminfosuc").hide();
+            $("#advertdvcaminfoerror").hide();
+            var advertvalida = advertvalidation();
+            if (advertvalida == true) {
+                var btnCommand = $("#advertsave")[0].value;
+                var advertName = $("#AdvertName").val();
+                var advertClientId = $("#ClientId").val();
+                var advertDescription = $("#AdvertDescription").val();
+                var advertBrand = $("#Brand").val();
+                var advertCampaignProfileId = $("#CampaignProfileId").val();
+                var advertCategoryId = $("#AdvertCategoryId").val();
+                var mediaFile = $("#inputMediaFile").get(0).files[0];
+                var scriptFile = $("#inputScriptFile").get(0).files[0];
+                var script = $("#Script").val();
+                var countryId = $("#CountryId").val();
+                var operatorId = $("#OperatorId").val();
+
+                var formData = new FormData($("#testformid")[0]);
+                formData.append("btnCommand", btnCommand);
+                formData.append("advertName", advertName);
+                formData.append("advertClientId", advertClientId);
+                formData.append("advertDescription", advertDescription);
+                formData.append("advertBrand", advertBrand);
+                formData.append("advertCampaignProfileId", advertCampaignProfileId);
+                formData.append("advertCategoryId", advertCategoryId);
+                formData.append("mediaFile", mediaFile);
+                formData.append("scriptFile", scriptFile);
+                formData.append("script", script);
+                formData.append("countryId", countryId);
+                formData.append("operatorId", operatorId);
+
+                $.ajax({
+                    url: '@Url.Action("AddAdvert", "Advert")',
+                    type: 'Post',
+                    beforeSend: function () { },
+                    success: function (data) {
+                        if (data == "success") {
+                            //$("#advertdvcaminfosuc").css("display", "block");
+                            $("#advertdvcaminfoerror").hide();
+                            $(".loader").hide();
+                            window.location.href = '@Url.Action("Index", "Advert")';
+                        }
+                        else if (data == "exists") {
+                            var existsName = advertName + " is already exists.";
+                            $("#advertcerrror").html(existsName);
+                            $("#advertdvcaminfosuc").hide();
+                            $('#advertdvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                        else if (data == "fail") {
+                            $("#advertcerrror").html(data);
+                            $("#advertdvcaminfosuc").hide();
+                            $('#advertdvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                    },
+                    xhr: function () {  // Custom XMLHttpRequest
+                        var myXhr = $.ajaxSettings.xhr();
+                        if (myXhr.upload) { // Check if upload property exists
+                            // Progress code if you want
+                        }
+                        return myXhr;
+                    },
+                    error: function () { },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });
+
+        $("#advertsubmit").click(function () {
+            $(".loader").show();
+            $("#advertdvcaminfosuc").hide();
+            $("#advertdvcaminfoerror").hide();
+            var advertvalida = advertvalidation();
+            if (advertvalida == true) {
+                var btnCommand = $("#advertsubmit")[0].value;
+                var advertName = $("#AdvertName").val();
+                var advertClientId = $("#ClientId").val();
+                var advertDescription = $("#AdvertDescription").val();
+                var advertBrand = $("#Brand").val();
+                var advertCampaignProfileId = $("#CampaignProfileId").val();
+                var advertCategoryId = $("#AdvertCategoryId").val();
+                var mediaFile = $("#inputMediaFile").get(0).files[0];
+                var scriptFile = $("#inputScriptFile").get(0).files[0];
+                var script = $("#Script").val();
+                var countryId = $("#CountryId").val();
+                var operatorId = $("#OperatorId").val();
+
+                var formData = new FormData($("#testformid")[0]);
+                formData.append("btnCommand", btnCommand);
+                formData.append("advertName", advertName);
+                formData.append("advertClientId", advertClientId);
+                formData.append("advertDescription", advertDescription);
+                formData.append("advertBrand", advertBrand);
+                formData.append("advertCampaignProfileId", advertCampaignProfileId);
+                formData.append("advertCategoryId", advertCategoryId);
+                formData.append("mediaFile", mediaFile);
+                formData.append("scriptFile", scriptFile);
+                formData.append("script", script);
+                formData.append("countryId", countryId);
+                formData.append("operatorId", operatorId);
+
+                $.ajax({
+                    url: '@Url.Action("AddAdvert", "Advert")',
+                    type: 'Post',
+                    beforeSend: function () { },
+                    success: function (data) {
+                        if (data == "success") {
+                            //$("#advertdvcaminfosuc").css("display", "block");
+                            $("#advertdvcaminfoerror").hide();
+                            $(".loader").hide();
+                            window.location.href = '@Url.Action("Index", "Advert")';
+                        }
+                        else if (data == "exists") {
+                            var existsName = advertName + " is already exists.";
+                            $("#advertcerrror").html(existsName);
+                            $("#advertdvcaminfosuc").hide();
+                            $('#advertdvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                        else if (data == "fail") {
+                            $("#advertcerrror").html(data);
+                            $("#advertdvcaminfosuc").hide();
+                            $('#advertdvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                    },
+                    xhr: function () {  // Custom XMLHttpRequest
+                        var myXhr = $.ajaxSettings.xhr();
+                        if (myXhr.upload) { // Check if upload property exists
+                            // Progress code if you want
+                        }
+                        return myXhr;
+                    },
+                    error: function () { },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });
+
+        $(document).ready(function () {
+            trimmed();
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+    </script>
+}

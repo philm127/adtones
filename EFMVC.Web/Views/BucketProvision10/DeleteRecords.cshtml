@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DeleteRecords</title>
+</head>
+<body>
+    <div> 
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var viewbagValue = '@ViewBag.Window';
+        if (viewbagValue == 'True') {
+            window.open('', '_self', ''); window.close(); top.close();
+        }
+    });
+</script>

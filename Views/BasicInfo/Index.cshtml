@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        @Html.Partial("_BasicInfo")
+        @Html.Partial("_ContactInfo")
+        @*@Html.Partial("_ChangePassword")*@
+    </div>
+    <div class="row">
+        @Html.Partial("_CompanyDetails")
+    </div>
+</div>
+

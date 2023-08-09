@@ -1,0 +1,79 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileCinemaFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>Cinema</h5>
+
+                </div>*@
+            <div class="ibox-content" id="cinemadiv">
+                <div class="alert alert-success alert-dismissable" id="dvcinemasuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvcinemaerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="ccinemaerrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveCinemaInfo", "Dashboard",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultcinema", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @*@Html.HiddenFor(model => model.CampaignProfileCinemaId)*@
+                    @Html.HiddenFor(model => model.CampaignProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            <button class="btn btn-sm btn-blue" type="button" id="selectallcinema">Select All</button>
+                            <button class="btn btn-sm btn-blue" type="button" id="deselectallcinema">Deselect All</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.CinemaQuestion)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul class="ProfileMappingUl">
+                                    @Html.EditorFor(model => model.CinemaQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-1">
+                                <button class="btn btn-blue" type="submit">Update</button>
+
+                            </div>
+                        </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultcinema = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvcinemasuc").show();
+            $("#dvcinemaerror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing")';
+            }
+            $("#ccinemaerrror").html(data);
+            $("#dvcinemasuc").hide();
+            $("#dvcinemaerror").show();
+        }
+    };
+</script>

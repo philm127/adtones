@@ -1,0 +1,179 @@
+﻿@using EFMVC.Web.Models;
+@model CampaignDashboardChartResult
+<div class="row">
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Plays to date</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@Model.PlaystoDate</h1>
+                <small>Total number of plays to date</small>
+                @*<small>Total number of plays in period</small>*@
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+
+                <h5>Spend to date (in @Model.CurrencyCode)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@Model.SpendToDate</h1>
+
+                <small>Total spend to date</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+
+                <h5>Average Bid (in @Model.CurrencyCode)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@String.Format("{0:n2}", @Model.AverageBid) (@Model.CurrencyCode)</h1>
+                <small>Average bid over campaign life</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Average Play Time</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@Model.AveragePlayTime seconds</h1>
+                <small>Average play time over campaign life</small>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-sm-3 chartheader">
+
+        <div class="col-lg-7">
+            <div>
+                <h5 class="m-b-xs">Free plays</h5>
+                <h1 class="no-margins">@Model.FreePlays</h1>
+            </div>
+            <div class="font-bold text-navy text-break chartheadersubtext">@String.Format("{0:n2}", @Model.FreePlaysPercantage) % of all plays are under 6 seconds</div>
+        </div>
+        <div class="col-lg-5">
+            <div>
+                <canvas id="doughnutFreePlays" height="100" width="150"></canvas>
+            </div>
+        </div>
+        @*<div class="col-lg-12 chartheadersub">
+            <div class="font-bold text-navy text-break chartheadersubtext">@String.Format("{0:n2}", @Model.FreePlaysPercantage) % of all plays are under 6 seconds</div>*@
+        @*<div class="font-bold text-navy text-break chartheadersubtext">@Model.FreePlaysPercantage% of total plays</div>*@
+
+        @*</div>*@
+    </div>
+    <div class="col-sm-3 chartheader">
+
+        <div class="col-lg-7">
+            <div>
+                <h5 class="m-b-xs">Total Budget (in @Model.CurrencyCode)</h5>
+                <h1 class="no-margins">@Model.TotalBudget</h1>
+
+            </div>
+            <div class="font-bold text-navy text-break ">Spend to date is @String.Format("{0:n2}", @Model.TotalBudgetPercantage) % of the budget</div>
+        </div>
+        <div class="col-lg-5">
+            <div>
+                <canvas id="doughnutChartbudget" height="100" width="150"></canvas>
+            </div>
+        </div>
+        @*<div class="col-lg-12 chartheadersub">
+            <div class="font-bold text-navy text-break ">Spend to date is @String.Format("{0:n2}", @Model.TotalBudgetPercantage) % of the budget</div>*@
+        @*<div class="font-bold text-navy text-break ">Spend as @Model.TotalBudgetPercantage% of budget</div>*@
+
+        @*</div>*@
+    </div>
+    <div class="col-sm-3 chartheader">
+
+        <div class="col-lg-7">
+            <div>
+                <h5 class="m-b-xs">Total Reach</h5>
+                @*<h5 class="m-b-xs">Max bid</h5>*@
+                <h1 class="no-margins">@Model.TotalReach</h1>
+
+            </div>
+            @*<div class="font-bold text-navy text-break chartheadersubmaxbid">Average is the @String.Format("{0:n2}", @Model.MaxBidPercantage) % of the average max bid</div>*@
+            <div class="font-bold text-navy text-break chartheadersubmaxbid">Total number of targeted users to date</div>
+        </div>
+        <div class="col-lg-5">
+            <div>
+                <canvas id="doughnutMaxBid" height="100" width="150"></canvas>
+            </div>
+        </div>
+        @*<div class="col-lg-12 chartheadersub">
+            <div class="font-bold text-navy text-break chartheadersubmaxbid">Average is the @String.Format("{0:n2}", @Model.MaxBidPercantage) % of the average max bid</div>*@
+        @*<div class="font-bold text-navy text-break chartheadersubmaxbid">Average is @Model.MaxBidPercantage% of maximum bid</div>*@
+
+        @*</div>*@
+    </div>
+    <div class="col-sm-3 chartheader">
+
+        <div class="col-lg-6">
+            <div>
+                <h5 class="m-b-xs">Average play length</h5>
+                @*<h5 class="m-b-xs">Max play length</h5>*@
+                <h1 class="no-margins">@Model.MaxPlayLength</h1>
+
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div>
+                <span id="sparkline8"></span>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            @*<div class="col-lg-12 chartheadersub">*@
+            <div class="font-bold text-navy">Across current campaign</div>
+            @*<div class="font-bold text-navy text-break chartheadersubmaxplay">@Model.MaxPlayLengthPercantage% of maximum length</div>*@
+
+        </div>
+    </div>
+
+</div>
+<div class="row">&nbsp;</div>
+<div class="row">
+    <div class="col-lg-3">
+        <ul class="stat-list" style="text-align:center;">
+            <li style="display:block;">
+                <div class="row" style="font-size:14px;display:inline-block;margin: 0 0 7px;padding: 0;text-overflow: ellipsis;font-weight:600;">
+                    Additional Transactions
+                </div>
+            </li>
+        </ul>
+        <ul class="stat-list">
+            <li style="display:block;">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-xs-4">
+                            <small class="stats-label">SMS</small>
+                            <h4>@Model.SMSCost</h4>
+                        </div>
+                        <div class="col-xs-4">
+                            <small class="stats-label">Email</small>
+                            <h4>@Model.EmailCost</h4>
+                        </div>
+                        <div class="col-xs-4">
+                            <small class="stats-label">Cancelled</small>
+                            <h4>@Model.Cancelled</h4>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+
+        </ul>
+    </div>
+
+</div>
+<div class="row">&nbsp;</div>

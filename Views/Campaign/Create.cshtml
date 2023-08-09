@@ -1,0 +1,28 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileFormModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+
+    @using (Html.BeginForm("Save", "Campaign"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CreateOrEdit", Model)
+
+        <div class="large-6 columns large-centered">
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </div>
+    }
+    
+    <div class="large-6 columns large-centered">
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+
+</div>

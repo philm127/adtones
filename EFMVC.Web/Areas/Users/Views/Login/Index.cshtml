@@ -1,0 +1,161 @@
+﻿@using System.Web.Optimization
+@model EFMVC.Web.ViewModels.UserLogOnFormModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+   
+    @*<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">*@
+
+    <meta http-equiv='cache-control' content='no-cache'>
+
+    <meta http-equiv='expires' content='0'>
+
+    <meta http-equiv='pragma' content='no-cache'>
+
+    @*<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">*@
+
+    <title>Adtones | User Login</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+    @*<script src="~/Scripts/oneall.js"></script>*@
+
+    
+    @*<script type="text/javascript">
+         var oa = document.createElement('script');
+         oa.type = 'text/javascript'; oa.async = true;
+         oa.src = '//adtones.api.oneall.com/socialize/library.js'
+         var s = document.getElementsByTagName('script')[0];
+         s.parentNode.insertBefore(oa, s)
+    </script>*@
+
+
+    <script type="text/javascript">
+
+    /* Replace #your_subdomain# by the subdomain of a Site in your OneAll account */
+   // var oneall_subdomain = 'adtones';
+        var oneall_subdomain = 'adtones';
+
+    /* The library is loaded asynchronously */
+    var oa = document.createElement('script');
+    oa.type = 'text/javascript'; oa.async = true;
+    oa.src = '//' + oneall_subdomain + '.api.oneall.com/socialize/library.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(oa, s);
+
+    </script>
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            @*<div>
+
+                    <h1 class="logo-name">IN+</h1>
+
+                </div>*@
+            <h3>Welcome to adtones users</h3>
+            @*<p>
+                    Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+                </p>*@
+            <p>Login in. To see it in action.</p>
+            @using (Html.BeginForm("CheckLogin", "Login", FormMethod.Post))
+            {
+                if (ViewBag.Error !=  "" && ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        @ViewBag.Error
+                    </div>
+                }
+                @Html.ValidationSummary(true);
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Enter Email Address Or Mobile Number With Country Code" })
+                    @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "btn-danger", style = "font-size:14.8px;" })
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Enter Password" })
+                    @Html.ValidationMessageFor(m => m.Password, null, new { @class = "btn-danger", style = "font-size:14.8px;" })
+                </div>
+                <button type="submit" class="btn btn-blue block full-width m-b">Login</button>
+                <p class="text-muted text-center"><small>OR</small></p>
+                <div id="oa_social_login"></div>
+
+                <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Register", "Login",new {area="Users" })">Create an account</a>
+                <div class="form-group" style="clear:both;margin-top:10px;">
+                    <a href='@Url.Action("ForgotPassword", "Login", new { area = "Users" })'><small style="font-size: 14px;">Forgot password?</small></a>
+                </div>
+            }
+           
+            <p class="m-t"> <small  id="copyright" style="font-family: sans-serif;">@*adtons users &copy; @DateTime.Now.Year*@</small> </p>
+        </div>
+    </div>
+    
+  
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/plugins/unobtrusive")*@
+    @Scripts.Render("~/plugins/validate")
+    @Scripts.Render("~/bundles/validateunobtrusive")
+
+  
+
+   
+</body>
+
+</html>
+
+
+@*<script type="text/javascript">
+        var _oneall = _oneall || [];
+        _oneall.push(['social_login', 'set_callback_uri', window.location.href]);
+        _oneall.push(['social_login', 'set_providers', ['amazon', 'facebook', 'google', 'instagram', 'linkedin', 'paypal', 'pinterest', 'reddit', 'tumblr', 'twitter', 'windowslive', 'yahoo']]);
+        _oneall.push(['social_login', 'do_render_ui', 'oa_social_login']);
+</script>*@
+
+
+<script type="text/javascript">
+
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+
+    /* OLD
+    var user_token = ''; 
+
+    var _oneall = _oneall || [];
+     _oneall.push(['social_link', 'set_providers', ['amazon', 'facebook', 'google', 'instagram', 'linkedin', 'paypal', 'pinterest', 'reddit', 'tumblr', 'twitter', 'windowslive', 'yahoo']]);
+    _oneall.push(['social_link', 'set_callback_uri', window.location.href]);
+    _oneall.push(['social_link', 'set_user_token', user_token]);
+    _oneall.push(['social_link', 'do_render_ui', 'oa_social_login']);
+    */
+
+    // New
+    var _oneall = _oneall || [];
+    _oneall.push(['social_login', 'set_providers', ['amazon', 'facebook', 'google', 'linkedin', 'paypal', 'pinterest', 'reddit', 'tumblr', 'twitter', 'windowslive', 'yahoo']]);//'instagram',
+     _oneall.push(['social_login', 'set_callback_uri', window.location.href]);
+    _oneall.push(['social_login', 'do_render_ui', 'oa_social_login']);
+
+    $(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action("GetCopyRight", "Login", new { area = "Users" })',
+                success: function (data) {
+                    $("#copyright").text(data);
+                }
+            });
+        });
+
+</script>

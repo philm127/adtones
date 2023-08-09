@@ -1,0 +1,30 @@
+﻿@using EFMVC.Web.Models
+@model BillingPaymentInfoDetailsWithMpesa
+<div class="col-md-10">
+
+    @using (Html.BeginForm("PaywithMpesa", "Billing", FormMethod.Post, new { @class = "form-horizontal" }))
+
+    {
+        @Html.ValidationSummary(true);
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Purchase Order Number</label>
+
+            <div class="col-lg-4">
+                @Html.TextBoxFor(Model => Model.PONumber, new { @class = "form-control trimmed", @placeholder = "PO Number" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Phone Number <label class="lbldanger">*</label></label>
+            <div class="col-lg-4">
+                @Html.TextBoxFor(Model => Model.PhoneNumber, new { @class = "form-control onlyDigit kenyaPhoneLength trimmed", @placeholder = "Mobile Number" })
+                <span class="btn-danger" id="phonenumbererror" style="display:none;">Please Enter Phone Number.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+                <button class="btn btn-sm btn-blue" type="submit" id="btnmpesa">Confirm</button>
+                <button class="btn btn-sm btn-white" type="button" onclick='window.location.href="@Url.Action("Index","Billing")"'>Back</button>
+            </div>
+        </div>
+    }
+</div>

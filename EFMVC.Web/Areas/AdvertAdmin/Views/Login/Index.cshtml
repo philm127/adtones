@@ -1,0 +1,54 @@
+﻿@model EFMVC.Web.ViewModels.LogOnFormModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Adtones | Advert Admin Login</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+           
+            <h3>Welcome to advert admin</h3>
+
+            <p>Login in. To see it in action.</p>
+            @using (Html.BeginForm("CheckLogin", "Login", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true);
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Enter email" })@Html.ValidationMessageFor(m => m.UserName, null, new { @class = "btn-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })@Html.ValidationMessageFor(m => m.Password, null, new { @class = "btn-danger" })
+                </div>
+                <button type="submit" class="btn btn-blue block full-width m-b">Login</button>
+            }
+            <p class="m-t"> <small>adtons advert admin &copy; @DateTime.Now.Year</small> </p>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/plugins/unobtrusive")
+    @Scripts.Render("~/plugins/validate")
+    @Scripts.Render("~/bundles/validateunobtrusive")
+</body>
+
+</html>
+
+
+

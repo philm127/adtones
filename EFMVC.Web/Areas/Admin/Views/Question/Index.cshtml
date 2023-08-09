@@ -1,0 +1,555 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.Models;
+@model Tuple<List<HelpAdminResult>, HelpAdminFilter>
+@{
+    ViewBag.Title = "Help";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeIn">
+   
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        @Html.Partial("_HelpManagement", Tuple.Create<List<HelpAdminResult>, HelpAdminFilter>(Model.Item1, Model.Item2))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @*@Styles.Render("~/plugins/dateRangeStyles")*@
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @*@Styles.Render("~/plugins/dataPickerStyles")*@
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/daterangepickerNewStyles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @*@Scripts.Render("~/plugins/dataPicker")*@
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @*@Scripts.Render("~/plugins/dateRange")*@
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+
+    @Scripts.Render("~/plugins/daterangepickerNew")
+
+    <script type="text/javascript">
+        $(window).load(function () {
+
+            $("#UserId").select2({
+                placeholder: "All Users",
+                containerCssClass: "userdrp",
+                allowClear: true,
+                ajax: {
+                    //url: "https://api.github.com/search/repositories",
+                    //dataType: 'json',
+
+                    traditional: true,
+                    url: '@Url.Action("FillUserDropdownAJAX", "Campaign", new { area = "Admin" })',
+                    type: "POST",
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            UserName: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        // parse the results into the format expected by Select2
+                        // since we are using custom formatting functions we do not need to
+                        // alter the remote JSON data, except to indicate that infinite
+                        // scrolling can be used
+
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }, // let our custom formatter work
+                minimumInputLength: 1,
+                templateResult: formatRepo, // omitted for brevity, see the source of this page
+                templateSelection: formatRepoSelection, // omitted for brevity, see the source of this page
+                width: '100%'
+            });
+
+            function formatRepo(repo) {
+                if (repo.loading) {
+
+                    return repo.text
+                };
+
+                var markup =
+                    '<div class="avatar">' +
+                    '<div class="info">' +
+
+                    '<div class="col-sm-16">' + repo.name + '</div>';
+
+                markup += '</div></div> ';
+
+                return markup;
+            }
+
+            function formatRepoSelection(repo) {
+                return repo.name || repo.text;
+            }
+        });
+        function dataTableSetup() {
+            $('.dataTables-question').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                aoColumnDefs: [
+                   {
+                       bSortable: false,
+                       aTargets: [-1]
+                   }
+                ],
+                "bLengthChange": false,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        title: 'Tickets',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        } },
+                    {
+                        extend: 'csv',
+                        title: 'Tickets',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        } },
+                    {
+                        extend: 'excel',
+                        title: 'Tickets',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        } },
+                    {
+                        extend: 'pdf',
+                        title: 'Tickets',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+
+                    {
+                        extend: 'print',
+                        title: 'Tickets',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        },
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+            });
+        }
+        function getClientByUserId(userId) {
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("GetClientsUser", "Question",new {area="Admin" })',
+                type: "POST",
+                data: { userId: userId },
+                success: function (data) {
+                    $("#ClientId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, client) {
+                            $("#ClientId").append('<option value="' + client.Id + '">' +
+                                                            client.Name + '</option>');
+
+                        });
+                    }
+                    $("#ClientId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+
+        }
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        $(document).ready(function () {
+            $('body').bind('keyup', function (event) {
+                if (event.keyCode === 13) {
+                    $('#form0').submit();
+                }
+            });
+            $(".chosen-container").bind('keyup', function (e) {
+                if (e.which === 13) {
+                    $('#form0').submit();
+                    // or your stuff here...
+                }
+            });
+            $('#createdFrom').datetimepicker({ ignoreReadonly: true });
+
+            $('#createdTo').datetimepicker({
+                useCurrent: false, //Important! See issue #1075
+                ignoreReadonly: true
+            });
+
+            $("#createdFrom").on("dp.change", function (e) {
+                $('#createdTo').data("DateTimePicker").minDate(e.date);
+            });
+
+            $("#createdTo").on("dp.change", function (e) {
+                $('#createdFrom').data("DateTimePicker").maxDate(e.date);
+            });
+
+            // -----
+
+            $('#createdLastResponseFromdate').datetimepicker({ ignoreReadonly: true });
+
+            $('#createdLastResponseTodate').datetimepicker({
+                useCurrent: false, //Important! See issue #1075
+                ignoreReadonly: true
+            });
+
+            $("#createdLastResponseFromdate").on("dp.change", function (e) {
+                $('#createdLastResponseTodate').data("DateTimePicker").minDate(e.date);
+            });
+
+            $("#createdLastResponseTodate").on("dp.change", function (e) {
+                $('#createdLastResponseFromdate').data("DateTimePicker").maxDate(e.date);
+            });
+
+            $('#fromdate').css({ "height": "34px" });
+            $('#todate').css({ "height": "34px" });
+            $('#LastResponseFromdate').css({ "height": "34px" });
+            $('#LastResponseTodate').css({ "height": "34px" });
+
+            var user_Id = getParameterByName("userId");
+            if (user_Id != null && user_Id != '') {
+                var userId = new Array();
+                userId.push(user_Id);
+                getClientByUserId(userId);
+            }
+            else {
+                getClientByUserId();
+            }
+            $("#UserId").change(function () {
+                var userId = new Array();
+                $("select#UserId option:selected").each(function () {
+                    userId.push($(this).val());
+                });
+                if (userId != null || userId != '') {
+                    getClientByUserId(userId);
+                }
+                else {
+                    getClientByUserId();
+                }
+            });
+            //$('#data_5 .input-daterange').datepicker({
+            //    keyboardNavigation: false,
+            //    forceParse: false,
+            //    autoclose: true
+            //});
+            var config = {
+                '.chosen-select': { width: "100%" },
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+            $("#helpreset").click(function () {
+                $('#fromdate').val('');
+                $('#todate').val('');
+                $('#LastResponseFromdate').val('');
+                $('#LastResponseTodate').val('');
+                $(".spiner-example").show();
+                $("#UserId").select2("val", "");
+                $("#Item2_ID").val('');
+                $("#Item2_ClientId").val('0');
+                $("#Item2_UserId").val('0');
+                $("#Item2_Fromdate").val('');
+                $("#Item2_Todate").val('');
+                $("#Item2_LastResponseFromdate").val('');
+                $("#Item2_LastResponseTodate").val('');
+                $("#SubjectId").val('');
+                $("#SubjectId").trigger("chosen:updated");
+                $("#StatusId").val('');
+                $("#StatusId").trigger("chosen:updated");
+                $("#PaymentMethodId").val('');
+                $("#PaymentMethodId").trigger("chosen:updated");
+                
+                $.ajax({
+                    data: null,
+                    datatype: "text/plain",
+                    type: "POST",
+                    url: '@Url.Action("SearchQuestion", "Question")',
+                    cache: false,
+                    success: function (data) {
+                        $(".spiner-example").hide();
+                        $("#questionList").html(data);
+                        dataTableSetup();
+                    }
+                });
+            });
+            $('.dataTables-question').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                "bLengthChange": false,
+                "serverSide": true, // for process on server side
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                aoColumnDefs: [
+                   {
+                       bSortable: false,
+                       aTargets: [-1]
+                   }
+                ],
+                //dom: '<"html5buttons"B>lTfgitp',
+                //dom: 'Bfrtip',
+                dom: '<"floatRight"B><"clear">frtip',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        title: 'Tickets',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        title: 'Tickets',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        title: 'Tickets',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        title: 'Tickets',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+
+                    {
+                        extend: 'print',
+                        title: 'Tickets',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        },
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "ajax": {
+                    "url": "/Admin/Question/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "aoColumns": [
+
+                    { "data": "userName", "name": "userName", "autoWidth": false },//index-0
+                    {
+                        "data": "userEmail", "name": "userEmail", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (row.userId == 0) {
+                                return '<td>' + row.userEmail + '</td>';
+                            }
+                            else {
+                                return '<td><a href="/Admin/UserManagement/UserDetails?id=' + row.userId + '">' + row.userEmail + '</a></td>';
+                            }
+                        }
+                    },//index-1
+                    { "data": "Organisation", "name": "Organisation", "autoWidth": false },//index-2
+                    {
+                        "data": "QANumber", "name": "QANumber", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            return '<td><a href="/Admin/Question/QuestionDetails?id=' + row.Id + '">' + row.QANumber + '</a></td>';
+                        }
+                    },//index-3
+                    {
+                        "data": "ClientName", "name": "ClientName", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (row.fClientId == 0) {
+                                return '<td>-</td>';
+                            }
+                            else {
+                                return '<td><a href="/Admin/AdminClient/ClientDetails?id=' + row.ClientId + '">' + row.ClientName + '</a></td>';
+                            }
+                        }
+                    },//index-4
+                    {
+                        "data": "CampaignName", "name": "CampaignName", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (row.CampaignProfileId == 0) {
+                                return '<td>-</td>';
+                            }
+                            else {
+                                return '<td><a href="/Admin/Campaign/Index?campaignId=' + row.CampaignProfileId + '">' + row.CampaignName + '</a></td>';
+                            }
+                        }
+                    },//index-5
+                    { "data": "QuestionDateTime", "name": "QuestionDateTime", "autoWidth": false },//index-6
+                    { "data": "QuestionTitle", "name": "QuestionTitle", "autoWidth": false },//index-7
+                    { "data": "QuestionSubject", "name": "QuestionSubject", "autoWidth": false },//index-8
+                    {
+                        "data": "PaymentMethodId", "name": "PaymentMethodId", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (row.PaymentMethodId == 1) {
+                                return '<td>Credit</td>';
+                            }
+                            else if (row.PaymentMethodId == 2) {
+                                return '<td>Card</td>';
+                            }
+                            else if (row.PaymentMethodId == 3) {
+                                return '<td>Paypal</td>';
+                            }
+                            else if (row.PaymentMethodId == 5) {
+                                return '<td>CoinBase</td>';
+                            }
+                            else if (row.PaymentMethodId == 6) {
+                                return '<td>Mpesa</td>';
+                            }
+                            else {
+                                return '<td>-</td>';
+                            }
+                        }
+                    },
+                    {
+                        "data": "Status", "name": "Status", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (row.Status == 3 || row.Status == 4) {
+                                return '<td><label class="label label-danger">' + row.fStatus + '</label></td>';
+                            }
+                            else {
+                                return '<td><label class="label label-primary">' + row.fStatus + '</label></td>';
+                            }
+                        }
+                    },//index-9
+                    {
+                        "data": "LastResponseDatetime", "name": "LastResponseDatetime", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (row.LastResponseDatetime == null) {
+                                return '<td>-</td>';
+                            }
+                            else {
+                                return '<td>' + row.LastResponseDatetime + '</td>';
+                            }
+                        }
+                    },//index-10
+                    {
+                        "data": "Action", "name": "Action", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (row.Status == 3) {
+                                return '<td><a class="btn btn-danger btn-xs" onclick="deleteQuestion(' + row.Id + ')">Archive</a></td>';
+                            }
+                            else {
+                                return '<td>-</td>';
+                            }
+                        }
+                    }//index-11
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () {
+                    $(".spiner-example").hide();
+                    $(".floatRight").css('float', 'right');
+                    $(".floatRight").css('padding-bottom', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                }
+            });
+        });
+
+    </script>
+}

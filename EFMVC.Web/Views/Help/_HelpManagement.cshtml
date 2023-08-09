@@ -1,0 +1,231 @@
+﻿@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model Tuple<List<HelpResult>, HelpFilter>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Help Management</h5>
+                <div style="text-align:right">
+                    <button class="btn btn-blue " type="button" onclick='window.location.href="@Url.Action("AddQuestion","Help")"'><i class="fa fa-plus"></i>&nbsp; Ticket</button>@*Question*@
+                </div>
+
+            </div>
+
+            @using (Ajax.BeginForm("SearchQuestion", "Help",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getquestionresult", OnBegin = "progressbar" },
+null))
+            {
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Clients</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("ClientId", (MultiSelectList)ViewBag.client, new { @class = "chosen-select form-control", multiple = "multiple", @data_placeholder = "All Clients" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Ticket Subjects</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("SubjectId", (MultiSelectList)ViewBag.Qsubject, new { @class = "chosen-select form-control", multiple = "multiple", @data_placeholder = "All Ticket Subjects" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Status</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("StatusId", (MultiSelectList)ViewBag.questionstatus, new { @class = "chosen-select form-control", multiple = "multiple", @data_placeholder = "All Ticket Status" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Method of Payments</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("PaymentMethodId", (MultiSelectList)ViewBag.paymentMethod, new { @class = "chosen-select form-control", multiple = "multiple", @data_placeholder = "All Method of Payments" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Ticket ID</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(Model2 => Model2.Item2.ID, new { @class = "form-control", placeholder = "Ticket ID" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Ticket Date/Time</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        <div class='input-group' id='createdFrom'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.Fromdate, new { @class = "input-sm form-control", @id = "fromdate", @Value = "", @data_date_format = "DD/MM/YYYY hh:mm A", @readonly = "readonly" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                        <span class="input-group-addon" style="background-color: #eeeeee;">to</span>
+                                        <div class='input-group' id='createdTo'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.Todate, new { @class = "input-sm form-control", @id = "todate", @Value = "", @data_date_format = "DD/MM/YYYY hh:mm A", @readonly = "readonly" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label mh-100">Last Response Date/Time</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        <div class='input-group' id='createdLastResponseFromdate'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.LastResponseFromdate, new { @class = "input-sm form-control", @id = "LastResponseFromdate", @Value = "", @data_date_format = "DD/MM/YYYY hh:mm A", @readonly = "readonly" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                        <span class="input-group-addon" style="background-color: #eeeeee;">to</span>
+                                        <div class='input-group' id='createdLastResponseTodate'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.LastResponseTodate, new { @class = "input-sm form-control", @id = "LastResponseTodate", @Value = "", @data_date_format = "DD/MM/YYYY hh:mm A", @readonly = "readonly" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 col-lg-12">@*button-margin*@
+                            <div class="col-sm-12 center">
+                                <button class="btn btn-blue" type="submit">Search</button>
+                                <button class="btn btn-white" type="button" id="helpreset">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="questionList">
+                        @{
+                            Html.RenderPartial("_HelpList", Model.Item1);
+                        }
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+        $(".loader").show();
+
+    };
+
+    var getquestionresult = function (data) {
+        $(".spiner-example").hide();
+            if(data!="notauthorise")
+            {
+                $('.dataTables-adverts').remove();
+                $("#questionList").html(data);
+                dataTableSetup();
+            }
+            else
+            {
+                window.location.href='@Url.Action("Index","Landing")';
+        }
+        $(".loader").hide();
+    };
+    function deleteQuestion(id) {
+        $.post('@Url.Action("DeleteQuestion", "Help")', { questionId: id }, function (data) {
+
+            if (data == "success") {
+                window.location.href = '@Url.Action("Index", "Help")';
+
+            }
+        });
+
+    }
+    function dataTableSetup() {
+        $('.dataTables-question').DataTable({
+            "preDrawCallback": function (settings) {
+                $(".loader").show();
+            },
+            "info": false,
+            bFilter: false,
+            "searching": false,
+            "bLengthChange": false,
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                {
+                    extend: 'copy',
+                    title: 'Tickets',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },//Question
+                {
+                    extend: 'csv',
+                    title: 'Tickets',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'excel',
+                    title: 'Tickets',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: 'Tickets',
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    title: 'Tickets',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    },
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                    }
+                }
+            ],
+            "drawCallback": function (settings) {
+                $(".loader").hide();
+            },
+            "fnInitComplete": function () { $(".loader").hide(); }	// Hide processingDiv when loading table is complete
+        });
+    }
+</script>

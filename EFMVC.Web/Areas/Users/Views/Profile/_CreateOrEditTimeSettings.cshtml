@@ -1,0 +1,152 @@
+﻿@using MvcCheckBoxList.Model
+@model EFMVC.Web.ViewModels.UserProfileTimeSettingFormModel
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>Time Settings</h5>
+
+                </div>*@
+            <div class="ibox-content" id="timesettingdiv">
+                <div class="alert alert-success alert-dismissable" id="dvtimingsuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvtimingrror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="ctimingerrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveTimeSettings", "Profile",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresulttiming", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+
+                     @Html.HiddenFor(model => model.UserProfileTimeSettingsId)
+                    @Html.HiddenFor(model => model.UserProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            <button class="btn btn-sm btn-blue" type="button" id="selectalltime">Select All</button>
+                            <button class="btn btn-sm btn-blue" type="button" id="deselectalltime">Deselect All</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <h3 class="col-lg-2 col-lg-wth">Monday</h3>
+                            <h3 class="col-lg-2 col-lg-wth">Tuesday</h3>
+                            <h3 class="col-lg-2 col-lg-wth">Wednesday</h3>
+                            <h3 class="col-lg-2 col-lg-wth">Thursday</h3>
+                            <h3 class="col-lg-2 col-lg-wth">Friday</h3>
+                            <h3 class="col-lg-2 col-lg-wth">Saturday</h3>
+                            <h3 class="col-lg-2 col-lg-wth">Sunday</h3>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                @Html.CheckBoxListFor(m => m.MondayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.MondaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                            </div>
+                            <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                @Html.CheckBoxListFor(m => m.TuesdayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.TuesdaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                            </div>
+                            <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                @Html.CheckBoxListFor(m => m.WednesdayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.WednesdaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                            </div>
+                            <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                @Html.CheckBoxListFor(m => m.ThursdayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.ThursdaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                            </div>
+                            <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                @Html.CheckBoxListFor(m => m.FridayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.FridaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                            </div>
+                            <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                @Html.CheckBoxListFor(m => m.SaturdayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.SaturdaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                            </div>
+                            <div class="col-lg-2 col-lg-wth" style="line-height:28px;">
+
+                                @Html.CheckBoxListFor(m => m.SundayPostedTimes.DayIds,
+                      m => m.AvailableTimes,
+                      time => time.Id,
+                      time => time.Name,
+                      m => m.SundaySelectedTimes,
+                               Position.Vertical, m => new { @class = "i-checks", @style = "padding-left:10px;" })
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-4 col-lg-1">
+                            <button class="btn btn-blue" type="submit">Save</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresulttiming = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvtimingsuc").show();
+            $("#dvtimingrror").hide();
+        }
+        else
+        {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing", new { Area = "" })';
+            }
+            $("#ctimingerrror").html(data);
+            $("#dvtimingsuc").hide();
+            $("#dvtimingrror").show();
+        }
+    };
+</script>

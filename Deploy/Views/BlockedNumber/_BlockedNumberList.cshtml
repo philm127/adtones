@@ -1,0 +1,66 @@
+﻿@using EFMVC.Model
+@model IEnumerable<EFMVC.Model.BlockedNumber>
+
+<script>
+    function confirmClick() {
+        alert("Test");
+    }
+</script>
+
+<div class="large-6">
+    <table>
+        <tr>
+            <th>Telephone Number</th> 
+            <th></th>
+            <th>Name</th> 
+            <th></th>
+            <th>Active?</th>
+            <th></th>
+            <th colspan="2">Actions</th>
+        </tr>
+        @{
+            var oddEven = new List<string> {"oddRow", "evenRow"};
+            int i = 1;
+        } 
+        @if (Model != null)
+        {
+            foreach (BlockedNumber item in Model)
+            {
+                <tr class="@oddEven[i++%2]">
+                    <td>@item.TelephoneNumber</td>
+                    <td> - </td>
+                    <td>@item.Name</td>
+                    <td> - </td>
+                    <td>@(item.Active ? "Yes" : "No")</td>
+                    <td> - </td>
+                    <td>
+                        @Html.ActionLink(" ", "Edit", new {id = item.Id}, new {@class = "editLinkImg"})          
+                    </td>
+                    <td>
+                        @Ajax.ActionLink(" ", "Delete", new {id = item.Id},
+                                         new AjaxOptions
+                                             {
+                                                 Confirm = "Delete Blocked Number?", HttpMethod = "Post",
+                                                 UpdateTargetId = "divBlockedNumberList"
+                                             },
+                                         new {@class = "deleteLinkImg", @alt = "Delete?"})    
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("Link",
+                                         "Delete",
+                                         new {id = item.Id},
+                                         new AjaxOptions
+                                             {
+                                                 UpdateTargetId = "divBlockedNumberList",
+                                                 HttpMethod = "Post",
+                                                 Confirm = "confirmClick"
+                                             },
+                                         new {@class = "StatusBtn"}
+                             )
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    
+</div>

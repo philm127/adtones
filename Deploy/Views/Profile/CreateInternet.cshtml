@@ -1,0 +1,21 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileInternetFormModel
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    @using (Html.BeginForm("SaveInternet", "Profile"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CreateOrEditInternet", Model)
+
+        <p>
+            <input type="submit" value="Submit" class="font12" />
+        </p>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

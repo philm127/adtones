@@ -1,0 +1,16 @@
+﻿@using EFMVC.Web.Models
+@model BillingPaymentInfoDetailsWithPaypal
+<div class="col-md-10">
+    
+    @using (Html.BeginForm("PaywithCoinBase", "Billing", FormMethod.Post, new { @class = "form-horizontal" }))
+
+    {
+        @Html.ValidationSummary(true);
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button class="btn btn-sm btn-blue" type="submit">Confirm</button>
+                    <button class="btn btn-sm btn-white" type="button" onclick='window.location.href="@Url.Action("Index","Billing")"'>Back</button>
+                </div>
+            </div>
+    }
+</div>

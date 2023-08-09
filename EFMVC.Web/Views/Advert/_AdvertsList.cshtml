@@ -1,0 +1,68 @@
+﻿<div class="row">
+    @if (TempData["msgsuccess"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["msgsuccess"]
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="alert alert-success alert-dismissable" style="display:none;" id="succesdivadvert">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <div id="succesdivadvertmsg"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="alert alert-danger alert-dismissable" style="display:none;" id="errordivadvert">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <div id="errordivadvertmsg"></div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-adverts" id="advertTable">
+        <thead>
+            <tr>
+                <th>Advert</th>
+                <th>Client</th>
+                <th>Number of Campaigns</th>
+                <th>Created Date</th>
+                <th>Listen</th>
+                <th>Status</th>
+                <th>Total Plays</th>
+                <th>Average Bid</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+<script>
+    
+    function opendialog(id) {
+        var id = id;
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this advert record!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function () {
+            $.post('@Url.Action("DeleteAdvert", "Advert")', { id: id }, function (data) {
+                if (data == "success") {
+                    //  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                    window.location.href = '@Url.Action("Index","Advert")';
+
+                } else {
+                    alert(data);
+                }
+            });
+
+            //
+        });
+
+    }
+</script>

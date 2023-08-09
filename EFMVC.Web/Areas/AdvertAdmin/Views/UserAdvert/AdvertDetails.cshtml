@@ -1,0 +1,183 @@
+﻿@*@model EFMVC.Web.ViewModels.AdvertFormModel*@
+@model EFMVC.Web.ViewModels.AdminAdvertFormModel
+@{
+    ViewBag.Title = "AdvertDetails";
+    Layout = "~/Areas/AdvertAdmin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Advert Details</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "UserAdvert")">Adverts</a>
+
+            </li>
+            <li class="active">
+                <strong>@ViewBag.advert</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                @if (TempData["msgsuccess"] != null)
+                {
+                <div class="alert alert-success alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    @TempData["msgsuccess"]
+                </div>
+                }
+                <div class="ibox-title">
+                    <h5>Advert Details</h5>
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("UpdateAdvert", "UserAdvert", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        @Html.HiddenFor(Model => Model.UserId)
+                        @Html.HiddenFor(Model => Model.AdvertId)
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Name</label>
+
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.AdvertName, new { @class = "form-control", @placeholder = "Name" })
+                                @Html.ValidationMessageFor(Model => Model.AdvertName, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Client</label>
+
+                            <div class="col-lg-6">
+
+                                @Html.DropDownListFor(Model => Model.ClientId, ViewBag.client as IEnumerable<SelectListItem>, "--Select Client--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.ClientId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Description</label>
+
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(Model => Model.AdvertDescription, new { @class = "form-control", @placeholder = "Description" })
+                                @Html.ValidationMessageFor(Model => Model.AdvertDescription, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Brand</label>
+
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.Brand, new { @class = "form-control", @placeholder = "Brand Name" })
+                                @Html.ValidationMessageFor(Model => Model.Brand, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Media File</label>
+                            <div class="col-lg-6">
+                                <div class="btn-group">
+                                    <label title="Upload image file" for="inputImage" class="btn btn-blue">
+                                        <input type="file" name="mediaFile" id="inputImage" class="hide" onchange="get_filename(this);">
+                                        Upload new Media file
+                                    </label>
+
+                                </div>
+                                <label id="filename">
+
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label"></label>
+                            <div class="col-lg-6">
+                                <div class="btn-group">
+                                    @Html.Html5().Media.Audio(ViewBag.advert, ViewBag.medialocation, "", new { @class = "audio-small" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Upload Script File</label>
+                            <div class="col-lg-6">
+                                <div class="btn-group">
+                                    <label title="Upload script file" for="inputImage1" class="btn btn-blue">
+                                        <input type="file" name="scriptFile" id="inputImage1" class="hide" onchange="get_filename_scripts(this);">
+                                        Upload new Script file
+
+                                    </label>
+
+                                </div>
+                                <label id="filenamescripts">
+
+                                </label>
+                            </div>
+                        </div>
+                        if (!string.IsNullOrEmpty(ViewBag.scriptlocation))
+                        {
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label"></label>
+                                <div class="col-lg-6">
+                                    <div class="btn-group">
+                                        <a href='@ViewBag.scriptlocation' target="_blank">View file</a>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">OR</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Paste Script</label>
+
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(Model => Model.Script, new { @class = "form-control", @placeholder = "Script" })
+                                @Html.ValidationMessageFor(Model => Model.Script, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Status</label>
+
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.Status, ViewBag.advertStatus as IEnumerable<SelectListItem>, "--Select Status--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.Status, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit">Update</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index","UserAdvert")'">Cancel</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        function get_filename_scripts(obj) {
+
+            var file = obj.value;
+            var array = file.split('\\');
+            $("#filenamescripts").html(array[array.length - 1]);
+        }
+        function get_filename(obj) {
+
+            var file = obj.value;
+            var array = file.split('\\');
+            $("#filename").html(array[array.length - 1]);
+        }
+
+    </script>
+}

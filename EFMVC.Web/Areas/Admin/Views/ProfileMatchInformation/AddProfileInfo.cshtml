@@ -1,0 +1,410 @@
+﻿@model EFMVC.Web.ViewModels.ProfileMatchInformationFormModel
+@{
+    ViewBag.Title = "AddProfileInfo";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="wrapper wrapper-content animated fadeIn">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+</div>*@
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Profile Information Details</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "ProfileMatchInformation",new {area="Admin" })">Profile Management</a>
+            </li>
+            <li class="active">
+                <strong>Add Profile Information</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Add Profile Information</h5>
+
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("AddProfileInfo", "ProfileMatchInformation", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Name <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.ProfileName, new { @class = "form-control trimmed", @placeholder = "Profile Name" })
+                                @Html.ValidationMessageFor(Model => Model.ProfileName, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Profile Types <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(Model => Model.ProfileType, ViewBag.profileType as IEnumerable<SelectListItem>, "--Select Profile Types--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.ProfileType, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Country <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(Model => Model.CountryId, ViewBag.country as IEnumerable<SelectListItem>, "--Select Country--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.CountryId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">IsActive</label>
+                            <div class="col-lg-4">
+                                <div class="radio i-checks">
+                                    <label>@Html.RadioButtonFor(model => model.IsActive, true) Yes</label> &nbsp;
+                                    <label>@Html.RadioButtonFor(model => model.IsActive, false) No</label>
+                                </div>
+                                @Html.ValidationMessageFor(Model => Model.IsActive, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index","ProfileMatchInformation",new {area="Admin" })'">Cancel</button>
+                            </div>
+                        </div>
+                    }
+                    <div class="ibox-content" id="profilematchlabel">
+                        @Html.Partial("_AddProfileMatchLabel")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/chartJs")*@
+@section Scripts {
+    @Scripts.Render("~/plugins/dataTables")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            keypress();
+            trimmed();
+        });
+
+        function keypress() {
+            $(".profilelabel").keypress(function (event) {
+                trimmed();
+                var regex = new RegExp('^[a-zA-Z0-9 ]+$');
+                var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+                if (!regex.test(key)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        }
+
+        $(".profilelabel").change(function () {
+            var thi$ = $(this);
+            var profilelabel = thi$[0].parentNode.children[1].value;
+            if (thi$.val() == "") {
+                thi$[0].nextElementSibling.innerHTML = "Profile Label field is required.";
+                thi$[0].nextElementSibling.style.color = "red";
+            }
+            else if (profilelabel.length > 100) {
+                thi$[0].nextElementSibling.innerHTML = "Profile Label characters must be less than 100.";
+                thi$[0].nextElementSibling.style.color = "red";
+            }
+            else {
+                thi$[0].nextElementSibling.innerHTML = "";
+            }
+        });
+
+        function validationprofilelabel() {
+            var table = $(".dataTables-profilelabel > tbody");
+            var i;
+            var returnvalue;
+            for (i = 0; i < table[0].children.length; i++) {
+                var profilelabelname = table[0].children[i].children[0].children[1].value;
+                if (profilelabelname == "") {
+                    table[0].children[i].children[0].children[1].nextElementSibling.innerHTML = "Profile Label field is required.";
+                    table[0].children[i].children[0].children[1].nextElementSibling.style.color = "red";
+                    returnvalue = false;
+                }
+                else if (profilelabelname.length > 100) {
+                    table[0].children[i].children[0].children[1].nextElementSibling.innerHTML = "Profile Label characters must be less than 100.";
+                    table[0].children[i].children[0].children[1].nextElementSibling.style.color = "red";
+                    returnvalue = false;
+                }
+                else {
+                    table[0].children[i].children[0].children[1].nextElementSibling.innerHTML = "";
+                }
+            }
+
+            if (returnvalue == false) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        function addProfileLabel(el) {
+            $(".loader").show();
+            var validation = validationprofilelabel();
+            if (validation == true) {
+                var thi$ = $(el);
+
+
+                var allrecord = new Array;
+                var returnvalue;
+                var table = $(".dataTables-profilelabel > tbody > tr");
+                for (i = 0; i < table.length; i++) {
+
+                    //var profileLabel = thi$[0].parentNode.parentNode.children[0].children[1].value;
+                    //var profileLabelCheck = table[i].children[0].children[1].value.toLowerCase();
+                    var profileLabel = table[i].children[0].children[1].value;
+                    //if (allrecord.indexOf(profileLabel) == true) {
+                    //    table[i].children[0].children[1].nextElementSibling.innerHTML = profileLabel + " is already exists.";
+                    //    table[i].children[0].children[1].nextElementSibling.style.color = "red";
+                    //}
+                    //else {
+                    //    allrecord.push(profileLabel);
+                    //}
+                    if (jQuery.inArray(profileLabel, allrecord) != '-1') {
+                        table[i].children[0].children[1].nextElementSibling.innerHTML = profileLabel + " is already exists.";
+                        table[i].children[0].children[1].nextElementSibling.style.color = "red";
+                        returnvalue = false;
+                    }
+                    else {
+                        allrecord.push(profileLabel);
+                        returnvalue = true;
+                    }
+                }
+
+                if (returnvalue == true) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("SaveProfileLabel", "ProfileMatchInformation", new { area = "Admin" })',
+                        data: { allrecord: allrecord },
+                        success: function (data) {
+                            if (data == "Fail") {
+                                $("#profilelabelerror").html(data);
+                                $('#profilelabelfoerror').css("display", "block");
+                                $("#profilelabelfosuc").hide();
+                                $("#profilelabelerror").hide();
+                            }
+                            else {
+                                //$("#profilematchlabel").html("");
+                                //$("#profilematchlabel").append(data);
+                                var successmsg = "Profile Label " + allrecord + " added successfully.";
+                                $("#profilelabelsuceess").html(successmsg);
+                                $("#profilelabelfosuc").css("display", "block");
+                                setTimeout(function () {
+                                    $("#profilelabelfosuc").css("display", "none");
+                                }, 3000);
+                                $('#profilelabelfoerror').hide();
+                                $("#profilelabelerror").hide();
+                                $(".loader").hide();
+
+                            }
+                        }
+                    });
+                }
+                else {
+                    $(".loadere").hide();
+                }
+            }
+            else {
+                $(".loadere").hide();
+            }
+        }
+
+        //$(".addprofilelabel").click(function () {
+        //    $(".spiner-example").show();
+        //    var valida = validationprofilelabel();
+        //    if (valida == true) {
+
+        //        var profileLabelExists = "";
+        //        var allrecord = new Array;
+
+        //        var table = $(".dataTables-profilelabel > tbody > tr");
+        //        //table.each(function () {
+        //        //    var profilelabelname = table[0].children[0].children[0].value;
+        //        //    allrecord.push({ ProfileLabel: profilelabelname });
+        //        //});
+
+        //        for (i = 0; i < table.length; i++) {
+        //            var profilelabelname = table[i].children[0].children[0].value;
+
+        //            if (allrecord.includes(profilelabelname) == true) {
+        //                table[i].children[0].children[0].nextElementSibling.innerHTML = "Profile Label field is required.";
+        //                table[i].children[0].children[0].nextElementSibling.style.color = "red";
+        //            }
+        //            else {
+        //                allrecord.push({ profilelabelname });
+        //            }
+
+        //            //if (allrecord.indexOf(profilelabelname) >= 0) {
+        //            //    if (profileLabelExists == "") {
+
+        //            //        profileLabelExists = profilelabelname;
+        //            //    }
+        //            //    else {
+        //            //        if (profileLabelExists.indexOf(profilelabelname) < 0) {
+        //            //            profileLabelExists = profileLabelExists + " , " + profilelabelname;
+        //            //        }
+        //            //    }
+        //            //}
+        //            //allrecord.push({ ProfileLabel: profilelabelname });
+        //        }
+        //        //table.each(function () {
+        //        //    var profilelabelname = table[0].children[0].children[0].value;
+
+        //        //    if (allrecord.indexOf(profilelabelname) >= 0) {
+        //        //        if (profileLabelExists == "") {
+
+        //        //            profileLabelExists = profilelabelname;
+        //        //        }
+        //        //        else {
+        //        //            if (profileLabelExists.indexOf(profilelabelname) < 0) {
+        //        //                profileLabelExists = profileLabelExists + " , " + profilelabelname;
+        //        //            }
+        //        //        }
+        //        //    }
+        //        //    allrecord.push({ ProfileLabel: profilelabelname });
+        //        //});
+
+        //        $(".spiner-example").hide();
+        //    }
+        //    else {
+        //        $(".spiner-example").hide();
+        //    }
+        //});
+
+        function cancelAddProfileLabel(el) {
+            var thi$ = $(el);
+            thi$[0].closest('tr').remove();
+
+            var allrecord = new Array;
+
+            var table = $(".dataTables-profilelabel > tbody > tr");
+            for (i = 0; i < table.length; i++) {
+
+                //var profileLabel = thi$[0].parentNode.parentNode.children[0].children[1].value;
+                //var profileLabelCheck = table[i].children[0].children[1].value.toLowerCase();
+                var profileLabel = table[i].children[0].children[1].value;
+                //if (allrecord.indexOf(profileLabel) == true) {
+                //    table[i].children[0].children[1].nextElementSibling.innerHTML = profileLabel + " is already exists.";
+                //    table[i].children[0].children[1].nextElementSibling.style.color = "red";
+                //}
+                //else {
+                //    allrecord.push(profileLabel);
+                //}
+                if (jQuery.inArray(profileLabel, allrecord) != '-1') {
+                    table[i].children[0].children[1].nextElementSibling.innerHTML = profileLabel + " is already exists.";
+                    table[i].children[0].children[1].nextElementSibling.style.color = "red";
+                }
+                else {
+                    allrecord.push(profileLabel);
+                }
+            }
+
+            if (allrecord.length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SaveProfileLabel", "ProfileMatchInformation", new { area = "Admin" })',
+                    data: { allrecord: allrecord },
+                    success: function (data) {
+                        if (data == "Fail") {
+                            $("#profilelabelerror").html(data);
+                            $('#profilelabelfoerror').css("display", "block");
+                            $("#profilelabelfosuc").hide();
+                            $("#profilelabelerror").hide();
+                        }
+                    }
+                });
+            }
+        }
+
+        function addProfileLabelPanel(el) {
+            var thi$ = $(el);
+            var d = new Date();
+
+            var month = d.getMonth() + 1;
+            var day = d.getDate();
+
+            var currentdate = (('' + day).length < 2 ? '0' : '') + day + '/' +
+                (('' + month).length < 2 ? '0' : '') + month + '/' +
+                d.getFullYear();
+            var Id = $('.dataTables-profilelabel tbody tr:last').attr('id');
+            Id++;
+            var addTR = '<tr class="gradeX" id="' + Id + '">' +
+                '<td>' +
+                '<label for="" style="display:none;"></label>' +
+                '<input class="form-control profilelabel trimmed" data-val="true" data-val-length="The field ProfileLabel must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="The ProfileLabel field is required." id="' + Id + '" name="profileMatchLabelFormModels[0].ProfileLabel" placeholder="Profile Label" type="text" value="">' +
+                '<span id="profileerrormsg"></span>' +
+                '</td>' +
+                '<td>' +
+                '<label class="control-label" for="">' + currentdate + '</label>' +
+                //'<label for="">-</label></td>' +
+                '<td>' +
+                '<a class="btn btn-danger btn-xs" id="' + Id + '" onclick="addProfileLabel(this)">Add</a>&nbsp;' +
+                '<a class="btn btn-danger btn-xs btncancel" id="' + Id + '" onclick="cancelAddProfileLabel(this)">Cancel</a>' +
+                '</td>' +
+                '</tr>';
+            $(".dataTables-profilelabel").append(addTR);
+            keypress();
+        }
+
+        $("#profilelabelcloseerror").click(function () {
+            $("#profilelabelerror").html("");
+            $('#profilelabelfoerror').css("display", "none");
+        });
+
+        $("#profilelabelclosesuccess").click(function () {
+            $('#profilelabelfosuc').css("display", "none");
+        });
+
+        function trimmed() {
+               $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+    </script>
+}
+

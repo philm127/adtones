@@ -1,0 +1,104 @@
+﻿@using EFMVC.Web.ViewModels
+@model CompanyDetailsFormModel
+<div class="col-lg-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Company Details</h5>
+
+        </div>
+        <div class="ibox-content">
+            <div class="alert alert-success alert-dismissable" id="dvcompanyinfosuc" style="display:none;">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <span id="cbudsuceess">Record updated successfully</span>
+            </div>
+
+
+            <div class="alert alert-danger alert-dismissable" id="dvcompanyinfoerror" style="display:none;">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <span id="companyinfoerrror"></span>
+            </div>
+            @using (Ajax.BeginForm("SaveCompanyInfo", "AdminUserProfile",
+        null,
+        new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultcompanyinfo", OnBegin = "progressbar" },
+        new { @class = "form-horizontal" }))
+            {
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(Model => Model.Id)
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Company Name <label class="lbldanger">*</label></label>
+
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(Model => Model.CompanyName, new { @class = "form-control trimmed", @Placeholder = "Company Name" })
+                        @Html.ValidationMessageFor(Model => Model.CompanyName, null, new { @class = "btn-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Address <label class="lbldanger">*</label></label>
+
+                    <div class="col-lg-9">
+                        @Html.TextAreaFor(Model => Model.Address, new { @class = "form-control trimmed", @Placeholder = "Address" })
+                        @Html.ValidationMessageFor(Model => Model.Address, null, new { @class = "btn-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Additional Address <label class="lbldanger">*</label></label>
+
+                    <div class="col-lg-9">
+                        @Html.TextAreaFor(Model => Model.AdditionalAddress, new { @class = "form-control trimmed", @Placeholder = "Additional Address" })
+                        @Html.ValidationMessageFor(Model => Model.AdditionalAddress, null, new { @class = "btn-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Town / City / Locality</label>
+
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(Model => Model.Town, new { @class = "form-control trimmed", @Placeholder = "Locality" })
+                        @Html.ValidationMessageFor(Model => Model.Town, null, new { @class = "btn-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Post Code / Zip Code <label class="lbldanger">*</label></label>
+
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(Model => Model.PostCode, new { @class = "form-control trimmed", @Placeholder = "Zip Code" })
+                        @Html.ValidationMessageFor(Model => Model.PostCode, null, new { @class = "btn-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Country <label class="lbldanger">*</label></label>
+
+                    <div class="col-lg-9">
+
+                        @Html.DropDownListFor(Model => Model.CountryId, ViewBag.country as IEnumerable<SelectListItem>,"--Select Country--", new { @class = "form-control input-s-sm inline" })
+                        @Html.ValidationMessageFor(Model => Model.CountryId, null, new { @class = "btn-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-9">
+                        <button class="btn btn-sm btn-blue" type="submit">Update</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultcompanyinfo = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvcompanyinfosuc").show();
+            $("#dvcompanyinfoerror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing")';
+            }
+            $("#companyinfoerrror").html(data);
+            $("#dvcompanyinfosuc").hide();
+            $("#dvcompanyinfoerror").show();
+        }
+    };
+</script>

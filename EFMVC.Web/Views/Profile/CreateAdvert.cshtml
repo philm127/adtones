@@ -1,0 +1,23 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileAdvertFormModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+    @using (Html.BeginForm("SaveAdverts", "Profile"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CreateOrEditAdvert", Model)
+
+        <p>
+            <input type="submit" value="Submit" class="font12" />
+        </p>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+</div>

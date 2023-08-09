@@ -1,0 +1,132 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileAttitudeFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>Attitude</h5>
+
+                </div>*@
+            <div class="ibox-content" id="atitudediv">
+                <div class="alert alert-success alert-dismissable" id="dvattitudesuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvattitudeerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cattitudeerrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveAttitude", "Dashboard",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultattitude", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.CampaignProfileAttitudeId)
+                    @Html.HiddenFor(model => model.CampaignProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            <button class="btn btn-sm btn-blue" type="button" id="selectallattitude">Select All</button>
+                            <button class="btn btn-sm btn-blue" type="button" id="deselectallattitude">Deselect All</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.FitnessQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.HolidaysQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.EnvironmentQuestion)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.FitnessQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.HolidaysQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.EnvironmentQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.GoingOutQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.FinancialStabiityQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ReligionQuestion)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.GoingOutQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.FinancialStabiityQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.ReligionQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.FashionQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.MusicQuestion)</h3>
+                           
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.FashionQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.MusicQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                          
+                        </div>
+                    </div>
+                       
+                        <div class="form-group">
+                            <div class="col-lg-1">
+                                <button class="btn btn-blue" type="submit">Update</button>
+
+                            </div>
+                        </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultattitude = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvattitudesuc").show();
+            $("#dvattitudeerror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing")';
+            }
+            $("#cattitudeerrror").html(data);
+            $("#dvattitudesuc").hide();
+            $("#dvattitudeerror").show();
+        }
+    };
+</script>

@@ -1,0 +1,63 @@
+﻿@using EFMVC.Web.Models
+@model BillingPaymentInfoDetails
+<div class="col-md-10">
+   @using (Html.BeginForm("PaywithUserCredit", "Billing", FormMethod.Post, new { @class = "form-horizontal", @Id = "PaywithUserCreditForm" }))
+
+   {
+
+            @*<div class="form-group">
+                <label class="col-lg-2 control-label">Fund amount   </label>
+
+                <div class="col-lg-4">
+
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Client</label>
+
+                <div class="col-lg-4">
+
+                    <select class="input-sm form-control input-s-sm">
+                        <option value="0">--Select Client--</option>
+                        <option value="1">Coca Cola</option>
+                        <option value="13">Test Client12</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Campaign</label>
+
+                <div class="col-lg-4">
+
+                    <select class="input-sm form-control input-s-sm inline">
+
+                        <option value="0">--Select Campaign--</option>
+                        <option value="1">Campaign 0</option>
+                        <option value="17">Test Campaign - Everything Selected</option>
+                        <option value="21">target 5041</option>
+                        <option value="23">Target 2483</option>
+                        <option value="33">Dan's test campaign</option>
+                        <option value="35">TestTodayCampaign</option>
+                        <option value="36">Test21032016</option>
+                        <option value="37">Campaign_Today</option>
+                    </select>
+                </div>
+            </div>*@
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Purchase Order Number</label>
+
+                <div class="col-lg-4">
+                    @Html.TextBoxFor(Model => Model.PONumber, new { @class = "form-control trimmed", @placeholder = "PO Number" })
+                    @*<input type="text" class="form-control" />*@
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button class="btn btn-sm btn-blue" type="button" id="btncredit">Confirm</button>
+                    <button class="btn btn-sm btn-white" type="button" onclick='window.location.href="@Url.Action("Index","Billing")"'>Back</button>
+                </div>
+            </div>
+   }
+   
+</div>

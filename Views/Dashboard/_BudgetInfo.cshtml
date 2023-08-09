@@ -1,0 +1,115 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileFormModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Budget Management</h5>
+
+            </div>
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvbudinfosuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvbudinfoerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbuderrror"></span>
+                </div>
+                @using (Ajax.BeginForm("UpdateBudgetInfo", "Dashboard",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresult" },
+new { @class = "form-horizontal" }))
+                {
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Max Bid</label>
+
+                        <div class="col-lg-4">
+                            @Html.HiddenFor(Model => Model.CampaignProfileId)
+                            @Html.HiddenFor(Model=>Model.ClientId)
+                            @Html.HiddenFor(Model => Model.CampaignName)
+                            @Html.HiddenFor(Model => Model.CampaignDescription)
+                            @Html.TextBoxFor(Model => Model.MaxBid, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Max Overall Budget Remaining </label>
+
+                        <div class="col-lg-1">
+                            
+                            <label class="control-label">@ViewData["maxremainding"]</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Max Spend To Date</label>
+
+                        <div class="col-lg-1">
+                            
+                            <label class="control-label">@ViewData["maxspendtodate"]</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label"></label>
+
+                        <div class="col-lg-1"><button class="btn btn-blue" type="submit">Add Budget</button></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Max Monthly Budget</label>
+
+                        <div class="col-lg-4">
+                            @Html.TextBoxFor(Model => Model.MaxMonthBudget, new { @placeholder = "Max Monthly Budget", @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Max  Weekly Budget</label>
+
+                        <div class="col-lg-4">
+                            @Html.TextBoxFor(Model => Model.MaxWeeklyBudget, new { @placeholder = "Max  Weekly Budget", @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Max Daily Budget</label>
+
+                        <div class="col-lg-4">
+                            @Html.TextBoxFor(Model => Model.MaxDailyBudget, new { @placeholder = "Max  Daily Budget", @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Max Hourly budget</label>
+
+                        <div class="col-lg-4">
+                            @Html.TextBoxFor(Model => Model.MaxHourlyBudget, new { @placeholder = "Max  Hourly Budget", @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-1">
+                            <button class="btn btn-blue" type="submit">Update</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var getresult = function (data) {
+        if (data == "success") {
+            $("#dvbudinfosuc").show();
+            $("#dvbudinfoerror").hide();
+        }
+        else
+        {
+            $("#cbuderrror").html(data);
+            $("#dvbudinfosuc").hide();
+            $("#dvbudinfoerror").show();
+        }
+    };
+</script>

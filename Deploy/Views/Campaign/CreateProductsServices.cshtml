@@ -1,0 +1,21 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileProductsServiceFormModel
+@{
+    ViewBag.Title = "Products &amp; Services";
+}
+<div class="row">
+    @using (Html.BeginForm("SaveProductsServices", "Campaign"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CreateOrEditProductsServices", Model)
+
+        <p>
+            <input type="submit" value="Submit" class="font12" />
+        </p>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

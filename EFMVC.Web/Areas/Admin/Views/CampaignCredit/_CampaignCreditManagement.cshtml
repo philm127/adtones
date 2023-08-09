@@ -1,0 +1,100 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.Models;
+@model Tuple<List<CampaignCreditResult>, CampaignCreditFilter>
+
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title" style="border-style:none;">
+                <h5>Campaign Credit</h5>
+                <div style="text-align:right">
+                    <a class="btn btn-blue" href='@Url.Action("AddCampaignCredit","CampaignCredit",new {area="Admin"})'><i class="fa fa-plus"></i>&nbsp;Campaign Credit</a>
+                </div>
+            </div>
+
+            @using (Ajax.BeginForm("SearchCampaignCredit", "CampaignCredit", null,
+  new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getCampaignCreditresult", OnBegin = "progressbar" },
+  null))
+            {
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Advertisers</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("UserId", (MultiSelectList)ViewBag.advertiserDetails, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Advertisers" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Campaigns</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("CampaignProfileId", (MultiSelectList)ViewBag.campaignDetails, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Campaigns" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 col-lg-12">
+                            <div class="col-sm-12 center">
+                                <button class="btn btn-blue" type="submit">Search</button>
+                                <button class="btn btn-white" type="button" id="CampaignCreditreset">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="userList">
+                        @{ Html.RenderPartial("_CampaignCreditDetails", Model.Item1);}
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getCampaignCreditresult = function (data) {
+        if (data != "notauthorise") {
+            $(".spiner-example").hide();
+            $('.dataTables-CampaignCredit').remove();
+            $("#userList").html(data);
+            dataTableSetup();
+        }
+        else {
+            window.location.href = '@Url.Action("Index","Landing",new { area = "" })';
+        }
+    };
+    function dataTableSetup() {
+        $('.dataTables-CampaignCredit').DataTable({
+            "preDrawCallback": function (settings) {
+                $(".spiner-example").show();
+            },
+            "info": false,
+            bFilter: false,
+            "searching": false,
+            "bLengthChange": false,
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            aoColumnDefs: [
+               {
+                   bSortable: false,
+                   aTargets: [-1]
+               }
+            ],
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+
+            ],
+            "drawCallback": function (settings) {
+                $(".spiner-example").hide();
+            },
+            "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+        });
+    }
+</script>

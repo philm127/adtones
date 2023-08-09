@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv='cache-control' content='no-cache'>
+
+    <meta http-equiv='expires' content='0'>
+
+    <meta http-equiv='pragma' content='no-cache'>
+
+    <title>adtones | SoapUI Fail</title>
+
+
+    <link href="~/Content/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style_campaign.css" rel="stylesheet">
+
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script src="~/Scripts/plugins/sweetalert/sweetalert.min.js"></script>
+</head>
+<body class="gray-bg">
+    <div class="middle-box text-center  animated fadeInDown">
+        <span>
+            There has been an error please email support@adtones.com <br />
+
+            SoupUI Error Code - @ViewBag.ErrorCode - @DateTime.Now
+        </span>
+    </div>
+</body>
+</html>

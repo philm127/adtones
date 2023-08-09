@@ -1,0 +1,140 @@
+﻿@using EFMVC.Web.Models
+@model BillingPaymentInfoDetails
+@{
+    int[] months = Enumerable.Range(1, 12).ToArray();
+    int CurrentYear = DateTime.Now.Year;
+    int[] years = Enumerable.Range(CurrentYear, 15).ToArray();
+}
+<div class="col-md-10">
+
+        @using (Html.BeginForm("PaywithSagePayCreditCard", "Billing", FormMethod.Post, new { @class = "form-horizontal", id = "PaywithSagePayCreditCard" }))
+
+    {
+        @Html.ValidationSummary(true);
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Purchase Order Number</label>
+
+            <div class="col-lg-4">
+                @Html.TextBoxFor(Model => Model.PONumber, new { @class = "form-control trimmed", @placeholder = "PO Number" })
+                @*<input type="text" class="form-control" />*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Select Card Type</label>
+            <div class="col-lg-4">
+                @Html.DropDownListFor(Model => Model.CardType, ViewBag.creditcard as IEnumerable<SelectListItem>, "--Select Card Type--", new { @class = "form-control input-s-sm inline" })
+                @Html.ValidationMessageFor(m => m.CardType, null, new { @class = "btn-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Card Number</label>
+            <div class="input-group col-lg-4" style="padding:0px 12px;width: 33%;">
+                @Html.TextBoxFor(Model => Model.CardNumber, new { @class = "form-control trimmed", @placeholder = "Valid Card Number", @maxlength = 16 })
+                @Html.ValidationMessageFor(m => m.CardNumber, null, new { @class = "btn-danger" })
+                @*<input type="text" class="form-control" name="Number" placeholder="Valid Card Number" required />*@
+                <span class="input-group-addon" style="height: 19px !important;"><i class="fa fa-credit-card"></i></span><br />
+            </div>
+            <span id="Card_Number" style="padding-left: 285px;"></span>
+            <span id="Card_Type"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Expiry Date</label>
+
+            <div class="col-lg-2">
+                @Html.DropDownListFor(x => x.ExpiryMonth, months.Select(x =>
+                new SelectListItem
+                {
+                    Text = x.ToString().Length == 1 ? "0" + x.ToString() : x.ToString(),
+                    Value = x.ToString().Length == 1 ? "0" + x.ToString() : x.ToString()
+                }
+                ), "Month", new { @class = "form-control input-s-sm inline" })
+                @Html.ValidationMessageFor(m => m.ExpiryMonth, null, new { @class = "btn-danger" })
+
+                </div>
+                <div class="col-lg-2">
+                    @Html.DropDownListFor(x => x.ExpiryYear, years.Select(x =>
+                    new SelectListItem
+                    {
+                        Text = x.ToString(),
+                        Value = x.ToString()
+                    }
+                    ), "Year", new { @class = "form-control input-s-sm inline" })
+                    @Html.ValidationMessageFor(m => m.ExpiryYear, null, new { @class = "btn-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">First Name</label>
+
+                <div class="col-lg-4">
+                    @Html.TextBoxFor(Model => Model.FirstName, new { @class = "form-control trimmed", @placeholder = "First Name" })
+                    @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "btn-danger" })
+                    @*<input type="text" class="form-control" />*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Last Name</label>
+
+                <div class="col-lg-4">
+                    @Html.TextBoxFor(Model => Model.LastName, new { @class = "form-control trimmed", @placeholder = "Last Name" })
+                    @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "btn-danger" })
+                    @*<input type="text" class="form-control" />*@
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Security Code</label>
+
+            <div class="col-lg-2">
+                @Html.PasswordFor(Model => Model.SecurityCode, new { @class = "form-control trimmed", @placeholder = "Security Code", @maxlength = 3 })
+                @Html.ValidationMessageFor(m => m.SecurityCode, null, new { @class = "btn-danger" })
+                @*<input type="text" class="form-control" />*@
+                <label id="errormsgsecurity" style="color:red;"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Billing Address 1</label>
+
+            <div class="col-lg-4">
+                @Html.TextBoxFor(Model => Model.BillingAddress, new { @class = "form-control trimmed", @placeholder = "Billing Address 1" })
+                @Html.ValidationMessageFor(m => m.BillingAddress, null, new { @class = "btn-danger" })
+                @*<textarea class="form-control"></textarea>*@
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Billing Address 2</label>
+
+            <div class="col-lg-4">
+                @Html.TextBoxFor(Model => Model.BillingAddress2, new { @class = "form-control trimmed", @placeholder = "Billing Address 2" })
+                @Html.ValidationMessageFor(m => m.BillingAddress2, null, new { @class = "btn-danger" })
+                @*<textarea class="form-control"></textarea>*@
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Billing Town</label>
+
+            <div class="col-lg-4">
+                @Html.TextBoxFor(Model => Model.BillingTown, new { @class = "form-control trimmed", @placeholder = "Billing Town" })
+                @Html.ValidationMessageFor(m => m.BillingTown, null, new { @class = "btn-danger" })
+                @*<input type="text" class="form-control" />*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Billing Postcode</label>
+
+                <div class="col-lg-4">
+                    @Html.TextBoxFor(Model => Model.BillingPostcode, new { @class = "form-control trimmed", @placeholder = "Billing Post Code" })
+                    @Html.ValidationMessageFor(m => m.BillingPostcode, null, new { @class = "btn-danger" })
+                    @*<input type="text" class="form-control" />*@
+                </div>
+            </div>
+            @Html.HiddenFor(Model => Model.TotalFundAmount)
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button class="btn btn-sm btn-blue" type="button" id="btncard">Confirm</button>
+                    <button class="btn btn-sm btn-white" type="button" onclick='window.location.href="@Url.Action("Index","Billing")"'>Back</button>
+                </div>
+            </div>
+        }
+       </div>

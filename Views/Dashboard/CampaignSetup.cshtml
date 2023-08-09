@@ -1,0 +1,355 @@
+﻿@{
+    ViewBag.Title = "CampaignSetup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Campaign Setup</h5>
+                    
+                </div>
+                <div class="ibox-content">
+                    <div id="wizard">
+                        <h1>Statistics</h1>
+                        <div class="step-content">
+                            <div class="text-center m-t-md">
+                             @Html.Partial("_Statistics")
+                            </div>
+                        </div>
+
+                        <h1>Target set up</h1>
+                        <div class="step-content">
+                            <div class="text-center m-t-md">
+                             @Html.Partial("_TargetSetup")  
+                            </div>
+                        </div>
+
+                  
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/wizardStepsStyles")
+@Styles.Render("~/Content/accordion")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/wizardSteps")
+    @Scripts.Render("~/plugins/nestable")
+    <script type="text/javascript">
+        function GetURLParameter() {
+            var sPageURL = window.location.href;
+            var indexOfLastSlash = sPageURL.lastIndexOf("/");
+
+            if (indexOfLastSlash > 0 && sPageURL.length - 1 != indexOfLastSlash)
+                return sPageURL.substring(indexOfLastSlash + 1);
+            else
+                return 0;
+        }
+        $(document).ready(function () {
+
+
+            var sparklineCharts = function () {
+                $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
+                    type: 'line',
+                    width: '100%',
+                    height: '50',
+                    lineColor: '#1e90ff',
+                    fillColor: "transparent"
+                });
+
+                $("#sparkline2").sparkline([32, 11, 25, 37, 41, 32, 34, 42], {
+                    type: 'line',
+                    width: '100%',
+                    height: '50',
+                    lineColor: '#1e90ff',
+                    fillColor: "transparent"
+                });
+
+                $("#sparkline3").sparkline([34, 22, 24, 41, 10, 18, 16, 8], {
+                    type: 'line',
+                    width: '100%',
+                    height: '50',
+                    lineColor: '#1e90ff',
+                    fillColor: "transparent"
+                });
+            };
+
+            var sparkResize;
+
+            $(window).resize(function (e) {
+                clearTimeout(sparkResize);
+                sparkResize = setTimeout(sparklineCharts, 500);
+            });
+
+            sparklineCharts();
+
+
+
+
+            var data1 = [
+                [0, 4], [1, 8], [2, 5], [3, 10], [4, 4], [5, 16], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7], [15, 8], [16, 12]
+            ];
+            var data2 = [
+                [0, 0], [1, 2], [2, 7], [3, 4], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5], [15, 2], [16, 0]
+            ];
+            $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [
+                        data1, data2
+            ],
+                    {
+                        series: {
+                            lines: {
+                                show: false,
+                                fill: true
+                            },
+                            splines: {
+                                show: true,
+                                tension: 0.4,
+                                lineWidth: 1,
+                                fill: 0.4
+                            },
+                            points: {
+                                radius: 0,
+                                show: true
+                            },
+                            shadowSize: 2
+                        },
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
+
+                            borderWidth: 2,
+                            color: 'transparent'
+                        },
+                        colors: ["#1e90ff", "#1e90ff"],
+                        xaxis: {
+                        },
+                        yaxis: {
+                        },
+                        tooltip: false
+                    }
+            );
+
+
+        });
+    </script>
+    <script type="text/javascript">
+   
+    $(document).ready(function () {
+     
+       
+            var $image = $(".image-crop > img")
+            $($image).cropper({
+                aspectRatio: 1.618,
+                preview: ".img-preview",
+                done: function (data) {
+                    // Output the result data for cropping image.
+                }
+            });
+
+
+            $('#data_5 .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+
+
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $(".touchspin2").TouchSpin({
+                min: 0,
+                max: 100,
+                step: 0.1,
+                decimals: 2,
+                boostat: 5,
+                maxboostedstep: 10,
+                postfix: '%',
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+            $(".touchspin3").TouchSpin({
+                verticalbuttons: true,
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+
+        });
+
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#ionrange_1").ionRangeSlider({
+            min: 0,
+            max: 5000,
+            type: 'double',
+            prefix: "$",
+            maxPostfix: "+",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_2").ionRangeSlider({
+            min: 0,
+            max: 10,
+            type: 'single',
+            step: 0.1,
+            postfix: " carats",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_3").ionRangeSlider({
+            min: -50,
+            max: 50,
+            from: 0,
+            postfix: "°",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_4").ionRangeSlider({
+            values: [
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
+            ],
+            type: 'single',
+            hasGrid: true
+        });
+
+        $("#ionrange_5").ionRangeSlider({
+            min: 10000,
+            max: 100000,
+            step: 100,
+            postfix: " km",
+            from: 55000,
+            hideMinMax: true,
+            hideFromTo: false
+        });
+        $("#wizard").steps();
+        var chk = GetURLParameter();
+        if (chk == "0")
+        {
+            wizardt1();
+
+        }
+        else
+        {
+            wizardt0();
+        }
+        $("#wizard-t-1").click(function () {
+            wizardt1();
+        });
+        $("#wizard-t-0").click(function () {
+            wizardt0();
+        });
+        function wizardt1()
+        {
+            $("#wizard-t-1").parent().removeClass("last");
+            $("#wizard-t-1").parent().addClass("current");
+            $("#wizard-t-0").parent().removeClass("current");
+            $("#wizard-t-0").parent().addClass("disabled last");
+            $("#wizard-p-1").show();
+            $("#wizard-p-0").hide();
+        }
+        function wizardt0()
+        {
+            $("#wizard-t-0").parent().removeClass("disabled last");
+            $("#wizard-t-0").parent().addClass("current");
+            $("#wizard-t-1").parent().removeClass("current");
+            $("#wizard-t-1").parent().addClass("disabled last");
+            $("#wizard-p-0").show();
+            $("#wizard-p-1").hide();
+
+        }
+        var updateOutput = function (e) {
+            var list = e.length ? e : $(e.target),
+                    output = list.data('output');
+            if (window.JSON) {
+                output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+            } else {
+                output.val('JSON browser support required for this demo.');
+            }
+        };
+        $('#nestable').nestable({
+            group: 1
+        }).on('change', updateOutput);
+
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].onclick = function () {
+                this.classList.toggle("active");
+                this.nextElementSibling.classList.toggle("show");
+            }
+        }
+        $("#advert2").click(function () {
+            $("#dd-handle2").css("background-color", "#1e90ff");
+            $("#dd-handle3").css("background-color", "#fff");
+        });
+        $("#advert3").click(function () {
+            $("#dd-handle2").css("background-color", "#fff");
+            $("#dd-handle3").css("background-color", "#1e90ff");
+        });
+    </script>
+}
+
+

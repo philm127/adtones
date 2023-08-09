@@ -1,0 +1,377 @@
+﻿/*Defaults Styling*/
+body {
+    background: #ccc;
+    color: #333;
+    font: 12px/17px Arial, Helvetica, sans-serif;
+    padding: 40px 20px 20px 20px;
+}
+
+fieldset {
+    background: #f2f2e6;
+    border: 1px solid #fff;
+    border-color: #fff #666661 #666661 #fff;
+    margin-bottom: 36px;
+    padding: 10px;
+    width: 600px;
+}
+
+input, textarea, select {
+    font: 12px/12px Arial, Helvetica, sans-serif;
+    padding: 0;
+}
+
+fieldset.action {
+    background: #9da2a6;
+    border-color: #e5e5e5 #797c80 #797c80 #e5e5e5;
+    margin-top: -20px;
+}
+
+legend {
+    background: #bfbf30;
+    border: 1px solid #fff;
+    border-color: #e5e5c3 #505014 #505014 #e5e5c3;
+    color: #fff;
+    font: 17px/21px Calibri, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin: -26px 0 0 -11px;
+    padding: 0 10px;
+}
+
+label {
+    color: #666;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+label.opt { font-weight: normal; }
+
+dl { clear: both; }
+
+dt {
+    float: left;
+    line-height: 25px;
+    margin: 0 10px 10px 0;
+    text-align: right;
+    width: 90px;
+}
+
+dd {
+    float: left;
+    line-height: 25px;
+    margin: 0 0 10px 0;
+    width: 475px;
+}
+
+#footer { font-size: 11px; }
+
+#container {
+    margin: 0 auto;
+    width: 700px;
+}
+
+/*##########################################
+Script: Niceforms 2.0
+Theme: StandardBlue
+Author: Lucian Slatineanu
+URL: http://www.emblematiq.com/
+##########################################*/
+
+/*Text inputs*/
+
+.NFText {
+    background: none;
+    border: none;
+    font: 12px/15px Arial, Helvetica, sans-serif;
+    vertical-align: middle;
+}
+
+.NFTextCenter {
+    background: url(img/input.png) repeat-x 0 0;
+    float: left;
+    height: 15px;
+    line-height: 15px;
+    margin: 0;
+    padding: 3px 0;
+}
+
+.NFTextLeft, .NFTextRight {
+    float: left;
+    height: 21px;
+    vertical-align: middle;
+    width: 7px;
+}
+
+.NFTextLeft { background: url(img/input-left.png) no-repeat 0 0; }
+
+.NFTextRight { background: url(img/input-right.png) no-repeat 0 0; }
+/*Radio*/
+
+.NFRadio {
+    background: url(img/radio.png) no-repeat 0 0;
+    border: 1px solid transparent;
+    cursor: pointer;
+    display: block;
+    height: 13px;
+    position: absolute;
+    width: 13px;
+    z-index: 2;
+}
+/*Checkbox*/
+
+.NFCheck {
+    background: url(img/checkbox.png) no-repeat 0 0;
+    border: 1px solid transparent;
+    cursor: pointer;
+    height: 12px;
+    position: absolute;
+    width: 12px;
+    z-index: 2;
+}
+/*Buttons*/
+
+.NFButton {
+    background: url(img/button.png) repeat-x 0 0;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font: 10px/26px Tahoma, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    height: 26px;
+    letter-spacing: 1px;
+    padding: 0 2px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    width: auto;
+}
+
+.NFButtonLeft, .NFButtonRight {
+    height: 26px;
+    vertical-align: middle;
+    width: 6px;
+}
+
+.NFButtonLeft { background: url(img/button-left.png) no-repeat 0 0; }
+
+.NFButtonRight { background: url(img/button-right.png) no-repeat 0 0; }
+/*Textareas*/
+
+.NFTextarea {
+    background: none;
+    border: none;
+    font: 12px/12px Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.NFTextareaTop, .NFTextareaBottom {
+    clear: both;
+    float: none;
+    height: 5px;
+    padding-right: 10px;
+}
+
+.NFTextareaTop { background: url(img/textarea-tr.png) no-repeat 100% 0; }
+
+.NFTextareaBottom {
+    background: url(img/textarea-br.png) no-repeat 100% 0;
+    margin-bottom: 5px;
+}
+
+.NFTextareaTopLeft, .NFTextareaBottomLeft {
+    height: 5px;
+    width: 5px;
+}
+
+.NFTextareaTopLeft { background: #f2f2e6 url(img/textarea-tl.png) no-repeat 0 0; }
+
+.NFTextareaBottomLeft { background: #f2f2e6 url(img/textarea-bl.png) no-repeat 0 0; }
+
+.NFTextareaLeft, .NFTextareaRight, .NFTextareaLeftH, .NFTextareaRightH {
+    float: left;
+    padding-bottom: 5px;
+}
+
+.NFTextareaLeft, .NFTextareaLeftH { width: 5px; }
+
+.NFTextareaLeft { background: url(img/textarea-l-off.png) repeat-y 0 0; }
+
+.NFTextareaLeftH { background: url(img/textarea-l-over.png) repeat-y 0 0; }
+
+.NFTextareaRight, .NFTextareaRightH {
+    padding-bottom: 0;
+    padding-right: 5px;
+}
+
+.NFTextareaRight { background: url(img/textarea-r-off.png) repeat-y 100% 0; }
+
+.NFTextareaRightH { background: url(img/textarea-r-over.png) repeat-y 100% 100%; }
+/*Files*/
+
+.NFFileButton {
+    background: url(img/file.png) no-repeat 0 0;
+    cursor: pointer;
+    height: 21px;
+    padding-bottom: 0;
+    vertical-align: bottom;
+    width: 60px;
+}
+
+.NFFile {
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.NFFile input.NFhidden {
+    cursor: pointer;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    position: relative;
+    text-align: left;
+    z-index: 2;
+}
+
+.NFFileNew {
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    z-index: 1;
+}
+/*Selects*/
+
+.NFSelect {
+    border: 1px solid transparent;
+    height: 21px;
+    position: absolute;
+}
+
+.NFSelectLeft {
+    background: url(img/select-left.png) no-repeat 0 0;
+    float: left;
+    height: 21px;
+    vertical-align: middle;
+    width: 3px;
+}
+
+.NFSelectRight {
+    background: url(img/select-right.png) no-repeat 100% 0;
+    color: #fff;
+    cursor: pointer;
+    font: 12px/21px Arial, Helvetica, sans-serif;
+    height: 21px;
+    margin-left: 3px;
+    padding-left: 3px;
+    width: auto;
+}
+
+.NFSelectTarget {
+    background: none;
+    left: 0;
+    margin-left: -13px;
+    margin-top: 18px;
+    padding-bottom: 13px;
+    position: absolute;
+    top: 0;
+    z-index: 3;
+}
+
+.NFSelectOptions {
+    background: #707175;
+    color: #fff;
+    font: 11px/13px Arial, Helvetica, sans-serif;
+    left: 0;
+    list-style: none;
+    margin-left: 16px;
+    margin-top: 0;
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 4px 0;
+    position: relative;
+    top: 0;
+    z-index: 4;
+}
+
+.NFSelectOptions li { padding-bottom: 1px; }
+
+.NFSelectOptions a {
+    background: none;
+    color: #fff;
+    display: block;
+    padding: 2px 3px;
+    text-decoration: none;
+}
+
+.NFSelectOptions a.NFOptionActive { background: #464646; }
+
+.NFSelectOptions a:hover { background: #333; }
+/*Multiple Selects*/
+
+.NFMultiSelect {
+    background: none;
+    border: 0;
+    margin: 0;
+}
+
+.NFMultiSelectTop, .NFMultiSelectBottom {
+    clear: both;
+    float: none;
+    height: 5px;
+    padding-right: 10px;
+}
+
+.NFMultiSelectTop { background: url(img/textarea-tr.png) no-repeat 100% 0; }
+
+.NFMultiSelectBottom {
+    background: url(img/textarea-br.png) no-repeat 100% 0;
+    margin-bottom: 5px;
+}
+
+.NFMultiSelectTopLeft, .NFMultiSelectBottomLeft {
+    height: 5px;
+    width: 5px;
+}
+
+.NFMultiSelectTopLeft { background: #f2f2e6 url(img/textarea-tl.png) no-repeat 0 0; }
+
+.NFMultiSelectBottomLeft { background: #f2f2e6 url(img/textarea-bl.png) no-repeat 0 0; }
+
+.NFMultiSelectLeft, .NFMultiSelectRight, .NFMultiSelectLeftH, .NFMultiSelectRightH {
+    float: left;
+    padding-bottom: 5px;
+}
+
+.NFMultiSelectLeft, .NFMultiSelectLeftH { width: 5px; }
+
+.NFMultiSelectLeft { background: url(img/textarea-l-off.png) repeat-y 0 0; }
+
+.NFMultiSelectLeftH { background: url(img/textarea-l-over.png) repeat-y 0 0; }
+
+.NFMultiSelectRight, .NFMultiSelectRightH {
+    padding-bottom: 0;
+    padding-right: 5px;
+}
+
+.NFMultiSelectRight { background: url(img/textarea-r-off.png) repeat-y 100% 0; }
+
+.NFMultiSelectRightH { background: url(img/textarea-r-over.png) repeat-y 100% 0; }
+
+/*Focused*/
+
+.NFfocused { border: 1px dotted #666; }
+/*Hovered*/
+
+.NFh { background-position: 0 100%; }
+
+.NFhr { background-position: 100% 100%; }
+/*Hidden*/
+
+.NFhidden {
+    opacity: 0;
+    position: relative;
+    z-index: -1;
+}
+/*Safari*/
+
+select, input, textarea, button {
+    outline: none;
+    resize: none;
+}

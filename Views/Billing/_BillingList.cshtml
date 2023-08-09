@@ -1,0 +1,65 @@
+﻿<div class="row">
+    <div class="html5buttons">
+        <div class="dt-buttons btn-group">
+
+            <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0">
+                <span>Copy</span>
+            </a>
+            @*@Html.ActionLink("CSV", "ExportClientsListToCSV", new { @class = "btn btn-default buttons-csv buttons-html5" })*@
+            <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0">
+                <span>CSV</span>
+            </a><a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span></a><a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span></a><a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span></a>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-client">
+        <thead>
+            <tr>
+                <th>Invoice number</th>
+                <th>PO Number</th>
+                <th>Client</th>
+                <th>Campaign Name</th>
+                <th>Invoice Date</th>
+                <th>Invoice Total</th>
+
+                <th>Status</th>
+                <th>Settled date</th>
+                <th>Method of payment</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="gradeX">
+                <td>IN012121</td>
+                <td>PO1232</td>
+                <td>
+
+                    <a>Coca cola</a>
+                </td>
+                <td>
+                    <a>Campaign0</a>
+                </td>
+                <td>
+
+                    12/11/2015
+                </td>
+                <td>
+                    $45
+                </td>
+                <td>
+                    Paid
+                </td>
+
+                <td>
+                    12/11/2015
+
+                </td>
+                <td>
+                    Paypal
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

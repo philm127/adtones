@@ -1,0 +1,80 @@
+﻿@using EFMVC.Web.Areas.Admin.Models;
+@model List<InvoiceResult>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-invoice">
+        <thead>
+            <tr>
+                <th>Invoice Number</th>
+                <th>PO Number</th>
+                <th>User</th>
+                <th>Organisation</th>
+                <th>Email</th>
+                <th>Client</th>
+                <th>Campaign</th>
+                <th>Invoice Date</th>
+                <th>Invoice Total</th>
+                <th>Status</th>
+                <th>Settled Date</th>
+                <th>Method of Payment</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (InvoiceResult billing in Model)
+            {
+            <tr class="gradeX">
+                <td>@billing.InvoiceNO</td>
+                @if (!string.IsNullOrEmpty(billing.PONumber))
+                {
+                    <td>@billing.PONumber</td>
+                }
+                else
+                {
+                   <td>-</td>
+                }
+                <td>@billing.UserName</td>
+                @if (!string.IsNullOrEmpty(billing.Organisation))
+                {
+                    <td>@billing.Organisation</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+                <td><a href='@Url.Action("UserDetails", "UserManagement", new { @id = billing.UserId })'>@billing.Emailaddress</a></td>
+                @*<td><a href='@Url.Action("ClientDetails", "AdminClient", new { @id = billing.ClienId })'>@billing.ClientName</a></td>*@
+                @if (billing.ClientName != "-")
+                {
+                    <td><a class="clientname" href='@Url.Action("ClientDetails","AdminClient",new {@id=billing.ClienId, area = "Admin" })'>@billing.ClientName</a></td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+                <td><a href='@Url.Action("Index", "Campaign", new { @campaignId = billing.CampaignId })'>@billing.CampaignName</a></td>
+                <td>
+                    @billing.InvoiceDate
+                </td>
+                <td>
+                    @billing.InvoiceTotal.ToString("F2")
+                </td>
+                <td>
+                    @billing.status
+                </td>
+                <td>
+                    @billing.SettledDate
+                </td>
+                <td>
+                    @billing.MethodOfPayment
+                </td>
+                <td>
+                    @*<a class="btn btn-blue btn-xs" href='@Url.Action("SendInvoice","Invoice",new {@billingId=billing.ID,@userid=billing.UserId})'>Send Email</a>*@
+                    <a class="btn btn-blue btn-xs" href="#" onclick="sendEmail(@billing.ID,@billing.UserId);">Send Email</a>
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

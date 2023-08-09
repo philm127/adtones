@@ -1,0 +1,216 @@
+﻿@using EFMVC.Web.ViewModels
+@model ClientModel
+@{
+    ViewBag.Title = "EditClient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Client Details</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Dashboard")">Dashboard</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Client")">Clients</a>
+
+            </li>
+            <li class="active">
+                <strong>@ViewBag.clientname</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Client Details</h5>
+
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("UpdateClient", "Client", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Name <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-6">
+                                @Html.HiddenFor(Model => Model.Id)
+                                @Html.TextBoxFor(Model => Model.Name, new { @class = "form-control trimmed", @placeholder = "Name" })
+                                @Html.ValidationMessageFor(Model => Model.Name, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Description <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(Model => Model.Description, new { @class = "form-control trimmed", @placeholder = "Description" })
+                                @Html.ValidationMessageFor(Model => Model.Description, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Contact Info <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(Model => Model.ContactInfo, new { @class = "form-control trimmed", @placeholder = "Contact Info" })
+                                @Html.ValidationMessageFor(Model => Model.ContactInfo, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Country <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.CountryId, ViewBag.country as IEnumerable<SelectListItem>, "--Select Country--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.CountryId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        @*Comment 12-07-2019 As per Trello Card*@
+                        @*Add 04-04-2019*@
+                        @*<div class="form-group">
+                            <label class="col-lg-2 control-label">Currency</label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.CurrencyId, ViewBag.currencyList as IEnumerable<SelectListItem>, "--Select Currency--", new { @class = "input-sm form-control input-s-sm inline", @style = "Height:36px" })
+                                <span class="btn-danger" id="errormsg"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Budget <label id="lblbudget"></label><label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.Budget, new { @class = "form-control trimmed", @placeholder = "Budget" })
+                                @Html.ValidationMessageFor(Model => Model.Budget, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>*@
+                        if (ViewBag.status == 4)
+                        {
+                            <div class="form-group">
+                                @Html.HiddenFor(Model => Model.Status)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Status <label class="lbldanger">*</label></label>
+
+                                <div class="col-lg-6">
+                                    @Html.DropDownListFor(Model => Model.Status, ViewBag.clientStatus as IEnumerable<SelectListItem>, "--Select Status--", new { @class = "form-control input-s-sm inline" })
+                                    @Html.ValidationMessageFor(Model => Model.Status, null, new { @class = "btn-danger" })
+                                </div>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index","Client")'">Cancel</button>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            trimmed();
+            ChnageCountryId();
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+        function ChnageCountryId() {
+            $(".loader").show();
+            var id = $("#CountryId").val();
+            var label = "country";
+            if (id == "") {
+                $(".loader").hide();
+            }
+            else {
+                $.post('@Url.Action("GetCurrencyCode", "Client")', { id: id, label: label }, function (data) {
+                    if (data.data = "success") {
+                        var countrySymbole = data.value;
+                        $("#CurrencyId").val(data.value1);
+                        $("#lblbudget").html("(" + countrySymbole + ")");
+                        $(".loader").hide();
+                    }
+                    else if (data.data = "fail") {
+                        $(".loader").hide();
+                    }
+                });
+            }
+        }
+
+        $("#CountryId").change(function () {
+            $(".loader").show();
+            var id = $(this).val();
+            var label = "country";
+            if (id == "") {
+                $("#errormsg").html("");
+                $("#CurrencyId").val("");
+                $("#lblbudget").html("");
+                $(".loader").hide();
+            }
+            else {
+                $.post('@Url.Action("GetCurrencyCode", "Client")', { id: id, label: label }, function (data) {
+                    if (data.data = "success") {
+                        $("#errormsg").html("");
+                        var countrySymbole = data.value;
+                        $("#CurrencyId").val(data.value1);
+                        $("#lblbudget").html("(" + countrySymbole + ")");
+                        $(".loader").hide();
+                    }
+                    else if (data.data = "fail") {
+                        $(".loader").hide();
+                    }
+                });
+            }
+        });
+
+        $("#CurrencyId").change(function () {
+            $(".loader").show();
+            var id = $(this).val();
+            var label = "currency";
+            if (id == "") {
+                $("#errormsg").html("Please Select a Currency.");
+                $("#lblbudget").html("");
+                $(".loader").hide();
+            }
+            else {
+                $.post('@Url.Action("GetCurrencyCode", "Client")', { id: id, label: label }, function (data) {
+                    if (data.data = "success") {
+                        $("#errormsg").html("");
+                        var countrySymbole = data.value;
+                        $("#lblbudget").html("(" + countrySymbole + ")");
+                        $(".loader").hide();
+                    }
+                    else if (data.data = "fail") {
+                        $(".loader").hide();
+                    }
+                });
+            }
+        });
+
+    </script>
+}

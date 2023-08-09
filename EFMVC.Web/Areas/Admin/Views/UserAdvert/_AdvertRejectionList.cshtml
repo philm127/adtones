@@ -1,0 +1,7 @@
+﻿@model List<EFMVC.Model.AdvertRejection>
+@foreach(var item in Model)
+{
+    <ul>
+        <li> <b>@item.User.FirstName @item.User.LastName</b> - @item.RejectionReason</li>        
+    </ul>
+}

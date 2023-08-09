@@ -1,0 +1,602 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.Models;
+@model Tuple<List<UserAdvertResult>, UserAdvertFilter>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        @Html.Partial("_UserAdvertManagement", Tuple.Create<List<UserAdvertResult>, UserAdvertFilter>(Model.Item1, Model.Item2))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Scripts Details</h4>
+            </div>
+            <div class="modal-body">
+                <p id="pscripts"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="RejectedAdvertId" />
+<div class="modal fade" id="RejectedAdvertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Advert Rejection</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    @*<div class="form-group">
+                            <label for="recipient-name" class="control-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>*@
+                    <div id="RejectionList">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">Rejection Reason</label>
+                        <textarea class="form-control" id="txtAreaReason"></textarea>
+                    </div>
+                </form>
+                @*<input type="text" placeholder="Rejection Reason" class="form-control" />*@
+                @*Modal content*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnSubmit" class="btn btn-success">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @*@Styles.Render("~/plugins/dateRangeStyles")*@
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @*@Styles.Render("~/plugins/dataPickerStyles")*@
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/daterangepickerNewStyles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @*@Scripts.Render("~/plugins/dataPicker")*@
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @*@Scripts.Render("~/plugins/dateRange")*@
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/daterangepickerNew")
+    <script type="text/javascript">
+
+         $(window).load(function () {
+
+                $("#UserId").select2({
+                    placeholder: "All Users",
+                    containerCssClass: "userdrp",
+                    allowClear: true,
+                    ajax: {
+                    //url: "https://api.github.com/search/repositories",
+                    //dataType: 'json',
+
+                    traditional: true,
+                    url: '@Url.Action("FillUserDropdownAJAX", "Campaign", new { area = "Admin" })',
+                    type: "POST",
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            UserName: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        // parse the results into the format expected by Select2
+                        // since we are using custom formatting functions we do not need to
+                        // alter the remote JSON data, except to indicate that infinite
+                        // scrolling can be used
+
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }, // let our custom formatter work
+                minimumInputLength: 1,
+                templateResult: formatRepo, // omitted for brevity, see the source of this page
+                templateSelection: formatRepoSelection, // omitted for brevity, see the source of this page
+                width: '100%'
+                });
+
+            function formatRepo(repo) {
+                if (repo.loading) {
+
+                    return repo.text
+                };
+
+            var markup =
+                    '<div class="avatar">' +
+                    '<div class="info">' +
+
+                   '<div class="col-sm-16">' + repo.name + '</div>';
+
+             markup += '</div></div> ';
+
+            return markup;
+                }
+
+                function formatRepoSelection(repo) {
+                    return repo.name || repo.text;
+                }
+
+
+
+});
+        function showModal(id) {
+            $("#RejectedAdvertId").val(id);
+            $.post('@Url.Action("GetRejectedReasonList", "UserAdvert", new { area = "Admin" })', { advertId: id }, function (data) {
+                if (data != "False") {
+                    $("#RejectionList").html(data);
+                }
+            });
+            $('#RejectedAdvertModal').modal();
+        }
+
+        $("#btnSubmit").click(function () {
+            // status = 5
+            var textAreaValue = $("#txtAreaReason").val();
+            if (textAreaValue != "")
+            {
+                var advertId = $("#RejectedAdvertId").val();
+                $.post('@Url.Action("RejectAdvert", "UserAdvert", new { area = "Admin" })', { advertId: advertId, rejectionReason: textAreaValue }, function (data) {
+
+                    if (data == "success") {
+                        window.location.href = '@Url.Action("Index", "UserAdvert", new { area = "Admin" })';
+
+                    }
+                });
+
+            }
+            else
+            {
+                alert("Please enter the rejection reason")
+            }
+
+        });
+
+        function getscripts(current) {
+            $("#pscripts").html($(current).attr('title'));
+            $("#myModal6").modal();
+        }
+        function updatestatus(id, status, oldstatus) {
+            $(".spiner-example").show();
+            var userObject = new Object();
+            userObject.id = id;
+            userObject.status = status;
+            userObject.oldstatus = oldstatus;
+            $.post('@Url.Action("ApproveORRejectAdvert", "UserAdvert")', userObject, function (data) {
+
+                if (data == "success") {
+                    $(".spiner-example").hide();
+                    window.location.href = '@Url.Action("Index", "UserAdvert", new { area = "Admin" })';
+
+                }
+            });
+        }
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        function getClientByUserId(userId) {
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("GetClientsUser", "UserAdvert",new {area="Admin" })',
+                type: "POST",
+                data: { userId: userId },
+                success: function (data) {
+                    $("#ClientId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, client) {
+                            $("#ClientId").append('<option value="' + client.Id + '">' +
+                                                            client.Name + '</option>');
+
+                        });
+                    }
+                    $("#ClientId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+
+        }
+        function getAdvertByClientId(clientId) {
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("GetClientsAdvert", "UserAdvert", new {area="Admin" })',
+                type: "POST",
+                data: { clientId: clientId },
+                success: function (data) {
+                    $("#AdvertId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, adverts) {
+                            $("#AdvertId").append('<option value="' + adverts.Id + '">' +
+                                                            adverts.Name + '</option>');
+
+                        });
+                    }
+                    $("#AdvertId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+
+        }
+        function dataTableSetup() {
+            $('.dataTables-useradvert').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                "bLengthChange": false,
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [-3, -4]
+                    }
+                ],
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy', title: 'UserAdvertsDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 7, 8] } },
+                    { extend: 'csv', title: 'UserAdvertsDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 7, 8] } },
+                    { extend: 'excel', title: 'UserAdvertsDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 7, 8] } },
+                    { extend: 'pdf', title: 'UserAdvertsDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 7, 8] } },
+
+                    {
+                        extend: 'print',
+                        exportOptions: { columns: [0, 1, 2, 3, 4, 7, 8] },
+                        title: 'UserAdvertsDetails',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+            });
+        }
+        $(document).ready(function () {
+            $('body').bind('keyup', function (event) {
+                if (event.keyCode === 13) {
+                    $('#form0').submit();
+                }
+            });
+            $(".chosen-container").bind('keyup', function (e) {
+                if (e.which === 13) {
+                    $('#form0').submit();
+                    // or your stuff here...
+                }
+            });
+            $('#createdFrom').datetimepicker({ ignoreReadonly: true });
+
+            $('#createdTo').datetimepicker({
+                useCurrent: false, //Important! See issue #1075
+                ignoreReadonly: true
+            });
+
+            $("#createdFrom").on("dp.change", function (e) {
+                $('#createdTo').data("DateTimePicker").minDate(e.date);
+            });
+
+            $("#createdTo").on("dp.change", function (e) {
+                $('#createdFrom').data("DateTimePicker").maxDate(e.date);
+            });
+            $('#fromdate').css({ "height": "34px" });
+            $('#todate').css({ "height": "34px" });
+            var user_Id = getParameterByName("userId");
+            if (user_Id != '') {
+                var userId = new Array();
+                userId.push(user_Id);
+                getClientByUserId(userId);
+            }
+            $("#UserId").change(function () {
+                var userId = new Array();
+                $("select#UserId option:selected").each(function () {
+                    userId.push($(this).val());
+                });
+                getClientByUserId(userId);
+            });
+            $("#ClientId").change(function () {
+                var clientId = new Array();
+                $("select#ClientId option:selected").each(function () {
+                    clientId.push($(this).val());
+                });
+                if (clientId != null || clientId != '') {
+                    getAdvertByClientId(clientId);
+                }
+                else {
+                    getAdvertByClientId();
+                }
+            });
+            //$('#data_5 .input-daterange').datepicker({
+            //    keyboardNavigation: false,
+            //    forceParse: false,
+            //    autoclose: true
+            //});
+            var config = {
+                '.chosen-select': { width: "100%" },
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+            $("#advertreset").click(function () {
+                $(".spiner-example").show();
+                $('#fromdate').val('');
+                $('#todate').val('');
+                $("#UserId").select2("val", "");
+                $("#ClientId").val('0');
+                $("#ClientId").trigger("chosen:updated");
+                $("#AdvertId").val('0');
+                $("#AdvertId").trigger("chosen:updated");
+                $("#AdvertStatusId").val('0');
+                $("#AdvertStatusId").trigger("chosen:updated");
+                $("#Item2_Fromdate").val('');
+                $("#Item2_Todate").val('');
+
+                //Add 05-02-2019 For Fill Advert DropDown
+                $.ajax({
+                    traditional: true,
+                    url: '@Url.Action("GetAdvert", "UserAdvert", new {area="Admin" })',
+                    type: "POST",
+                    success: function (data) {
+                        $("#AdvertId").empty();
+                        if (data == "nodata" || data == "error") {
+
+                        }
+                        else {
+                            $.each(data, function (i, adverts) {
+                                $("#AdvertId").append('<option value="' + adverts.Id + '">' +
+                                    adverts.Name + '</option>');
+
+                            });
+                        }
+                        $("#AdvertId").trigger("chosen:updated");
+                    },
+                    error: function (jqXHR, exception) {
+                        alert('Internal server error.Please try again.');
+                    }
+                });
+
+                $.ajax({
+                    data: null,
+                    datatype: "text/plain",
+                    type: "POST",
+                    url: '@Url.Action("SearchAdverts", "UserAdvert",new {area="Admin" })',
+                    cache: false,
+                    success: function (data) {
+                        $(".spiner-example").hide();
+                        $("#advertsList").html(data);
+                        dataTableSetup();
+                    }
+                });
+            });
+            $('.dataTables-useradvert').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                "bLengthChange": false,
+                "serverSide": true, // for process on server side
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [-3, -4]
+                    }
+                ],
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy', title: 'UserAdvertsDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 7, 8] } },
+                    { extend: 'csv', title: 'UserAdvertsDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 7, 8] } },
+                    { extend: 'excel', title: 'UserAdvertsDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 7, 8] } },
+                    { extend: 'pdf', title: 'UserAdvertsDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 7, 8] } },
+
+                    {
+                        extend: 'print',
+                        exportOptions: { columns: [0, 1, 2, 3, 4, 7, 8] },
+                        title: 'UserDetails',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "ajax": {
+                    "url": "/Admin/UserAdvert/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "aoColumns": [
+
+                    {
+                        "data": "Email", "name": "Email", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            return '<td><a href="/Admin/UserManagement/UserDetails?id=' + row.userId + '">' + row.Email + '</a</td>';
+                        }
+                    },//index-0
+                    { "data": "UserName", "name": "UserName", "autoWidth": false },//index-1
+                    {
+                        "data": "ClientName", "name": "ClientName", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (row.ClientName != "-") {
+                                return '<td><a href="/Admin/AdminClient/ClientDetails?id=' + row.ClientId + '">' + row.ClientName + '</a></td>';
+                            }
+                            else {
+                                return '<td>-</td>';
+                            }
+                        }
+                    },//index-2
+                    {
+                        "data": "Name", "name": "Name", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            return '<td><a href="/Admin/UserAdvert/AdvertDetails?id=' + row.AdvertId + '&userid=' + row.userId + '">' + row.Name + '</a></td>';
+                        }
+                    },//index-3
+                    {
+                        "data": "Brand", "name": "Brand", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (row.Brand != "") {
+                                return '<td>' + row.Brand + '</td>';
+                            }
+                            else {
+                                return '<td>-</td>';
+                            }
+                        }
+                    },//index-4
+                    {
+                        "data": "Scripts", "name": "Scripts", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (row.Scripts != "") {
+                                return '<td><a title="' + row.Scripts + '" onclick="getscripts(this);">View</a></td>';
+                            }
+                            else {
+                                if (row.ScriptsPath != "") {
+                                    return '<td><a href="' + row.ScriptsPath + '" download="' + row.ScriptsPath + '" target="_blank">Download</a></td>';
+                                }
+                                else {
+                                    return '<td>-</td>';
+                                }
+                            }
+                        }
+                    },//index-5
+                    {
+                        "data": "MediaFileLocation", "name": "MediaFileLocation", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            return '<td><audio class="audio-small" controls="controls" id="' + row.Name + '" src="' + row.MediaFileLocation + '"></audio></td>';
+                        }
+                    },//index-6
+                    {
+                        "data": "status", "name": "status", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (row.status == 1) {
+                                return '<td><label class="label label-primary">Live</label></td>';
+                            }
+                            else if (row.status == 2) {
+                                return '<td><label class="label label-success">Suspended</label></td>';
+                            }
+                            else if (row.status == 3) {
+                                return '<td><label class="label label-danger">Archived</label></td>';
+                            }
+                            else if (row.status == 4) {
+                                return '<td><label class="label label-default">Waitingforapproval</label></td>';
+                            }
+                            else if (row.status == 7) {
+                                return '<td><label class="label label-primary">InProgress</label></td>';
+                            }
+                            else if (row.status == 8) {
+                                return '<td><label class="label label-danger">Campaign Paused Due To Insufficient Funds</label></td>';
+                            }
+                            else if (row.status == 9) {
+                                return '<td><label class="label label-warning">Pending</label></td>';
+                            }
+                            else {
+                                return '<td><label class="label label-danger">Rejected</label></td>';
+                            }
+                        }
+                    },//index-7
+                    { "data": "CreatedDate", "name": "CreatedDate", "autoWidth": false }//index-8
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () { $(".spiner-example").hide(); }
+            });
+        });
+
+    </script>
+}

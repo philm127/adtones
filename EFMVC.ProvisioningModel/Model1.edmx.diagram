@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9c0eca0f8a434abebb0b721b1b83a16a" Name="Diagram1" ZoomLevel="108">
+        <EntityTypeShape EntityType="arthar_addcacheModel.ACCOUNT" Width="1.5" PointX="2.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="arthar_addcacheModel.ACCOUNT_OPT_OUT" Width="1.5" PointX="5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="arthar_addcacheModel.ADD_STATE" Width="1.5" PointX="7.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="arthar_addcacheModel.BUCKET" Width="1.5" PointX="7.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="arthar_addcacheModel.BUCKET_BATCH" Width="1.5" PointX="5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="arthar_addcacheModel.BUCKET_BATCH_STATUS" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="arthar_addcacheModel.BUCKET_ITEM" Width="1.5" PointX="9.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="arthar_addcacheModel.campaignmatchusermatch" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="arthar_addcacheModel.campaignprofiletimesetting" Width="1.5" PointX="7.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="arthar_addcacheModel.usermatch" Width="1.5" PointX="0.75" PointY="33.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="arthar_addcacheModel.userprofiletimesetting" Width="1.5" PointX="2.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="arthar_addcacheModel.add_play_check" Width="1.5" PointX="4.75" PointY="10.25" IsExpanded="true" />
+        <AssociationConnector Association="arthar_addcacheModel.FK_MSISDN_OPT_OUT_ACCOUNT_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="arthar_addcacheModel.FK_BUCKET_ITEM_ADD_STATE" ManuallyRouted="false" />
+        <AssociationConnector Association="arthar_addcacheModel.FK_BUCKET_BUCKET_BATCH_LOG" ManuallyRouted="false" />
+        <AssociationConnector Association="arthar_addcacheModel.FK_BUCKET_ITEM_BUCKET" ManuallyRouted="false" />
+        <AssociationConnector Association="arthar_addcacheModel.FK_BUCKET_BATCH_LOG_BUCKET_BATCH_STATUS" ManuallyRouted="false" />
+        <AssociationConnector Association="arthar_addcacheModel.fk_UserProfileId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="arthar_addcacheModel.campaignmatch" Width="1.5" PointX="10.375" PointY="9.25" />
+        <AssociationConnector Association="arthar_addcacheModel.fk_CampaignProfileId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

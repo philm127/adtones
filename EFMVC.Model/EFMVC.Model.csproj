@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0CB7B2DB-AECA-421A-AA9F-BFF8B532D535}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EFMVC.Model</RootNamespace>
+    <AssemblyName>EFMVC.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AttributeRouting, Version=3.5.6.0, Culture=neutral, PublicKeyToken=c10f85d521a011a9, processorArchitecture=MSIL">
+      <HintPath>..\packages\AttributeRouting.Core.3.5.6\lib\net40\AttributeRouting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AttributeRouting.Web, Version=3.5.6.0, Culture=neutral, PublicKeyToken=c10f85d521a011a9, processorArchitecture=MSIL">
+      <HintPath>..\packages\AttributeRouting.Core.Web.3.5.6\lib\net40\AttributeRouting.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.1.0.20105.408\lib\net40\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebActivator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivator.1.0.0.0\lib\WebActivator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Area.cs" />
+    <Compile Include="Entities\CampaignCreditPeriod.cs" />
+    <Compile Include="Entities\CopyRight.cs" />
+    <Compile Include="Entities\LinuxServerConnectionString.cs" />
+    <Compile Include="Entities\LoggedIn.cs" />
+    <Compile Include="Entities\MaximumAdvertPerDay.cs" />
+    <Compile Include="Entities\MpesaHistory.cs" />
+    <Compile Include="Entities\OperatorConfiguration.cs" />
+    <Compile Include="Entities\OperatorFTPDetail.cs" />
+    <Compile Include="Entities\OperatorMaxAdvert.cs" />
+    <Compile Include="Entities\ProfileMatchLabel.cs" />
+    <Compile Include="Entities\PromotionalAdvert.cs" />
+    <Compile Include="Entities\PromotionalCampaign.cs" />
+    <Compile Include="Entities\PromotionalCampaignAudit.cs" />
+    <Compile Include="Entities\ProvitionUser.cs" />
+    <Compile Include="Entities\PromotionalUser.cs" />
+    <Compile Include="Entities\RotateAdvert.cs" />
+    <Compile Include="Entities\SoapUploadTone.cs" />
+    <Compile Include="Entities\SpentBucket.cs" />
+    <Compile Include="Entities\SpentBucket10.cs" />
+    <Compile Include="Entities\SpentBucket2.cs" />
+    <Compile Include="Entities\SpentBucket3.cs" />
+    <Compile Include="Entities\SpentBucket4.cs" />
+    <Compile Include="Entities\SpentBucket5.cs" />
+    <Compile Include="Entities\SpentBucket6.cs" />
+    <Compile Include="Entities\SpentBucket7.cs" />
+    <Compile Include="Entities\SpentBucket8.cs" />
+    <Compile Include="Entities\SpentBucket9.cs" />
+    <Compile Include="Entities\SpentBucketItem.cs" />
+    <Compile Include="Entities\SpentBucketItem10.cs" />
+    <Compile Include="Entities\SpentBucketItem2.cs" />
+    <Compile Include="Entities\SpentBucketItem3.cs" />
+    <Compile Include="Entities\SpentBucketItem4.cs" />
+    <Compile Include="Entities\SpentBucketItem5.cs" />
+    <Compile Include="Entities\SpentBucketItem6.cs" />
+    <Compile Include="Entities\SpentBucketItem7.cs" />
+    <Compile Include="Entities\SpentBucketItem8.cs" />
+    <Compile Include="Entities\SpentBucketItem9.cs" />
+    <Compile Include="Entities\TIBCOResponseCode.cs" />
+    <Compile Include="Entities\UserPasswordHistory.cs" />
+    <Compile Include="Entities\UserRewardCount.cs" />
+    <Compile Include="Entities\UserRewardHistory.cs" />
+    <Compile Include="Entities\UserReward.cs" />
+    <Compile Include="Entities\Reward.cs" />
+    <Compile Include="Entities\SoapApiResponseCode.cs" />
+    <Compile Include="Entities\Bucket2.cs" />
+    <Compile Include="Entities\Bucket3.cs" />
+    <Compile Include="Entities\Bucket4.cs" />
+    <Compile Include="Entities\Bucket5.cs" />
+    <Compile Include="Entities\Bucket6.cs" />
+    <Compile Include="Entities\Bucket7.cs" />
+    <Compile Include="Entities\Bucket8.cs" />
+    <Compile Include="Entities\Bucket9.cs" />
+    <Compile Include="Entities\Bucket10.cs" />
+    <Compile Include="Entities\Bucket.cs" />
+    <Compile Include="Entities\BucketItem2.cs" />
+    <Compile Include="Entities\BucketItem3.cs" />
+    <Compile Include="Entities\BucketItem4.cs" />
+    <Compile Include="Entities\BucketItem5.cs" />
+    <Compile Include="Entities\BucketItem6.cs" />
+    <Compile Include="Entities\BucketItem7.cs" />
+    <Compile Include="Entities\BucketItem8.cs" />
+    <Compile Include="Entities\BucketItem9.cs" />
+    <Compile Include="Entities\BucketItem10.cs" />
+    <Compile Include="Entities\BucketItem.cs" />
+    <Compile Include="Entities\BucketBatch2.cs" />
+    <Compile Include="Entities\BucketBatch3.cs" />
+    <Compile Include="Entities\BucketBatch4.cs" />
+    <Compile Include="Entities\BucketBatch5.cs" />
+    <Compile Include="Entities\BucketBatch6.cs" />
+    <Compile Include="Entities\BucketBatch7.cs" />
+    <Compile Include="Entities\BucketBatch8.cs" />
+    <Compile Include="Entities\BucketBatch9.cs" />
+    <Compile Include="Entities\BucketBatch10.cs" />
+    <Compile Include="Entities\BucketBatch.cs" />
+    <Compile Include="Entities\CampaignAudit2.cs" />
+    <Compile Include="Entities\CampaignAudit3.cs" />
+    <Compile Include="Entities\CampaignAudit4.cs" />
+    <Compile Include="Entities\CampaignAudit5.cs" />
+    <Compile Include="Entities\CampaignAudit6.cs" />
+    <Compile Include="Entities\CampaignAudit7.cs" />
+    <Compile Include="Entities\CampaignAudit8.cs" />
+    <Compile Include="Entities\CampaignAudit9.cs" />
+    <Compile Include="Entities\CampaignAudit10.cs" />
+    <Compile Include="Entities\CampaignConfig.cs" />
+    <Compile Include="Entities\CampaignMetrics.cs" />
+    <Compile Include="Entities\Currency.cs" />
+    <Compile Include="Entities\CurrencyRate.cs" />
+    <Compile Include="Entities\FlotChartMetrics.cs" />
+    <Compile Include="Entities\PreMatch4.cs" />
+    <Compile Include="Entities\PreMatch5.cs" />
+    <Compile Include="Entities\PreMatch6.cs" />
+    <Compile Include="Entities\PreMatch7.cs" />
+    <Compile Include="Entities\PreMatch8.cs" />
+    <Compile Include="Entities\PreMatch9.cs" />
+    <Compile Include="Entities\PreMatch10.cs" />
+    <Compile Include="Entities\PreMatch3.cs" />
+    <Compile Include="Entities\PreMatch2.cs" />
+    <Compile Include="Entities\PreMatch.cs" />
+    <Compile Include="Entities\CampaignmatchUsermatch2.cs" />
+    <Compile Include="Entities\CampaignmatchUsermatch3.cs" />
+    <Compile Include="Entities\CampaignmatchUsermatch4.cs" />
+    <Compile Include="Entities\CampaignmatchUsermatch5.cs" />
+    <Compile Include="Entities\CampaignmatchUsermatch6.cs" />
+    <Compile Include="Entities\CampaignmatchUsermatch7.cs" />
+    <Compile Include="Entities\CampaignmatchUsermatch8.cs" />
+    <Compile Include="Entities\CampaignmatchUsermatch9.cs" />
+    <Compile Include="Entities\CampaignmatchUsermatch10.cs" />
+    <Compile Include="Entities\CampaignmatchUsermatch.cs" />
+    <Compile Include="Entities\AdvertRejection.cs" />
+    <Compile Include="Entities\EmailVerificationCode.cs" />
+    <Compile Include="Entities\CountryConnectionString.cs" />
+    <Compile Include="Entities\GravityFormsTrack.cs" />
+    <Compile Include="Entities\Import2.cs" />
+    <Compile Include="Entities\Import3.cs" />
+    <Compile Include="Entities\Import4.cs" />
+    <Compile Include="Entities\Import5.cs" />
+    <Compile Include="Entities\Import6.cs" />
+    <Compile Include="Entities\Import7.cs" />
+    <Compile Include="Entities\Import8.cs" />
+    <Compile Include="Entities\Import9.cs" />
+    <Compile Include="Entities\Import10.cs" />
+    <Compile Include="Entities\Import.cs" />
+    <Compile Include="Entities\ImportFileTrack.cs" />
+    <Compile Include="Entities\ImportUserCSV.cs" />
+    <Compile Include="Entities\AdvertCategory.cs" />
+    <Compile Include="Entities\OrganisationType.cs" />
+    <Compile Include="Entities\ProfileMatchInformation.cs" />
+    <Compile Include="Entities\CampaignBudget.cs" />
+    <Compile Include="Entities\SparkLineMetrics.cs" />
+    <Compile Include="Entities\UserMatch2.cs" />
+    <Compile Include="Entities\UserMatch3.cs" />
+    <Compile Include="Entities\UserMatch4.cs" />
+    <Compile Include="Entities\UserMatch5.cs" />
+    <Compile Include="Entities\UserMatch6.cs" />
+    <Compile Include="Entities\UserMatch7.cs" />
+    <Compile Include="Entities\UserMatch8.cs" />
+    <Compile Include="Entities\UserMatch9.cs" />
+    <Compile Include="Entities\UserMatch10.cs" />
+    <Compile Include="Entities\UserMatch.cs" />
+    <Compile Include="Entities\CampaignMatch10.cs" />
+    <Compile Include="Entities\CampaignMatch9.cs" />
+    <Compile Include="Entities\CampaignMatch8.cs" />
+    <Compile Include="Entities\CampaignMatch7.cs" />
+    <Compile Include="Entities\CampaignMatch6.cs" />
+    <Compile Include="Entities\CampaignMatch5.cs" />
+    <Compile Include="Entities\CampaignMatch4.cs" />
+    <Compile Include="Entities\CampaignMatch3.cs" />
+    <Compile Include="Entities\CampaignMatch2.cs" />
+    <Compile Include="Entities\CampaignMatch.cs" />
+    <Compile Include="Entities\BucketBatchStatus.cs" />
+    <Compile Include="Entities\Billing.cs" />
+    <Compile Include="Entities\BillingDetails.cs" />
+    <Compile Include="Entities\CampaignProfilePreference.cs" />
+    <Compile Include="Entities\Client.cs" />
+    <Compile Include="Entities\CompanyDetails.cs" />
+    <Compile Include="Entities\Contacts.cs" />
+    <Compile Include="Entities\Country.cs" />
+    <Compile Include="Entities\CountryTax.cs" />
+    <Compile Include="Entities\Operator.cs" />
+    <Compile Include="Entities\PaymentMethod.cs" />
+    <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\QuestionComment.cs" />
+    <Compile Include="Entities\QuestionCommentImages.cs" />
+    <Compile Include="Entities\QuestionImages.cs" />
+    <Compile Include="Entities\QuestionSubject.cs" />
+    <Compile Include="Entities\SystemConfig.cs" />
+    <Compile Include="Entities\BlockedNumber.cs" />
+    <Compile Include="Entities\CampaignAdvert.cs" />
+    <Compile Include="Entities\CampaignAudit.cs" />
+    <Compile Include="Entities\CampaignProfileDateSettings.cs" />
+    <Compile Include="Entities\CampaignProfile.cs" />
+    <Compile Include="Entities\CampaignProfileAdvert.cs" />
+    <Compile Include="Entities\CampaignProfileAttitude.cs" />
+    <Compile Include="Entities\CampaignProfileCinema.cs" />
+    <Compile Include="Entities\CampaignProfileDemographics.cs" />
+    <Compile Include="Entities\CampaignProfileInternet.cs" />
+    <Compile Include="Entities\CampaignProfileMobile.cs" />
+    <Compile Include="Entities\CampaignProfilePress.cs" />
+    <Compile Include="Entities\CampaignProfileProductsService.cs" />
+    <Compile Include="Entities\CampaignProfileRadio.cs" />
+    <Compile Include="Entities\CampaignProfileTimeSetting.cs" />
+    <Compile Include="Entities\CampaignProfileTv.cs" />
+    <Compile Include="Entities\CampaignProfileUserProfile.cs" />
+    <Compile Include="Entities\BucketAudit.cs" />
+    <Compile Include="Entities\BucketAuditRow.cs" />
+    <Compile Include="Entities\Advert.cs" />
+    <Compile Include="Entities\Order2.cs" />
+    <Compile Include="Entities\Product2.cs" />
+    <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserProfile.cs" />
+    <Compile Include="Entities\UserProfileAdverts.cs" />
+    <Compile Include="Entities\UserProfileAdvertsReceived10.cs" />
+    <Compile Include="Entities\UserProfileAdvertsReceived3.cs" />
+    <Compile Include="Entities\UserProfileAdvertsReceived4.cs" />
+    <Compile Include="Entities\UserProfileAdvertsReceived5.cs" />
+    <Compile Include="Entities\UserProfileAdvertsReceived6.cs" />
+    <Compile Include="Entities\UserProfileAdvertsReceived7.cs" />
+    <Compile Include="Entities\UserProfileAdvertsReceived8.cs" />
+    <Compile Include="Entities\UserProfileAdvertsReceived9.cs" />
+    <Compile Include="Entities\UserProfileAdvertsReceived2.cs" />
+    <Compile Include="Entities\UserProfileAdvertsReceived.cs" />
+    <Compile Include="Entities\UserProfileAttitude.cs" />
+    <Compile Include="Entities\UserProfileCinema.cs" />
+    <Compile Include="Entities\UserProfileCreditsReceived.cs" />
+    <Compile Include="Entities\UserProfileInternet.cs" />
+    <Compile Include="Entities\UserProfileMobile.cs" />
+    <Compile Include="Entities\UserProfilePreference.cs" />
+    <Compile Include="Entities\UserProfilePress.cs" />
+    <Compile Include="Entities\UserProfileProductsServices.cs" />
+    <Compile Include="Entities\UserProfileRadio.cs" />
+    <Compile Include="Entities\UserProfileTimeSettings.cs" />
+    <Compile Include="Entities\UserProfileTv.cs" />
+    <Compile Include="Entities\UsersCredit.cs" />
+    <Compile Include="Entities\UsersCreditPayment.cs" />
+    <Compile Include="Entities\UserSMSCount.cs" />
+    <Compile Include="Entities\UserTokenLink.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EFMVC.Core\EFMVC.Core.csproj">
+      <Project>{c73d0df7-d21b-4e15-a8aa-70540236d452}</Project>
+      <Name>EFMVC.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

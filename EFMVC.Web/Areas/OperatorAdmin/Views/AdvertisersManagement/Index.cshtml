@@ -1,0 +1,433 @@
+﻿@using EFMVC.Web.Areas.OperatorAdmin.SearchClass;
+@using EFMVC.Web.Areas.OperatorAdmin.Models;
+@model Tuple<List<UserResult>, UserFilter>
+@{
+                /**/
+
+                /**/
+
+                ViewBag.Title = "Advertiser Management";
+                Layout = "~/Areas/OperatorAdmin/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper wrapper-content animated fadeIn">
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["success"]
+        </div>
+    }
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        @Html.Partial("_UserManagement", Tuple.Create<List<UserResult>, UserFilter>(Model.Item1, Model.Item2))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+   
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @*@Styles.Render("~/plugins/dateRangeStyles")*@
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @*@Styles.Render("~/plugins/dataPickerStyles")*@
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/daterangepickerNewStyles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @*@Scripts.Render("~/plugins/dataPicker")*@
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @*@Scripts.Render("~/plugins/dateRange")*@
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/daterangepickerNew")
+<script type="text/javascript">
+        $(window).load(function () {
+            $("#UserId").select2({
+                placeholder: "All Advertisers",
+                containerCssClass: "userdrp",
+                allowClear: true,
+                ajax: {
+                    traditional: true,
+                    url: '@Url.Action("FillUserDropdownAJAX", "AdvertisersManagement", new { area = "OperatorAdmin" })',
+                    type: "POST",
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            UserName: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        // parse the results into the format expected by Select2
+                        // since we are using custom formatting functions we do not need to
+                        // alter the remote JSON data, except to indicate that infinite
+                        // scrolling can be used
+
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }, // let our custom formatter work
+                minimumInputLength: 1,
+                templateResult: formatRepo, // omitted for brevity, see the source of this page
+                templateSelection: formatRepoSelection, // omitted for brevity, see the source of this page
+                width: '100%'
+            });
+
+            function formatRepo(repo) {
+                if (repo.loading) {
+
+                    return repo.text
+                };
+
+                var markup =
+                    '<div class="avatar">' +
+                    '<div class="info">' +
+
+                    '<div class="col-sm-16">' + repo.name + '</div>';
+
+                markup += '</div></div> ';
+
+                return markup;
+            }
+
+            function formatRepoSelection(repo) {
+                return repo.name || repo.text;
+            }
+        });
+        function updatestatus(id, status) {
+            var userObject = new Object();
+            userObject.id = id;
+            userObject.status = status;
+            $.post('@Url.Action("ApproveORSuspendUser", "AdvertisersManagement")', userObject, function (data) {
+
+                if (data == "success") {
+                    window.location.href = '@Url.Action("Index", "AdvertisersManagement", new { area = "OperatorAdmin" })';
+
+                }
+            });
+        }
+        function dataTableSetup() {
+            $('.dataTables-usermanagement').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                aoColumnDefs: [
+               {
+                   bSortable: false,
+                   aTargets: [-1]
+               }
+                ],
+                "bLengthChange": false,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] } },
+                    { extend: 'csv', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] } },
+                    { extend: 'excel', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] } },
+                    { extend: 'pdf', orientation: 'landscape', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] } },
+
+                    {
+                        extend: 'print',
+                        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
+                        title: 'UserDetails',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+            });
+        }
+        $(document).ready(function () {
+            $('body').bind('keyup', function (event) {
+                if (event.keyCode === 13) {
+                    $('#form0').submit();
+                }
+            });
+            $(".chosen-container").bind('keyup', function (e) {
+                if (e.which === 13) {
+                    $('#form0').submit();
+                    // or your stuff here...
+                }
+            });
+            $('#createdFrom').datetimepicker({ ignoreReadonly: true });
+
+            $('#createdTo').datetimepicker({
+                useCurrent: false, //Important! See issue #1075
+                ignoreReadonly: true
+            });
+
+            $("#createdFrom").on("dp.change", function (e) {
+                $('#createdTo').data("DateTimePicker").minDate(e.date);
+
+            });
+
+            $("#createdTo").on("dp.change", function (e) {
+                $('#createdFrom').data("DateTimePicker").maxDate(e.date);
+            });
+            $('#fromdate').css({ "height": "34px" });
+            $('#todate').css({ "height": "34px" });
+            //$('#data_5 .input-daterange').datepicker({
+            //    keyboardNavigation: false,
+            //    forceParse: false,
+            //    autoclose: true
+            //});
+            var config = {
+                '.chosen-select': { width: "100%" },
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+
+            $("#userreset").click(function () {
+                $(".spiner-example").show();
+                $("#fromdate").val('');
+                $("#todate").val('');
+                $("#Item2_Email").val('');
+                $("#UserId").select2("val", "");
+                $("#Item2_Fromdate").val('');
+                $("#Item2_Todate").val('');
+                //$("#UserStatusId").val('1');
+                $("#UserStatusId").val('');
+                $("#UserStatusId").trigger("chosen:updated");
+
+                $.ajax({
+                    data: null,
+                    datatype: "text/plain",
+                    type: "POST",
+                    url: '@Url.Action("SearchUsers", "AdvertisersManagement")',
+                    cache: false,
+                    success: function (data) {
+                        $(".spiner-example").hide();
+                        $("#userList").html(data);
+                        dataTableSetup();
+                    }
+                });
+            });
+            $('.dataTables-usermanagement').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                "bLengthChange": false,
+                "serverSide": true, // for process on server side
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                aoColumnDefs: [
+                {
+                    bSortable: false,
+                    aTargets: [-1]
+                }
+                ],
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] } },
+                    { extend: 'csv', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] } },
+                    { extend: 'excel', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] } },
+                    { extend: 'pdf', orientation: 'landscape', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] } },
+
+                    {
+                        extend: 'print',
+                        exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },//0, 1, 2, 3
+                        title: 'UserDetails',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "ajax": {
+                    "url": "/OperatorAdmin/AdvertisersManagement/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "aoColumns": [
+
+                    {
+                        "data": "Email", "name": "Email", "autoWidth": false, "sWidth": "15%",
+                        "mRender": function (data, type, row) {
+                            if (row.status != 3) {
+                                return '<td>'+ row.Email +'</td>';
+                            }
+                            else {
+                                return '<td>' + row.Email + '</td>';
+                            }
+                        }
+                    },//index-0
+                    { "data": "MobileNumber", "": "MobileNumber", "autoWidth": false, "sWidth": "8%" },
+                    { "data": "Name", "name": "Name", "autoWidth": false, "sWidth": "8%" },//index-1
+                    {
+                        "data": "RoleId", "name": "RoleId", "autoWidth": false, "sWidth": "8%",
+                        "mRender": function (data, type, row) {
+                            if (row.RoleId == 1) {
+                                return '<td>OperatorAdmin</td>';
+                            }
+                            else if (row.RoleId == 2) {
+                                return '<td>User</td>';
+                            }
+                            else if (row.RoleId == 3) {
+                                return '<td>Advertiser</td>';
+                            }
+                            else {
+                                return '<td>UserAdmin</td>';
+                            }
+                        }
+                    },//index-2
+                    {
+                        "data": "NoOfactivecampaign", "name": "NoOfactivecampaign", "autoWidth": false, "sWidth": "5%",
+                        "mRender": function (data, type, row) {
+                            if (row.NoOfunapprovedadverts > 0) {
+                                return '<td>' + row.NoOfactivecampaign + '</td>';
+                            }
+                            else {
+                                return '<td>' + row.NoOfactivecampaign + '</td>';
+                            }
+                        }
+                    },//index-3
+                    {
+                        "data": "NoOfunapprovedadverts", "name": "NoOfunapprovedadverts", "autoWidth": false, "sWidth": "5%",
+                        "mRender": function (data, type, row) {
+                            if (row.NoOfactivecampaign > 0) {
+                                return '<td>' + row.NoOfunapprovedadverts + '</td>';
+                            }
+                            else {
+                                return '<td>' + row.NoOfunapprovedadverts + '</td>';
+                            }
+                        }
+                    },//index-4
+                    {
+                        "data": "TicketCount", "name": "TicketCount", "autoWidth": false, "sWidth": "5%",
+                        "mRender": function (data, type, row) {
+                            if (row.TicketCount > 0) {
+                                return '<td>' + row.TicketCount + '</td>';
+                            }
+                            else {
+                                return '<td>' + row.TicketCount + '</td>';
+                            }
+                        }
+                    },//index-5
+                    {
+                        "data": "Creditlimit", "name": "Creditlimit", "autoWidth": false, "sWidth": "5%",
+                        "mRender": function (data, type, row) {
+                            if (row.Creditlimit > 0) {
+                                return '<td>' + row.Creditlimit + '</td>';
+                            }
+                            else {
+                                return '<td>' + row.Creditlimit + '</td>';
+                            }
+                        }
+                    },//index-6
+                    { "data": "Outstandinginvoice", "name": "Outstandinginvoice", "autoWidth": false,"sWidth": "5%" },//index-7
+                    { "data": "CreatedDate", "name": "CreatedDate", "autoWidth": false, "sWidth": "5%"  },//index-8
+                    {
+                        "data": "status", "name": "status", "autoWidth": false, "sWidth": "5%" ,
+                        "mRender": function (data, type, row) {
+                            if (row.status == 0) {
+                                return '<td><label class="label label-default">Pending</label></td>';
+                            }
+                            else if (row.status == 1) {
+                                return '<td><label class="label label-primary">Approved</label></td>';
+                            }
+                            else if (row.status == 2) {
+                                return '<td><label class="label label-danger">Suspended</label></td>';
+                            }
+                            else {
+                                return '<td><label class="label label-danger">Deleted</label></td>';
+                            }
+                        }
+                    },//index-9
+                    {
+                        "data": "Action", "name": "Action", "autoWidth": false, "sWidth": "5%" ,
+                        "mRender": function (data, type, row) {
+                            if (row.status == 1) {
+                                return '<td><a class="btn btn-danger btn-xs" onclick="updatestatus(' + row.Id + ',2)">Suspend</a></td>';
+                            }
+                            else if (row.status == 2) {
+                                return '<td><a class="btn btn-blue btn-xs" onclick="updatestatus(' + row.Id + ',1)">Approve</a></td>';
+                            }
+                            else if (row.status == 0) {
+                                return '<td><a class="btn btn-blue btn-xs" onclick="updatestatus(' + row.Id + ',1)">Approve</a>' + " " + '<a class="btn btn-danger btn-xs" onclick="updatestatus(' + row.Id + ',2)">Suspend</a></td>';
+                            }
+                            else {
+                                return '<td>-</td>';
+                            }
+                        }
+                    }//index-10
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () { $(".spiner-example").hide(); }
+            });
+        });
+
+</script>
+}

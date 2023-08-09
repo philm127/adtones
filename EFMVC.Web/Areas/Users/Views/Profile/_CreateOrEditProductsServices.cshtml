@@ -1,0 +1,233 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileProductsServiceFormModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>Products & Services</h5>
+
+                </div>*@
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvproductsuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvproducterror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cproducterrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveProductsServices", "Profile",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultprouduct", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.UserProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Food_ProductsService)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SweetSaltySnacks_ProductsService)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.AlcoholicDrinks_ProductsService)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Food_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Food_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Food_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Food_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Food_ProductsService)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SweetSaltySnacks_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SweetSaltySnacks_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SweetSaltySnacks_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SweetSaltySnacks_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.SweetSaltySnacks_ProductsService)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AlcoholicDrinks_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AlcoholicDrinks_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AlcoholicDrinks_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AlcoholicDrinks_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.AlcoholicDrinks_ProductsService)
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.NonAlcoholicDrinks_ProductsService)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Householdproducts_ProductsService)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ToiletriesCosmetics_ProductsService)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.NonAlcoholicDrinks_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.NonAlcoholicDrinks_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.NonAlcoholicDrinks_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.NonAlcoholicDrinks_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.NonAlcoholicDrinks_ProductsService)
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Householdproducts_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Householdproducts_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Householdproducts_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Householdproducts_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Householdproducts_ProductsService)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ToiletriesCosmetics_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ToiletriesCosmetics_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ToiletriesCosmetics_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ToiletriesCosmetics_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.ToiletriesCosmetics_ProductsService)
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.PharmaceuticalChemistsProducts_ProductsService)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.TobaccoProducts_ProductsService)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.PetsPetFood_ProductsService)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PharmaceuticalChemistsProducts_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PharmaceuticalChemistsProducts_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PharmaceuticalChemistsProducts_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PharmaceuticalChemistsProducts_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.PharmaceuticalChemistsProducts_ProductsService)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.TobaccoProducts_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.TobaccoProducts_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.TobaccoProducts_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.TobaccoProducts_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.TobaccoProducts_ProductsService)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PetsPetFood_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PetsPetFood_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PetsPetFood_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PetsPetFood_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.PetsPetFood_ProductsService)
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ShoppingRetailClothing_ProductsService)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.DIYGardening_ProductsService)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.AppliancesOtherHouseholdDurables_ProductsService)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ShoppingRetailClothing_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ShoppingRetailClothing_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ShoppingRetailClothing_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ShoppingRetailClothing_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.ShoppingRetailClothing_ProductsService)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DIYGardening_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DIYGardening_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DIYGardening_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DIYGardening_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.DIYGardening_ProductsService)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AppliancesOtherHouseholdDurables_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AppliancesOtherHouseholdDurables_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AppliancesOtherHouseholdDurables_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AppliancesOtherHouseholdDurables_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.AppliancesOtherHouseholdDurables_ProductsService)
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ElectronicsOtherPersonalItems_ProductsService)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.CommunicationsInternet_ProductsService)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.FinancialServices_ProductsService)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ElectronicsOtherPersonalItems_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ElectronicsOtherPersonalItems_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ElectronicsOtherPersonalItems_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ElectronicsOtherPersonalItems_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.ElectronicsOtherPersonalItems_ProductsService)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.CommunicationsInternet_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.CommunicationsInternet_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.CommunicationsInternet_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.CommunicationsInternet_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.CommunicationsInternet_ProductsService)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FinancialServices_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FinancialServices_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FinancialServices_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FinancialServices_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.FinancialServices_ProductsService)
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.HolidaysTravel_ProductsService)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SportsLeisure_ProductsService)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Motoring_ProductsService)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.HolidaysTravel_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.HolidaysTravel_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.HolidaysTravel_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.HolidaysTravel_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.HolidaysTravel_ProductsService)
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SportsLeisure_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SportsLeisure_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SportsLeisure_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SportsLeisure_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.SportsLeisure_ProductsService)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Motoring_ProductsService, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Motoring_ProductsService, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Motoring_ProductsService, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Motoring_ProductsService, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Motoring_ProductsService)
+                            </div>
+                        </div>
+                    </div>
+               
+                  
+                    <div class="form-group">
+                        <div class="col-lg-1">
+                            <button class="btn btn-blue" type="submit">Save</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultprouduct = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvproductsuc").show();
+            $("#dvproducterror").hide();
+        }
+        else
+        {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing", new { Area = "" })';
+            }
+            $("#cproducterrror").html(data);
+            $("#dvproductsuc").hide();
+            $("#dvproducterror").show();
+        }
+    };
+</script>

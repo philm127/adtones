@@ -1,0 +1,21 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileAttitudeFormModel
+@{
+    ViewBag.Title = "Attitude";
+}
+<div class="row">
+    @using (Html.BeginForm("SaveAttitude", "Campaign"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CreateOrEditAttitude", Model)
+
+        <p>
+            <input type="submit" value="Submit" class="font12" />
+        </p>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

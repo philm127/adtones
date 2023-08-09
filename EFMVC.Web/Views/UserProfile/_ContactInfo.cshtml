@@ -1,0 +1,220 @@
+﻿@using EFMVC.Web.ViewModels
+@model ContactsFormModel
+<div class="col-lg-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Contacts</h5>
+
+        </div>
+        <div class="ibox-content">
+            <div class="alert alert-success alert-dismissable" id="dvcontactinfosuc" style="display:none;">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <span id="cbudsuceess">Record updated successfully</span>
+            </div>
+            <div class="alert alert-danger alert-dismissable" id="dvcontactinfoerror" style="display:none;">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <span id="contactinfoerrror"></span>
+            </div>
+            @using (Ajax.BeginForm("SaveContactInfo", "UserProfile",
+  null,
+  new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultcontactinfo", OnBegin = "progressbar" },
+  new { @class = "form-horizontal" }))
+            {
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(Model => Model.Id)
+                @Html.HiddenFor(Model => Model.CurrencyId)
+                <div class="preloader" style="display:none"></div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Mobile Number</label>
+                    <input type="hidden" id="hdnMobileNumber" value="@ViewBag.MobileNumber" />
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(Model => Model.MobileNumber, new { @class = "form-control trimmed", @placeholder = "Mobile number with country code", @onkeypress = "return isNumber(event)" })
+                        <label class="label label-warning">Important - Changing your mobile number will need verification.</label>
+                    </div>
+                    @if (ViewBag.IsMobileVerfication == false)
+                    {
+                        <span class="dot" style="background-color: red;"></span>
+                        <button class="btn btn-sm btn-blue" style="margin-left: 20px;" type="button" onclick="ResendMobileVerification()">Send / Resend verification</button>
+                        @*<button class="btn btn-sm btn-success" type="button" style="background-color:green" id="btnVerifyMobileCode">Add code</button>*@
+                    }
+                    else
+                    {
+                        <span class="dot"></span>
+
+                    }
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Fixed Line</label>
+
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(Model => Model.FixedLine, new { @class = "form-control trimmed", @placeholder = "Fixed Line" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Email <label class="lbldanger">*</label></label>
+
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control trimmed", @placeholder = "Email" })
+                        @Html.ValidationMessageFor(Model => Model.Email, null, new { @class = "btn-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Phone Number <label class="lbldanger">*</label></label>
+
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(Model => Model.PhoneNumber, new { @class = "form-control trimmed", @placeholder = "Phone Number", @onkeypress = "return isNumber(event)" })
+                        @Html.ValidationMessageFor(Model => Model.PhoneNumber, null, new { @class = "btn-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Address</label>
+
+                    <div class="col-lg-6">
+                        @Html.TextAreaFor(Model => Model.Address, new { @class = "form-control trimmed", @placeholder = "Address" })
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Country</label>
+                    <div class="col-lg-6">
+                        @Html.DropDownListFor(Model => Model.CountryId, ViewBag.countryList as IEnumerable<SelectListItem>, "--Select Country--", new { @class = "form-control input-s-sm inline" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-9">
+                        <button class="btn btn-sm btn-blue" type="submit">Update</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultcontactinfo = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvcontactinfosuc").show();
+            $("#dvcontactinfoerror").hide();
+            var hdnMobileValue = $("#hdnMobileNumber").val();
+            var mobileNumberValue = $("#MobileNumber").val();
+            if (hdnMobileValue != mobileNumberValue)
+            {
+                window.location.href = '@Url.Action("Index", "UserProfile")';
+            }
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing")';
+            }
+            $("#contactinfoerrror").html(data);
+            $("#dvcontactinfosuc").hide();
+            $("#dvcontactinfoerror").show();
+        }
+    };
+
+    function ResendMobileVerification() {
+        var mobileNumber = $("#MobileNumber").val();
+
+        if (mobileNumber == "" || mobileNumber == null) {
+            swal("Oops!", "Please enter the mobile number", "error");
+            return false;
+        }
+        else {
+            $(".preloader").show();
+            $.ajax({
+                url: '@Url.Action("ResendMobileNumber", "UserProfile")',
+                data: { mobileNumber: mobileNumber },
+                success: function (data) {
+                    $(".preloader").hide();
+                    if (data == "Success") {
+                        //swal("Done", "The verification code has been sent to your mobile number.", "success");
+                        OpenMobileDialogue();
+                        return false;
+                    }
+                    else {
+                        swal("Oops!", "Something went wrong please try again!", "error");
+                        return false;
+                    }
+                }
+            });
+        }
+    }
+
+    function OpenMobileDialogue()
+    {
+        var mobileNumber = $("#MobileNumber").val();
+        swal({
+            title: "Verification Code",
+            // text: "Verification Code",
+            type: "input",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            inputPlaceholder: "Verification Code"
+
+
+        }, function (inputValue) {
+
+            if (inputValue === false) return false;
+            if (inputValue === "") {
+                alert("Please enter the verification code");
+                return false
+            }
+            else {
+                var len = $(".verificationcodeformat").val().length
+                if (parseInt(len) < 8) {
+                    alert("Please enter 6 digit verification code");
+                    return false;
+                }
+                else {
+                    $(".preloader").show();
+                    $.ajax({
+                        url: '@Url.Action("ConfirmMobileVerificationCode", "UserProfile")',
+                        data: { confirmMobileCode: inputValue, mobileNumber: mobileNumber },
+                        success: function (data) {
+                            $(".preloader").hide();
+                            if (data == "Success") {
+                                swal({
+                                    title: "Done",
+                                    text: "Your code is verified.",
+                                    type: "success",
+                                    // showCancelButton: true,
+                                    // confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "Ok",
+                                    // closeOnConfirm: false
+                                }, function () {
+                                    window.location.href = "/UserProfile/Index";
+                                });
+
+                            }
+                            else {
+                                swal("Oops!", "I'm sorry this code was not recognised - please re-enter the code.", "error");
+                                return false;
+                            }
+                        }
+                    });
+                }
+            }
+
+
+
+
+        });
+
+        $("fieldset input").addClass("verificationcodeformat")
+        $('.verificationcodeformat').mask('00-00-00');
+
+    }
+
+</script>

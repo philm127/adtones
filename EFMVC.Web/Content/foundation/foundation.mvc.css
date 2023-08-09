@@ -1,0 +1,29 @@
+﻿/* -------------------------------------------------- 
+   This file contains CSS overrides that are specific
+   to making sure that Foundation works well with MVC
+-----------------------------------------------------
+*/
+
+/* Overrides: Errors */
+
+.input-validation-error, input.input-validation-error, textarea.input-validation-error {
+    background-color: rgba(198, 15, 19, 0.1);
+    border-color: #c60f13;
+}
+
+.field-validation-error {
+    -moz-border-radius-bottomleft: 2px;
+    -moz-border-radius-bottomright: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -webkit-border-bottom-right-radius: 2px;
+    background: #c60f13;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    color: #fff;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    margin-top: -13px;
+    padding: 6px 4px;
+}

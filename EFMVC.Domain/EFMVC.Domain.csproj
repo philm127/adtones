@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5AA95E73-CBDD-460E-96F9-4A3DA709DFE0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EFMVC.Domain</RootNamespace>
+    <AssemblyName>EFMVC.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EFMVC.Data\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\Advert\ChangeAdvertStatusCommand.cs" />
+    <Compile Include="Commands\Advert\CreateOrUpdateAdvertRejectionCommand.cs" />
+    <Compile Include="Commands\Advert\CreateOrUpdateAdvertCommand.cs" />
+    <Compile Include="Commands\Advert\CreateOrUpdateCopyAdvertCommand.cs" />
+    <Compile Include="Commands\Advert\DeleteAdvertRejectionCommand.cs" />
+    <Compile Include="Commands\Advert\DeleteAdvertCommand.cs" />
+    <Compile Include="Commands\Area\CreateOrUpdateAreaCommand.cs" />
+    <Compile Include="Commands\Area\DeleteAreaCommand.cs" />
+    <Compile Include="Commands\BillingDetails\CreateOrUpdateBillingDetailsCommand.cs" />
+    <Compile Include="Commands\BillingDetails\DeleteBillingDetailsCommand.cs" />
+    <Compile Include="Commands\Billing\CreateOrUpdateBillingCommand.cs" />
+    <Compile Include="Commands\Billing\DeleteBillingCommand.cs" />
+    <Compile Include="Commands\BlockedNumber\CreateOrUpdateBlockedNumberCommand.cs" />
+    <Compile Include="Commands\Bucket\CreateOrUpdateBucketAuditRowCommand.cs" />
+    <Compile Include="Commands\Bucket\CreateOrUpdateBucketAuditCommand.cs" />
+    <Compile Include="Commands\CampaignCreditPeriod\CreateOrUpdateCampaignCreditPeriodCommand.cs" />
+    <Compile Include="Commands\CampaignCreditPeriod\DeleteCampaignCreditPeriodCommand.cs" />
+    <Compile Include="Commands\Campaign\ChangeCampaignStatusCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignAuditCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignAdvertCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignDateSettingsCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignProfileGeographicCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignProfileCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignProfileAdvertCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignProfileAttitudeCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignProfileCinemaCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignProfileDemographics.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignProfileInternetCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignProfileMobileCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignProfilePressCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignProfileProductsServiceCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignProfileRadioCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCampaignProfileTimeSettingCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateCopyCampaignProfileCommand.cs" />
+    <Compile Include="Commands\Campaign\CreateOrUpdateUserProfileTvCommand.cs" />
+    <Compile Include="Commands\Campaign\DeleteCamapignAdvertCommand.cs" />
+    <Compile Include="Commands\Campaign\DeleteCamapignProfileCommand.cs" />
+    <Compile Include="Commands\Campaign\DeleteCampaignProfilePreferenceCommand.cs" />
+    <Compile Include="Commands\Clients\CreateOrUpdateClientCommand.cs" />
+    <Compile Include="Commands\Clients\CreateOrUpdateCopyClientCommand.cs" />
+    <Compile Include="Commands\Clients\DeleteClientCommand.cs" />
+    <Compile Include="Commands\CompanyDetails\CreateOrUpdateCompanyDetailsCommand.cs" />
+    <Compile Include="Commands\CompanyDetails\DeleteCampanyDetailsCommand.cs" />
+    <Compile Include="Commands\Contacts\ChangeContactsCurrencyCommand.cs" />
+    <Compile Include="Commands\Contacts\CreateOrUpdateContactsCommand.cs" />
+    <Compile Include="Commands\Contacts\DeleteContactsCommand.cs" />
+    <Compile Include="Commands\AdvertCategory\CreateOrUpdateAdvertCategoryCommand.cs" />
+    <Compile Include="Commands\AdvertCategory\DeleteAdvertCategoryCommand.cs" />
+    <Compile Include="Commands\CopyRight\CreateOrUpdateCopyRightCommand.cs" />
+    <Compile Include="Commands\CopyRight\DeleteCopyRightCommand.cs" />
+    <Compile Include="Commands\OperatorAdmin\CreateOrUpdateOperatorAdminRegistrationCommand.cs" />
+    <Compile Include="Commands\OperatorConfiguration\CreateOrUpdateOperatorConfigurationCommand.cs" />
+    <Compile Include="Commands\OperatorMaxAdvert\CreateOrUpdateOperatorMaxAdvertCommand.cs" />
+    <Compile Include="Commands\ProfileAdmin\CreateOrUpdateProfileAdminRegistrationCommand.cs" />
+    <Compile Include="Commands\PromotionalAdvert\CreateOrUpdatePromotionalAdvertCommand.cs" />
+    <Compile Include="Commands\PromotionalCampaign\ChangePromotionalCampaignStatusCommand.cs" />
+    <Compile Include="Commands\PromotionalCampaign\CreateOrUpdatePromotionalCampaignCommand.cs" />
+    <Compile Include="Commands\Reward\CreateOrUpdateRewardCommand.cs" />
+    <Compile Include="Commands\Reward\DeleteRewardCommand.cs" />
+    <Compile Include="Commands\CountryTax\CreateOrUpdateCountryTaxCommand.cs" />
+    <Compile Include="Commands\CountryTax\DeleteCountryTaxCommand.cs" />
+    <Compile Include="Commands\Country\CreateOrUpdateCountryCommand.cs" />
+    <Compile Include="Commands\Country\DeleteCountryCommand.cs" />
+    <Compile Include="Commands\CurrencyRate\CreateOrUpdateCurrencyRateCommand.cs" />
+    <Compile Include="Commands\Operator\CreateOrUpdateOperatorCommand.cs" />
+    <Compile Include="Commands\Operator\DeleteOperatorCommand.cs" />
+    <Compile Include="Commands\ProfileMatchInfo\CreateOrUpdateProfileMatchInfoCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfileDemographicsCommand.cs" />
+    <Compile Include="Commands\QuestionCommentImages\CreateOrUpdateQuestionCommentImagesCommand.cs" />
+    <Compile Include="Commands\QuestionCommentImages\DeleteQuestionCommentImagesCommand.cs" />
+    <Compile Include="Commands\QuestionComment\CreateOrUpdateQuestionCommentCommand.cs" />
+    <Compile Include="Commands\QuestionComment\DeleteQuestionCommentCommand.cs" />
+    <Compile Include="Commands\Security\ChangeUserRewardInfoCommand.cs" />
+    <Compile Include="Commands\Security\DeleteUserRewardCommand.cs" />
+    <Compile Include="Commands\Security\UserPasswordHistoryCommand.cs" />
+    <Compile Include="CountryConnectionString\ConnectionString.cs" />
+    <Compile Include="Handlers\Advert\CreateOrUpdateAdvertRejectionHandler.cs" />
+    <Compile Include="Handlers\Advert\CreateOrUpdateCopyAdvertHandler.cs" />
+    <Compile Include="Handlers\Advert\DeleteAdvertRejectionHandler.cs" />
+    <Compile Include="Handlers\Area\CreateOrUpdateAreaHandler.cs" />
+    <Compile Include="Handlers\Area\DeleteAreaHandler.cs" />
+    <Compile Include="Handlers\CampaignCreditPeriod\CreateOrUpdateCampaignCreditPeriodHandler.cs" />
+    <Compile Include="Handlers\CampaignCreditPeriod\DeleteCampaignCreditPeriodHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCopyCampaignProfileHandler.cs" />
+    <Compile Include="Handlers\Campaign\DeleteCampaignAdvertHandler.cs" />
+    <Compile Include="Handlers\Campaign\DeleteCampaignProfilePreferenceHandler.cs" />
+    <Compile Include="Handlers\Clients\CreateOrUpdateCopyClientHandler.cs" />
+    <Compile Include="Handlers\Contacts\ChangeContactsCurrencyHandler.cs" />
+    <Compile Include="Handlers\AdvertCategory\CreateOrUpdateAdvertCategoryHandler.cs" />
+    <Compile Include="Handlers\AdvertCategory\DeleteRewardHandler.cs" />
+    <Compile Include="Handlers\CopyRight\CreateOrUpdateCopyRightHandler.cs" />
+    <Compile Include="Handlers\CopyRight\DeleteCopyRightHandler.cs" />
+    <Compile Include="Handlers\OperatorAdmin\CreateOrUpdateOperatorAdminRegistrationHandler.cs" />
+    <Compile Include="Handlers\OperatorConfiguration\CreateOrUpdateOperatorConfigurationHandler.cs" />
+    <Compile Include="Handlers\OperatorMaxAdvert\CreateOrUpdateOperatorMaxAdvertHandler.cs" />
+    <Compile Include="Handlers\ProfileAdmin\CreateOrUpdateProfileAdminRegistrationHandler.cs" />
+    <Compile Include="Handlers\PromotionalAdvert\CreateOrUpdatePromotionalAdvertHandler.cs" />
+    <Compile Include="Handlers\PromotionalCampaign\ChangePromotionalCampaignStatusHandler.cs" />
+    <Compile Include="Handlers\PromotionalCampaign\CreateOrUpdatePromotionalCampaignHandler.cs" />
+    <Compile Include="Handlers\Reward\CreateOrUpdateRewardHandler.cs" />
+    <Compile Include="Handlers\Reward\DeleteRewardHandler.cs" />
+    <Compile Include="Handlers\CurrencyRate\CreateOrUpdateCurrencyRateHandler.cs" />
+    <Compile Include="Handlers\Operator\CreateOrUpdateOperatorHandler.cs" />
+    <Compile Include="Handlers\Operator\DeleteOperatorHandler.cs" />
+    <Compile Include="Handlers\ProfileMatchInfo\CreateOrUpdateProfileMatchInfoHandler.cs" />
+    <Compile Include="Handlers\Security\ChangeUserRewardInfoHandler.cs" />
+    <Compile Include="Handlers\Security\DeleteUserRewardHandler.cs" />
+    <Compile Include="Handlers\Security\UserPasswordHistoryHandler.cs" />
+    <Compile Include="OperatorServerData\OperatorServer.cs" />
+    <Compile Include="QuestionImages\CreateOrUpdateQuestionImagesCommand.cs" />
+    <Compile Include="Commands\Question\CreateOrUpdateQuestionCommand.cs" />
+    <Compile Include="Commands\Security\ChangeUserProfileInfoCommand.cs" />
+    <Compile Include="Commands\Security\ChangeUserRoleCommand.cs" />
+    <Compile Include="Commands\Security\ResetPasswordCommand.cs" />
+    <Compile Include="Commands\SystemConfig\CreateOrUpdateSystemConfigCommand.cs" />
+    <Compile Include="Commands\SystemConfig\DeleteSystemConfigCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfileAdvertsReceivedCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfileCreditsReceivedCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfileTvCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfileTimeSettingCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfileRadioCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfileProductsServiceCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfilePressCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfileMobileCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfileInternetCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfileCinemaCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfileAttitudeCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateUserProfileAdvertCommand.cs" />
+    <Compile Include="Commands\Profile\CreateOrUpdateProfileCommand.cs" />
+    <Compile Include="Commands\Profile\DeleteProfileCommand.cs" />
+    <Compile Include="Commands\Profile\UpdateMSISDNCommand.cs" />
+    <Compile Include="Commands\Security\ChangeEmailCommand.cs" />
+    <Compile Include="Commands\Security\ChangePasswordCommand.cs" />
+    <Compile Include="Commands\Security\ChangeActiveStatusCommand.cs" />
+    <Compile Include="Commands\Security\ChangeVerificationStatusCommand.cs" />
+    <Compile Include="Commands\Security\UserRegisterCommand.cs" />
+    <Compile Include="Commands\UsersCreditPayment\CreateOrUpdateUsersCreditPaymentCommand.cs" />
+    <Compile Include="Commands\UsersCreditPayment\DeleteUsersCreditPaymentCommand.cs" />
+    <Compile Include="Commands\UsersCredit\CreateOrUpdateUsersCreditCommand.cs" />
+    <Compile Include="Commands\UsersCredit\DeleteUsersCreditCommand.cs" />
+    <Compile Include="Commands\UsersCredit\UpdateUserCreditCommand.cs" />
+    <Compile Include="DatabaseInitializer.cs" />
+    <Compile Include="Handlers\Advert\ChangeAdvertStatusHandler.cs" />
+    <Compile Include="Handlers\Advert\CreateOrUpdateAdvertHandler.cs" />
+    <Compile Include="Handlers\Advert\DeleteAdvertHandler.cs" />
+    <Compile Include="Handlers\BillingDetailsHan\CreateOrUpdateBillingDetailsHandler.cs" />
+    <Compile Include="Handlers\BillingHan\CreateOrUpdateBillingHandler.cs" />
+    <Compile Include="Handlers\BillingHan\DeleteBillingHandler.cs" />
+    <Compile Include="Handlers\BlockedNumber\CreateOrUpdateBlockedNumberHandler.cs" />
+    <Compile Include="Commands\BlockedNumber\DeleteBlockedNumberCommand.cs" />
+    <Compile Include="Handlers\BlockedNumber\DeleteProfileHandler.cs" />
+    <Compile Include="Handlers\Bucket\CreateOrUpdateBucketAuditCommand.cs" />
+    <Compile Include="Handlers\Bucket\CreateOrUpdateBucketAuditRowHandler.cs" />
+    <Compile Include="Handlers\Campaign\ChangeCampaignStatusHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileGeographicHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileAuditHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileDemographicsHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignAdvertHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileDateSettingsHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileAdvertHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileAttitudeHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileCinemaHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileInternetHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileMobileHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfilePressHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileProductsServicesHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileRadioHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileTimeSettingsHandler.cs" />
+    <Compile Include="Handlers\Campaign\CreateOrUpdateCampaignProfileTvHandler.cs" />
+    <Compile Include="Handlers\Campaign\DeleteCampaignProfileHandler.cs" />
+    <Compile Include="Handlers\Clients\CreateOrUpdateClientHandler.cs" />
+    <Compile Include="Handlers\Clients\DeleteClientHandler.cs" />
+    <Compile Include="Handlers\CompanyDetails\CreateOrUpdateCompanyDetailsHandler.cs" />
+    <Compile Include="Handlers\CompanyDetails\DeleteCompanyDetailsHandler.cs" />
+    <Compile Include="Handlers\Contacts\CreateOrUpdateContactsHandler.cs" />
+    <Compile Include="Handlers\Contacts\DeleteContactsHandler.cs" />
+    <Compile Include="Handlers\CountryTax\CreateOrUpdateCountryTaxHandler.cs" />
+    <Compile Include="Handlers\CountryTax\DeleteCountryTaxHandler.cs" />
+    <Compile Include="Handlers\Country\CreateOrUpdateCountryHandler.cs" />
+    <Compile Include="Handlers\Country\DeleteCountryHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateProfileDemographicsHandler.cs" />
+    <Compile Include="Handlers\QuestionCommentImages\CreateOrUpdateQuestionCommentImagesHandler.cs" />
+    <Compile Include="Handlers\QuestionCommentImages\DeleteQuestionCommentImagesHandler.cs" />
+    <Compile Include="Handlers\QuestionComment\CreateOrUpdateQuestionCommentHandler.cs" />
+    <Compile Include="Handlers\QuestionComment\DeleteQuestionCommentHandler.cs" />
+    <Compile Include="Handlers\QuestionImages\CreateOrUpdateQuestionImagesHandler.cs" />
+    <Compile Include="Handlers\Question\CreateOrUpdateQuestionHandler.cs" />
+    <Compile Include="Handlers\Security\ChangeUserProfileInfoHandler.cs" />
+    <Compile Include="Handlers\Security\ChangeUserRoleHandler.cs" />
+    <Compile Include="Handlers\Security\ResetPasswordHandler.cs" />
+    <Compile Include="Handlers\SystemConfig\CreateOrUpdateSystemConfigHandler.cs" />
+    <Compile Include="Handlers\SystemConfig\DeleteSystemConfigHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateUserProfileCreditsReceivedHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateUserProfileAdvertsReceivedHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateUserProfileTvHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateUserProfileRadioHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateUserProfileTimeSettingsHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateUserProfileProductsServicesHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateUserProfilePressHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateUserProfileMobileHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateUserProfileInternetHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateUserProfileCinemaHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateUserProfileAttitudeHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateUserProfileAdvertHandler.cs" />
+    <Compile Include="Handlers\Profile\CreateOrUpdateProfileHandler.cs" />
+    <Compile Include="Handlers\Profile\DeleteProfileHandler.cs" />
+    <Compile Include="Handlers\Profile\UpdateMSISDNHandler.cs" />
+    <Compile Include="Handlers\Security\CanAddUser.cs" />
+    <Compile Include="Handlers\Security\CanChangePassword.cs" />
+    <Compile Include="Handlers\Security\ChangeEmailHandler.cs" />
+    <Compile Include="Handlers\Security\ChangeActiveStatusHandler.cs" />
+    <Compile Include="Handlers\Security\ChangePasswordHandler.cs" />
+    <Compile Include="Handlers\Security\ChangeVerificationStatusHandler.cs" />
+    <Compile Include="Handlers\Security\UserRegisterHandler.cs" />
+    <Compile Include="Handlers\UsersCreditPayment\CreateOrUpdateUsersCreditPaymentHandler.cs" />
+    <Compile Include="Handlers\UsersCreditPayment\DeleteUsersCreditPaymentHandler.cs" />
+    <Compile Include="Handlers\UsersCredit\CreateOrUpdateUsersCreditHandler.cs" />
+    <Compile Include="Handlers\UsersCredit\DeleteUsersCreditHandler.cs" />
+    <Compile Include="Handlers\UsersCredit\UpdateUserCreditHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EFMVC.CommandProcessor\EFMVC.CommandProcessor.csproj">
+      <Project>{955FD94A-BBC1-4469-889A-740FB98338DE}</Project>
+      <Name>EFMVC.CommandProcessor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFMVC.Core\EFMVC.Core.csproj">
+      <Project>{C73D0DF7-D21B-4E15-A8AA-70540236D452}</Project>
+      <Name>EFMVC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFMVC.Data\EFMVC.Data.csproj">
+      <Project>{6A4C3B88-230D-4C19-945E-4685876AA31D}</Project>
+      <Name>EFMVC.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFMVC.Model\EFMVC.Model.csproj">
+      <Project>{0CB7B2DB-AECA-421A-AA9F-BFF8B532D535}</Project>
+      <Name>EFMVC.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

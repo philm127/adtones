@@ -1,0 +1,1521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="arthar_addcacheModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ACCOUNT">
+          <Key>
+            <PropertyRef Name="ACCOUNT_ID" />
+          </Key>
+          <Property Name="ACCOUNT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MSISDN" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ACCOUNT_OPT_OUT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ACCOUNT_ID" Type="int" Nullable="false" />
+          <Property Name="MSISDN" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ADD_STATE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="STATE" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BUCKET">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BUCKET_BATCH_ID" Type="int" />
+          <Property Name="MSISDN" Type="varchar" MaxLength="50" />
+          <Property Name="ITEM_TOTAL" Type="int" />
+          <Property Name="EMAIL_ADDRESS" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="BUCKET_BATCH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BATCH_STATUS_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BUCKET_BATCH_STATUS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="STATUS" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BUCKET_ITEM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BUCKET_ID" Type="int" Nullable="false" />
+          <Property Name="PRIORITY" Type="int" Nullable="false" />
+          <Property Name="ADD_STATE_ID" Type="int" />
+          <Property Name="MEDIA_URL" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="BID_VALUE" Type="double" Nullable="false" />
+          <Property Name="ADD_START" Type="timestamp" Precision="0" />
+          <Property Name="ADD_END" Type="timestamp" Precision="0" />
+          <Property Name="CAMPAIGNID" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="DTMF_EVENT" Type="varchar" MaxLength="256" />
+          <Property Name="SMS_MESSAGE" Type="varchar" MaxLength="256" />
+          <Property Name="EMAIL_MESSAGE" Type="varchar" MaxLength="256" />
+          <Property Name="ORIGINATOR" Type="varchar" MaxLength="256" />
+          <Property Name="Processed" Type="bool" />
+        </EntityType>
+        <EntityType Name="campaignmatch">
+          <Key>
+            <PropertyRef Name="CampaignProfileId" />
+          </Key>
+          <Property Name="CampaignProfileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Budget" Type="varchar" MaxLength="100" />
+          <Property Name="MaxBid" Type="int" />
+          <Property Name="SpentToDate" Type="varchar" MaxLength="50" />
+          <Property Name="AvailableCredit" Type="varchar" MaxLength="50" />
+          <Property Name="Food_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="SweetSaltySnacks_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="AlcoholicDrinks_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="NonAlcoholicDrinks_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Householdproducts_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="ToiletriesCosmetics_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="PharmaceuticalChemistsProducts_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="TobaccoProducts_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="PetsPetFood_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="ShoppingRetailClothing_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="DIYGardening_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="AppliancesOtherHouseholdDurables_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="ElectronicsOtherPersonalItems_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="CommunicationsInternet_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="FinancialServices_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="HolidaysTravel_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="SportsLeisure_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Motoring_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Newspapers_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Magazines_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="TV_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Radio_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Cinema_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="SocialNetworking_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="GeneralUse_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Shopping_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Fitness_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Holidays_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Environment_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="GoingOut_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="FinancialProducts_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Religion_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Fashion_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Music_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Fitness_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="Holidays_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="Environment_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="GoingOut_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="FinancialStabiity_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="Religion_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="Fashion_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="Music_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="Cinema_Cinema" Type="varchar" MaxLength="50" />
+          <Property Name="DOBStart_Demographics" Type="timestamp" Precision="0" />
+          <Property Name="DOBEnd_Demographics" Type="timestamp" Precision="0" />
+          <Property Name="Gender_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="IncomeBracket_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="WorkingStatus_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="RelationshipStatus_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="Education_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="HouseholdStatus_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="Location_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="Age_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="SocialNetworking_Internet" Type="varchar" MaxLength="50" />
+          <Property Name="Video_Internet" Type="varchar" MaxLength="50" />
+          <Property Name="Research_Internet" Type="varchar" MaxLength="50" />
+          <Property Name="Auctions_Internet" Type="varchar" MaxLength="50" />
+          <Property Name="Shopping_Internet" Type="varchar" MaxLength="50" />
+          <Property Name="ContractType_Mobile" Type="varchar" MaxLength="50" />
+          <Property Name="Spend_Mobile" Type="varchar" MaxLength="50" />
+          <Property Name="Local_Press" Type="varchar" MaxLength="50" />
+          <Property Name="National_Press" Type="varchar" MaxLength="50" />
+          <Property Name="FreeNewpapers_Press" Type="varchar" MaxLength="50" />
+          <Property Name="Magazines_Press" Type="varchar" MaxLength="50" />
+          <Property Name="Food_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="SweetSaltySnacks_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="AlcoholicDrinks_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="NonAlcoholicDrinks_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="Householdproducts_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="ToiletriesCosmetics_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="PharmaceuticalChemistsProducts_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="TobaccoProducts_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="PetsPetFood_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="ShoppingRetailClothing_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="DIYGardening_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="AppliancesOtherHouseholdDurables_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="ElectronicsOtherPersonalItems_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="CommunicationsInternet_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="FinancialServices_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="HolidaysTravel_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="SportsLeisure_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="Motoring_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="National_Radio" Type="varchar" MaxLength="50" />
+          <Property Name="Local_Radio" Type="varchar" MaxLength="50" />
+          <Property Name="Music_Radio" Type="varchar" MaxLength="50" />
+          <Property Name="Sport_Radio" Type="varchar" MaxLength="50" />
+          <Property Name="Talk_Radio" Type="varchar" MaxLength="50" />
+          <Property Name="Satallite_TV" Type="varchar" MaxLength="50" />
+          <Property Name="Cable_TV" Type="varchar" MaxLength="50" />
+          <Property Name="Terrestrial_TV" Type="varchar" MaxLength="50" />
+          <Property Name="Internet_TV" Type="varchar" MaxLength="50" />
+          <Property Name="EMAIL_MESSAGE" Type="varchar" MaxLength="2500" />
+          <Property Name="MEDIA_URL" Type="varchar" MaxLength="2500" />
+          <Property Name="SMS_MESSAGE" Type="varchar" MaxLength="500" />
+          <Property Name="ORIGINATOR" Type="varchar" MaxLength="500" />
+          <Property Name="MSCampaignProfileId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="CampaignName" Type="varchar" MaxLength="500" />
+          <Property Name="CampaignDescription" Type="varchar" MaxLength="1000" />
+          <Property Name="TotalBudget" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="MaxDailyBudget" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="MaxMonthBudget" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="MaxWeeklyBudget" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="MaxHourlyBudget" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="TotalCredit" Type="decimal" Precision="10" Scale="0" />
+          <Property Name="PlaysToDate" Type="int" />
+          <Property Name="PlaysLastMonth" Type="int" />
+          <Property Name="PlaysCurrentMonth" Type="int" />
+          <Property Name="CancelledToDate" Type="int" />
+          <Property Name="CancelledLastMonth" Type="int" />
+          <Property Name="CancelledCurrentMonth" Type="int" />
+          <Property Name="SmsToDate" Type="int" />
+          <Property Name="SmsLastMonth" Type="int" />
+          <Property Name="SmsCurrentMonth" Type="int" />
+          <Property Name="EmailToDate" Type="int" />
+          <Property Name="EmailsLastMonth" Type="int" />
+          <Property Name="EmailsCurrentMonth" Type="int" />
+          <Property Name="EmailFileLocation" Type="varchar" MaxLength="400" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="NumberOfPlays" Type="int" />
+          <Property Name="AverageDailyPlays" Type="int" />
+          <Property Name="SmsRequests" Type="int" />
+          <Property Name="EmailsDelievered" Type="int" />
+          <Property Name="EmailSubject" Type="varchar" MaxLength="1000" />
+          <Property Name="EmailBody" Type="varchar" MaxLength="1000" />
+          <Property Name="EmailSenderAddress" Type="varchar" MaxLength="1000" />
+          <Property Name="SmsOriginator" Type="varchar" MaxLength="1000" />
+          <Property Name="SmsBody" Type="varchar" MaxLength="1000" />
+          <Property Name="SMSFileLocation" Type="varchar" MaxLength="1000" />
+          <Property Name="CreatedDateTime" Type="datetime" Precision="0" />
+          <Property Name="UpdatedDateTime" Type="datetime" Precision="0" />
+          <Property Name="Status" Type="int" />
+          <Property Name="StartDate" Type="datetime" Precision="0" />
+          <Property Name="EndDate" Type="datetime" Precision="0" />
+          <Property Name="NumberInBatch" Type="int" />
+        </EntityType>
+        <EntityType Name="campaignmatchusermatch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CampaignProfileId" Type="int" Nullable="false" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="campaignprofiletimesetting">
+          <Key>
+            <PropertyRef Name="CampaignProfileId" />
+          </Key>
+          <Property Name="CampaignProfileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Monday" Type="varchar" MaxLength="200" />
+          <Property Name="Tuesday" Type="varchar" MaxLength="200" />
+          <Property Name="Wednesday" Type="varchar" MaxLength="200" />
+          <Property Name="Thursday" Type="varchar" MaxLength="200" />
+          <Property Name="Friday" Type="varchar" MaxLength="200" />
+          <Property Name="Saturday" Type="varchar" MaxLength="200" />
+          <Property Name="Sunday" Type="varchar" MaxLength="200" />
+          <Property Name="MSCampaignProfileId" Type="int" />
+        </EntityType>
+        <EntityType Name="usermatch">
+          <Key>
+            <PropertyRef Name="UserProfileId" />
+          </Key>
+          <Property Name="UserProfileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gender_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="IncomeBracket_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="WorkingStatus_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="RelationshipStatus_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="Education_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="HouseholdStatus_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="Location_Demographics" Type="varchar" MaxLength="50" />
+          <Property Name="Food_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="SweetSaltySnacks_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="AlcoholicDrinks_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="NonAlcoholicDrinks_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Householdproducts_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="ToiletriesCosmetics_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="PharmaceuticalChemistsProducts_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="TobaccoProducts_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="PetsPetFood_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="ShoppingRetailClothing_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="DIYGardening_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="AppliancesOtherHouseholdDurables_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="ElectronicsOtherPersonalItems_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="CommunicationsInternet_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="FinancialServices_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="HolidaysTravel_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="SportsLeisure_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Motoring_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Newspapers_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Magazines_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="TV_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Radio_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Cinema_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="SocialNetworking_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="GeneralUse_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Shopping_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Fitness_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Holidays_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Environment_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="GoingOut_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="FinancialProducts_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Religion_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Fashion_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Music_Advert" Type="varchar" MaxLength="50" />
+          <Property Name="Fitness_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="Holidays_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="Environment_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="GoingOut_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="FinancialStabiity_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="Religion_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="Fashion_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="Music_Attitude" Type="varchar" MaxLength="50" />
+          <Property Name="Cinema_Cinema" Type="varchar" MaxLength="50" />
+          <Property Name="SocialNetworking_Internet" Type="varchar" MaxLength="50" />
+          <Property Name="Video_Internet" Type="varchar" MaxLength="50" />
+          <Property Name="Research_Internet" Type="varchar" MaxLength="50" />
+          <Property Name="Auctions_Internet" Type="varchar" MaxLength="50" />
+          <Property Name="Shopping_Internet" Type="varchar" MaxLength="50" />
+          <Property Name="ContractType_Mobile" Type="varchar" MaxLength="50" />
+          <Property Name="Spend_Mobile" Type="varchar" MaxLength="50" />
+          <Property Name="Local_Press" Type="varchar" MaxLength="50" />
+          <Property Name="National_Press" Type="varchar" MaxLength="50" />
+          <Property Name="FreeNewpapers_Press" Type="varchar" MaxLength="50" />
+          <Property Name="Magazines_Press" Type="varchar" MaxLength="50" />
+          <Property Name="Food_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="SweetSaltySnacks_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="AlcoholicDrinks_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="NonAlcoholicDrinks_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="Householdproducts_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="ToiletriesCosmetics_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="PharmaceuticalChemistsProducts_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="TobaccoProducts_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="PetsPetFood_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="ShoppingRetailClothing_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="DIYGardening_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="AppliancesOtherHouseholdDurables_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="ElectronicsOtherPersonalItems_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="CommunicationsInternet_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="FinancialServices_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="HolidaysTravel_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="SportsLeisure_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="Motoring_ProductsService" Type="varchar" MaxLength="50" />
+          <Property Name="National_Radio" Type="varchar" MaxLength="50" />
+          <Property Name="Local_Radio" Type="varchar" MaxLength="50" />
+          <Property Name="Music_Radio" Type="varchar" MaxLength="50" />
+          <Property Name="Sport_Radio" Type="varchar" MaxLength="50" />
+          <Property Name="Talk_Radio" Type="varchar" MaxLength="50" />
+          <Property Name="Satallite_TV" Type="varchar" MaxLength="50" />
+          <Property Name="Cable_TV" Type="varchar" MaxLength="50" />
+          <Property Name="Terrestrial_TV" Type="varchar" MaxLength="50" />
+          <Property Name="Internet_TV" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="500" />
+          <Property Name="MSISDN" Type="varchar" MaxLength="250" />
+          <Property Name="MSUserProfileId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="DOB" Type="datetime" Precision="0" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="IncomeBracket" Type="varchar" MaxLength="50" />
+          <Property Name="WorkingStatus" Type="varchar" MaxLength="50" />
+          <Property Name="RelationshipStatus" Type="varchar" MaxLength="50" />
+          <Property Name="Education" Type="varchar" MaxLength="50" />
+          <Property Name="HouseholdStatus" Type="varchar" MaxLength="50" />
+          <Property Name="Location" Type="varchar" MaxLength="50" />
+          <Property Name="Age_Demographics" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="userprofiletimesetting">
+          <Key>
+            <PropertyRef Name="UserProfileTimeSettingsId" />
+          </Key>
+          <Property Name="UserProfileTimeSettingsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="Monday" Type="varchar" MaxLength="200" />
+          <Property Name="Tuesday" Type="varchar" MaxLength="200" />
+          <Property Name="Wednesday" Type="varchar" MaxLength="200" />
+          <Property Name="Thursday" Type="varchar" MaxLength="200" />
+          <Property Name="Friday" Type="varchar" MaxLength="200" />
+          <Property Name="Saturday" Type="varchar" MaxLength="200" />
+          <Property Name="Sunday" Type="varchar" MaxLength="200" />
+          <Property Name="MSUserProfileId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.arthar_addcache.add_play_check' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="add_play_check">
+          <Key>
+            <PropertyRef Name="BUCKET_ID" />
+            <PropertyRef Name="BATCH_STATUS" />
+            <PropertyRef Name="ITEM_ID" />
+            <PropertyRef Name="ADD_STATE" />
+            <PropertyRef Name="PRIORITY" />
+            <PropertyRef Name="MEDIA_URL" />
+          </Key>
+          <Property Name="MSISDN" Type="varchar" MaxLength="50" />
+          <Property Name="BUCKET_ID" Type="int" Nullable="false" />
+          <Property Name="BUCKET_BATCH_ID" Type="int" />
+          <Property Name="BATCH_STATUS" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ITEM_TOTAL" Type="int" />
+          <Property Name="ITEM_ID" Type="int" Nullable="false" />
+          <Property Name="ADD_STATE_ID" Type="int" />
+          <Property Name="ADD_STATE" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="PRIORITY" Type="int" Nullable="false" />
+          <Property Name="MEDIA_URL" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BUCKET_BATCH_LOG_BUCKET_BATCH_STATUS">
+          <End Role="BUCKET_BATCH_STATUS" Type="Self.BUCKET_BATCH_STATUS" Multiplicity="1" />
+          <End Role="BUCKET_BATCH" Type="Self.BUCKET_BATCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BUCKET_BATCH_STATUS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BUCKET_BATCH">
+              <PropertyRef Name="BATCH_STATUS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BUCKET_BUCKET_BATCH_LOG">
+          <End Role="BUCKET_BATCH" Type="Self.BUCKET_BATCH" Multiplicity="0..1" />
+          <End Role="BUCKET" Type="Self.BUCKET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BUCKET_BATCH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BUCKET">
+              <PropertyRef Name="BUCKET_BATCH_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BUCKET_ITEM_ADD_STATE">
+          <End Role="ADD_STATE" Type="Self.ADD_STATE" Multiplicity="0..1" />
+          <End Role="BUCKET_ITEM" Type="Self.BUCKET_ITEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ADD_STATE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BUCKET_ITEM">
+              <PropertyRef Name="ADD_STATE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BUCKET_ITEM_BUCKET">
+          <End Role="BUCKET" Type="Self.BUCKET" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BUCKET_ITEM" Type="Self.BUCKET_ITEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BUCKET">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BUCKET_ITEM">
+              <PropertyRef Name="BUCKET_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CampaignProfileId">
+          <End Role="campaignmatch" Type="Self.campaignmatch" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="campaignmatchusermatch" Type="Self.campaignmatchusermatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campaignmatch">
+              <PropertyRef Name="CampaignProfileId" />
+            </Principal>
+            <Dependent Role="campaignmatchusermatch">
+              <PropertyRef Name="CampaignProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MSISDN_OPT_OUT_ACCOUNT_ID">
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ACCOUNT_OPT_OUT" Type="Self.ACCOUNT_OPT_OUT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACCOUNT">
+              <PropertyRef Name="ACCOUNT_ID" />
+            </Principal>
+            <Dependent Role="ACCOUNT_OPT_OUT">
+              <PropertyRef Name="ACCOUNT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserProfileId">
+          <End Role="usermatch" Type="Self.usermatch" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="campaignmatchusermatch" Type="Self.campaignmatchusermatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usermatch">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="campaignmatchusermatch">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="uspa_bucket_prcess" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="arthar_addcache">
+          <Parameter Name="timesettings" Type="int" Mode="In" />
+          <Parameter Name="vHour" Type="int" Mode="In" />
+          <Parameter Name="adslimit" Type="int" Mode="In" />
+        </Function>
+        <Function Name="uspa_campaign_user_match" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="arthar_addcache">
+          <Parameter Name="campmatchlimit" Type="int" Mode="In" />
+        </Function>
+        <Function Name="uspa_delete_spent_records" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="arthar_addcache" />
+        <Function Name="uspa_delete_spent_records10" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="arthar_addcache" />
+        <Function Name="uspa_delete_spent_records2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="arthar_addcache" />
+        <Function Name="uspa_delete_spent_records3" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="arthar_addcache" />
+        <Function Name="uspa_delete_spent_records4" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="arthar_addcache" />
+        <Function Name="uspa_delete_spent_records5" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="arthar_addcache" />
+        <Function Name="uspa_delete_spent_records6" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="arthar_addcache" />
+        <Function Name="uspa_delete_spent_records7" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="arthar_addcache" />
+        <Function Name="uspa_delete_spent_records8" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="arthar_addcache" />
+        <Function Name="uspa_delete_spent_records9" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="arthar_addcache" />
+        <EntityContainer Name="arthar_addcacheModelStoreContainer">
+          <EntitySet Name="ACCOUNT" EntityType="Self.ACCOUNT" Schema="arthar_addcache" store:Type="Tables" />
+          <EntitySet Name="ACCOUNT_OPT_OUT" EntityType="Self.ACCOUNT_OPT_OUT" Schema="arthar_addcache" store:Type="Tables" />
+          <EntitySet Name="ADD_STATE" EntityType="Self.ADD_STATE" Schema="arthar_addcache" store:Type="Tables" />
+          <EntitySet Name="BUCKET" EntityType="Self.BUCKET" Schema="arthar_addcache" store:Type="Tables" />
+          <EntitySet Name="BUCKET_BATCH" EntityType="Self.BUCKET_BATCH" Schema="arthar_addcache" store:Type="Tables" />
+          <EntitySet Name="BUCKET_BATCH_STATUS" EntityType="Self.BUCKET_BATCH_STATUS" Schema="arthar_addcache" store:Type="Tables" />
+          <EntitySet Name="BUCKET_ITEM" EntityType="Self.BUCKET_ITEM" Schema="arthar_addcache" store:Type="Tables" />
+          <EntitySet Name="campaignmatch" EntityType="Self.campaignmatch" Schema="arthar_addcache" store:Type="Tables" />
+          <EntitySet Name="campaignmatchusermatch" EntityType="Self.campaignmatchusermatch" Schema="arthar_addcache" store:Type="Tables" />
+          <EntitySet Name="campaignprofiletimesetting" EntityType="Self.campaignprofiletimesetting" Schema="arthar_addcache" store:Type="Tables" />
+          <EntitySet Name="usermatch" EntityType="Self.usermatch" Schema="arthar_addcache" store:Type="Tables" />
+          <EntitySet Name="userprofiletimesetting" EntityType="Self.userprofiletimesetting" Schema="arthar_addcache" store:Type="Tables" />
+          <EntitySet Name="add_play_check" EntityType="Self.add_play_check" store:Type="Views" store:Schema="arthar_addcache">
+            <DefiningQuery>SELECT
+`add_play_check`.`MSISDN`, 
+`add_play_check`.`BUCKET_ID`, 
+`add_play_check`.`BUCKET_BATCH_ID`, 
+`add_play_check`.`BATCH_STATUS`, 
+`add_play_check`.`ITEM_TOTAL`, 
+`add_play_check`.`ITEM_ID`, 
+`add_play_check`.`ADD_STATE_ID`, 
+`add_play_check`.`ADD_STATE`, 
+`add_play_check`.`PRIORITY`, 
+`add_play_check`.`MEDIA_URL`
+FROM `add_play_check` AS `add_play_check`</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_BUCKET_BATCH_LOG_BUCKET_BATCH_STATUS" Association="Self.FK_BUCKET_BATCH_LOG_BUCKET_BATCH_STATUS">
+            <End Role="BUCKET_BATCH_STATUS" EntitySet="BUCKET_BATCH_STATUS" />
+            <End Role="BUCKET_BATCH" EntitySet="BUCKET_BATCH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BUCKET_BUCKET_BATCH_LOG" Association="Self.FK_BUCKET_BUCKET_BATCH_LOG">
+            <End Role="BUCKET_BATCH" EntitySet="BUCKET_BATCH" />
+            <End Role="BUCKET" EntitySet="BUCKET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BUCKET_ITEM_ADD_STATE" Association="Self.FK_BUCKET_ITEM_ADD_STATE">
+            <End Role="ADD_STATE" EntitySet="ADD_STATE" />
+            <End Role="BUCKET_ITEM" EntitySet="BUCKET_ITEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BUCKET_ITEM_BUCKET" Association="Self.FK_BUCKET_ITEM_BUCKET">
+            <End Role="BUCKET" EntitySet="BUCKET" />
+            <End Role="BUCKET_ITEM" EntitySet="BUCKET_ITEM" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CampaignProfileId" Association="Self.fk_CampaignProfileId">
+            <End Role="campaignmatch" EntitySet="campaignmatch" />
+            <End Role="campaignmatchusermatch" EntitySet="campaignmatchusermatch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MSISDN_OPT_OUT_ACCOUNT_ID" Association="Self.FK_MSISDN_OPT_OUT_ACCOUNT_ID">
+            <End Role="ACCOUNT" EntitySet="ACCOUNT" />
+            <End Role="ACCOUNT_OPT_OUT" EntitySet="ACCOUNT_OPT_OUT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserProfileId" Association="Self.fk_UserProfileId">
+            <End Role="usermatch" EntitySet="usermatch" />
+            <End Role="campaignmatchusermatch" EntitySet="campaignmatchusermatch" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="arthar_addcacheModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ACCOUNT">
+          <Key>
+            <PropertyRef Name="ACCOUNT_ID" />
+          </Key>
+          <Property Name="ACCOUNT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MSISDN" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ACCOUNT_OPT_OUT" Relationship="Self.FK_MSISDN_OPT_OUT_ACCOUNT_ID" FromRole="ACCOUNT" ToRole="ACCOUNT_OPT_OUT" />
+        </EntityType>
+        <EntityType Name="ACCOUNT_OPT_OUT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ACCOUNT_ID" Type="Int32" Nullable="false" />
+          <Property Name="MSISDN" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ACCOUNT" Relationship="Self.FK_MSISDN_OPT_OUT_ACCOUNT_ID" FromRole="ACCOUNT_OPT_OUT" ToRole="ACCOUNT" />
+        </EntityType>
+        <EntityType Name="ADD_STATE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="STATE" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BUCKET_ITEM" Relationship="Self.FK_BUCKET_ITEM_ADD_STATE" FromRole="ADD_STATE" ToRole="BUCKET_ITEM" />
+        </EntityType>
+        <EntityType Name="BUCKET">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BUCKET_BATCH_ID" Type="Int32" />
+          <Property Name="MSISDN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ITEM_TOTAL" Type="Int32" />
+          <Property Name="EMAIL_ADDRESS" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BUCKET_BATCH" Relationship="Self.FK_BUCKET_BUCKET_BATCH_LOG" FromRole="BUCKET" ToRole="BUCKET_BATCH" />
+          <NavigationProperty Name="BUCKET_ITEM" Relationship="Self.FK_BUCKET_ITEM_BUCKET" FromRole="BUCKET" ToRole="BUCKET_ITEM" />
+        </EntityType>
+        <EntityType Name="BUCKET_BATCH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BATCH_STATUS_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BUCKETs" Relationship="Self.FK_BUCKET_BUCKET_BATCH_LOG" FromRole="BUCKET_BATCH" ToRole="BUCKET" />
+          <NavigationProperty Name="BUCKET_BATCH_STATUS" Relationship="Self.FK_BUCKET_BATCH_LOG_BUCKET_BATCH_STATUS" FromRole="BUCKET_BATCH" ToRole="BUCKET_BATCH_STATUS" />
+        </EntityType>
+        <EntityType Name="BUCKET_BATCH_STATUS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="STATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BUCKET_BATCH" Relationship="Self.FK_BUCKET_BATCH_LOG_BUCKET_BATCH_STATUS" FromRole="BUCKET_BATCH_STATUS" ToRole="BUCKET_BATCH" />
+        </EntityType>
+        <EntityType Name="BUCKET_ITEM">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BUCKET_ID" Type="Int32" Nullable="false" />
+          <Property Name="PRIORITY" Type="Int32" Nullable="false" />
+          <Property Name="ADD_STATE_ID" Type="Int32" />
+          <Property Name="MEDIA_URL" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BID_VALUE" Type="Double" Nullable="false" />
+          <Property Name="ADD_START" Type="DateTime" />
+          <Property Name="ADD_END" Type="DateTime" />
+          <Property Name="CAMPAIGNID" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DTMF_EVENT" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="SMS_MESSAGE" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL_MESSAGE" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="ORIGINATOR" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Processed" Type="Boolean" />
+          <NavigationProperty Name="ADD_STATE" Relationship="Self.FK_BUCKET_ITEM_ADD_STATE" FromRole="BUCKET_ITEM" ToRole="ADD_STATE" />
+          <NavigationProperty Name="BUCKET" Relationship="Self.FK_BUCKET_ITEM_BUCKET" FromRole="BUCKET_ITEM" ToRole="BUCKET" />
+        </EntityType>
+        <EntityType Name="campaignmatchusermatch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CampaignProfileId" Type="Int32" Nullable="false" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usermatch" Relationship="Self.fk_UserProfileId" FromRole="campaignmatchusermatch" ToRole="usermatch" />
+          <NavigationProperty Name="campaignmatch" Relationship="arthar_addcacheModel.fk_CampaignProfileId" FromRole="campaignmatchusermatch" ToRole="campaignmatch" />
+        </EntityType>
+        <EntityType Name="campaignprofiletimesetting">
+          <Key>
+            <PropertyRef Name="CampaignProfileId" />
+          </Key>
+          <Property Name="CampaignProfileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Monday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Tuesday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Wednesday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Thursday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Friday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Saturday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Sunday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MSCampaignProfileId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="usermatch">
+          <Key>
+            <PropertyRef Name="UserProfileId" />
+          </Key>
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IncomeBracket_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WorkingStatus_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RelationshipStatus_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Education_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HouseholdStatus_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Location_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Food_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SweetSaltySnacks_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AlcoholicDrinks_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NonAlcoholicDrinks_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Householdproducts_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ToiletriesCosmetics_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PharmaceuticalChemistsProducts_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TobaccoProducts_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PetsPetFood_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShoppingRetailClothing_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIYGardening_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AppliancesOtherHouseholdDurables_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ElectronicsOtherPersonalItems_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CommunicationsInternet_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FinancialServices_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HolidaysTravel_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SportsLeisure_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Motoring_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Newspapers_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Magazines_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TV_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Radio_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cinema_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SocialNetworking_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GeneralUse_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Shopping_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fitness_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Holidays_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Environment_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GoingOut_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FinancialProducts_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Religion_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fashion_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Music_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fitness_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Holidays_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Environment_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GoingOut_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FinancialStabiity_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Religion_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fashion_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Music_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cinema_Cinema" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SocialNetworking_Internet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Video_Internet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Research_Internet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Auctions_Internet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Shopping_Internet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContractType_Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Spend_Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Local_Press" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="National_Press" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FreeNewpapers_Press" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Magazines_Press" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Food_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SweetSaltySnacks_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AlcoholicDrinks_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NonAlcoholicDrinks_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Householdproducts_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ToiletriesCosmetics_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PharmaceuticalChemistsProducts_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TobaccoProducts_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PetsPetFood_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShoppingRetailClothing_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIYGardening_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AppliancesOtherHouseholdDurables_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ElectronicsOtherPersonalItems_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CommunicationsInternet_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FinancialServices_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HolidaysTravel_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SportsLeisure_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Motoring_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="National_Radio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Local_Radio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Music_Radio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sport_Radio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Talk_Radio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Satallite_TV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cable_TV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Terrestrial_TV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Internet_TV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MSISDN" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="MSUserProfileId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="DOB" Type="DateTime" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IncomeBracket" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WorkingStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RelationshipStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Education" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HouseholdStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Age_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="campaignmatchusermatches" Relationship="Self.fk_UserProfileId" FromRole="usermatch" ToRole="campaignmatchusermatch" />
+        </EntityType>
+        <EntityType Name="userprofiletimesetting">
+          <Key>
+            <PropertyRef Name="UserProfileTimeSettingsId" />
+          </Key>
+          <Property Name="UserProfileTimeSettingsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="Monday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Tuesday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Wednesday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Thursday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Friday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Saturday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Sunday" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MSUserProfileId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="add_play_check">
+          <Key>
+            <PropertyRef Name="BUCKET_ID" />
+            <PropertyRef Name="BATCH_STATUS" />
+            <PropertyRef Name="ITEM_ID" />
+            <PropertyRef Name="ADD_STATE" />
+            <PropertyRef Name="PRIORITY" />
+            <PropertyRef Name="MEDIA_URL" />
+          </Key>
+          <Property Name="MSISDN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BUCKET_ID" Type="Int32" Nullable="false" />
+          <Property Name="BUCKET_BATCH_ID" Type="Int32" />
+          <Property Name="BATCH_STATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ITEM_TOTAL" Type="Int32" />
+          <Property Name="ITEM_ID" Type="Int32" Nullable="false" />
+          <Property Name="ADD_STATE_ID" Type="Int32" />
+          <Property Name="ADD_STATE" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRIORITY" Type="Int32" Nullable="false" />
+          <Property Name="MEDIA_URL" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_MSISDN_OPT_OUT_ACCOUNT_ID">
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ACCOUNT_OPT_OUT" Type="Self.ACCOUNT_OPT_OUT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACCOUNT">
+              <PropertyRef Name="ACCOUNT_ID" />
+            </Principal>
+            <Dependent Role="ACCOUNT_OPT_OUT">
+              <PropertyRef Name="ACCOUNT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BUCKET_ITEM_ADD_STATE">
+          <End Role="ADD_STATE" Type="Self.ADD_STATE" Multiplicity="0..1" />
+          <End Role="BUCKET_ITEM" Type="Self.BUCKET_ITEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ADD_STATE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BUCKET_ITEM">
+              <PropertyRef Name="ADD_STATE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BUCKET_BUCKET_BATCH_LOG">
+          <End Role="BUCKET_BATCH" Type="Self.BUCKET_BATCH" Multiplicity="0..1" />
+          <End Role="BUCKET" Type="Self.BUCKET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BUCKET_BATCH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BUCKET">
+              <PropertyRef Name="BUCKET_BATCH_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BUCKET_ITEM_BUCKET">
+          <End Role="BUCKET" Type="Self.BUCKET" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BUCKET_ITEM" Type="Self.BUCKET_ITEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BUCKET">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BUCKET_ITEM">
+              <PropertyRef Name="BUCKET_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BUCKET_BATCH_LOG_BUCKET_BATCH_STATUS">
+          <End Role="BUCKET_BATCH_STATUS" Type="Self.BUCKET_BATCH_STATUS" Multiplicity="1" />
+          <End Role="BUCKET_BATCH" Type="Self.BUCKET_BATCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BUCKET_BATCH_STATUS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BUCKET_BATCH">
+              <PropertyRef Name="BATCH_STATUS_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserProfileId">
+          <End Role="usermatch" Type="Self.usermatch" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="campaignmatchusermatch" Type="Self.campaignmatchusermatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usermatch">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="campaignmatchusermatch">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="arthar_addcacheEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ACCOUNTs" EntityType="Self.ACCOUNT" />
+          <EntitySet Name="ACCOUNT_OPT_OUT" EntityType="Self.ACCOUNT_OPT_OUT" />
+          <EntitySet Name="ADD_STATE" EntityType="Self.ADD_STATE" />
+          <EntitySet Name="BUCKETs" EntityType="Self.BUCKET" />
+          <EntitySet Name="BUCKET_BATCH" EntityType="Self.BUCKET_BATCH" />
+          <EntitySet Name="BUCKET_BATCH_STATUS" EntityType="Self.BUCKET_BATCH_STATUS" />
+          <EntitySet Name="BUCKET_ITEM" EntityType="Self.BUCKET_ITEM" />
+          <EntitySet Name="campaignmatchusermatches" EntityType="Self.campaignmatchusermatch" />
+          <EntitySet Name="campaignprofiletimesettings" EntityType="Self.campaignprofiletimesetting" />
+          <EntitySet Name="usermatches" EntityType="Self.usermatch" />
+          <EntitySet Name="userprofiletimesettings" EntityType="Self.userprofiletimesetting" />
+          <EntitySet Name="add_play_check" EntityType="Self.add_play_check" />
+          <AssociationSet Name="FK_MSISDN_OPT_OUT_ACCOUNT_ID" Association="Self.FK_MSISDN_OPT_OUT_ACCOUNT_ID">
+            <End Role="ACCOUNT" EntitySet="ACCOUNTs" />
+            <End Role="ACCOUNT_OPT_OUT" EntitySet="ACCOUNT_OPT_OUT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BUCKET_ITEM_ADD_STATE" Association="Self.FK_BUCKET_ITEM_ADD_STATE">
+            <End Role="ADD_STATE" EntitySet="ADD_STATE" />
+            <End Role="BUCKET_ITEM" EntitySet="BUCKET_ITEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BUCKET_BUCKET_BATCH_LOG" Association="Self.FK_BUCKET_BUCKET_BATCH_LOG">
+            <End Role="BUCKET_BATCH" EntitySet="BUCKET_BATCH" />
+            <End Role="BUCKET" EntitySet="BUCKETs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BUCKET_ITEM_BUCKET" Association="Self.FK_BUCKET_ITEM_BUCKET">
+            <End Role="BUCKET" EntitySet="BUCKETs" />
+            <End Role="BUCKET_ITEM" EntitySet="BUCKET_ITEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BUCKET_BATCH_LOG_BUCKET_BATCH_STATUS" Association="Self.FK_BUCKET_BATCH_LOG_BUCKET_BATCH_STATUS">
+            <End Role="BUCKET_BATCH_STATUS" EntitySet="BUCKET_BATCH_STATUS" />
+            <End Role="BUCKET_BATCH" EntitySet="BUCKET_BATCH" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserProfileId" Association="Self.fk_UserProfileId">
+            <End Role="usermatch" EntitySet="usermatches" />
+            <End Role="campaignmatchusermatch" EntitySet="campaignmatchusermatches" />
+          </AssociationSet>
+          <FunctionImport Name="uspa_bucket_prcess">
+            <Parameter Name="timesettings" Mode="In" Type="Int32" />
+            <Parameter Name="vHour" Mode="In" Type="Int32" />
+            <Parameter Name="adslimit" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="campaignmatches" EntityType="arthar_addcacheModel.campaignmatch" />
+          <AssociationSet Name="fk_CampaignProfileId" Association="arthar_addcacheModel.fk_CampaignProfileId">
+            <End Role="campaignmatch" EntitySet="campaignmatches" />
+            <End Role="campaignmatchusermatch" EntitySet="campaignmatchusermatches" />
+          </AssociationSet>
+          <FunctionImport Name="uspa_campaign_user_match">
+          <Parameter Name="campmatchlimit" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="uspa_delete_spent_records" />
+          <FunctionImport Name="uspa_delete_spent_records10" />
+          <FunctionImport Name="uspa_delete_spent_records2" />
+          <FunctionImport Name="uspa_delete_spent_records3" />
+          <FunctionImport Name="uspa_delete_spent_records4" />
+          <FunctionImport Name="uspa_delete_spent_records5" />
+          <FunctionImport Name="uspa_delete_spent_records6" />
+          <FunctionImport Name="uspa_delete_spent_records7" />
+          <FunctionImport Name="uspa_delete_spent_records8" />
+          <FunctionImport Name="uspa_delete_spent_records9" />
+        </EntityContainer>
+        <EntityType Name="campaignmatch">
+          <Key>
+            <PropertyRef Name="CampaignProfileId" />
+          </Key>
+          <Property Name="CampaignProfileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Budget" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MaxBid" Type="Int32" />
+          <Property Name="SpentToDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AvailableCredit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Food_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SweetSaltySnacks_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AlcoholicDrinks_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NonAlcoholicDrinks_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Householdproducts_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ToiletriesCosmetics_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PharmaceuticalChemistsProducts_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TobaccoProducts_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PetsPetFood_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShoppingRetailClothing_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIYGardening_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AppliancesOtherHouseholdDurables_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ElectronicsOtherPersonalItems_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CommunicationsInternet_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FinancialServices_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HolidaysTravel_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SportsLeisure_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Motoring_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Newspapers_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Magazines_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TV_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Radio_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cinema_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SocialNetworking_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GeneralUse_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Shopping_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fitness_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Holidays_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Environment_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GoingOut_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FinancialProducts_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Religion_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fashion_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Music_Advert" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fitness_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Holidays_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Environment_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GoingOut_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FinancialStabiity_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Religion_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fashion_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Music_Attitude" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cinema_Cinema" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DOBStart_Demographics" Type="DateTime" />
+          <Property Name="DOBEnd_Demographics" Type="DateTime" />
+          <Property Name="Gender_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IncomeBracket_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WorkingStatus_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RelationshipStatus_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Education_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HouseholdStatus_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Location_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Age_Demographics" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SocialNetworking_Internet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Video_Internet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Research_Internet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Auctions_Internet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Shopping_Internet" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContractType_Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Spend_Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Local_Press" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="National_Press" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FreeNewpapers_Press" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Magazines_Press" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Food_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SweetSaltySnacks_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AlcoholicDrinks_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NonAlcoholicDrinks_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Householdproducts_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ToiletriesCosmetics_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PharmaceuticalChemistsProducts_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TobaccoProducts_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PetsPetFood_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShoppingRetailClothing_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIYGardening_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AppliancesOtherHouseholdDurables_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ElectronicsOtherPersonalItems_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CommunicationsInternet_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FinancialServices_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HolidaysTravel_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SportsLeisure_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Motoring_ProductsService" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="National_Radio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Local_Radio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Music_Radio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sport_Radio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Talk_Radio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Satallite_TV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cable_TV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Terrestrial_TV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Internet_TV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL_MESSAGE" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
+          <Property Name="MEDIA_URL" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
+          <Property Name="SMS_MESSAGE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ORIGINATOR" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MSCampaignProfileId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="CampaignName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CampaignDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="TotalBudget" Type="Decimal" />
+          <Property Name="MaxDailyBudget" Type="Decimal" />
+          <Property Name="MaxMonthBudget" Type="Decimal" />
+          <Property Name="MaxWeeklyBudget" Type="Decimal" />
+          <Property Name="MaxHourlyBudget" Type="Decimal" />
+          <Property Name="TotalCredit" Type="Decimal" />
+          <Property Name="PlaysToDate" Type="Int32" />
+          <Property Name="PlaysLastMonth" Type="Int32" />
+          <Property Name="PlaysCurrentMonth" Type="Int32" />
+          <Property Name="CancelledToDate" Type="Int32" />
+          <Property Name="CancelledLastMonth" Type="Int32" />
+          <Property Name="CancelledCurrentMonth" Type="Int32" />
+          <Property Name="SmsToDate" Type="Int32" />
+          <Property Name="SmsLastMonth" Type="Int32" />
+          <Property Name="SmsCurrentMonth" Type="Int32" />
+          <Property Name="EmailToDate" Type="Int32" />
+          <Property Name="EmailsLastMonth" Type="Int32" />
+          <Property Name="EmailsCurrentMonth" Type="Int32" />
+          <Property Name="EmailFileLocation" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="NumberOfPlays" Type="Int32" />
+          <Property Name="AverageDailyPlays" Type="Int32" />
+          <Property Name="SmsRequests" Type="Int32" />
+          <Property Name="EmailsDelievered" Type="Int32" />
+          <Property Name="EmailSubject" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="EmailBody" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="EmailSenderAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SmsOriginator" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SmsBody" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="SMSFileLocation" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" />
+          <Property Name="UpdatedDateTime" Type="DateTime" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" />
+          <Property Name="EndDate" Type="DateTime" />
+          <Property Name="NumberInBatch" Type="Int32" />
+          <NavigationProperty Name="campaignmatchusermatches" Relationship="arthar_addcacheModel.fk_CampaignProfileId" FromRole="campaignmatch" ToRole="campaignmatchusermatch" />
+        </EntityType>
+        <Association Name="fk_CampaignProfileId">
+          <End Type="arthar_addcacheModel.campaignmatch" Role="campaignmatch" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="arthar_addcacheModel.campaignmatchusermatch" Role="campaignmatchusermatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="campaignmatch">
+              <PropertyRef Name="CampaignProfileId" />
+            </Principal>
+            <Dependent Role="campaignmatchusermatch">
+              <PropertyRef Name="CampaignProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="arthar_addcacheModelStoreContainer" CdmEntityContainer="arthar_addcacheEntities">
+          <EntitySetMapping Name="ACCOUNTs">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.ACCOUNT">
+              <MappingFragment StoreEntitySet="ACCOUNT">
+                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
+                <ScalarProperty Name="MSISDN" ColumnName="MSISDN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACCOUNT_OPT_OUT">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.ACCOUNT_OPT_OUT">
+              <MappingFragment StoreEntitySet="ACCOUNT_OPT_OUT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
+                <ScalarProperty Name="MSISDN" ColumnName="MSISDN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ADD_STATE">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.ADD_STATE">
+              <MappingFragment StoreEntitySet="ADD_STATE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BUCKETs">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.BUCKET">
+              <MappingFragment StoreEntitySet="BUCKET">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BUCKET_BATCH_ID" ColumnName="BUCKET_BATCH_ID" />
+                <ScalarProperty Name="MSISDN" ColumnName="MSISDN" />
+                <ScalarProperty Name="ITEM_TOTAL" ColumnName="ITEM_TOTAL" />
+                <ScalarProperty Name="EMAIL_ADDRESS" ColumnName="EMAIL_ADDRESS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BUCKET_BATCH">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.BUCKET_BATCH">
+              <MappingFragment StoreEntitySet="BUCKET_BATCH">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BATCH_STATUS_ID" ColumnName="BATCH_STATUS_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BUCKET_BATCH_STATUS">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.BUCKET_BATCH_STATUS">
+              <MappingFragment StoreEntitySet="BUCKET_BATCH_STATUS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BUCKET_ITEM">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.BUCKET_ITEM">
+              <MappingFragment StoreEntitySet="BUCKET_ITEM">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="BUCKET_ID" ColumnName="BUCKET_ID" />
+                <ScalarProperty Name="PRIORITY" ColumnName="PRIORITY" />
+                <ScalarProperty Name="ADD_STATE_ID" ColumnName="ADD_STATE_ID" />
+                <ScalarProperty Name="MEDIA_URL" ColumnName="MEDIA_URL" />
+                <ScalarProperty Name="BID_VALUE" ColumnName="BID_VALUE" />
+                <ScalarProperty Name="ADD_START" ColumnName="ADD_START" />
+                <ScalarProperty Name="ADD_END" ColumnName="ADD_END" />
+                <ScalarProperty Name="CAMPAIGNID" ColumnName="CAMPAIGNID" />
+                <ScalarProperty Name="DTMF_EVENT" ColumnName="DTMF_EVENT" />
+                <ScalarProperty Name="SMS_MESSAGE" ColumnName="SMS_MESSAGE" />
+                <ScalarProperty Name="EMAIL_MESSAGE" ColumnName="EMAIL_MESSAGE" />
+                <ScalarProperty Name="ORIGINATOR" ColumnName="ORIGINATOR" />
+                <ScalarProperty Name="Processed" ColumnName="Processed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="campaignmatchusermatches">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.campaignmatchusermatch">
+              <MappingFragment StoreEntitySet="campaignmatchusermatch">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CampaignProfileId" ColumnName="CampaignProfileId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="campaignprofiletimesettings">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.campaignprofiletimesetting">
+              <MappingFragment StoreEntitySet="campaignprofiletimesetting">
+                <ScalarProperty Name="CampaignProfileId" ColumnName="CampaignProfileId" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+                <ScalarProperty Name="MSCampaignProfileId" ColumnName="MSCampaignProfileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usermatches">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.usermatch">
+              <MappingFragment StoreEntitySet="usermatch">
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Gender_Demographics" ColumnName="Gender_Demographics" />
+                <ScalarProperty Name="IncomeBracket_Demographics" ColumnName="IncomeBracket_Demographics" />
+                <ScalarProperty Name="WorkingStatus_Demographics" ColumnName="WorkingStatus_Demographics" />
+                <ScalarProperty Name="RelationshipStatus_Demographics" ColumnName="RelationshipStatus_Demographics" />
+                <ScalarProperty Name="Education_Demographics" ColumnName="Education_Demographics" />
+                <ScalarProperty Name="HouseholdStatus_Demographics" ColumnName="HouseholdStatus_Demographics" />
+                <ScalarProperty Name="Location_Demographics" ColumnName="Location_Demographics" />
+                <ScalarProperty Name="Food_Advert" ColumnName="Food_Advert" />
+                <ScalarProperty Name="SweetSaltySnacks_Advert" ColumnName="SweetSaltySnacks_Advert" />
+                <ScalarProperty Name="AlcoholicDrinks_Advert" ColumnName="AlcoholicDrinks_Advert" />
+                <ScalarProperty Name="NonAlcoholicDrinks_Advert" ColumnName="NonAlcoholicDrinks_Advert" />
+                <ScalarProperty Name="Householdproducts_Advert" ColumnName="Householdproducts_Advert" />
+                <ScalarProperty Name="ToiletriesCosmetics_Advert" ColumnName="ToiletriesCosmetics_Advert" />
+                <ScalarProperty Name="PharmaceuticalChemistsProducts_Advert" ColumnName="PharmaceuticalChemistsProducts_Advert" />
+                <ScalarProperty Name="TobaccoProducts_Advert" ColumnName="TobaccoProducts_Advert" />
+                <ScalarProperty Name="PetsPetFood_Advert" ColumnName="PetsPetFood_Advert" />
+                <ScalarProperty Name="ShoppingRetailClothing_Advert" ColumnName="ShoppingRetailClothing_Advert" />
+                <ScalarProperty Name="DIYGardening_Advert" ColumnName="DIYGardening_Advert" />
+                <ScalarProperty Name="AppliancesOtherHouseholdDurables_Advert" ColumnName="AppliancesOtherHouseholdDurables_Advert" />
+                <ScalarProperty Name="ElectronicsOtherPersonalItems_Advert" ColumnName="ElectronicsOtherPersonalItems_Advert" />
+                <ScalarProperty Name="CommunicationsInternet_Advert" ColumnName="CommunicationsInternet_Advert" />
+                <ScalarProperty Name="FinancialServices_Advert" ColumnName="FinancialServices_Advert" />
+                <ScalarProperty Name="HolidaysTravel_Advert" ColumnName="HolidaysTravel_Advert" />
+                <ScalarProperty Name="SportsLeisure_Advert" ColumnName="SportsLeisure_Advert" />
+                <ScalarProperty Name="Motoring_Advert" ColumnName="Motoring_Advert" />
+                <ScalarProperty Name="Newspapers_Advert" ColumnName="Newspapers_Advert" />
+                <ScalarProperty Name="Magazines_Advert" ColumnName="Magazines_Advert" />
+                <ScalarProperty Name="TV_Advert" ColumnName="TV_Advert" />
+                <ScalarProperty Name="Radio_Advert" ColumnName="Radio_Advert" />
+                <ScalarProperty Name="Cinema_Advert" ColumnName="Cinema_Advert" />
+                <ScalarProperty Name="SocialNetworking_Advert" ColumnName="SocialNetworking_Advert" />
+                <ScalarProperty Name="GeneralUse_Advert" ColumnName="GeneralUse_Advert" />
+                <ScalarProperty Name="Shopping_Advert" ColumnName="Shopping_Advert" />
+                <ScalarProperty Name="Fitness_Advert" ColumnName="Fitness_Advert" />
+                <ScalarProperty Name="Holidays_Advert" ColumnName="Holidays_Advert" />
+                <ScalarProperty Name="Environment_Advert" ColumnName="Environment_Advert" />
+                <ScalarProperty Name="GoingOut_Advert" ColumnName="GoingOut_Advert" />
+                <ScalarProperty Name="FinancialProducts_Advert" ColumnName="FinancialProducts_Advert" />
+                <ScalarProperty Name="Religion_Advert" ColumnName="Religion_Advert" />
+                <ScalarProperty Name="Fashion_Advert" ColumnName="Fashion_Advert" />
+                <ScalarProperty Name="Music_Advert" ColumnName="Music_Advert" />
+                <ScalarProperty Name="Fitness_Attitude" ColumnName="Fitness_Attitude" />
+                <ScalarProperty Name="Holidays_Attitude" ColumnName="Holidays_Attitude" />
+                <ScalarProperty Name="Environment_Attitude" ColumnName="Environment_Attitude" />
+                <ScalarProperty Name="GoingOut_Attitude" ColumnName="GoingOut_Attitude" />
+                <ScalarProperty Name="FinancialStabiity_Attitude" ColumnName="FinancialStabiity_Attitude" />
+                <ScalarProperty Name="Religion_Attitude" ColumnName="Religion_Attitude" />
+                <ScalarProperty Name="Fashion_Attitude" ColumnName="Fashion_Attitude" />
+                <ScalarProperty Name="Music_Attitude" ColumnName="Music_Attitude" />
+                <ScalarProperty Name="Cinema_Cinema" ColumnName="Cinema_Cinema" />
+                <ScalarProperty Name="SocialNetworking_Internet" ColumnName="SocialNetworking_Internet" />
+                <ScalarProperty Name="Video_Internet" ColumnName="Video_Internet" />
+                <ScalarProperty Name="Research_Internet" ColumnName="Research_Internet" />
+                <ScalarProperty Name="Auctions_Internet" ColumnName="Auctions_Internet" />
+                <ScalarProperty Name="Shopping_Internet" ColumnName="Shopping_Internet" />
+                <ScalarProperty Name="ContractType_Mobile" ColumnName="ContractType_Mobile" />
+                <ScalarProperty Name="Spend_Mobile" ColumnName="Spend_Mobile" />
+                <ScalarProperty Name="Local_Press" ColumnName="Local_Press" />
+                <ScalarProperty Name="National_Press" ColumnName="National_Press" />
+                <ScalarProperty Name="FreeNewpapers_Press" ColumnName="FreeNewpapers_Press" />
+                <ScalarProperty Name="Magazines_Press" ColumnName="Magazines_Press" />
+                <ScalarProperty Name="Food_ProductsService" ColumnName="Food_ProductsService" />
+                <ScalarProperty Name="SweetSaltySnacks_ProductsService" ColumnName="SweetSaltySnacks_ProductsService" />
+                <ScalarProperty Name="AlcoholicDrinks_ProductsService" ColumnName="AlcoholicDrinks_ProductsService" />
+                <ScalarProperty Name="NonAlcoholicDrinks_ProductsService" ColumnName="NonAlcoholicDrinks_ProductsService" />
+                <ScalarProperty Name="Householdproducts_ProductsService" ColumnName="Householdproducts_ProductsService" />
+                <ScalarProperty Name="ToiletriesCosmetics_ProductsService" ColumnName="ToiletriesCosmetics_ProductsService" />
+                <ScalarProperty Name="PharmaceuticalChemistsProducts_ProductsService" ColumnName="PharmaceuticalChemistsProducts_ProductsService" />
+                <ScalarProperty Name="TobaccoProducts_ProductsService" ColumnName="TobaccoProducts_ProductsService" />
+                <ScalarProperty Name="PetsPetFood_ProductsService" ColumnName="PetsPetFood_ProductsService" />
+                <ScalarProperty Name="ShoppingRetailClothing_ProductsService" ColumnName="ShoppingRetailClothing_ProductsService" />
+                <ScalarProperty Name="DIYGardening_ProductsService" ColumnName="DIYGardening_ProductsService" />
+                <ScalarProperty Name="AppliancesOtherHouseholdDurables_ProductsService" ColumnName="AppliancesOtherHouseholdDurables_ProductsService" />
+                <ScalarProperty Name="ElectronicsOtherPersonalItems_ProductsService" ColumnName="ElectronicsOtherPersonalItems_ProductsService" />
+                <ScalarProperty Name="CommunicationsInternet_ProductsService" ColumnName="CommunicationsInternet_ProductsService" />
+                <ScalarProperty Name="FinancialServices_ProductsService" ColumnName="FinancialServices_ProductsService" />
+                <ScalarProperty Name="HolidaysTravel_ProductsService" ColumnName="HolidaysTravel_ProductsService" />
+                <ScalarProperty Name="SportsLeisure_ProductsService" ColumnName="SportsLeisure_ProductsService" />
+                <ScalarProperty Name="Motoring_ProductsService" ColumnName="Motoring_ProductsService" />
+                <ScalarProperty Name="National_Radio" ColumnName="National_Radio" />
+                <ScalarProperty Name="Local_Radio" ColumnName="Local_Radio" />
+                <ScalarProperty Name="Music_Radio" ColumnName="Music_Radio" />
+                <ScalarProperty Name="Sport_Radio" ColumnName="Sport_Radio" />
+                <ScalarProperty Name="Talk_Radio" ColumnName="Talk_Radio" />
+                <ScalarProperty Name="Satallite_TV" ColumnName="Satallite_TV" />
+                <ScalarProperty Name="Cable_TV" ColumnName="Cable_TV" />
+                <ScalarProperty Name="Terrestrial_TV" ColumnName="Terrestrial_TV" />
+                <ScalarProperty Name="Internet_TV" ColumnName="Internet_TV" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MSISDN" ColumnName="MSISDN" />
+                <ScalarProperty Name="MSUserProfileId" ColumnName="MSUserProfileId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IncomeBracket" ColumnName="IncomeBracket" />
+                <ScalarProperty Name="WorkingStatus" ColumnName="WorkingStatus" />
+                <ScalarProperty Name="RelationshipStatus" ColumnName="RelationshipStatus" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="HouseholdStatus" ColumnName="HouseholdStatus" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Age_Demographics" ColumnName="Age_Demographics" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userprofiletimesettings">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.userprofiletimesetting">
+              <MappingFragment StoreEntitySet="userprofiletimesetting">
+                <ScalarProperty Name="UserProfileTimeSettingsId" ColumnName="UserProfileTimeSettingsId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+                <ScalarProperty Name="MSUserProfileId" ColumnName="MSUserProfileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="add_play_check">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.add_play_check">
+              <MappingFragment StoreEntitySet="add_play_check">
+                <ScalarProperty Name="MSISDN" ColumnName="MSISDN" />
+                <ScalarProperty Name="BUCKET_ID" ColumnName="BUCKET_ID" />
+                <ScalarProperty Name="BUCKET_BATCH_ID" ColumnName="BUCKET_BATCH_ID" />
+                <ScalarProperty Name="BATCH_STATUS" ColumnName="BATCH_STATUS" />
+                <ScalarProperty Name="ITEM_TOTAL" ColumnName="ITEM_TOTAL" />
+                <ScalarProperty Name="ITEM_ID" ColumnName="ITEM_ID" />
+                <ScalarProperty Name="ADD_STATE_ID" ColumnName="ADD_STATE_ID" />
+                <ScalarProperty Name="ADD_STATE" ColumnName="ADD_STATE" />
+                <ScalarProperty Name="PRIORITY" ColumnName="PRIORITY" />
+                <ScalarProperty Name="MEDIA_URL" ColumnName="MEDIA_URL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="uspa_bucket_prcess" FunctionName="arthar_addcacheModel.Store.uspa_bucket_prcess" />
+          <EntitySetMapping Name="campaignmatches">
+            <EntityTypeMapping TypeName="arthar_addcacheModel.campaignmatch">
+              <MappingFragment StoreEntitySet="campaignmatch">
+                <ScalarProperty Name="NumberInBatch" ColumnName="NumberInBatch" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UpdatedDateTime" ColumnName="UpdatedDateTime" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="SMSFileLocation" ColumnName="SMSFileLocation" />
+                <ScalarProperty Name="SmsBody" ColumnName="SmsBody" />
+                <ScalarProperty Name="SmsOriginator" ColumnName="SmsOriginator" />
+                <ScalarProperty Name="EmailSenderAddress" ColumnName="EmailSenderAddress" />
+                <ScalarProperty Name="EmailBody" ColumnName="EmailBody" />
+                <ScalarProperty Name="EmailSubject" ColumnName="EmailSubject" />
+                <ScalarProperty Name="EmailsDelievered" ColumnName="EmailsDelievered" />
+                <ScalarProperty Name="SmsRequests" ColumnName="SmsRequests" />
+                <ScalarProperty Name="AverageDailyPlays" ColumnName="AverageDailyPlays" />
+                <ScalarProperty Name="NumberOfPlays" ColumnName="NumberOfPlays" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="EmailFileLocation" ColumnName="EmailFileLocation" />
+                <ScalarProperty Name="EmailsCurrentMonth" ColumnName="EmailsCurrentMonth" />
+                <ScalarProperty Name="EmailsLastMonth" ColumnName="EmailsLastMonth" />
+                <ScalarProperty Name="EmailToDate" ColumnName="EmailToDate" />
+                <ScalarProperty Name="SmsCurrentMonth" ColumnName="SmsCurrentMonth" />
+                <ScalarProperty Name="SmsLastMonth" ColumnName="SmsLastMonth" />
+                <ScalarProperty Name="SmsToDate" ColumnName="SmsToDate" />
+                <ScalarProperty Name="CancelledCurrentMonth" ColumnName="CancelledCurrentMonth" />
+                <ScalarProperty Name="CancelledLastMonth" ColumnName="CancelledLastMonth" />
+                <ScalarProperty Name="CancelledToDate" ColumnName="CancelledToDate" />
+                <ScalarProperty Name="PlaysCurrentMonth" ColumnName="PlaysCurrentMonth" />
+                <ScalarProperty Name="PlaysLastMonth" ColumnName="PlaysLastMonth" />
+                <ScalarProperty Name="PlaysToDate" ColumnName="PlaysToDate" />
+                <ScalarProperty Name="TotalCredit" ColumnName="TotalCredit" />
+                <ScalarProperty Name="MaxHourlyBudget" ColumnName="MaxHourlyBudget" />
+                <ScalarProperty Name="MaxWeeklyBudget" ColumnName="MaxWeeklyBudget" />
+                <ScalarProperty Name="MaxMonthBudget" ColumnName="MaxMonthBudget" />
+                <ScalarProperty Name="MaxDailyBudget" ColumnName="MaxDailyBudget" />
+                <ScalarProperty Name="TotalBudget" ColumnName="TotalBudget" />
+                <ScalarProperty Name="CampaignDescription" ColumnName="CampaignDescription" />
+                <ScalarProperty Name="CampaignName" ColumnName="CampaignName" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="MSCampaignProfileId" ColumnName="MSCampaignProfileId" />
+                <ScalarProperty Name="ORIGINATOR" ColumnName="ORIGINATOR" />
+                <ScalarProperty Name="SMS_MESSAGE" ColumnName="SMS_MESSAGE" />
+                <ScalarProperty Name="MEDIA_URL" ColumnName="MEDIA_URL" />
+                <ScalarProperty Name="EMAIL_MESSAGE" ColumnName="EMAIL_MESSAGE" />
+                <ScalarProperty Name="Internet_TV" ColumnName="Internet_TV" />
+                <ScalarProperty Name="Terrestrial_TV" ColumnName="Terrestrial_TV" />
+                <ScalarProperty Name="Cable_TV" ColumnName="Cable_TV" />
+                <ScalarProperty Name="Satallite_TV" ColumnName="Satallite_TV" />
+                <ScalarProperty Name="Talk_Radio" ColumnName="Talk_Radio" />
+                <ScalarProperty Name="Sport_Radio" ColumnName="Sport_Radio" />
+                <ScalarProperty Name="Music_Radio" ColumnName="Music_Radio" />
+                <ScalarProperty Name="Local_Radio" ColumnName="Local_Radio" />
+                <ScalarProperty Name="National_Radio" ColumnName="National_Radio" />
+                <ScalarProperty Name="Motoring_ProductsService" ColumnName="Motoring_ProductsService" />
+                <ScalarProperty Name="SportsLeisure_ProductsService" ColumnName="SportsLeisure_ProductsService" />
+                <ScalarProperty Name="HolidaysTravel_ProductsService" ColumnName="HolidaysTravel_ProductsService" />
+                <ScalarProperty Name="FinancialServices_ProductsService" ColumnName="FinancialServices_ProductsService" />
+                <ScalarProperty Name="CommunicationsInternet_ProductsService" ColumnName="CommunicationsInternet_ProductsService" />
+                <ScalarProperty Name="ElectronicsOtherPersonalItems_ProductsService" ColumnName="ElectronicsOtherPersonalItems_ProductsService" />
+                <ScalarProperty Name="AppliancesOtherHouseholdDurables_ProductsService" ColumnName="AppliancesOtherHouseholdDurables_ProductsService" />
+                <ScalarProperty Name="DIYGardening_ProductsService" ColumnName="DIYGardening_ProductsService" />
+                <ScalarProperty Name="ShoppingRetailClothing_ProductsService" ColumnName="ShoppingRetailClothing_ProductsService" />
+                <ScalarProperty Name="PetsPetFood_ProductsService" ColumnName="PetsPetFood_ProductsService" />
+                <ScalarProperty Name="TobaccoProducts_ProductsService" ColumnName="TobaccoProducts_ProductsService" />
+                <ScalarProperty Name="PharmaceuticalChemistsProducts_ProductsService" ColumnName="PharmaceuticalChemistsProducts_ProductsService" />
+                <ScalarProperty Name="ToiletriesCosmetics_ProductsService" ColumnName="ToiletriesCosmetics_ProductsService" />
+                <ScalarProperty Name="Householdproducts_ProductsService" ColumnName="Householdproducts_ProductsService" />
+                <ScalarProperty Name="NonAlcoholicDrinks_ProductsService" ColumnName="NonAlcoholicDrinks_ProductsService" />
+                <ScalarProperty Name="AlcoholicDrinks_ProductsService" ColumnName="AlcoholicDrinks_ProductsService" />
+                <ScalarProperty Name="SweetSaltySnacks_ProductsService" ColumnName="SweetSaltySnacks_ProductsService" />
+                <ScalarProperty Name="Food_ProductsService" ColumnName="Food_ProductsService" />
+                <ScalarProperty Name="Magazines_Press" ColumnName="Magazines_Press" />
+                <ScalarProperty Name="FreeNewpapers_Press" ColumnName="FreeNewpapers_Press" />
+                <ScalarProperty Name="National_Press" ColumnName="National_Press" />
+                <ScalarProperty Name="Local_Press" ColumnName="Local_Press" />
+                <ScalarProperty Name="Spend_Mobile" ColumnName="Spend_Mobile" />
+                <ScalarProperty Name="ContractType_Mobile" ColumnName="ContractType_Mobile" />
+                <ScalarProperty Name="Shopping_Internet" ColumnName="Shopping_Internet" />
+                <ScalarProperty Name="Auctions_Internet" ColumnName="Auctions_Internet" />
+                <ScalarProperty Name="Research_Internet" ColumnName="Research_Internet" />
+                <ScalarProperty Name="Video_Internet" ColumnName="Video_Internet" />
+                <ScalarProperty Name="SocialNetworking_Internet" ColumnName="SocialNetworking_Internet" />
+                <ScalarProperty Name="Age_Demographics" ColumnName="Age_Demographics" />
+                <ScalarProperty Name="Location_Demographics" ColumnName="Location_Demographics" />
+                <ScalarProperty Name="HouseholdStatus_Demographics" ColumnName="HouseholdStatus_Demographics" />
+                <ScalarProperty Name="Education_Demographics" ColumnName="Education_Demographics" />
+                <ScalarProperty Name="RelationshipStatus_Demographics" ColumnName="RelationshipStatus_Demographics" />
+                <ScalarProperty Name="WorkingStatus_Demographics" ColumnName="WorkingStatus_Demographics" />
+                <ScalarProperty Name="IncomeBracket_Demographics" ColumnName="IncomeBracket_Demographics" />
+                <ScalarProperty Name="Gender_Demographics" ColumnName="Gender_Demographics" />
+                <ScalarProperty Name="DOBEnd_Demographics" ColumnName="DOBEnd_Demographics" />
+                <ScalarProperty Name="DOBStart_Demographics" ColumnName="DOBStart_Demographics" />
+                <ScalarProperty Name="Cinema_Cinema" ColumnName="Cinema_Cinema" />
+                <ScalarProperty Name="Music_Attitude" ColumnName="Music_Attitude" />
+                <ScalarProperty Name="Fashion_Attitude" ColumnName="Fashion_Attitude" />
+                <ScalarProperty Name="Religion_Attitude" ColumnName="Religion_Attitude" />
+                <ScalarProperty Name="FinancialStabiity_Attitude" ColumnName="FinancialStabiity_Attitude" />
+                <ScalarProperty Name="GoingOut_Attitude" ColumnName="GoingOut_Attitude" />
+                <ScalarProperty Name="Environment_Attitude" ColumnName="Environment_Attitude" />
+                <ScalarProperty Name="Holidays_Attitude" ColumnName="Holidays_Attitude" />
+                <ScalarProperty Name="Fitness_Attitude" ColumnName="Fitness_Attitude" />
+                <ScalarProperty Name="Music_Advert" ColumnName="Music_Advert" />
+                <ScalarProperty Name="Fashion_Advert" ColumnName="Fashion_Advert" />
+                <ScalarProperty Name="Religion_Advert" ColumnName="Religion_Advert" />
+                <ScalarProperty Name="FinancialProducts_Advert" ColumnName="FinancialProducts_Advert" />
+                <ScalarProperty Name="GoingOut_Advert" ColumnName="GoingOut_Advert" />
+                <ScalarProperty Name="Environment_Advert" ColumnName="Environment_Advert" />
+                <ScalarProperty Name="Holidays_Advert" ColumnName="Holidays_Advert" />
+                <ScalarProperty Name="Fitness_Advert" ColumnName="Fitness_Advert" />
+                <ScalarProperty Name="Shopping_Advert" ColumnName="Shopping_Advert" />
+                <ScalarProperty Name="GeneralUse_Advert" ColumnName="GeneralUse_Advert" />
+                <ScalarProperty Name="SocialNetworking_Advert" ColumnName="SocialNetworking_Advert" />
+                <ScalarProperty Name="Cinema_Advert" ColumnName="Cinema_Advert" />
+                <ScalarProperty Name="Radio_Advert" ColumnName="Radio_Advert" />
+                <ScalarProperty Name="TV_Advert" ColumnName="TV_Advert" />
+                <ScalarProperty Name="Magazines_Advert" ColumnName="Magazines_Advert" />
+                <ScalarProperty Name="Newspapers_Advert" ColumnName="Newspapers_Advert" />
+                <ScalarProperty Name="Motoring_Advert" ColumnName="Motoring_Advert" />
+                <ScalarProperty Name="SportsLeisure_Advert" ColumnName="SportsLeisure_Advert" />
+                <ScalarProperty Name="HolidaysTravel_Advert" ColumnName="HolidaysTravel_Advert" />
+                <ScalarProperty Name="FinancialServices_Advert" ColumnName="FinancialServices_Advert" />
+                <ScalarProperty Name="CommunicationsInternet_Advert" ColumnName="CommunicationsInternet_Advert" />
+                <ScalarProperty Name="ElectronicsOtherPersonalItems_Advert" ColumnName="ElectronicsOtherPersonalItems_Advert" />
+                <ScalarProperty Name="AppliancesOtherHouseholdDurables_Advert" ColumnName="AppliancesOtherHouseholdDurables_Advert" />
+                <ScalarProperty Name="DIYGardening_Advert" ColumnName="DIYGardening_Advert" />
+                <ScalarProperty Name="ShoppingRetailClothing_Advert" ColumnName="ShoppingRetailClothing_Advert" />
+                <ScalarProperty Name="PetsPetFood_Advert" ColumnName="PetsPetFood_Advert" />
+                <ScalarProperty Name="TobaccoProducts_Advert" ColumnName="TobaccoProducts_Advert" />
+                <ScalarProperty Name="PharmaceuticalChemistsProducts_Advert" ColumnName="PharmaceuticalChemistsProducts_Advert" />
+                <ScalarProperty Name="ToiletriesCosmetics_Advert" ColumnName="ToiletriesCosmetics_Advert" />
+                <ScalarProperty Name="Householdproducts_Advert" ColumnName="Householdproducts_Advert" />
+                <ScalarProperty Name="NonAlcoholicDrinks_Advert" ColumnName="NonAlcoholicDrinks_Advert" />
+                <ScalarProperty Name="AlcoholicDrinks_Advert" ColumnName="AlcoholicDrinks_Advert" />
+                <ScalarProperty Name="SweetSaltySnacks_Advert" ColumnName="SweetSaltySnacks_Advert" />
+                <ScalarProperty Name="Food_Advert" ColumnName="Food_Advert" />
+                <ScalarProperty Name="AvailableCredit" ColumnName="AvailableCredit" />
+                <ScalarProperty Name="SpentToDate" ColumnName="SpentToDate" />
+                <ScalarProperty Name="MaxBid" ColumnName="MaxBid" />
+                <ScalarProperty Name="Budget" ColumnName="Budget" />
+                <ScalarProperty Name="CampaignProfileId" ColumnName="CampaignProfileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="uspa_campaign_user_match" FunctionName="arthar_addcacheModel.Store.uspa_campaign_user_match" />
+          <FunctionImportMapping FunctionImportName="uspa_delete_spent_records" FunctionName="arthar_addcacheModel.Store.uspa_delete_spent_records" />
+          <FunctionImportMapping FunctionImportName="uspa_delete_spent_records10" FunctionName="arthar_addcacheModel.Store.uspa_delete_spent_records10" />
+          <FunctionImportMapping FunctionImportName="uspa_delete_spent_records2" FunctionName="arthar_addcacheModel.Store.uspa_delete_spent_records2" />
+          <FunctionImportMapping FunctionImportName="uspa_delete_spent_records3" FunctionName="arthar_addcacheModel.Store.uspa_delete_spent_records3" />
+          <FunctionImportMapping FunctionImportName="uspa_delete_spent_records4" FunctionName="arthar_addcacheModel.Store.uspa_delete_spent_records4" />
+          <FunctionImportMapping FunctionImportName="uspa_delete_spent_records5" FunctionName="arthar_addcacheModel.Store.uspa_delete_spent_records5" />
+          <FunctionImportMapping FunctionImportName="uspa_delete_spent_records6" FunctionName="arthar_addcacheModel.Store.uspa_delete_spent_records6" />
+          <FunctionImportMapping FunctionImportName="uspa_delete_spent_records7" FunctionName="arthar_addcacheModel.Store.uspa_delete_spent_records7" />
+          <FunctionImportMapping FunctionImportName="uspa_delete_spent_records8" FunctionName="arthar_addcacheModel.Store.uspa_delete_spent_records8" />
+          <FunctionImportMapping FunctionImportName="uspa_delete_spent_records9" FunctionName="arthar_addcacheModel.Store.uspa_delete_spent_records9" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

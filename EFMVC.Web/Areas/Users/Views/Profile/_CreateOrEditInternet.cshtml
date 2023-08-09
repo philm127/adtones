@@ -1,0 +1,112 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileInternetFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>Internet</h5>
+
+                </div>*@
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvinternetsuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvinterneterror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cinterneterrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveInternet", "Profile",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultinternet", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.UserProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SocialNetworking_Internet)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Video_Internet)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Research_Internet)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SocialNetworking_Internet, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SocialNetworking_Internet, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SocialNetworking_Internet, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SocialNetworking_Internet, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.SocialNetworking_Internet)
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Video_Internet, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Video_Internet, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Video_Internet, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Video_Internet, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Video_Internet)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Research_Internet, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Research_Internet, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Research_Internet, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Research_Internet, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Research_Internet)
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Auctions_Internet)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Shopping_Internet)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Auctions_Internet, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Auctions_Internet, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Auctions_Internet, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Auctions_Internet, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Auctions_Internet)
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Shopping_Internet, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Shopping_Internet, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Shopping_Internet, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Shopping_Internet, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Shopping_Internet)
+                            </div>
+                        </div>
+                    </div>
+                 
+                  
+                    <div class="form-group">
+                        <div class="col-lg-1">
+                            <button class="btn btn-blue" type="submit">Save</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultinternet = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvinternetsuc").show();
+            $("#dvinterneterror").hide();
+        }
+        else
+        {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing", new { Area = "" })';
+            }
+            $("#cinterneterrror").html(data);
+            $("#dvinternetsuc").hide();
+            $("#dvinterneterror").show();
+        }
+    };
+</script>

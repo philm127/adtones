@@ -1,0 +1,21 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileMobileFormModel
+@{
+    ViewBag.Title = "Mobile";
+}
+<div class="row">
+    @using (Html.BeginForm("SaveMobile", "Campaign"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CreateOrEditMobile", Model)
+
+        <p>
+            <input type="submit" value="Submit" class="font12" />
+        </p>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

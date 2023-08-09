@@ -1,0 +1,45 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        @ViewBag.Error
+
+        @ViewBag.InnerMsg
+
+        @ViewBag.ExecuteNonQuery
+
+        @ViewBag.Time
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var viewbagValue = '@ViewBag.Window';
+      //  if (viewbagValue == 'True') {
+
+            ////var url = 'https://stackoverflow.com';
+            ////alert(url)
+            //window.open(url, '_blank');
+            window.open('', '_self', '');
+            window.close();
+            top.close();
+            @*$.ajax({
+                url: "@Url.Action("DeleteRecords", "BucketProvision")",
+                success: function (result) {
+                   alert(result)
+                }
+            });*@
+       // }
+    });
+</script>

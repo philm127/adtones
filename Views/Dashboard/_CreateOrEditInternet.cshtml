@@ -1,0 +1,205 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileInternetFormModel
+@Html.HiddenFor(model => model.CampaignProfileInternetId)
+@Html.HiddenFor(model => model.CampaignProfileId)
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Internet</h5>
+
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SocialNetworkingQuestion, new { @class = "col-lg-3 control-label" })
+
+
+                        <div class="col-lg-9 editor-field" style="line-height:28px;">
+                            @foreach (var SocialNetworking in @Model.SocialNetworkingQuestion)
+                        {
+                            var checkBoxId = "chk" + SocialNetworking.QuestionValue;
+                            var tdId = "td" + SocialNetworking.QuestionValue;
+
+                        <table>
+                            <tr>
+                                @if (SocialNetworking.Selected)
+                                    {
+                                    <td>
+                                        <input type="checkbox" id="@checkBoxId" checked class="chkclassSocialNetworking i-checks" value="@SocialNetworking.QuestionValue" />
+                                    </td>
+                                    }
+                                    else
+                                    {
+                                    <td>
+                                        <input type="checkbox" id="@checkBoxId" class="chkclassSocialNetworking i-checks" value="@SocialNetworking.QuestionValue" />
+                                    </td>
+                                    }
+
+                                <td id="@tdId" style="padding-left:15px;">
+                                    @SocialNetworking.QuestionName
+                                </td>
+                            </tr>
+                        </table>
+
+                        }
+                        </div>
+
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.VideoQuestion, new { @class = "col-lg-3 control-label" })
+
+
+                        <div class="col-lg-9 editor-field" style="line-height:28px;">
+                            @foreach (var VideoQuestion in @Model.VideoQuestion)
+                        {
+                            var checkBoxId = "chk" + VideoQuestion.QuestionValue;
+                            var tdId = "td" + VideoQuestion.QuestionValue;
+
+                        <table>
+                            <tr>
+                                @if (VideoQuestion.Selected)
+                                    {
+                                    <td>
+                                        <input type="checkbox" id="@checkBoxId" checked class="chkclassVideoQuestion i-checks" value="@VideoQuestion.QuestionValue" />
+                                    </td>
+                                    }
+                                    else
+                                    {
+                                    <td>
+                                        <input type="checkbox" id="@checkBoxId" class="chkclassVideoQuestion i-checks" value="@VideoQuestion.QuestionValue" />
+                                    </td>
+                                    }
+
+                                <td id="@tdId" style="padding-left:15px;">
+                                    @VideoQuestion.QuestionName
+                                </td>
+                            </tr>
+                        </table>
+
+                        }
+                        </div>
+
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ResearchQuestion, new { @class = "col-lg-3 control-label" })
+
+
+                        <div class="col-lg-9 editor-field" style="line-height:28px;">
+                            @foreach (var ResearchQuestion in @Model.ResearchQuestion)
+                        {
+                            var checkBoxId = "chk" + ResearchQuestion.QuestionValue;
+                            var tdId = "td" + ResearchQuestion.QuestionValue;
+
+                        <table>
+                            <tr>
+                                @if (ResearchQuestion.Selected)
+                                    {
+                                    <td>
+                                        <input type="checkbox" id="@checkBoxId" checked class="chkclassEnvironmentQuestion i-checks" value="@ResearchQuestion.QuestionValue" />
+                                    </td>
+                                    }
+                                    else
+                                    {
+                                    <td>
+                                        <input type="checkbox" id="@checkBoxId" class="chkclassEnvironmentQuestion i-checks" value="@ResearchQuestion.QuestionValue" />
+                                    </td>
+                                    }
+
+                                <td id="@tdId" style="padding-left:15px;">
+                                    @ResearchQuestion.QuestionName
+                                </td>
+                            </tr>
+                        </table>
+
+                        }
+                        </div>
+
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AuctionsQuestion, new { @class = "col-lg-3 control-label" })
+
+
+                        <div class="col-lg-9 editor-field" style="line-height:28px;">
+                            @foreach (var AuctionsQuestion in @Model.AuctionsQuestion)
+                        {
+                            var checkBoxId = "chk" + AuctionsQuestion.QuestionValue;
+                            var tdId = "td" + AuctionsQuestion.QuestionValue;
+
+                        <table>
+                            <tr>
+                                @if (AuctionsQuestion.Selected)
+                                    {
+                                    <td>
+                                        <input type="checkbox" id="@checkBoxId" checked class="chkclassAuctionsQuestion i-checks" value="@AuctionsQuestion.QuestionValue" />
+                                    </td>
+                                    }
+                                    else
+                                    {
+                                    <td>
+                                        <input type="checkbox" id="@checkBoxId" class="chkclassAuctionsQuestion i-checks" value="@AuctionsQuestion.QuestionValue" />
+                                    </td>
+                                    }
+
+                                <td id="@tdId" style="padding-left:15px;">
+                                    @AuctionsQuestion.QuestionName
+                                </td>
+                            </tr>
+                        </table>
+
+                        }
+                        </div>
+
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ShoppingQuestion, new { @class = "col-lg-3 control-label" })
+
+
+                        <div class="col-lg-9 editor-field" style="line-height:28px;">
+                            @foreach (var ShoppingQuestion in @Model.ShoppingQuestion)
+                        {
+                            var checkBoxId = "chk" + ShoppingQuestion.QuestionValue;
+                            var tdId = "td" + ShoppingQuestion.QuestionValue;
+
+                        <table>
+                            <tr>
+                                @if (ShoppingQuestion.Selected)
+                                    {
+                                    <td>
+                                        <input type="checkbox" id="@checkBoxId" checked class="chkclassShoppingQuestion i-checks" value="@ShoppingQuestion.QuestionValue" />
+                                    </td>
+                                    }
+                                    else
+                                    {
+                                    <td>
+                                        <input type="checkbox" id="@checkBoxId" class="chkclassShoppingQuestion i-checks" value="@ShoppingQuestion.QuestionValue" />
+                                    </td>
+                                    }
+
+                                <td id="@tdId" style="padding-left:15px;">
+                                    @ShoppingQuestion.QuestionName
+                                </td>
+                            </tr>
+                        </table>
+
+                        }
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-1">
+                            <button class="btn btn-blue" type="submit">Update</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>

@@ -1,0 +1,136 @@
+﻿@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model Tuple<List<ClientResult>, ClientFilter>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Client Management</h5>
+                
+                <div style="text-align:right">
+                    <button class="btn btn-blue " type="button" onclick="window.location.href='@Url.Action("AddClient","Client")'"><i class="fa fa-plus"></i>&nbsp; Client</button>
+                </div>
+
+            </div>
+
+            @using (Ajax.BeginForm("SearchClient", "Client",
+  null,
+  new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresult" },
+  null))
+            {
+
+                <div class="ibox-content">
+                    <div class="row">
+                        <div>
+                            <label class="col-lg-1 control-label">Client</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    @Html.DropDownListFor(Model1 => Model1.Item2.ClientId, ViewBag.client as IEnumerable<SelectListItem>, new { @class = "input-sm form-control input-s-sm inline" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="col-lg-1 control-label">Created date</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group" id="data_5">
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.Fromdate, new { @class = "input-sm form-control", @Value = "" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.Todate, new { @class = "input-sm form-control", @Value = "" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="col-lg-1 control-label">Budget</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.FromBudget, new { @class = "form-control" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.ToBudget, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <label class="col-lg-1 control-label">Spend</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.FromSpend, new { @class = "form-control" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.ToSpend, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="col-lg-1 control-label">Bid</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.Frombid, new { @class = "form-control" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.Tobid, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="col-lg-1 control-label">Status</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    @Html.DropDownListFor(Model1 => Model1.Item2.Status, ViewBag.clientStatus as IEnumerable<SelectListItem>, new { @class = "input-sm form-control input-s-sm inline" })
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <button class="btn btn-blue" type="submit">Search</button>
+                                <button class="btn btn-white" type="button" id="reset">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="clientList">
+                        @{ Html.RenderPartial("_ClientList", Model.Item1);}
+                    </div>
+
+                </div>
+                            }
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    var getresult = function (data) {
+        $('.dataTables-client').remove();
+        $("#clientList").html(data);
+        dataTableSetup();
+    };
+    function dataTableSetup() {
+        $('.dataTables-client').DataTable({
+            "info": false,
+            bFilter: false,
+            "bLengthChange": false,
+            "language": {
+                "infoEmpty": "No Record Found."
+            }
+        });
+    }
+</script>

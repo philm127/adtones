@@ -1,0 +1,143 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Billing Management</h5>
+                <div style="text-align:right">
+                    <button class="btn btn-blue " type="button"><i class="fa fa-plus"></i>&nbsp;Buy credit / Raise po</button>
+                </div>
+
+            </div>
+
+            @using (Ajax.BeginForm("SearchBilling", "Client",
+  null,
+  new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresult" },
+  null))
+            {
+
+                <div class="ibox-content">
+                    <div class="row">
+                        <div>
+                            <label class="col-lg-1 control-label">ID</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <input type="text" placeholder="ID" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="col-lg-1 control-label">PO Number</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <input type="text" placeholder="PO Number" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="col-lg-1 control-label">Client</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <select class="input-sm form-control input-s-sm inline valid" id="Item2_ClientId" name="Item2.ClientId" aria-invalid="false">
+                                        <option value="0">--Select Client--</option>
+                                        <option value="1">Coca Cola</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="row">
+                        <div>
+                            <label class="col-lg-1 control-label">Created date</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group" id="data_5">
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <input type="text" class="input-sm form-control" />
+
+                                        <span class="input-group-addon">to</span>
+                                        <input type="text" class="input-sm form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="col-lg-1 control-label">Settled date</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group" id="data_5">
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <input type="text" class="input-sm form-control" />
+
+                                        <span class="input-group-addon">to</span>
+                                        <input type="text" class="input-sm form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="col-lg-1 control-label">Invoice Total</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        <input type="text" class="form-control" />
+                                        <span class="input-group-addon">to</span>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div>
+                            <label class="col-lg-1 control-label">Status</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <select class="input-sm form-control input-s-sm inline valid" id="Item2_ClientId" name="Item2.ClientId" aria-invalid="false">
+                                        <option value="0">--Select Status--</option>
+                                        <option value="1">Paid</option>
+                                        <option value="2">Credited</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="col-lg-1 control-label">Method of payment</label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <select class="input-sm form-control input-s-sm inline valid" id="Item2_ClientId" name="Item2.ClientId" aria-invalid="false">
+                                        <option value="0">--Select Method--</option>
+                                        <option value="1">Paypal</option>
+                                        <option value="2">Card</option>
+                                        <option value="3">PO</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <button class="btn btn-blue" type="submit">Search</button>
+                                <button class="btn btn-white" type="button" id="reset">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="compaignList">
+                        @{ Html.RenderPartial("_BillingList");}
+                    </div>
+
+                </div>
+                            }
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,76 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Campaign Information</h5>
+
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Name</label>
+
+                        <div class="col-lg-9">
+                            @Html.TextBoxFor(Model => Model.CampaignName, new { @class = "form-control", @placeholder = "Name" })
+                            @Html.ValidationMessageFor(Model => Model.CampaignName, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Description</label>
+
+                        <div class="col-lg-9">
+                            @Html.TextAreaFor(Model => Model.CampaignDescription, new { @class = "form-control", @placeholder = "Description" })
+                            @Html.ValidationMessageFor(Model => Model.CampaignDescription, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Client</label>
+
+                        <div class="col-lg-9">
+                            @Html.DropDownListFor(Model => Model.ClientId, ViewBag.client as IEnumerable<SelectListItem>, "--Select Client--", new { @class = "input-sm form-control input-s-sm inline" })
+                            @Html.ValidationMessageFor(Model => Model.ClientId, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Status</label>
+
+                        <div class="col-lg-1">
+
+
+                            <label class="control-label">@ViewData["status"]</label>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label"></label>
+                        <input type="hidden" id="hdnstatus" name="hdnstatus" value="Played" />
+                        <div class="col-lg-6">
+                            <div id="wizard1">
+                                <h1>Play</h1>
+                                <div class="step-content">
+
+                                </div>
+
+                                <h1>Pause</h1>
+                                <div class="step-content">
+
+                                </div>
+                                <h1>Archive</h1>
+                                <div class="step-content">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

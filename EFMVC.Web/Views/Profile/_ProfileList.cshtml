@@ -1,0 +1,460 @@
+﻿@using EFMVC.Web.Core.Extensions
+@using EFMVC.Web.Core.Models
+@using EFMVC.Web.ViewModels
+@model IEnumerable<EFMVC.Web.ViewModels.UserProfileFormModel>
+
+@{
+    EFMVCUser user = HttpContext.Current.User.GetEFMVCUser();
+    var userData = ViewData["User"] as UserFormModel;
+}
+
+
+<div class="row">
+    <div class="large-6 columns">
+        
+        <div class="panel">
+            
+            <h6>Profile Details</h6>
+                
+            <div class="clr10"></div>
+                
+            <div class="row">
+                <div class="large-6 columns">
+                    @Html.Label("Email Address: ")
+                </div>
+                <div class="large-5 columns label">
+                    @userData.Email
+                </div>
+                <div class="large-1 columns">
+                    @Html.ActionLink(" ", "ChangeEmail", null, new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                </div>
+            </div>
+            
+            <div class="clr10"></div>
+                
+            <div class="row">
+                <div class="large-6 columns">
+                    @Html.LabelFor(x => x.FirstOrDefault().MSISDN, "Mobile Number: ")
+                </div>
+                <div class="large-5 columns label">
+                    @Html.DisplayFor(x => x.FirstOrDefault().MSISDN)
+                </div>
+                <div class="large-1 columns">
+                    @Html.ActionLink(" ", "ChangeMSISDN", null, new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="panel">
+            @{
+                if (Model != null && Model.Count() != 0)
+                {
+                    UserProfileFormModel item = Model.FirstOrDefault();
+
+                    <h6>Additional Profile Details</h6>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-6 columns">
+                            @Html.LabelFor(x => x.FirstOrDefault().DOB, "Date Of Birth: ")
+                        </div>
+                        @if (Model.FirstOrDefault().DOB.ToString() == "Not Set" || string.IsNullOrEmpty(Model.FirstOrDefault().DOB.ToString()))
+                        {
+                            <div class="large-6 columns label warning">
+                                Not Set
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="large-6 columns label">
+                                @Html.DisplayFor(x => x.FirstOrDefault().DOB)
+                            </div>
+                        }
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-6 columns">
+                            @Html.LabelFor(x => x.FirstOrDefault().Gender, "Gender: ")
+                        </div>
+                        @if (Model.FirstOrDefault().Gender == "Not Set")
+                        {
+                            <div class="large-6 columns label warning">
+                                @Html.DisplayFor(x => x.FirstOrDefault().Gender)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="large-6 columns label">
+                                @Html.DisplayFor(x => x.FirstOrDefault().Gender)
+                            </div>
+                        }
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-6 columns">
+                            @Html.LabelFor(x => x.FirstOrDefault().IncomeBracket, "Income Bracket: ")
+                        </div>
+                        @if (Model.FirstOrDefault().IncomeBracket == "Not Set")
+                        {
+                            <div class="large-6 columns label warning">
+                                @Html.DisplayFor(x => x.FirstOrDefault().IncomeBracket)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="large-6 columns label">
+                                @Html.DisplayFor(x => x.FirstOrDefault().IncomeBracket)
+                            </div>
+                        }
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-6 columns">
+                            @Html.LabelFor(x => x.FirstOrDefault().WorkingStatus, "Working Status: ")
+                        </div>
+                        @if (Model.FirstOrDefault().WorkingStatus == "Not Set")
+                        {
+                            <div class="large-6 columns label warning">
+                                @Html.DisplayFor(x => x.FirstOrDefault().WorkingStatus)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="large-6 columns label">
+                                @Html.DisplayFor(x => x.FirstOrDefault().WorkingStatus)
+                            </div>
+                        }
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-6 columns">
+                            @Html.LabelFor(x => x.FirstOrDefault().RelationshipStatus, "Relationship Status: ")
+                        </div>
+                        @if (Model.FirstOrDefault().RelationshipStatus == "Not Set")
+                        {
+                            <div class="large-6 columns label warning">
+                                @Html.DisplayFor(x => x.FirstOrDefault().RelationshipStatus)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="large-6 columns label">
+                                @Html.DisplayFor(x => x.FirstOrDefault().RelationshipStatus)
+                            </div>
+                        }
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-6 columns">
+                            @Html.LabelFor(x => x.FirstOrDefault().Education, "Education: ")
+                        </div>
+                        @if (Model.FirstOrDefault().Education == "Not Set")
+                        {
+                            <div class="large-6 columns label warning">
+                                @Html.DisplayFor(x => x.FirstOrDefault().Education)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="large-6 columns label">
+                                @Html.DisplayFor(x => x.FirstOrDefault().Education)
+                            </div>
+                        }
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-6 columns">
+                            @Html.LabelFor(x => x.FirstOrDefault().HouseholdStatus, "Household Status: ")
+                        </div>
+                        @if (Model.FirstOrDefault().HouseholdStatus == "Not Set")
+                        {
+                            <div class="large-6 columns label warning">
+                                @Html.DisplayFor(x => x.FirstOrDefault().HouseholdStatus)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="large-6 columns label">
+                                @Html.DisplayFor(x => x.FirstOrDefault().HouseholdStatus)
+                            </div>
+                        }
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-6 columns">
+                            @Html.LabelFor(x => x.FirstOrDefault().Location, "Location: ")
+                        </div>
+                        @if (Model.FirstOrDefault().Location == "Not Set")
+                        {
+                            <div class="large-6 columns label warning">
+                                @Html.DisplayFor(x => x.FirstOrDefault().Location)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="large-6 columns label">
+                                @Html.DisplayFor(x => x.FirstOrDefault().Location)
+                            </div>
+                        }
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <div class="right">
+                                @Html.ActionLink(
+                                    " ",
+                                    "Edit",
+                                    new {id = item.UserProfileId},
+                                    new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clr10"></div>
+                }
+            }
+        </div>
+        
+        <div class="panel">
+            
+            <h6>Time Settings</h6>
+                
+            <div class="clr10"></div>
+
+            @{
+                if (Model != null && Model.Count() != 0)
+                {
+                    UserProfileFormModel item = Model.FirstOrDefault();
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>
+                                Time Settings - 
+                                <div class="right">
+                                    @Html.ActionLink(
+                                        " ",
+                                        "EditTimeSettings",
+                                        new {id = item.UserProfileId},
+                                        new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+    
+    <div class="large-6 columns">
+        <div class="panel">
+            @{
+                if (Model != null && Model.Count() != 0)
+                {
+                    UserProfileFormModel item = Model.FirstOrDefault();
+
+                    <h6>Additional Profile Details</h6>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>
+                                Advert - 
+                                <div class="right">@Html.ActionLink(
+                                                       " ",
+                                                       "EditAdverts",
+                                                       new {id = item.UserProfileId},
+                                                       new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>
+                                Attitude - 
+                                <div class="right">@Html.ActionLink(
+                                                       " ",
+                                                       "EditAttitude",
+                                                       new {id = item.UserProfileId},
+                                                       new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>
+                                Cinema - 
+                                <div class="right">
+                                    @Html.ActionLink(
+                                        " ",
+                                        "EditCinema",
+                                        new {id = item.UserProfileId},
+                                        new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>
+                                Internet - 
+                                <div class="right">
+                                    @Html.ActionLink(
+                                        " ",
+                                        "EditInternet",
+                                        new {id = item.UserProfileId},
+                                        new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>
+                                Mobile - 
+                                <div class="right">
+                                    @Html.ActionLink(
+                                        " ",
+                                        "EditMobile",
+                                        new {id = item.UserProfileId},
+                                        new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>
+                                Press - 
+                                <div class="right">
+                                    @Html.ActionLink(
+                                        " ",
+                                        "EditPress",
+                                        new {id = item.UserProfileId},
+                                        new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>
+                                Products & Services - 
+                                <div class="right">
+                                    @Html.ActionLink(
+                                        " ",
+                                        "EditProductsServices",
+                                        new {id = item.UserProfileId},
+                                        new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>
+                                Radio - 
+                                <div class="right">
+                                    @Html.ActionLink(
+                                        " ",
+                                        "EditRadio",
+                                        new {id = item.UserProfileId},
+                                        new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>
+                                TV - 
+                                <div class="right">
+                                    @Html.ActionLink(
+                                        " ",
+                                        "EditTv",
+                                        new {id = item.UserProfileId},
+                                        new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    
+    <div class="large-6 columns">
+        <div class="panel">
+            @{
+                if (Model != null && Model.Count() != 0)
+                {
+                    UserProfileFormModel item = Model.FirstOrDefault();
+
+                    <h6>Account Overview</h6>
+
+                    <div class="clr10"></div>
+
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <label>
+                                Adverts Listened To
+                                <div class="right">@Html.ActionLink(
+                                                       " ",
+                                                       "AdvertsReceived",
+                                                       new {id = item.UserProfileId},
+                                                       new {@class = "searchLinkImg", @alt = "View", @title = "View"})
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="clr10"></div>
+                }
+            }
+        </div>
+    </div>
+</div>

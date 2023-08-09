@@ -1,0 +1,19 @@
+﻿@model EFMVC.Web.ViewModels.CampaignAdvertFormModel
+@{
+    ViewBag.Title = "Campaign Adverts";
+}
+
+<div class="row">
+
+    @using (Html.BeginForm("SaveCampaignAdvert", "Campaign", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CreateOrEditCampaignAdvert", Model)
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

@@ -1,0 +1,214 @@
+﻿@using EFMVC.Web.Areas.Admin.Models;
+@using EFMVC.Web.Common;
+@model List<CampaignAdminResult>
+<div class="row">
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["status"]
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="alert alert-success alert-dismissable" style="display:none;" id="succesdivcampaign">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <div id="succesdivcampaignmsg"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="alert alert-danger alert-dismissable" style="display:none;" id="errordivcampaign">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <div id="errordivcampaignmsg"></div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-usercampaign">
+        <thead>
+            <tr>
+
+                <th>Email</th>
+                <th>User</th>
+                <th>Client</th>
+                <th>Campaign</th>
+                <th>Advert</th>
+                <th>Play</th>
+                <th>Budget</th>
+                <th>Spend</th>
+                <th>Fund Available</th>
+                <th>Avg Bid</th>
+                <th>Created Date</th>
+                <th>Status</th>
+                <th>Open Help Tickets</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        @if (ViewBag.SearchResult == true)
+        {
+            <tbody>
+                @foreach (CampaignAdminResult result in Model)
+                {
+
+                    <tr class="gradeX">
+                        @if (result.Status != 3)
+                        {
+                            <td><a href='@Url.Action("UserDetails", "UserManagement", new { @id = result.UserId })'>@result.Email</a></td>
+                        }
+                        else
+                        {
+                            <td>@result.Email</td>
+                        }
+                        <td>@result.UserName</td>
+                        @*<td><a href='@Url.Action("ClientDetails", "Client", new { @id = result.ClientId })'>@result.ClientName</a></td>*@
+                        @*<td><a href='@Url.Action("ClientDetails", "AdminClient", new { @id = result.ClientId, area = "Admin" })'>@result.ClientName</a></td>*@
+                        @if (result.ClientName != "-")
+                        {
+                            <td><a class="clientname" href='@Url.Action("ClientDetails","AdminClient",new {@id=result.ClientId, area = "Admin" })'>@result.ClientName</a></td>
+                        }
+                        else
+                        {
+                            <td>-</td>
+                        }
+                        <td> @result.CampaignName</td>
+                        @if (result.AdvertName == "-")
+                        {
+                            <td>-</td>
+                        }
+                        else
+                        {
+                            <td><a href='@Url.Action("Index", "UserAdvert", new { @id = result.AdvertId })'>@result.AdvertName</a></td>
+                        }
+
+                        <td>@result.finaltotalplays</td>
+                        <td>@result.TotalBudget</td>
+                        <td>@result.totalspend</td>
+                        <td>@result.FundsAvailable</td>
+                        <td>@result.totalaveragebid</td>
+                        <td>@result.CreatedDateTime.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (result.IsAdminApproval == true && result.Status == 8)
+                            {
+                                <label class="label label-danger">Campaign Paused Due To Insufficient Funds</label>
+                            }
+                            else if (result.Status == 8)
+                            {
+                                <label class="label label-danger">Campaign Paused Due To Insufficient Funds</label>
+                            }
+                            else if (result.Status == 7)
+                            {
+                                <label class="label label-primary">InProgress</label>
+                            }
+                            else if (result.Status != 6)
+                            {
+                                <select class="form-control input-s-sm inline" onchange="updateCampaignStatus(@result.CampaignProfileId,this)">
+                                    @if (@result.Status == 1)
+                                    {
+                                        <option value="1" selected="selected">@CampaignStatus.Planned.ToString()</option>
+                                        <option value="2">@CampaignStatus.Play.ToString()</option>
+                                        <option value="3">@CampaignStatus.Pause.ToString()</option>
+                                        <option value="4">@CampaignStatus.Stop.ToString()</option>
+                                        <option value="5">@CampaignStatus.Archive.ToString()</option>
+                                    }
+                                    else if (@result.Status == 2)
+                                    {
+                                        <option value="1">@CampaignStatus.Planned.ToString()</option>
+                                        <option value="2" selected="selected">@CampaignStatus.Play.ToString()</option>
+                                        <option value="3">@CampaignStatus.Pause.ToString()</option>
+                                        <option value="4">@CampaignStatus.Stop.ToString()</option>
+                                        <option value="5">@CampaignStatus.Archive.ToString()</option>
+                                    }
+                                    else if (@result.Status == 3)
+                                    {
+                                        <option value="1">@CampaignStatus.Planned.ToString()</option>
+                                        <option value="2">@CampaignStatus.Play.ToString()</option>
+                                        <option value="3" selected="selected">@CampaignStatus.Pause.ToString()</option>
+                                        <option value="4">@CampaignStatus.Stop.ToString()</option>
+                                        <option value="5">@CampaignStatus.Archive.ToString()</option>
+                                    }
+                                    else if (@result.Status == 4)
+                                    {
+                                        <option value="1">@CampaignStatus.Planned.ToString()</option>
+                                        <option value="2">@CampaignStatus.Play.ToString()</option>
+                                        <option value="3">@CampaignStatus.Pause.ToString()</option>
+                                        <option value="4" selected="selected">@CampaignStatus.Stop.ToString()</option>
+                                        <option value="5">@CampaignStatus.Archive.ToString()</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="1">@CampaignStatus.Planned.ToString()</option>
+                                        <option value="2">@CampaignStatus.Play.ToString()</option>
+                                        <option value="3">@CampaignStatus.Pause.ToString()</option>
+                                        <option value="4">@CampaignStatus.Stop.ToString()</option>
+                                        <option value="5" selected="selected">@CampaignStatus.Archive.ToString()</option>
+                                    }
+                                </select>
+                            }
+                            else
+                            {
+                                <label class="label label-primary">Waiting for approval</label>
+
+                                @*<a class="btn btn-blue btn-xs" onclick="updateCampaignStatus(@result.CampaignProfileId,2)">Play</a>*@
+                            }
+                        </td>
+
+                        @if (result.TicketCount > 0)
+                        {
+                            <td><a href='@Url.Action("Index", "Question", new { area = "Admin", userId = result.UserId })'>@result.TicketCount</a></td>
+                        }
+                        else
+                        {
+                            <td>@result.TicketCount</td>
+                        }
+
+                        @if (result.Status != 6)
+                        {
+                            <td></td>
+                        }
+                        else
+                        {
+                            @*<td><a class="btn btn-blue btn-xs" onclick="updateCampaignStatusLive(@result.CampaignProfileId,2);">Play</a></td>*@
+                            <td><a class="btn btn-blue btn-xs" onclick="updateCampaignStatusLive(@result.CampaignProfileId,8);">Play</a></td>
+                        }
+
+                    </tr>
+                }
+            </tbody>
+        }
+    </table>
+</div>
+<div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Scripts</h4>
+            </div>
+            <div class="modal-body">
+                <p id="pscripts">
+
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+
+        function updatestatus(advertId, status) {
+            $(".spiner-example").show();
+            var advertObject = new Object();
+            advertObject.id = id;
+            advertObject.status = status;
+            $.post('@Url.Action("ApproveORSuspendAdvert", "UserAdvert")', advertObject, function (data) {
+
+                if (data == "success") {
+                    window.location.href = '@Url.Action("Index", "UserAdvert", new { area = "Admin" })';
+                    $(".spiner-example").hide();
+                }
+            });
+        }
+    </script>
+}

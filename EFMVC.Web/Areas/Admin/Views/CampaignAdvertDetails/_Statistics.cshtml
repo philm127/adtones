@@ -1,0 +1,20 @@
+﻿@using EFMVC.Web.Models;
+@using EFMVC.Web.SearchClass;
+@model EFMVC.Web.Models.CampaignProfileMapping
+
+<div class="cols-lg-12">
+    <ul class="navigate">
+        <li><a onclick="navigate(1);">Campaign Information</a></li>
+        <li><a onclick="navigate(2);">Budget Management</a></li>
+        <li><a onclick="navigate(3);">SMS and email</a></li>
+        <li><a onclick="navigate(4);">Ads Profile mapping</a></li>
+    </ul>
+</div>
+<div class="row">&nbsp;</div>
+@Html.Partial("_CampaignDetailsStatistics", Model.CampaignDashboardChartResult)
+
+
+
+
+
+@Html.Partial("_CampaignAuditManagement", Tuple.Create<List<CampaignAuditResult>, CampaignAuditFilter>(Model.CampaignAudit, Model.CampaignAuditFilter))

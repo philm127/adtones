@@ -1,0 +1,26 @@
+.alert {
+    background-color: #c60f13;
+    border-color: #970b0e;
+    color: white;
+    padding: 5px 5px 5px 5px;
+}
+
+.small-text-90 {
+    font-size: 90%;
+    line-height: inherit;
+}
+
+.small-text-80 {
+    font-size: 80%;
+    line-height: inherit;
+}
+
+.small-text-70 {
+    font-size: 70%;
+    line-height: inherit;
+}
+
+.small-text-60 {
+    font-size: 60%;
+    line-height: inherit;
+}

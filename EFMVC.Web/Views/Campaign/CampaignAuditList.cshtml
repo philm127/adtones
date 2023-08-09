@@ -1,0 +1,20 @@
+﻿@model IEnumerable<EFMVC.Web.ViewModels.CampaignAuditFormModel>
+
+@{
+    ViewBag.Title = "Campaign Audit List";
+    var campaignProfileId = (int) ViewData["CampaignProfileId"];
+}
+
+<div class="row">
+   
+    <div class="large-12 columns">
+                    
+        @Html.Partial("_CampaignAuditList", Model)
+
+    </div>
+   
+    <div>
+        @Html.ActionLink("Back to Campaign", "Edit", new {id = campaignProfileId})
+    </div>
+
+</div>

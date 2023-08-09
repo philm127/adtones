@@ -1,0 +1,98 @@
+﻿@using EFMVC.Web.ViewModels
+@model NewCampaignProfileFormModel
+
+<style>
+    select.input-sm1 {
+        height: 40px;
+        line-height: 30px;
+    }
+</style>
+
+<div class="row">
+    <div class="wrapper-content animated fadeInRight">
+        <div class="row" id="campaignInfo">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        @*<h5>Campaign Name</h5>*@
+                        <h5>Campaign Information</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="alert alert-success alert-dismissable" id="dvcaminfosuc" style="display:none;">
+                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                            @*<span id="csuceess">Record updated successfully</span>*@
+                            <span id="csuceess"></span>
+                        </div>
+                        <div class="alert alert-danger alert-dismissable" id="dvcaminfoerror" style="display:none;">
+                            <button aria-hidden="true" class="close" id="close" type="button">×</button>
+                            <span id="cerrror"></span>
+                        </div>
+                        @*@using (Ajax.BeginForm("AddNewCampaignInfo", "Dashboard",
+                            null,
+                            new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultcampaign" },
+                            new { @class = "form-horizontal" }))
+                                                    {*@
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Campaign ID</label>
+                                <div class="col-lg-6">
+                                    <label class="control-label" data-toggle="tooltip1" title="@ViewBag.Phonetic">@Model.PhoneticAlphabet</label>
+                                    @*@Html.DisplayFor(model => model.PhoneticAlphabet)*@
+                                    @Html.HiddenFor(model => model.PhoneticAlphabet)
+                                    @*@Html.TextAreaFor(model => model.PhoneticAlphabet, new { @class = "form-control", @readonly = "readonly" })*@
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Campaign Name <label class="lbldanger">*</label></label>
+                                <div class="col-lg-6">
+                                    @Html.TextBoxFor(model => model.CampaignName, new { @class = "form-control trimmed", @placeholder = "Campaign Name" })
+                                    @Html.ValidationMessageFor(model => model.CampaignName, null, new { @class = "btn-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Copy Campaign</label>
+                                <div class="col-lg-6">
+                                    @Html.DropDownListFor(model => model.CampaignId, ViewBag.allCampaignList as IEnumerable<SelectListItem>, "--Select Campaign--", new { @class = "input-sm1 form-control input-s-sm inline" })
+                                    @Html.ValidationMessageFor(model => model.CampaignId, null, new { @class = "btn-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Description</label>
+                                <div class="col-lg-6">
+                                    @Html.TextAreaFor(model => model.CampaignDescription, new { @class = "form-control trimmed", @placeholder = "Campaign Description" })
+                                    @Html.ValidationMessageFor(model => model.CampaignDescription, null, new { @class = "btn-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Country <label class="lbldanger">*</label></label>
+                                <div class="col-lg-6">
+                                    @Html.DropDownListFor(model => model.CountryId, ViewBag.countryList as IEnumerable<SelectListItem>, "--Select Country--", new { @class = "input-sm1 form-control input-s-sm inline" })
+                                    @Html.ValidationMessageFor(model => model.CountryId, null, new { @class = "btn-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">For a Client?</label>
+                                <div class="col-lg-6" style="margin-top: 5px;">
+                                    <label>@Html.CheckBoxFor(model => model.Clientcheck, new { @class = "i-checks checkbox" })</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button class="btn btn-sm btn-blue" type="submit" id="campaignsave">Save</button>
+                                    <button class="btn btn-sm btn-blue" type="button" id="campaignnextbtn">Next</button>
+                                    <button class="btn btn-sm btn-white" type="button" id="campaigncancelbtn">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                        @*}*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+</script>

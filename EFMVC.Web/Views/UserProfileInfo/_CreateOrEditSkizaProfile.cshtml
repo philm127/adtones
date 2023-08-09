@@ -1,0 +1,184 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileSkizaProfileAdvertiserFormModel
+@*@using EFMVC.Web.Areas.Users.Models;
+    @model UserProfileResult*@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>Cinema</h5>
+
+                </div>*@
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvcinemasuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvcinemaerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="ccinemaerrror"></span>
+                </div>
+                @*@using (Ajax.BeginForm("SaveSkizaProfile", "UserProfileInfo",
+                    null,
+                    new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultskizaprofile", OnBegin = "progressbar" },
+                    new { @class = "form-horizontal" }))
+                                    {*@
+                @*@Html.HiddenFor(model => model.SkizaProfileFormModel.Id)
+                    @Html.HiddenFor(model => model.SkizaProfileFormModel.UserProfileId)
+                    @Html.HiddenFor(model => model.SkizaProfileFormModel.UserId)*@
+                <div class="form-horizontal">
+                    <div class="form-group">
+
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Hustlers_AdType)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Youth_AdType)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.DiscerningProfessionals_AdType)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Hustlers_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Networked Youth</label></div>
+                                }
+                                else if (Model.Hustlers_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Stable Hustler</label></div>
+                                }
+                                else if (Model.Hustlers_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Savvy Loyalist</label></div>
+                                }
+                                else if (Model.Hustlers_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                                @*<div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.Hustlers_AdType, "A")Networked Youth</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.Hustlers_AdType, "B")Stable Hustler</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.Hustlers_AdType, "C")Savvy Loyalist</label></div>
+                                    @Html.ValidationMessageFor(model => model.SkizaProfileFormModel.Hustlers_AdType)*@
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Youth_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Tween</label></div>
+                                }
+                                else if (Model.Youth_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Hi-Pot students</label></div>
+                                }
+                                else if (Model.Youth_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Prudent Young</label></div>
+                                }
+                                else if (Model.Youth_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                                @*<div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.Youth_AdType, "A")Tween</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.Youth_AdType, "B")Hi-Pot students</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.Youth_AdType, "C")Prudent Young</label></div>
+                                    @Html.ValidationMessageFor(model => model.SkizaProfileFormModel.Youth_AdType)*@
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.DiscerningProfessionals_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Young Flashers</label></div>
+                                }
+                                else if (Model.DiscerningProfessionals_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Mature trendies</label></div>
+                                }
+                                else if (Model.DiscerningProfessionals_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Settled Middle Mgmt</label></div>
+                                }
+                                else if (Model.DiscerningProfessionals_AdType == "D")
+                                {
+                                    <div class="radio i-checks"><label>Affluent Influencers</label></div>
+                                }
+                                else if (Model.DiscerningProfessionals_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                                @*<div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.DiscerningProfessionals_AdType, "A")Young Flashers</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.DiscerningProfessionals_AdType, "B")Mature trendies</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.DiscerningProfessionals_AdType, "C")Settled Middle Mgmt</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.DiscerningProfessionals_AdType, "D")Affluent Influencers</label></div>
+                                    @Html.ValidationMessageFor(model => model.SkizaProfileFormModel.DiscerningProfessionals_AdType)*@
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Mass_AdType)</h3>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Mass_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Young cautious caller</label></div>
+                                }
+                                else if (Model.Mass_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Toa Mpango</label></div>
+                                }
+                                else if (Model.Mass_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Young progressive worker</label></div>
+                                }
+                                else if (Model.Mass_AdType == "D")
+                                {
+                                    <div class="radio i-checks"><label>Older Toa Mpango</label></div>
+                                }
+                                else if (Model.Mass_AdType == "E")
+                                {
+                                    <div class="radio i-checks"><label>Progressive worker</label></div>
+                                }
+                                else if (Model.Mass_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                                @*<div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.Mass_AdType, "A")Young cautious caller</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.Mass_AdType, "B")Toa Mpango</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.Mass_AdType, "C")Young progressive worker</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.Mass_AdType, "D")Older Toa Mpango</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SkizaProfileFormModel.Mass_AdType, "E")Progressive worker</label></div>
+                                    @Html.ValidationMessageFor(model => model.SkizaProfileFormModel.Mass_AdType)*@
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                @*<div class="form-group">
+                            <div class="col-lg-1">
+                                <button class="btn btn-blue" type="submit">Save</button>
+
+                            </div>
+                        </div>
+                    }*@
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultskizaprofile = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvcinemasuc").show();
+            $("#dvcinemaerror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing", new { Area = "" })';
+            }
+            $("#ccinemaerrror").html(data);
+            $("#dvcinemasuc").hide();
+            $("#dvcinemaerror").show();
+        }
+    };
+</script>

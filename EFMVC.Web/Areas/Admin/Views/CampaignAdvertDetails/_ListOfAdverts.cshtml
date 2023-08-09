@@ -1,0 +1,201 @@
+﻿@using EFMVC.Web.ViewModels
+@model Tuple<EFMVC.Web.ViewModels.CampaignProfileFormModel, IEnumerable<AdvertFormModel>>
+
+@if (Model.Item1.CampaignAdverts.Count() > 0)
+{
+    <span id="SpCampaignAdvertID" style="display:none"> @Model.Item1.CampaignAdverts.FirstOrDefault().CampaignAdvertId</span>
+    <span id="SpCampaignProfileId" style="display:none"> @Model.Item1.CampaignAdverts.FirstOrDefault().CampaignProfileId</span>
+    var selectedadvertname = Model.Item1.CampaignAdverts.FirstOrDefault().Advert.AdvertName;
+    var selectedId = Model.Item1.CampaignAdverts.FirstOrDefault().Advert.AdvertId;
+
+
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Ads</h5>
+            </div>
+            <div class="ibox-content">
+                <button class="accordion_advertheader"><a onclick="redirectadvetpage(this);" class="selectedadvert_id" id='@selectedId' title='@selectedadvertname'>@selectedadvertname</a></button>
+
+                <div class="panel" id="advertheadersub">
+                    <div class="ibox-content">
+                        @if (Model.Item2.Count() > 0)
+                        {
+                            foreach (var item in Model.Item2)
+                            {
+                                string mediaLocation = @"~" + item.MediaFileLocation;
+                                if (selectedadvertname == item.AdvertName)
+                                {
+                                    <div class="accordion_advertdetails seleadvertcolor" onclick="selectedadvert(this);" id='@item.AdvertId' title='@item.AdvertName'>
+                                        <div class="advertname"><a style="color:white !important;">@item.AdvertName</a></div>
+                                        <div class="advertname">@item.Brand</div>
+                                        <div class="advertaudio">@Html.Html5().Media.Audio(@item.AdvertName, mediaLocation, "", new { @class = "audio-small" })</div>
+                                        <div class="clr"></div>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="accordion_advertdetails noneselectedadvertcolor" onclick="selectedadvert(this);" id='@item.AdvertId' title='@item.AdvertName'>
+                                        <div class="advertname"><a style="color:white !important;">@item.AdvertName</a></div>
+                                        <div class="advertname">@item.Brand</div>
+                                        <div class="advertaudio">@Html.Html5().Media.Audio(@item.AdvertName, mediaLocation, "", new { @class = "audio-small" })</div>
+                                        <div class="clr"></div>
+                                    </div>
+
+                                }
+
+
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    
+    @*<div class="col-lg-12" id="radiodiv">
+
+        <div class="ibox float-e-margins">
+
+            <div class="ibox-title">
+                <h5>Campaign Ad</h5>
+            </div>
+
+
+
+            <div class="ibox-content">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" style="padding-left: 216px;">Ad</label>
+                    <div class="col-md-2">
+                        <div class="col-md-1"><input type="radio" value="NewAdd" name="radiogroup" /></div>
+                        <label>New Ad</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="col-md-1"><input type="radio" value="AddList" name="radiogroup" /></div>
+                        <label>Choose from existing</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+     <span style="display:none" id="CampaignIdForAdd">@ViewBag.CampaignId</span>
+    <div class="col-lg-12">
+
+          
+            <div class="ibox float-e-margins" id="AddLists" style="display:none">
+                <div class="ibox-title">
+                    <h5>Ads</h5>
+                </div>
+                <div class="ibox-content">
+
+                    <button class="accordion_advertheader">
+                        <a  class="selectedadvert_id_add" id='' title='Not Selected'>Not Selected</a>
+                    </button>
+                    <div class="panel">
+                        <div class="ibox-content">
+                            @if (Model.Item2.Count() > 0)
+                            {
+                                foreach (var item in Model.Item2)
+                                {
+                                    string mediaLocation = @"~" + item.MediaFileLocation;
+
+                                    <div class="accordion_advertdetails noneselectedadvertcolor" onclick="addselectedadvert(this);" id='@item.AdvertId' title='@item.AdvertName'>
+                                        <div class="advertname"><a style="color:white !important;">@item.AdvertName</a></div>
+                                        <div class="advertname">@item.Brand</div>
+                                        <div class="advertaudio">@Html.Html5().Media.Audio(@item.AdvertName, mediaLocation, "", new { @class = "audio-small" })</div>
+                                        <div class="clr"></div>
+                                    </div>
+
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>*@
+
+}
+
+<script type="text/javascript">
+  
+    try {
+        $("#radiodiv input:radio").click(function () {
+
+            if ($(this).val() == "NewAdd") {
+                $("#AddAdvertButton").show();
+                $("#AddLists").hide();
+            }
+            else {
+                $("#AddAdvertButton").hide();
+                $("#AddLists").show();
+            }
+            // $("#radiodiv").hide();
+        });
+    } catch (e) {
+
+    }
+
+
+    function selectedadvert(currentdiv) {
+
+        $(".accordion_advertdetails").removeClass("seleadvertcolor");
+        $(".accordion_advertdetails").addClass("noneselectedadvertcolor");
+        $(currentdiv).addClass("seleadvertcolor");
+        $(currentdiv).removeClass("noneselectedadvertcolor");
+
+        $(".selectedadvert_id").html($(currentdiv).attr('title'));
+        $(".selectedadvert_id").attr('id', $(currentdiv).attr('id'));
+        var id = $(".selectedadvert_id").attr('id');
+        var CampaignProfileId = $("#SpCampaignProfileId").text();
+        var CampaignAdvertID = $("#SpCampaignAdvertID").text();
+
+        $(".spiner-example").show();
+
+        $.post('@Url.Action("UpdateMedia", "CampaignAdvertDetails")', { AdvertId: id, CampaignProfileId: CampaignProfileId, CampaignAdvertID: CampaignAdvertID }, function (data) {
+            if (data == false) {
+                alert("Your ad is not updated. Please try again!")
+            }
+            else {
+                $(".spiner-example").hide();
+                alert("Your ad is updated.")
+            }
+        });
+
+    }
+
+
+    function addselectedadvert(currentdiv) {
+
+        $(".accordion_advertdetails").removeClass("seleadvertcolor");
+        $(".accordion_advertdetails").addClass("noneselectedadvertcolor");
+        $(currentdiv).addClass("seleadvertcolor");
+        $(currentdiv).removeClass("noneselectedadvertcolor");
+
+        $(".selectedadvert_id_add").html($(currentdiv).attr('title'));
+        $(".selectedadvert_id_add").attr('id', $(currentdiv).attr('id'));
+
+        var id = $(".selectedadvert_id_add").attr('id');
+        var CampaignProfileId = $("#CampaignIdForAdd").text();
+
+        $.post('@Url.Action("AddMedia", "CampaignAdvertDetails")', { AdvertId: id, CampaignProfileId: CampaignProfileId }, function (data) {
+
+            if (data == false) {
+                alert("Your ad is not updated. Please try again!")
+            }
+
+        });
+
+    }
+    function enablediv(currentdiv) {
+        $(currentdiv).css("background-color", "#1e90ff");
+    }
+</script>

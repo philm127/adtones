@@ -1,0 +1,68 @@
+﻿@using EFMVC.Web.ViewModels;
+@using EFMVC.Web.Models;
+@model Tuple<EFMVC.Web.ViewModels.CampaignProfileFormModel, CampaignProfileMapping>
+    <div class="row">
+    <div class="wrapper-content animated fadeInRight">
+        @Html.Partial("_CampaignInfo", Model.Item1)
+        @Html.Partial("_BudgetInfo",Model.Item1)
+        @Html.Partial("_SMSANDEMAIL",Model.Item1)
+        <div class="row">
+            @Html.Partial("_ListOfAdverts", Model.Item2.AdvertFormModel)
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Profile mapping</h5>
+
+                    </div>
+                    <div class="ibox-content">
+                        <button class="accordion">Geographic</button>
+                        <div class="panel">
+                            <p>Lorem ipsum...</p>
+                        </div>
+
+                        <button class="accordion">Demographic</button>
+                        <div class="panel">
+                            @Html.Partial("_CreateOrEditDemographics", Model.Item2.CampaignProfileDemographicsmodel)
+                        </div>
+
+                        <button class="accordion">Behaviours</button>
+                        <div class="panel">
+                            @Html.Partial("_CreateOrEditAdvert", Model.Item2.CampaignProfileAd)
+                            @Html.Partial("_CreateOrEditAttitude", Model.Item2.campaignProfileAttitude)
+                            @Html.Partial("_CreateOrEditCinema", Model.Item2.CampaignProfileCinemaFormModel)
+                            @Html.Partial("_CreateOrEditInternet", Model.Item2.CampaignProfileInternetFormModel)
+                            @Html.Partial("_CreateOrEditPress", Model.Item2.CampaignProfilePressFormModel)
+                            @Html.Partial("_CreateOrEditProductsServices", Model.Item2.CampaignProfileProductsServiceFormModel)
+                            @Html.Partial("_CreateOrEditRadio", Model.Item2.CampaignProfileRadioFormModel)
+                            @Html.Partial("_CreateOrEditTv", Model.Item2.CampaignProfileTvFormModel)
+
+                        </div>
+
+                        <button class="accordion">Usage</button>
+                        <div class="panel">
+                            @Html.Partial("_CreateOrEditMobile", Model.Item2.CampaignProfileMobileFormModel)
+                            @Html.Partial("_CreateOrEditTimeSettings", Model.Item2.CampaignProfileTimeSettingFormModel)
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        @*<div class="row">
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button class="btn btn-sm btn-blue" type="submit">Save changes</button>
+                        <button class="btn btn-sm btn-white" type="button">Cancel</button>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+</div>

@@ -1,0 +1,853 @@
+@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model Tuple<List<AdvertResult>, AdvertFilter>
+@*<link href="~/Content/custom.css" rel="stylesheet" />*@
+
+<script src="~/Scripts/jquery-2.1.1.min.js"></script>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Manage Adverts</h5>
+                <div style="text-align:right">
+
+                    <button class="btn btn-blue " type="button" onclick="window.location.href='@Url.Action("AddAdvert","Advert")'"><i class="fa fa-plus"></i>&nbsp;Adverts</button>
+
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 ibox-field">
+                        <label class="col-md-12 col-lg-2 control-label">Clients</label>
+                        <div class="col-md-12 col-lg-10">
+                            <div class="form-group">
+                                @Html.DropDownList("AdvertClientId", (MultiSelectList)ViewBag.client, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Clients" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 ibox-field">
+                        <label class="col-md-12 col-lg-2 control-label">Adverts</label>
+                        <div class="col-md-12 col-lg-10">
+                            <div class="form-group">
+                                <select name="AdvertId" id="AdvertId" class="chosen-select" multiple="multiple" data-placeholder="All Adverts"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 ibox-field">
+                        <label class="col-md-12 col-lg-2 control-label">Created Date</label>
+                        <div class='col-md-12 col-lg-10'>
+                            <div class="form-group">
+                                <div class="input-daterange input-group clsendit">
+                                    <div class='input-group' id='createdFrom'>
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.Fromdate, new { @class = "input-sm form-control", @id = "fromdate", @Value = "", @data_date_format = "DD/MM/YYYY", @readonly = "readonly" })
+                                        <span class="input-group-addon calendar-icon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                    <span class="input-group-addon" style="background-color: #eeeeee;">to</span>
+                                    <div class='input-group' id='createdTo'>
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.Todate, new { @class = "input-sm form-control", @id = "todate", @Value = "", @data_date_format = "DD/MM/YYYY", @readonly = "readonly" })
+                                        <span class="input-group-addon calendar-icon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 ibox-field">
+                        <label class="col-md-12 col-lg-2 control-label">Status</label>
+                        <div class="col-md-12 col-lg-10">
+                            <div class="form-group">
+                                @Html.DropDownList("advertStatusId", (MultiSelectList)ViewBag.advertStatus, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Advert Status" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 ibox-field">
+                        <label class="col-md-12 col-lg-2 control-label">Total Plays</label>
+                        <div class="col-md-12 col-lg-10">
+                            <div class="form-group">
+                                <div class="input-daterange input-group clsendit">
+                                    @Html.TextBoxFor(Model1 => Model1.Item2.FromPlays, new { @class = "form-control" })
+                                    <span class="input-group-addon">to</span>
+                                    @Html.TextBoxFor(Model1 => Model1.Item2.ToPlays, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 ibox-field">
+                        <label class="col-md-12 col-lg-2 control-label">Average Bid</label>
+                        <div class="col-md-12 col-lg-10">
+                            <div class="form-group">
+                                <div class="input-daterange input-group clsendit">
+                                    @Html.TextBoxFor(Model1 => Model1.Item2.Frombid, new { @class = "form-control" })
+                                    <span class="input-group-addon">to</span>
+                                    @Html.TextBoxFor(Model1 => Model1.Item2.Tobid, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-lg-12">
+                        <div class="col-sm-12 center">
+                            <button class="btn btn-blue" type="submit" id="btnSearch">Filter</button>
+                            <button class="btn btn-white" type="button" id="reset">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="advertList">
+                    @{ Html.RenderPartial("_AdvertsList");}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="RejectedAdvertId" />
+<div class="modal fade" id="RejectedAdvertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Advert Rejection</h4>
+            </div>
+            <div class="modal-body">
+                <div id="RejectionList">
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">Reply</label>
+                        <textarea class="form-control" id="txtAreaReason"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnSubmit" class="btn btn-success">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+        function showModal(id) {
+            $("#RejectedAdvertId").val(id);
+            $.post('@Url.Action("GetRejectedReasonList", "Advert")', { advertId: id }, function (data) {
+                if (data != "False") {
+                    $("#RejectionList").html(data);
+                }
+            });
+            $('#RejectedAdvertModal').modal();
+        };
+
+        function getAdvertByClient(clientId) {
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("GetClientAdvert", "Advert")',
+                type: "POST",
+                data: { clientId: clientId },
+                success: function (data) {
+                    $("#AdvertId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, advert) {
+                            $("#AdvertId").append('<option value="' + advert.AdvertId + '">' +
+                                advert.AdvertName + '</option>');
+
+                        });
+                    }
+                    $("#AdvertId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+        };
+
+        function updateAdvertStatus(advertId, curelement) {
+            $(".loader").show();
+            var advertIdObject = new Object();
+            advertIdObject.advertId = advertId;
+            //advertIdObject.campaignId = campaignId;
+            advertIdObject.status = curelement.value;
+            $.post('@Url.Action("updateAdvertStatus", "Advert")', advertIdObject, function (data) {
+                if (data.success == "success") {
+                    @*$(".loader").hide();
+                    window.location.href = '@Url.Action("Index", "Advert")';*@
+                    $(".loader").hide();
+                    var msg = data.value1 + " status successfully changed to " + data.value;
+                    $("#succesdivadvertmsg").html(msg);
+                    $("#succesdivadvert").show();
+                    $("#errordivadvertmsg").html();
+                    $("#errordivadvert").hide();
+                    oTable.ajax.reload();
+                }
+                else {
+                    $(".loader").hide();
+                    $("#succesdivadvertmsg").html();
+                    $("#succesdivadvert").hide();
+                    $("#errordivadvertmsg").html(data.value);
+                    $("#errordivadvert").show();
+                    oTable.ajax.reload();
+                }
+            });
+        };
+
+        function approveAdvert() {
+            // status = 5
+            var textAreaValue = $("#txtAreaReason").val();
+            if (textAreaValue != "") {
+                var advertId = $("#RejectedAdvertId").val();
+                $.post('@Url.Action("ApproveAdvert", "Advert")', { advertId: advertId, approveReason: textAreaValue }, function (data) {
+                    if (data == "success") {
+                        //window.location.href = '@Url.Action("Index", "Advert")';
+                        oTable.ajax.reload();
+                    }
+                });
+            } else {
+                alert("Please enter the text approval text")
+            }
+
+        }
+
+        function opendialog(id) {
+            var id = id;
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this advert record!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            }, function () {
+                $.post('@Url.Action("DeleteAdvert", "Advert")', { id: id }, function (data) {
+                    if (data == "success") {
+                        //  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        window.location.href = '@Url.Action("Index","Advert")';
+
+                    } else {
+                        alert(data);
+                    }
+                });
+
+                //
+            });
+
+        };
+
+        var oTable;
+
+        $(document).ready(function() {
+
+            var config = {
+                '.chosen-select': { width: "100%" },
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            };
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            };
+
+            var clientId = new Array();
+            getAdvertByClient(clientId);
+            $("#AdvertClientId").change(function () {
+                clientId = new Array();
+                $("select#AdvertClientId option:selected").each(function () {
+                    clientId.push($(this).val());
+                });
+                if (clientId != null || clientId != '') {
+                    getAdvertByClient(clientId);
+                }
+                else {
+                    getAdvertByClient();
+                }
+
+            });
+
+            $('body').bind('keyup',
+                function(event) {
+                    if (event.keyCode === 13) {
+                        $('#form0').submit();
+                    }
+                });
+            $(".chosen-container").bind('keyup',
+                function(e) {
+                    if (e.which === 13) {
+                        $('#form0').submit();
+                        // or your stuff here...
+                    }
+                });
+
+            $('#createdFrom').datetimepicker({ ignoreReadonly: true });
+
+            $('#createdTo').datetimepicker({
+                useCurrent: false, //Important! See issue #1075
+                ignoreReadonly: true
+            });
+
+            $("#createdFrom").on("dp.change",
+                function(e) {
+                    $('#createdTo').data("DateTimePicker").minDate(e.date);
+                });
+
+            $("#createdTo").on("dp.change",
+                function(e) {
+                    $('#createdFrom').data("DateTimePicker").maxDate(e.date);
+                });
+            $('#fromdate').css({ "height": "34px" });
+            $('#todate').css({ "height": "34px" });
+
+            $("#Item2_FromPlays").keypress(function(event) {
+                return isNumber(event, this)
+            });
+
+            $("#Item2_ToPlays").keypress(function(event) {
+                return isNumber(event, this)
+            });
+
+            $("#Item2_Frombid").keypress(function(event) {
+                return isNumber(event, this)
+            });
+
+            $("#Item2_Tobid").keypress(function(event) {
+                return isNumber(event, this)
+            });
+
+            $("#btnSearch").click(function() {
+                oTable.draw();
+            });
+
+            $("#reset").click(function() {
+
+                $("#fromdate").val('');
+                $("#todate").val('');
+
+                $("#Item2_ClientId").val('0');
+                $("#Item2_Fromdate").val('');
+                $("#Item2_Name").val('');
+                $("#Item2_Todate").val('');
+                $("#Item2_FromPlays").val('');
+                $("#Item2_ToPlays").val('');
+                $("#Item2_Status").val('0');
+                $("#Item2_Frombid").val('');
+                $("#Item2_Tobid").val('');
+                $("#advertStatusId").val('0');
+                $("#advertStatusId").trigger("chosen:updated");
+                $("#AdvertClientId").val('0');
+                $("#AdvertClientId").trigger("chosen:updated");
+                $("#AdvertId").val('0');
+                $("#AdvertId").trigger("chosen:updated");
+                getAdvertByClient();
+                //$(".loader").show();
+                oTable.draw();
+            });
+            $("#btnSubmit").click(approveAdvert);
+
+            oTable = $('.dataTables-adverts').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".loader").show();
+                    $(".spiner-example").show();
+                },
+                "destroy": true,
+                "info": true,
+                "pageLength": 10,
+                "bLengthChange": true,
+                "processing": true, // for show processing bar
+                "serverSide": false, // for process on server side
+                "orderMulti": false, // for disable multi column order
+                "searching": true,
+                "aaSorting": [],
+                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+                "bFilter": true,
+                "filter": true,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                "dom": '<"html5buttons"B>lTfgtpi',// '<"html5buttons"B>lTfgtpi', // for hide default global search box // little confusion? don't worry I explained in the tutorial website
+                "buttons": [
+                    {
+                        extend: 'copy',
+                        title: 'Advert',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 5, 6, 7],
+                            format: {
+                                body: function(data, row, column, node) {
+                                    if (row == 0) {
+                                        return $(data)[0].innerText;
+                                    } else if (row == 1) {
+                                        if (data == "-") {
+                                            return data;
+                                        } else {
+                                            return $(data)[0].innerText;
+                                        }
+                                    } else if (row == 2) {
+                                        if ($(data)[0].className == "aclass") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "tdlabel") {
+                                            return $(data)[0].innerText;
+                                        } else {
+                                            return $(data)[0].innerText;
+                                        }
+                                    } else if (row == 3) {
+                                        return data;
+                                    } else if (row == 4) {
+                                        if ($(data)[0].className == "label label-success label1") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "label label-info label1") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "btn btn-danger btn-xs atdlabel2") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "label label-danger label1") {
+                                            return $(data)[0].innerText;
+                                        } else {
+                                            return $(data).children("option:selected").text();
+                                        }
+                                    } else if (row == 5) {
+                                        return data;
+                                    } else if (row == 6) {
+                                        return data;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        title: 'Advert',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 5, 6, 7],
+                            format: {
+                                body: function(data, row, column, node) {
+                                    if (row == 0) {
+                                        return $(data)[0].innerText;
+                                    } else if (row == 1) {
+                                        if (data == "-") {
+                                            return data;
+                                        } else {
+                                            return $(data)[0].innerText;
+                                        }
+                                    } else if (row == 2) {
+                                        if ($(data)[0].className == "aclass") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "tdlabel") {
+                                            return $(data)[0].innerText;
+                                        } else {
+                                            return $(data)[0].innerText;
+                                        }
+                                    } else if (row == 3) {
+                                        return data;
+                                    } else if (row == 4) {
+                                        if ($(data)[0].className == "label label-success label1") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "label label-info label1") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "btn btn-danger btn-xs atdlabel2") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "label label-danger label1") {
+                                            return $(data)[0].innerText;
+                                        } else {
+                                            return $(data).children("option:selected").text();
+                                        }
+                                    } else if (row == 5) {
+                                        return data;
+                                    } else if (row == 6) {
+                                        return data;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        title: 'Advert',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 5, 6, 7],
+                            format: {
+                                body: function(data, row, column, node) {
+                                    if (row == 0) {
+                                        return $(data)[0].innerText;
+                                    } else if (row == 1) {
+                                        if (data == "-") {
+                                            return data;
+                                        } else {
+                                            return $(data)[0].innerText;
+                                        }
+                                    } else if (row == 2) {
+                                        if ($(data)[0].className == "aclass") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "tdlabel") {
+                                            return $(data)[0].innerText;
+                                        } else {
+                                            return $(data)[0].innerText;
+                                        }
+                                    } else if (row == 3) {
+                                        return data;
+                                    } else if (row == 4) {
+                                        if ($(data)[0].className == "label label-success label1") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "label label-info label1") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "btn btn-danger btn-xs atdlabel2") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "label label-danger label1") {
+                                            return $(data)[0].innerText;
+                                        } else {
+                                            return $(data).children("option:selected").text();
+                                        }
+                                    } else if (row == 5) {
+                                        return data;
+                                    } else if (row == 6) {
+                                        return data;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        title: 'Advert',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 5, 6, 7],
+                            format: {
+                                body: function(data, row, column, node) {
+                                    if (row == 0) {
+                                        return $(data)[0].innerText;
+                                    } else if (row == 1) {
+                                        if (data == "-") {
+                                            return data;
+                                        } else {
+                                            return $(data)[0].innerText;
+                                        }
+                                    } else if (row == 2) {
+                                        if ($(data)[0].className == "aclass") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "tdlabel") {
+                                            return $(data)[0].innerText;
+                                        } else {
+                                            return $(data)[0].innerText;
+                                        }
+                                    } else if (row == 3) {
+                                        return data;
+                                    } else if (row == 4) {
+                                        if ($(data)[0].className == "label label-success label1") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "label label-info label1") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "btn btn-danger btn-xs atdlabel2") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "label label-danger label1") {
+                                            return $(data)[0].innerText;
+                                        } else {
+                                            return $(data).children("option:selected").text();
+                                        }
+                                    } else if (row == 5) {
+                                        return data;
+                                    } else if (row == 6) {
+                                        return data;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 5, 6, 7],
+                            format: {
+                                body: function(data, row, column, node) {
+                                    if (row == 0) {
+                                        return $(data)[0].innerText;
+                                    } else if (row == 1) {
+                                        if (data == "-") {
+                                            return data;
+                                        } else {
+                                            return $(data)[0].innerText;
+                                        }
+                                    } else if (row == 2) {
+                                        if ($(data)[0].className == "aclass") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "tdlabel") {
+                                            return $(data)[0].innerText;
+                                        } else {
+                                            return $(data)[0].innerText;
+                                        }
+                                    } else if (row == 3) {
+                                        return data;
+                                    } else if (row == 4) {
+                                        if ($(data)[0].className == "label label-success label1") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "label label-info label1") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "btn btn-danger btn-xs atdlabel2") {
+                                            return $(data)[0].innerText;
+                                        } else if ($(data)[0].className == "label label-danger label1") {
+                                            return $(data)[0].innerText;
+                                        } else {
+                                            return $(data).children("option:selected").text();
+                                        }
+                                    } else if (row == 5) {
+                                        return data;
+                                    } else if (row == 6) {
+                                        return data;
+                                    }
+                                }
+                            }
+                        },
+                        title: 'Advert',
+                        customize: function(win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "ajax": {
+                    "url": "/Advert/LoadDataGrid",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "aoColumns": [
+                    {
+                        "data": "AdvertName",
+                        "name": "AdvertName","bSortable": true, "bSearchable": true,
+                        "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return row.AdvertName;
+                            return '<td><a href="/Advert/AdvertDetails/' + row.AdvertId + '">' + row.AdvertName + '</a></td>';
+                        }
+                    }, //index-0
+                    {
+                        "data": "ClientName",
+                        "name": "ClientName","bSortable": true, "bSearchable": true,
+                        "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return row.ClientName;
+                            if (row.ClientName != null) {
+                                return '<a class="clientname" href="/Client/EditClient/' +
+                                    row.ClientId +
+                                    '">' +
+                                    row.ClientName +
+                                    '</a>';
+                            } else {
+                                return '-';
+                            }
+                        }
+                    }, //index-1
+                    {
+                        "data": "CampaignCount",
+                        "name": "CampaignCount","bSortable": true, "bSearchable": true,
+                        "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return row.CampaignCount;
+                            if (row.CampaignCount > 0) {
+                                if (row.CampaignCount === 1 && row.CampaignId !== 0)
+                                    return '<td><a class="aclass" href="/Dashboard/Campaign/' + row.CampaignId + '">' + row.CampaignCount + '</a></td>';
+                                return '<td><a class="aclass" href="/Dashboard?advertid=' + row.AdvertId + '?clientId=' + row.ClientId + '">' + row.CampaignCount + '</a></td>';
+                            } else {
+                                return '<td><span class="tdlabel"> - </span></td>';
+                            }
+                        }
+                    }, //index-2
+                    {
+                        "data": "CreatedDateDisplay", "name": "CreatedDateDisplay", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                        if (type !== 'display')
+                            return row.CreatedDate;
+                        return row.CreatedDateDisplay;
+                    } }, //index-3
+                    {
+                        "data": "MediaFileLocation",
+                        "name": "MediaFileLocation",
+                        "autoWidth": false,"bSortable": false, "bSearchable": false,
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return row.MediaFileLocation;
+                            return '<td><audio class="audio-small" controls="controls" id="' +
+                                row.AdvertName +
+                                '" src="' +
+                                row.MediaFileLocation +
+                                '"></audio></td>';
+                        }
+                    }, //index-4
+                    {
+                        "data": "Status",
+                        "name": "Status",
+                        "autoWidth": false,"bSortable": true, "bSearchable": true,
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return row.Status;
+                            if (row.Status === 4 || row.Status === 9) {
+                                return '<label class="label label-success label1">' + row.StatusDisplayed + '</label>';
+                            } else if (row.Status === 5) {
+                                return '<a class="btn btn-danger btn-xs atdlabel2" onclick="showModal("' +
+                                    row.AdvertId +
+                                    ')>' +
+                                    row.StatusDisplayed +
+                                    '</a>';
+                            } else if (row.Status === 6) {
+                                return '<label class="label label-info label1">' + row.StatusDisplayed + '</label>';
+                            } else if (row.Status === 8) {
+                                return '<label class="label label-danger label1">' + row.StatusDisplayed + '</label>';
+                            } else {
+                                var dd = '<select class="form-control input-s-sm inline" id="statusdrp" onchange="updateAdvertStatus(' + row.AdvertId + ',this);">'
+                                if (row.Status === 1) {
+
+                                    var s1 = '<option value="1" selected="selected">Live</option>' +
+                                        '<option value = "2" > Suspended</option>' +
+                                        '<option value="3">Archived</option>' +
+                                        '<option value="7">In Progress</option>';
+
+                                    dd = dd + s1;
+                                } else if (row.Status === 2) {
+
+                                    var s2 = '<option value="1">Live</option>' +
+                                        '<option value = "2" selected = "selected" > Suspended</option>' +
+                                        '<option value="3">Archived</option>' +
+                                        '<option value="7">In Progress</option>';
+                                    dd = dd + s2;
+                                } else if (row.Status === 3) {
+                                    var s3 = '<option value="1">Live</option>' +
+                                        '<option value = "2" > Suspended</option>' +
+                                        '<option value="3" selected="selected">Archived</option>' +
+                                        '<option value="7">In Progress</option>';
+
+                                    dd = dd + s3;
+                                } else if (row.Status === 7) {
+                                    var s4 = '<option value="1">Live</option>' +
+                                        '<option value = "2" > Suspended</option>' +
+                                        '<option value="3">Archived</option>' +
+                                        '<option value="7" selected="selected">In Progress</option>';
+                                    dd = dd + s4;
+                                }
+                                '</select>'
+
+                                return dd;
+                            }
+                        }
+                    }, //index-5
+                    { "data": "TotalPlays", "name": "TotalPlays", "autoWidth": false,"bSortable": true, "bSearchable": true }, //index-6
+                    {
+                        "data": "AvgBid",
+                        "name": "AvgBid",
+                        "autoWidth": false,"bSortable": true, "bSearchable": true,
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return row.AvgBid;
+                            return displayCurrency(row.AvgBid, row.CurrencyCode, row.CurrencySymbol);
+                        }
+                    }, //index-7
+                    {
+                        "data": "Action",
+                        "name": "Action","bSortable": false, "bSearchable": false,
+                        "autoWidth": false,
+                        "mRender": function(data, type, row) {
+                            if (row.CampaignCount === 0 || row.Status === 6) {
+                                return '<td><a class="btn btn-danger btn-xs" onclick="opendialog(' + row.AdvertId + ');">Delete</a></td>';
+                            } else {
+                                return '<td>-</td>';
+                            }
+                        }
+                    }, //index-8
+                    { "data": "AdvertId", "name": "AdvertId", "visible": false, "bSearchable":true }, //index 9
+                    { "data": "ClientId", "name": "ClientId", "visible": false, "bSearchable":true } //index 10
+                ],
+                "drawCallback": function(settings) {
+                    $(".loader").hide();
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function() { $(".loader").hide(); }
+            });
+            $(".dataTables_filter label:first-child").hide();
+            $.fn.dataTableExt.afnFiltering.push(
+                function( oSettings, aData, iDataIndex ) {
+                    var filtered = true;
+
+                    filtered = filtered && applyFilterPlays(aData[6]);
+                    filtered = filtered && applyFilterBid(aData[7]);
+                    filtered = filtered && filterByCreatedDate(aData[3], $('#fromdate').val(), $('#todate').val());
+                    filtered = filtered && applyFilterContains(aData[10], mapSelectedOptions($("#AdvertClientId option:selected")));
+                    filtered = filtered && applyFilterContains(aData[9], mapSelectedOptions($("#AdvertId option:selected")));
+                    filtered = filtered && applyFilterContains(aData[5], mapSelectedOptions($("#advertStatusId option:selected")));
+                    return filtered;
+                }
+            );
+            function mapSelectedOptions(selector) {
+                return [].map.call(selector,
+                    function(el) {
+                        return el.value;
+                    });
+            };
+
+            function parseDate(input) {
+                var parts = input.split('/');
+                return new Date(parts[2], parts[1]-1, parts[0]); // Note: months are 0-based
+            };
+
+            function filterByCreatedDate(aData, minDate, maxDate) {
+                var min = minDate != null && minDate !== '' ? parseDate(minDate) : new Date(-8640000000000000);
+                var max = maxDate != null && maxDate !== '' ? parseDate(maxDate) : new Date(8630000000000000);
+                var v = new Date(aData);
+                max.setDate(max.getDate() + 1);
+                max.setHours(0, 0, 0, 0);
+                return v >= min && v < max;
+            };
+
+            function applyFilterContains(aData, checkArray) {
+                if (checkArray == null || checkArray.length === 0)
+                    return true;
+                return checkArray.includes(aData);
+            };
+
+            function applyFilterPlays(aData) {
+                var fromPlay = $('#Item2_FromPlays').val();
+                var toPlay = $('#Item2_ToPlays').val();
+                return applyMinMax(aData, fromPlay, toPlay);
+            };
+
+            function applyFilterBid(aData) {
+                var from = $('#Item2_Frombid').val();
+                var to = $('#Item2_Tobid').val();
+                return applyMinMax(aData, from, to);
+            };
+
+            function applyMinMax(data, minVal, maxVal) {
+                var min = minVal != null ? Number(minVal) : 0;
+                var max = maxVal != null ? Number(maxVal) : 0;
+                var iVersion = data === "-" || data == null ? 0 : Number(data);
+                if ( minVal === "" && maxVal === "" )
+                {
+                    return true;
+                }
+                else if ( minVal === "" && iVersion < max )
+                {
+                    return true;
+                }
+                else if ( min < iVersion && "" === maxVal )
+                {
+                    return true;
+                }
+                else if ( min < iVersion && iVersion < max )
+                {
+                    return true;
+                }
+                return false;
+            };
+        });
+</script>

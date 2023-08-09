@@ -1,0 +1,72 @@
+@model EFMVC.Web.ViewModels.LogOnFormModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div class="row">
+
+    <div class="large-8 columns large-centered">      
+
+        <h5>Log in.</h5>
+        <p>Enter your user name and password below.</p>
+
+
+
+        <script src="~/Scripts/jquery.validate.min.js"> </script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"> </script>
+
+        @using (Html.BeginForm((string) ViewBag.FormAction, "Account"))
+        {
+            @Html.ValidationSummary(true, "Log in was unsuccessful. Please correct the errors and try again.")
+
+            <div class="row">
+            
+                <div class="large-12 columns">       
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </div>
+            
+            </div>
+
+            <div class="row">
+            
+                <div class="large-12 columns">
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            
+            </div>
+
+
+            <div class="row">
+            
+                <div class="large-12 columns">
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe, new {@class = "checkbox"})
+                </div>
+            
+            </div>
+
+            <div class="row">
+            
+                <div class="large-12 columns">
+                    <input type="submit" value="Log in" />
+                </div>
+            
+            </div>
+
+            <div class="row">
+            
+                <div class="large-12 columns">
+                    <p>
+                        @Html.ActionLink("Register", "Register") if you don't have an account.
+                    </p>
+                </div>
+            
+            </div>
+        }
+    </div>
+</div>

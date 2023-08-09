@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c905287e8af44362ab061523d8e02b28" Name="Diagram1">
+        <EntityTypeShape EntityType="ArtharModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.BlockedNumber" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfile" Width="1.5" PointX="3" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileAdvert" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileAttitude" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileCinema" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileInternet" Width="1.5" PointX="5.25" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileMobile" Width="1.5" PointX="5.25" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfilePress" Width="1.5" PointX="5.25" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileProductsService" Width="1.5" PointX="5.25" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileRadio" Width="1.5" PointX="5.25" PointY="36" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileTimeSetting" Width="1.5" PointX="5.25" PointY="39.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileTv" Width="1.5" PointX="5.25" PointY="43" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.User" Width="1.5" PointX="0.75" PointY="22.5" IsExpanded="true" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_BlockedNumbers_dbo_Users_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfile_dbo_Users_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileAdverts_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileCinema_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileInternet_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileMobile_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfilePress_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileProductsServices_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileRadio_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileTimeSettings_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileTv_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_UserProfileAttitude_UserProfile" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

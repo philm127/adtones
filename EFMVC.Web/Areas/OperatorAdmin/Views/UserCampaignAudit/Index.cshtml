@@ -1,0 +1,1131 @@
+﻿@using EFMVC.Web.Common;
+@using EFMVC.Web.Models;
+@model  CampaignProfileMapping
+@{
+    ViewBag.Title = "Campaign Audit";
+    Layout = "~/Areas/OperatorAdmin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .bootstrap-datetimepicker-widget li.picker-switch {
+        display: block;
+    }
+</style>
+
+<div class="row wrapper border-bottom white-bg page-heading" style="padding-left:55px;">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <h2>Campaign Setup</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/OperatorAdmin/UserCampaign/Index?Userid=@TempData["UserId"]">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>@ViewBag.campaignName</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeIn" style="padding-top:0px;">
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div id="wizard" class="campaignstep">
+                <h1>Statistics</h1>
+                <div class="step-content">
+                    <div>
+                        @Html.Partial("_Statistics", Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+
+    @Styles.Render("~/Content/accordion")
+    @Styles.Render("~/plugins/wizardStepsStyles")
+    @Styles.Render("~/plugins/daterangepickerNewStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/vectorMap")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/wizardSteps")
+    @Scripts.Render("~/plugins/nestable")
+    @Scripts.Render("~/plugins/chartJs")
+    @Scripts.Render("~/plugins/daterangepickerNew")
+
+    <script type="text/javascript">
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        function GetURLParameter() {
+            var sPageURL = window.location.href;
+            var indexOfLastSlash = sPageURL.lastIndexOf("/");
+
+            if (indexOfLastSlash > 0 && sPageURL.length - 1 != indexOfLastSlash)
+                return sPageURL.substring(indexOfLastSlash + 1);
+            else
+                return 0;
+        }
+
+        $(document).ready(function () {
+
+            $('.StartDate').datetimepicker({ format: 'MM/DD/YYYY' });
+            $('.EndDate').datetimepicker({ format: 'MM/DD/YYYY' });
+
+            $('#startFrom').datetimepicker({ ignoreReadonly: true });
+
+            $('#startTo').datetimepicker({
+                useCurrent: false, //Important! See issue #1075
+                ignoreReadonly: true
+            });
+
+            $("#startFrom").on("dp.change", function (e) {
+                $('#startTo').data("DateTimePicker").minDate(e.date);
+            });
+
+            $("#startTo").on("dp.change", function (e) {
+                $('#startFrom').data("DateTimePicker").maxDate(e.date);
+            });
+
+            $('#endFrom').datetimepicker({ ignoreReadonly: true });
+
+            $('#endTo').datetimepicker({
+                useCurrent: false, //Important! See issue #1075
+                ignoreReadonly: true
+            });
+
+            $("#endFrom").on("dp.change", function (e) {
+                $('#endTo').data("DateTimePicker").minDate(e.date);
+            });
+
+            $("#endTo").on("dp.change", function (e) {
+                $('#endFrom').data("DateTimePicker").maxDate(e.date);
+            });
+
+            $("#startFrom").css({ "height": "34px" });
+            $("#startTo").css({ "height": "34px" });
+            $("#endFrom").css({ "height": "34px" });
+            $("#endTo").css({ "height": "34px" });
+
+            var plays = getParameterByName('plays');
+            if (plays != '') {
+                if (plays == "True") {
+                    Pace.on("done", function () {
+                        $('html, body').animate({
+                            scrollTop: $(".dataTables-audit").offset().top
+                        });
+                    });
+                }
+            }
+            var avgbid = getParameterByName('avgbid');
+            if (avgbid != '') {
+                if (avgbid == "True") {
+                    wizardt1();
+                    Pace.on("done", function () {
+                        $('html, body').animate({
+                            scrollTop: $("#budgetInfo").offset().top
+                        });
+                    });
+                }
+            }
+
+            trimmed();
+           // ChnageCountryId();
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+    </script>
+    <script type="text/javascript">
+        function goToByScroll(id){
+            // Remove "link" from the ID
+            id = id.replace("link", "");
+            // Scroll
+            $('html,body').animate({
+                scrollTop: $("#"+id).offset().top},
+                'slow');
+        }
+        function navigate(obj)
+        {
+            $("#wizard-t-1").click();
+            if(obj==1)
+            {
+                goToByScroll('campaignInfo');
+
+            }
+            else if(obj==2)
+            {
+                goToByScroll('budgetInfo');
+
+            }
+            else if(obj==3)
+            {
+                goToByScroll('smsInfo');
+
+            }
+            else
+            {
+                goToByScroll('profile');
+
+            }
+
+
+        }
+        function get_filename(obj) {
+
+            var file = obj.value;
+            var array = file.split('\\');
+            $("#filename").html(array[array.length - 1]);
+        }
+        function get_filecouponname(obj) {
+
+            var file = obj.value;
+            var array = file.split('\\');
+            $("#filecouponname").html(array[array.length - 1]);
+        }
+        $(document).ready(function () {
+
+            var campcommdata = '@ViewBag.commusuccess';
+            if (campcommdata != '') {
+                wizardt1();
+            }
+            var campcommerror = '@ViewBag.commuerror';
+            if (campcommerror != '') {
+                wizardt1();
+            }
+            var campaingId = '@TempData["campaignId"]';
+            if (campaingId != '') {
+                wizardt1();
+                $("#wizard1-t-0").parent().removeClass("first current");
+                $("#wizard1-t-0").parent().addClass("disabled");
+
+
+            }
+            var campaignStatus = '@ViewData["status"]';
+            if (campaignStatus != '') {
+                if (campaignStatus.toLocaleLowerCase() == '@CampaignStatus.Pause.ToString().ToLower()') {
+                    $("#wizard1-t-0").parent().removeClass("first current");
+                    $("#wizard1-t-0").parent().addClass("disabled");
+                    $("#wizard1-t-1").parent().removeClass("disabled");
+                    $("#wizard1-t-1").parent().addClass("first current");
+                }
+            }
+
+            $("#resetaudit").click(function () {
+                $(".spiner-example").show();
+                $("#Item2_PlayID").val('');
+                $("#Item2_UserID").val('');
+                $("#Item2_FromPlayLength").val('');
+                $("#Item2_ToPlayLength").val('');
+                $("#Item2_Status").val('0');
+                $("#Item2_FromPlayCost").val('');
+                $("#Item2_ToPlayCost").val('');
+                $("#Item2_Status").val('0');
+                $("#Item2_FromTotalCost").val('');
+                $("#Item2_ToTotalCost").val('');
+                $("#startfromtime").val('');
+                $("#starttotime").val('');
+                $("#endfromtime").val('');
+                $("#endtotime").val('');
+
+                $.ajax({
+                    data: null,
+                    datatype: "text/plain",
+                    type: "POST",
+                    url: '@Url.Action("SearchAudit", "UserCampaignAudit")',
+                    cache: false,
+                    success: function (data) {
+                        if (data != "notauthorise") {
+                            $("#compaignauditList").html(data);
+                            dataTableSetupaudit();
+                            $(".spiner-example").hide();
+                        }
+                        else {
+                            window.location.href = '@Url.Action("Index","Landing")';
+                            $(".spiner-example").hide();
+                        }
+                    }
+                });
+            });
+            function dataTableSetupaudit() {
+                $('.dataTables-audit').DataTable({
+                    "aaSorting": [],
+                    "info": false,
+                    bFilter: false,
+                    "pageLength": 10,
+                    "bLengthChange": false,
+                    "language": {
+                        "infoEmpty": "No Record Found."
+                    },
+                    dom: '<"html5buttons"B>lTfgitp',
+                    buttons: [
+                        { extend: 'copy', title: 'Campaign Audit' },
+                        { extend: 'csv', title: 'Campaign Audit' },
+                        { extend: 'excel', title: 'Campaign Audit' },
+                        { extend: 'pdf', title: 'Campaign Audit' },
+                        {
+                            extend: 'print',
+                            title: 'Campaign Audit',
+                            customize: function (win) {
+                                $(win.document.body).addClass('white-bg');
+                                $(win.document.body).css('font-size', '10px');
+                                $(win.document.body).find('table')
+                                        .addClass('compact')
+                                        .css('font-size', 'inherit');
+                            }
+                        }
+                    ]
+                });
+            }
+
+
+                $(".spiner-example").show();
+                $('.dataTables-audit').DataTable({
+                    "preDrawCallback": function (settings) {
+                        $(".spiner-example").show();
+                    },
+                    "info": false,
+                    "pageLength": 10,
+                    "bLengthChange": false,
+                    "processing": true, // for show processing bar
+                    "serverSide": true, // for process on server side
+                    "orderMulti": false, // for disable multi column order
+                    "aaSorting": [],
+                    "lengthMenu": [[50, 100, -1], [50, 100, "All"]],
+                    "bFilter": false,
+                    "searching": false,
+                    "language": {
+                        "infoEmpty": "No Record Found."
+                    },
+                    "dom": '<"html5buttons"B>lTfgitp',  // for hide default global search box // little confusion? don't worry I explained in the tutorial website
+                    "buttons": [
+                        {
+                            extend: 'copy', title: 'Campaign Audit', filename: 'Campaign Audit',// + dateString,
+                            exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
+                        },
+                        {
+                            extend: 'csv', title: 'Campaign Audit', filename: 'Campaign Audit',// + dateString,
+                            exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
+                        },
+                        {
+                            extend: 'excel', title: 'Campaign Audit', filename: 'Campaign Audit',// + dateString,
+                            exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
+                        },
+                        {
+                            extend: 'pdf', title: 'Campaign Audit', filename: 'Campaign Audit',// + dateString,
+                            exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }
+                        },
+                        {
+                            extend: 'print',
+                            title: 'Campaign Audit',
+                            filename: 'Campaign Audit',// + dateString,
+                            exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] },
+                            customize: function (win) {
+
+                                $(win.document.body).addClass('white-bg');
+                                $(win.document.body).css('font-size', '10px');
+
+                                $(win.document.body).find('table')
+                                        .addClass('compact')
+                                        .css('font-size', 'inherit');
+                            }
+                        }
+                    ],
+                    "ajax": {
+                        "url": "/UserCampaignAudit/LoadCampaign?CampaignId=" + @ViewBag.CampaignId,
+                        "type": "POST",
+                        "datatype": "json"
+                    },
+                    "aoColumns": [
+
+                        { "data": "PlayID", "name": "PlayID", "autoWidth": false },
+                        { "data": "UserID", "name": "UserID", "autoWidth": false },
+                        { "data": "DisplayStartDate", "name": "DisplayStartDate", "autoWidth": false },
+                        { "data": "DisplayEndDate", "name": "DisplayEndDate", "autoWidth": false },
+                        { "data": "LengthOfPlay", "name": "LengthOfPlay", "autoWidth": false },
+                        { "data": "AdvertName", "name": "AdvertName", "autoWidth": false },
+                        { "data": "Status", "name": "Status", "autoWidth": false },
+                        {
+                            "data": "PlayCost", "name": "PlayCost", "autoWidth": false,
+                            "mRender": function (data, type, row) {
+                                if (row.CurrencyId == 4 || row.CurrencyId == 7) { //row.countryId == 9 ||
+                                    return '<td>' + parseFloat(row.PlayCost).toFixed(2) + " " + row.CurrencyCode + '</td>';
+                                }
+                                else {
+                                    return '<td>' + row.CurrencyCode + " " + parseFloat(row.PlayCost).toFixed(2) + '</td>';
+                                }
+                            }
+                        },
+                        { "data": "SMS", "name": "SMS", "autoWidth": false },
+                        {
+                            "data": "SMSCost", "name": "SMSCost", "autoWidth": false,
+                            "mRender": function (data, type, row) {
+                                if (row.CurrencyId == 4 || row.CurrencyId == 7) {
+                                    return '<td>' + parseFloat(row.SMSCost).toFixed(2) + " " + row.CurrencyCode + '</td>';
+                                }
+                                else {
+                                    return '<td>' + row.CurrencyCode + " " + parseFloat(row.SMSCost).toFixed(2) + '</td>';
+                                }
+                            }
+                        },
+                        { "data": "Email", "name": "Email", "autoWidth": false },
+                        {
+                            "data": "EmailCost", "name": "EmailCost", "autoWidth": false,
+                            "mRender": function (data, type, row) {
+                                if (row.CurrencyId == 4 || row.CurrencyId == 7) {
+                                    return '<td>' + parseFloat(row.EmailCost).toFixed(2) + " " + row.CurrencyCode + '</td>';
+                                }
+                                else {
+                                    return '<td>' + row.CurrencyCode + " " + parseFloat(row.EmailCost).toFixed(2) + '</td>';
+                                }
+                            }
+                        },
+                        {
+                            "data": "TotalCost", "name": "TotalCost", "autoWidth": false,
+                            "mRender": function (data, type, row) {
+                                if (row.CurrencyId == 4 || row.CurrencyId == 7) {
+                                    return '<td>' + parseFloat(row.TotalCost).toFixed(2) + " " + row.CurrencyCode + '</td>';
+                                }
+                                else {
+                                    return '<td>' + row.CurrencyCode + " " + parseFloat(row.TotalCost).toFixed(2) + '</td>';
+                                }
+                            }
+                        }
+                    ],
+                    "drawCallback": function (settings) {
+                        $(".spiner-example").hide();
+                    },
+                    "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+                });
+
+               oTable = $('.dataTables-audit').DataTable();
+
+               $("#DataTables_Table_0_filter").hide();
+            var $image = $(".image-crop > img")
+            $($image).cropper({
+                aspectRatio: 1.618,
+                preview: ".img-preview",
+                done: function (data) {
+                    // Output the result data for cropping image.
+                }
+            });
+
+
+            $('#data_5 .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true
+            });
+
+
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $(".touchspin2").TouchSpin({
+                min: 0,
+                max: 100,
+                step: 0.1,
+                decimals: 2,
+                boostat: 5,
+                maxboostedstep: 10,
+                postfix: '%',
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+            $(".touchspin3").TouchSpin({
+                verticalbuttons: true,
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+
+
+
+
+        });
+
+
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#ionrange_1").ionRangeSlider({
+            min: 0,
+            max: 5000,
+            type: 'double',
+            prefix: "$",
+            maxPostfix: "+",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_2").ionRangeSlider({
+            min: 0,
+            max: 10,
+            type: 'single',
+            step: 0.1,
+            postfix: " carats",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_3").ionRangeSlider({
+            min: -50,
+            max: 50,
+            from: 0,
+            postfix: "°",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_4").ionRangeSlider({
+            values: [
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
+            ],
+            type: 'single',
+            hasGrid: true
+        });
+
+        $("#ionrange_5").ionRangeSlider({
+            min: 10000,
+            max: 100000,
+            step: 100,
+            postfix: " km",
+            from: 55000,
+            hideMinMax: true,
+            hideFromTo: false
+        });
+        $("#wizard").steps();
+
+        var chk = GetURLParameter();
+        if (chk == "0") {
+            wizardt1();
+
+        }
+        else {
+            wizardt0();
+        }
+        $("#wizard-t-1").click(function () {
+            wizardt1();
+        });
+        $("#wizard-t-0").click(function () {
+            wizardt0();
+        });
+        function wizardt1() {
+            $("#wizard-t-1").parent().removeClass("last");
+            $("#wizard-t-1").parent().addClass("current");
+            $("#wizard-t-0").parent().removeClass("current");
+            $("#wizard-t-0").parent().addClass("disabled last");
+            $("#wizard-p-1").show();
+            $("#wizard-p-0").hide();
+        }
+        function wizardt0() {
+            $("#wizard-t-0").parent().removeClass("disabled last");
+            $("#wizard-t-0").parent().addClass("current");
+            $("#wizard-t-1").parent().removeClass("current");
+            $("#wizard-t-1").parent().addClass("disabled last");
+            $("#wizard-p-0").show();
+            $("#wizard-p-1").hide();
+
+        }
+        var updateOutput = function (e) {
+            var list = e.length ? e : $(e.target),
+                    output = list.data('output');
+            if (window.JSON) {
+                output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+            } else {
+                output.val('JSON browser support required for this demo.');
+            }
+        };
+        $('#nestable').nestable({
+            group: 1
+        }).on('change', updateOutput);
+
+        function redirectadvetpage(current) {
+            var advertid = $(current).attr("id");
+            var url = '@Url.Action("AdvertDetails","Advert")';
+            var link = $("<a></a>");
+            link.attr("href", url + "/" + advertid);
+            link.attr("target", "_blank");
+            link[0].click();
+        }
+
+        $(".number").remove();
+
+        $("#wizard1").steps();
+        $('#selectCountry').on('change', function () {
+            var vmap = '<div id="world-map" style="height: 300px;">';
+            var countryId=$(this).val();
+            var mapData;
+            if(countryId==1)
+            {
+                mapData = {
+                    "GB": 400
+                };
+            }
+            else if(countryId==2)
+            {
+                mapData = {
+                    "AU": 400
+                };
+            }
+            else if(countryId==3)
+            {
+                mapData = {
+                    "KE": 400
+                };
+            }
+            else if(countryId==4)
+            {
+                mapData = {
+                    "SE": 400
+                };
+            }
+            else if(countryId==5)
+            {
+                mapData = {
+                    "NO": 400
+                };
+            }
+            else if(countryId==6)
+            {
+                mapData = {
+                    "IS": 400
+                };
+            }
+            else if(countryId==7)
+            {
+                mapData = {
+                    "DK": 400
+                };
+            }
+            else
+            {
+                mapData = {
+                    "GB": 498,
+                    "AU": 200,
+                    "KE": 1300,
+                    "SE": 220,
+                    "NO": 540,
+                    "IS": 120,
+                    "DK": 760
+                };
+            }
+            $('#world-map').remove();
+            $('#map_final').append(vmap);
+            $('#world-map').vectorMap({
+                map: 'world_mill_en',
+                showTooltip: true,
+                backgroundColor: "transparent",
+                regionStyle: {
+                    initial: {
+                        fill: '#e4e4e4',
+                        "fill-opacity": 1,
+                        stroke: 'none',
+                        "stroke-width": 0,
+                        "stroke-opacity": 0
+                    }
+                },
+                series: {
+                    regions: [{
+                        values: mapData,
+                        scale: ["#1e90ff"],
+                        normalizeFunction: 'polynomial'
+                    }]
+                },
+            });
+        });
+        $(".accordion").click(function () {
+            var vmap = '<div id="world-map" style="height: 300px;">';
+            var svg = $('#world-map').find('svg')[0];
+            if (svg == null) {
+                var mapData = {
+                    "GB": 498,
+                    "AU": 200,
+                    "KE": 1300,
+                    "SE": 220,
+                    "NO": 540,
+                    "IS": 120,
+                    "DK": 760
+                };
+                $('#world-map').remove();
+                $('#map_final').append(vmap);
+                $('#world-map').vectorMap({
+                    map: 'world_mill_en',
+                    showTooltip: true,
+                    backgroundColor: "transparent",
+                    regionStyle: {
+                        initial: {
+                            fill: '#e4e4e4',
+                            "fill-opacity": 1,
+                            stroke: 'none',
+                            "stroke-width": 0,
+                            "stroke-opacity": 0
+                        }
+                    },
+                    series: {
+                        regions: [{
+                            values: mapData,
+                            scale: ["#1e90ff"],
+                            normalizeFunction: 'polynomial'
+                        }]
+                    },
+                });
+            }
+        });
+        
+    </script>
+    <script type="text/javascript">
+        var doughnutData = [
+    {
+        value: 250,
+        color: "#1e90ff",
+        highlight: "#1e90ff",
+
+    },
+
+    {
+        value: 150,
+        color: "#b5b8cf",
+        highlight: "#b5b8cf",
+
+    }
+        ];
+        $(document).ready(function () {
+            var doughnutFreePlaysData = [
+        {
+            value: @ViewBag.TotalPlayed,
+            color: "#1e90ff",
+            highlight: "#1e90ff",
+            label:"Played"
+
+        },
+
+        {
+            value: @ViewBag.FreePlays,
+            color: "#b5b8cf",
+            highlight: "#b5b8cf",
+            label:"Free Play"
+        }
+            ];
+            var doughnutChartbudgetData = [
+       {
+           value: @ViewBag.TotalBudget,
+           color: "#1e90ff",
+           highlight: "#1e90ff",
+           label:"Budget"
+
+       },
+
+       {
+           value: @ViewBag.TotalSpend,
+           color: "#b5b8cf",
+           highlight: "#b5b8cf",
+           label:"Spend"
+       }
+            ];
+            var doughnutMaxBidData = [
+    {
+        value: @ViewBag.MaxBid,
+                    color: "#b5b8cf",
+                    highlight: "#b5b8cf"
+    }
+            ];
+
+            var doughnutOptions = {
+                segmentShowStroke: true,
+                segmentStrokeColor: "#fff",
+                segmentStrokeWidth: 2,
+                percentageInnerCutout: 45, // This is 0 for Pie charts
+                animationSteps: 100,
+                animationEasing: "easeOutBounce",
+                animateRotate: true,
+                animateScale: false,
+                responsive: true,
+            };
+
+            var ctx = document.getElementById("doughnutFreePlays").getContext("2d");
+            var myNewChart = new Chart(ctx).Doughnut(doughnutFreePlaysData, {
+                tooltipFontSize: 10,
+                tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+                percentageInnerCutout : 70
+            });
+
+            var ctx = document.getElementById("doughnutChartbudget").getContext("2d");
+            var myNewChart = new Chart(ctx).Doughnut(doughnutChartbudgetData, {
+                tooltipFontSize: 10,
+                tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+                percentageInnerCutout : 70
+            });
+            
+            var ctx = document.getElementById("doughnutMaxBid").getContext("2d");
+            var myNewChart = new Chart(ctx).Doughnut(doughnutMaxBidData, {
+                tooltipFontSize: 10,
+                tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+                percentageInnerCutout : 70
+            });
+
+            var barchartData = @Html.Raw(Json.Encode(@ViewBag.getbarChartdata));
+            if(barchartData!=null)
+            {
+                $("#sparkline8").sparkline(barchartData, {
+                    type: 'bar',
+                    barWidth: 5,
+                    height: '75px',
+                    barColor: '#1e90ff',
+                    negBarColor: '#1e90ff'
+                });
+            }
+            var sparkResize;
+            var avgbid_plays = @Html.Raw(Json.Encode(@ViewBag.Campaignavgplayresult));
+            if(avgbid_plays!=null)
+            {
+
+                var status=avgbid_plays[0].status;
+                var ticks=[],dataset,options;
+                var playresult=avgbid_plays[0]._playresult;
+                var avgbidresult=avgbid_plays[0]._Avgresult;
+                var _playarrayresult=[];
+                var _avgbidarrayresult=[];
+                var weeks=["Week1","Wek2","Week3","Week4","Week5","Week6","Week7","Week8","Week9","Week10","Week11","Week12","Week13","Week14","Week15",
+                            "Week16","Week17","Week18","Week19","Week20","Week21","Week22","Week23","Week24","Week25","Week26","Week27","Week28","Week29",
+                            "Week30","Week31","Week32","Week33","Week34","Week35","Week36","Week37","Week38","Week39","Week40","Week41","Week42","Week43",
+                            "Week44","Week45","Week46","Week47","Week48","Week49","Week50","Week51","Week52"];
+                for (var i = 0; i < playresult.length; i++) {
+                    _playarrayresult[i]=[
+                        playresult[i].name,playresult[i].value
+                    ]
+                    ticks[i]=[playresult[i].name,weeks[playresult[i].name-1]]
+                }
+                for (var i = 0; i < avgbidresult.length; i++) {
+                    _avgbidarrayresult[i]=[
+                        avgbidresult[i].name,avgbidresult[i].value
+                    ]
+                }
+                var data2 = _playarrayresult;
+
+                var data3 = _avgbidarrayresult;
+
+
+                if(status==1)
+                {
+                    dataset = [
+            {
+                label: "Number of plays",
+                data: data2,
+                color: "#1e90ff",
+                bars: {
+                    show: true,
+                }
+
+            }, {
+                label: "Average Bid",
+                data: data3,
+                yaxis: 2,
+                color: "#464f88",
+                lines: {
+                    lineWidth: 1,
+                    show: true,
+                    fill: true,
+                    fillColor: {
+                        colors: [{
+                            opacity: 0
+                        }, {
+                            opacity: 0
+                        }]
+                    }
+                },
+                splines: {
+                    show: false,
+                    tension: 0.6,
+                    lineWidth: 1,
+                    fill: 0.1
+                },
+            }
+                    ];
+                    options = {
+                        xaxis: {
+                            tickLength:0,
+                            ticks: ticks,
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 10,
+                            color: "#d5d5d5",
+                            labelAngle: -90,
+                        },
+                        yaxes: [{
+                            tickLength:0,
+                            position: "left",
+                            max: @ViewBag.NoofplayMaxCount,
+                            color: "#d5d5d5",
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 3
+                        }, {
+                            max: @ViewBag.AvgbidMaxCount,
+                            position: "right",
+                            clolor: "#d5d5d5",
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: ' Arial',
+                            axisLabelPadding: 67
+                        }
+                        ],
+                        legend: {
+                            noColumns: 1,
+                            labelBoxBorderColor: "#000000",
+                            position: "nw"
+                        },
+                        grid: {
+                            hoverable: false,
+                            borderWidth: 0
+                        },
+                        bars: {
+                            align: "center",
+                            barWidth: 1
+                        }
+                    };
+                }
+                else if(status==2)
+                {
+                    ticks = [
+        [0, "Sunday"],[1, "Monday"],[2, "Tuesday"],[3, "Wednesday"],[4, "Thursday"],[5, "Friday"],[6, "Saturday"]
+                    ];
+                    dataset = [
+            {
+                label: "Number of plays",
+                data: data2,
+                color: "#1e90ff",
+                bars: {
+                    show: true,
+                }
+
+            }, {
+                label: "Average Bid",
+                data: data3,
+                yaxis: 2,
+                color: "#464f88",
+                lines: {
+                    lineWidth: 1,
+                    show: true,
+                    fill: true,
+                    fillColor: {
+                        colors: [{
+                            opacity: 0
+                        }, {
+                            opacity: 0
+                        }]
+                    }
+                },
+                splines: {
+                    show: false,
+                    tension: 0.6,
+                    lineWidth: 1,
+                    fill: 0.1
+                },
+            }
+                    ];
+                    options = {
+                        xaxis: {
+                            tickLength:0,
+                            ticks: ticks,
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 10,
+                            color: "#d5d5d5"
+                        },
+                        yaxes: [{
+                            tickLength:0,
+                            position: "left",
+                            max: @ViewBag.NoofplayMaxCount,
+                            color: "#d5d5d5",
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 3
+                        }, {
+                            max: @ViewBag.AvgbidMaxCount,
+                            position: "right",
+                            clolor: "#d5d5d5",
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: ' Arial',
+                            axisLabelPadding: 67
+                        }
+                        ],
+                        legend: {
+                            noColumns: 1,
+                            labelBoxBorderColor: "#000000",
+                            position: "nw"
+                        },
+                        grid: {
+                            hoverable: false,
+                            borderWidth: 0
+                        },
+                        bars: {
+                            align: "center",
+                            barWidth: 1
+                        }
+                    };
+                }
+                else
+                {
+                    var ticks = [
+         [0, "00"],[1, "01"],[2, "02"],[3, "03"],[4, "04"],[5, "05"],[6, "06"],[7, "07"],[8, "08"],[9, "09"],[10, "10"],
+         [11, "11"],[12, "12"],[13, "13"],[14, "14"],[15, "15"],[16, "16"],[17, "17"],[18, "18"],[19, "19"],[20, "20"],
+         [21, "21"],[22, "22"],[23, "23"]
+                    ];
+                    dataset = [
+            {
+                label: "Number of plays",
+                data: data2,
+                color: "#1e90ff",
+                bars: {
+                    show: true,
+                }
+
+            }, {
+                label: "Average Bid",
+                data: data3,
+                yaxis: 2,
+                color: "#464f88",
+                lines: {
+                    lineWidth: 1,
+                    show: true,
+                    fill: true,
+                    fillColor: {
+                        colors: [{
+                            opacity: 0
+                        }, {
+                            opacity: 0
+                        }]
+                    }
+                },
+                splines: {
+                    show: false,
+                    tension: 0.6,
+                    lineWidth: 1,
+                    fill: 0.1
+                },
+            }
+                    ];
+                    options = {
+                        xaxis: {
+                            tickLength:0,
+                            ticks: ticks,
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 10,
+                            color: "#d5d5d5"
+                        },
+                        yaxes: [{
+                            tickLength:0,
+                            position: "left",
+                            max: @ViewBag.NoofplayMaxCount,
+                            color: "#d5d5d5",
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 3
+                        }, {
+                            max: @ViewBag.AvgbidMaxCount,
+                            position: "right",
+                            clolor: "#d5d5d5",
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: ' Arial',
+                            axisLabelPadding: 67
+                        }
+                        ],
+                        legend: {
+                            noColumns: 1,
+                            position: "nw"
+                        },
+                        grid: {
+                            hoverable: false,
+                            borderWidth: 0
+                        },
+                        bars: {
+                            align: "center",
+                            barWidth: 1
+                        }
+                    };
+                }
+
+                $.plot($("#flot-UserCampaignAudit-chart"), dataset, options);
+            }
+        });
+
+    </script>
+}

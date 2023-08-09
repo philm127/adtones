@@ -1,0 +1,46 @@
+﻿@model EFMVC.Web.ViewModels.BlockedNumberFormModel
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="large-6 columns large-centered">
+        <div class="row">
+            <div class="large-12 columns">
+                @{
+                    if (Model == null || Model.Id == 0)
+                    {
+                        <h5>Add Blocked Number</h5>
+                        <div class="clr10"></div>
+                        <p>Add a telephone number you would like to be excluded from this service.</p>
+                    }
+                    else
+                    {
+                        <h5>Edit Blocked Number</h5>
+                    }
+
+                }
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="large-12 columns">
+
+                @using (Html.BeginForm("Save", "BlockedNumber"))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    @Html.Partial("_CreateOrEdit", Model)
+
+                    <p>
+                        <input type="submit" value="Save" />
+                    </p>
+                }
+
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@using EFMVC.Web.Areas.Admin.Models;
+@model List<CampaignCreditResult>
+
+<div class = "row">
+        @if (TempData["success"] != null)
+        {
+            <div class="alert alert-success alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                @TempData["success"]
+            </div>
+        }
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                @TempData["error"]
+            </div>
+        }
+ </div>
+
+
+
+<div class="table-responsive">
+    
+    <table class="table table-striped table-bordered table-hover dataTables-CampaignCredit">
+        <thead>
+            <tr>
+                <th>Advertiser</th>
+                <th>Campaign</th>
+                <th>Credit Period</th>                
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CampaignCreditResult result in Model)
+            {
+            <tr class="gradeX">
+                <td>@result.UserName</td>
+                <td>@result.CampaignName</td>                
+                <td>@result.CreditPeriod</td>   
+                <td>
+                    <a class="btn btn-danger btn-xs" href='@Url.Action("UpdateCampaignCredit","CampaignCredit",new {@id=result.CampaignCreditPeriodId })'>Update</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

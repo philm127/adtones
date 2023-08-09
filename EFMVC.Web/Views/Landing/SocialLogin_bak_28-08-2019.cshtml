@@ -1,0 +1,255 @@
+﻿@model EFMVC.Web.Models.AdvertiserSocialLoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>adtones | Register</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style_campaign.css" rel="stylesheet">
+    <link href="~/Content/custom.css" rel="stylesheet" />
+
+    <style>
+        .form-control-box {
+            background-color: #FFFFFF;
+            background-image: none;
+            border: 1px solid #e5e6e7;
+            border-radius: 1px;
+            color: inherit;
+            display: inline-block;
+            padding: 6px 12px;
+            transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+            width: 95%;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="preloader" style="display:none"></div>
+    <div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            @*<div>
+
+                    <h1 class="logo-name">ad+</h1>
+
+                </div>*@
+            <h3>Adtones Campaign Manager Registration</h3>
+            @*<h3>Register to adtones</h3>
+                <p>Create account to see it in action.</p>*@
+            @using (Html.BeginForm("EmailVerification", "Landing", new { @class = "m-t" }))
+            {
+                if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        @TempData["Error"]
+                    </div>
+                }
+                <div class="row">
+                    <div class="large-12 columns">
+                        @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control-box", @placeholder = "Email" })
+                    <label style="color: cornflowerblue;">*</label>
+                    @Html.ValidationMessageFor(m => m.Email, null, new { @class = "btn-danger" })
+                </div>
+
+
+                <div class="form-group">
+
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control-box", @placeholder = "First Name" })
+                    <label style="color: cornflowerblue;">*</label>
+                    @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "btn-danger" })
+                </div>
+
+
+                <div class="form-group">
+
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control-box", @placeholder = "Last Name" })
+                    <label style="color: cornflowerblue;">*</label>
+                    @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "btn-danger" })
+
+                </div>
+                <div class="form-group">
+
+                    @Html.TextBoxFor(m => m.Organisation, new { @class = "form-control-box", @placeholder = "Organisation" })
+                    @Html.ValidationMessageFor(m => m.Organisation, null, new { @class = "btn-danger" })
+
+                </div>
+                <div class="form-group">
+
+                    @Html.DropDownListFor(m => m.OrganisationTypeId, ViewBag.OrgType as IEnumerable<SelectListItem>, "--Select Organisation Type--", new { @class = "form-control-box input-s-sm inline" })
+                    <span style="display:none" class="btn-danger" id="OrgTypeError">The Organisation type field is required.</span>
+                </div>
+
+
+                <div class="form-group">
+                    @*@Html.DropDownListFor(m => m.CountryCode, new List<SelectListItem>
+                        {
+                            new SelectListItem{ Text="UK +44", Value = "44" },
+                            new SelectListItem{ Text="Kenya +254", Value = "254" },
+                            new SelectListItem{ Text="Senegal +221", Value = "221" },
+                            new SelectListItem{ Text="India +91", Value = "91" },
+                            new SelectListItem{ Text="Italy +39", Value = "39" },
+                            new SelectListItem{ Text="France +33", Value = "33" },
+                            new SelectListItem{ Text="Denmark +45", Value = "45" }
+                        }, null, new { @class = "form-control-box input-s-sm inline" })*@
+                    @Html.DropDownListFor(m => m.CountryCode, ViewBag.Country as IEnumerable<SelectListItem>, "--Select Country--", new { @class = "form-control-box input-s-sm inline" })
+                    @Html.ValidationMessageFor(m => m.CountryCode, null, new { @class = "btn-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control-box", @placeholder = "Contact number", @onkeypress = "return isNumber(event)" })
+                    <label style="color: cornflowerblue;">*</label><br />
+                    @Html.ValidationMessageFor(m => m.PhoneNumber, null, new { @class = "btn-danger" })
+                    <span class="btn-danger" id="errorphone"></span>
+                </div>
+                <input type="submit" class="btn btn-blue block full-width m-b" value="Register" />
+            }
+            <p class="m-t"> <small id="copyright" style="font-family: sans-serif;">@*adtones &copy; @DateTime.Now.Year*@</small> </p>
+        </div>
+    </div>
+
+</body>
+</html>
+@Scripts.Render("~/bundles/jquery")
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+@Scripts.Render("~/plugins/unobtrusive")
+@Scripts.Render("~/plugins/validate")
+@Scripts.Render("~/bundles/validateunobtrusive")
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '@Url.Action("GetCopyRight", "Landing")',
+            success: function (data) {
+                $("#copyright").text(data);
+            }
+        });
+    });
+
+    $("#PhoneNumber").change(function () {
+        var countryId = $("#CountryCode").val();
+        var msisdn = $("#PhoneNumber").val();
+        if (countryId == "10") {//9
+            if (msisdn == "") {
+                $("#errorphone").innerHTML = "The Contact number field is required to be only 9 characters."; /*The Contact number field is required.*/
+                return false;
+            }
+            else if (msisdn.length < 9 || msisdn.length > 9) {
+                $("#errorphone").innerHTML = "The Contact number field can only be 9 characters."; /*The Contact number field cannot be more than 9 characters.*/
+                return false;
+            }
+            else {
+                $("#errorphone").innerHTML = "";
+            }
+        }
+        else {
+            if (msisdn == "") {
+                $("#errorphone").innerHTML = "The Contact number field is required to be only 10 characters.";
+                return false;
+            }
+            else if (msisdn.length < 10 || msisdn.length > 10) {
+                $("#errorphone").innerHTML = "The Contact number field can only be 10 characters.";
+                return false;
+            }
+            else {
+                $("#errorphone").innerHTML = "";
+            }
+        }
+    });
+
+    $("form").submit(function () {
+        var error = 0;
+        var orgValue = $("#Organisation").val();
+
+        var email = $("#Email").val();
+        var fname = $("#FirstName").val();
+        var lname = $("#LastName").val();
+        var countryId = $("#CountryCode").val();
+        var msisdn = $("#PhoneNumber").val();
+        $(".preloader").show();
+
+        //if(orgValue != "")
+        //{
+        //    var typeValue = $("#OrganisationTypeId").val();
+        //    if(typeValue == "")
+        //    {
+        //        $("#OrgTypeError").show();
+        //        error = 1;
+        //    }
+        //}
+        if (email == "")
+        {
+            error = 1;
+        }
+        if (fname == "") {
+            error = 1;
+        }
+        if (lname == "") {
+            error = 1;
+        }
+
+        if (msisdn == "") {
+            if (countryId == "10") {//9
+                $("#errorphone").innerHTML = "The Contact number field is required to be only 9 characters.";
+                error = 1;
+            }
+            else {
+                $("#errorphone").innerHTML = "The Contact number field is required to be only 10 characters.";
+                error = 1;
+            }
+        }
+        else if (countryId == "10") {//9
+            if (msisdn.length < 9 || msisdn.length > 9) {
+                $("#errorphone").innerHTML = "The Contact number field can only be 9 characters.";
+                error = 1;
+            }
+            else {
+                $("#errorphone").innerHTML = "";
+            }
+        }
+        else {
+            if (msisdn.length < 10 || msisdn.length > 10) {
+                $("#errorphone").innerHTML = "The Contact number field can only be 10 characters.";
+                error = 1;
+            }
+            else {
+                $("#errorphone").innerHTML = "";
+            }
+        }
+
+        if (error == 1)
+        {
+            $(".preloader").hide();
+            return false;
+        }
+        else
+        {
+            $(".preloader").hide();
+            $(this).submit();
+        }
+
+    });
+
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+</script>

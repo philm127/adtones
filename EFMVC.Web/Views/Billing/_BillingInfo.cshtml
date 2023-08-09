@@ -1,0 +1,134 @@
+﻿@using EFMVC.Web.Models
+@model BillingInfoDetails
+<form class="form-horizontal">
+    <div class="form-group">
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Client</label>
+
+            <div class="col-lg-4">
+                @Html.DropDownListFor(Model => Model.ClientId, ViewBag.client as IEnumerable<SelectListItem>, new { @class = "form-control input-s-sm inline", @id = "poclientid" })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Campaign <label class="lbldanger">*</label></label>
+
+            <div class="col-lg-4">
+
+                <select class="form-control input-s-sm inline" id="campaign">
+                    <option value="0">--Select campaign--</option>
+                </select>
+                <span class="btn-danger" id="campaignerror"></span>
+            </div>
+
+        </div>
+        @*Add 04-04-2019*@
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Currency</label>
+            <div class="col-lg-4">
+                @Html.DropDownListFor(Model => Model.CurrencyId, ViewBag.currencyList as IEnumerable<SelectListItem>, "--Select Currency--", new { @class = "input-sm form-control input-s-sm inline", @style = "Height:36px" })
+                <span class="btn-danger" id="errormsg"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Maximum amount of credit</label>
+
+            <div class="col-lg-2">
+                @if (ViewBag.Maximumamountofcredit != null)
+                {
+                    @*<label class="control-label">@ViewBag.countrySymbole @ViewBag.Maximumamountofcredit</label>*@
+                    <label class="control-label" id="lblmaxamountofcredit"><label id="maxamountofcredit"></label> @ViewBag.CurrencySymbole @ViewBag.Maximumamountofcredit</label>
+                }
+            </div>
+            <div>
+                <button class="btn btn-sm btn-blue" type="button">Apply for credit/Apply for more credit</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Credit Available</label>
+
+            <div class="col-lg-2">
+
+                @if (ViewBag.CreditAvailable != null)
+                {
+                    @*<label class="control-label">@ViewBag.countrySymbole @ViewBag.CreditAvailable</label>*@
+                    <label class="control-label" id="lblcreditavailable"><label id="creditavailable"></label> @ViewBag.CurrencySymbole @ViewBag.CreditAvailable</label>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">Campaign Funds Available</label>
+            <div class="col-lg-2">
+                <label class="control-label" id="CampaignFundsAvailable">Please select a campaign</label>
+            </div>
+            <div>
+                <button class="btn btn-sm btn-blue" type="button">Refund funds</button>
+            </div>
+        </div>
+        <div class="form-group">
+            @*<label class="col-lg-2 control-label">Fund amount <label id="lblfundamount">@ViewBag.currencyCode</label> <label class="lbldanger">*</label></label>*@
+            <label class="col-lg-2 control-label">Fund amount <label id="lblfundamount"></label> <label class="lbldanger">*</label></label>
+
+            <div class="col-lg-4">
+                @Html.TextBoxFor(Model => Model.Fundamount, new { @class = "form-control", @id = "Fundamount", @placeholder = "Fundamount" })
+                <span class="btn-danger" id="fundamounterror"></span>
+            </div>
+        </div>
+        <div class="form-group" id="dvtotalamount" style="display:none;">
+            @*<label class="col-lg-2 control-label" id="lbltotalamount">Total amount @ViewBag.currencyCode</label>*@
+            <label class="col-lg-2 control-label" id="lbltotalamount">Total amount <label id="totalamount"></label></label>
+
+            <div class="col-lg-4">
+                <label class="control-label"><span id="sptotalamount"></span></label>
+                &nbsp;<a id="acal">View calculation</a>
+            </div>
+        </div>
+        <div class="form-group" id="dverror" style="display:none;">
+            <label class="col-lg-2 control-label">Total amount</label>
+
+            <div class="col-lg-4">
+                <label class="control-label" style="color:red !important;"><span id="sperror"></span></label>
+                @*<span id="currencySymbol">@ViewBag.countrySymbole</span>*@
+                <span id="currencySymbol"></span>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="modal inmodal fade" id="myModal6" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Calculation</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-5 control-label">Fund Amount <label id="lblfundamount1"></label></label>
+
+                        <div class="col-lg-4">
+                            <label class="control-label"><span id="spfundamount"></span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 control-label">Tax</label>
+
+                        <div class="col-lg-4">
+                            <label class="control-label"><span id="sptaxamount"></span></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-5 control-label">Total Amount <label id="lbltotalamount1"></label></label>
+
+                        <div class="col-lg-4">
+                            <label class="control-label"><span id="spptotalamount"></span></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+﻿@using EFMVC.Web.ViewModels
+@model ContactsFormModel
+<div class="col-lg-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Contacts</h5>
+
+        </div>
+        <div class="ibox-content">
+            <div class="alert alert-success alert-dismissable" id="dvcontactinfosuc" style="display:none;">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <span id="cbudsuceess">Record updated successfully</span>
+            </div>
+
+
+            <div class="alert alert-danger alert-dismissable" id="dvcontactinfoerror" style="display:none;">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <span id="contactinfoerrror"></span>
+            </div>
+            @using (Ajax.BeginForm("SaveContactInfo", "Account",
+  null,
+  new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultcontactinfo",OnBegin = "progressbar" },
+  new { @class = "form-horizontal" }))
+            {
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(Model=>Model.Id)
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Mobile Number</label>
+
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(Model => Model.MobileNumber, new { @class = "form-control", @placeholder = "Mobile Number" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Fixed Line</label>
+
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(Model => Model.FixedLine, new { @class = "form-control", @placeholder = "Fixed Line" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Email</label>
+
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control", @placeholder = "Email" })
+                        @Html.ValidationMessageFor(Model => Model.Email, null, new { @class = "btn-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Phone Number</label>
+
+                    <div class="col-lg-9">
+                        @Html.TextBoxFor(Model => Model.PhoneNumber, new { @class = "form-control", @placeholder = "Phone Number" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Address</label>
+
+                    <div class="col-lg-9">
+                        @Html.TextAreaFor(Model => Model.Address, new { @class = "form-control", @placeholder = "Address" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-9">
+                        <button class="btn btn-sm btn-blue" type="submit">Update</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultcontactinfo = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvcontactinfosuc").show();
+            $("#dvcontactinfoerror").hide();
+        }
+        else {
+            if (data == "notauthorise")
+            {
+                window.location.href = '@Url.Action("Index","Landing")';
+            }
+            $("#contactinfoerrror").html(data);
+            $("#dvcontactinfosuc").hide();
+            $("#dvcontactinfoerror").show();
+        }
+    };
+</script>

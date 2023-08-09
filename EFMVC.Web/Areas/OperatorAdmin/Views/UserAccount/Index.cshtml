@@ -1,0 +1,547 @@
+﻿@using System.Web.Optimization
+@using EFMVC.Web.Areas.UsersAdmin.SearchClass;
+@using EFMVC.Web.Areas.UsersAdmin.Models;
+@model Tuple<List<UserResult>, UserFilter>
+@{
+    ViewBag.Title = "User Management";
+    Layout = "~/Areas/OperatorAdmin/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper wrapper-content animated fadeIn">
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["Error"]
+        </div>
+    }
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["success"]
+        </div>
+    }
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["status"]
+        </div>
+    }
+    
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                   
+
+                    <div class="ibox-content">
+                        @Html.Partial("_UserManagement", Tuple.Create<List<UserResult>, UserFilter>(Model.Item1, Model.Item2))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @*@Styles.Render("~/plugins/dataPickerStyles")*@
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/daterangepickerNewStyles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/daterangepickerNew")
+    <script type="text/javascript">
+        $(window).load(function () {
+
+            $("#UserId").select2({
+                placeholder: "All Users",
+                containerCssClass: "userdrp",
+                allowClear: true,
+                ajax: {
+                    //url: "https://api.github.com/search/repositories",
+                    //dataType: 'json',
+                    traditional: true,
+                    url: '@Url.Action("FillUserDropdownAJAX", "UserAccount", new { area = "OperatorAdmin" })',
+                    type: "POST",
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            UserName: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        // parse the results into the format expected by Select2
+                        // since we are using custom formatting functions we do not need to
+                        // alter the remote JSON data, except to indicate that infinite
+                        // scrolling can be used
+
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }, // let our custom formatter work
+                minimumInputLength: 1,
+                templateResult: formatRepo, // omitted for brevity, see the source of this page
+                templateSelection: formatRepoSelection, // omitted for brevity, see the source of this page
+                width: '100%'
+            });
+
+            function formatRepo(repo) {
+                if (repo.loading) {
+
+                    return repo.text
+                };
+
+                var markup =
+                    '<div class="avatar">' +
+                    '<div class="info">' +
+
+                    '<div class="col-sm-16">' + repo.name + '</div>';
+
+                markup += '</div></div> ';
+
+                return markup;
+            }
+
+            function formatRepoSelection(repo) {
+                return repo.name || repo.text;
+            }
+        });
+
+        $("#useradminAccountOverview").hide();
+        $("#useradminProfileManagement").hide();
+        $("#useradminPersonalInfo").hide();
+        $("#useradminBlockedNumber").hide();
+        function activeprofile(userid) {
+            $.post('@Url.Action("ActivateUserSection", "UserAccount", new { area = "OperatorAdmin" })', { id: userid }, function (data) {
+                $("#useradminAccountOverview").show();
+                $("#useradminProfileManagement").show();
+                $("#useradminPersonalInfo").show();
+                $("#useradminBlockedNumber").show();
+                if (data == "success") {
+                    window.location.href = '@Url.Action("Index", "UserAdminAccountOverview", new {area = "OperatorAdmin" })';
+
+                }
+            });
+        }
+        function updatestatus(id, status) {
+            var userObject = new Object();
+            userObject.id = id;
+            userObject.status = status;
+            $.post('@Url.Action("ApproveORSuspendUser", "UserAccount", new { area = "OperatorAdmin" })', userObject, function (data) {
+
+                if (data == "success") {
+                    window.location.href = '@Url.Action("Index", "UserAccount", new { area = "OperatorAdmin" })';
+
+                }
+            });
+        }
+        function dataTableSetup() {
+            $('#usermanagement').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                aoColumnDefs: [
+               {
+                   bSortable: false,
+                   aTargets: [-1]
+               }
+                ],
+                "bLengthChange": false,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5] } },
+                    { extend: 'csv', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5] } },
+                    { extend: 'excel', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5] } },
+                    { extend: 'pdf', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5] } },
+
+                    {
+                        extend: 'print',
+                        exportOptions: { columns: [0, 1, 2, 3, 4, 5] },
+                        title: 'UserDetails',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+            });
+        }
+        $(document).ready(function () {
+            $('body').bind('keyup', function (event) {
+                if (event.keyCode === 13) {
+                    $('#form0').submit();
+                }
+            });
+            $(".chosen-container").bind('keyup', function (e) {
+                if (e.which === 13) {
+                    $('#form0').submit();
+                    // or your stuff here...
+                }
+            });
+            $('#createdFrom').datetimepicker({ ignoreReadonly: true });
+
+            $('#createdTo').datetimepicker({
+                useCurrent: false, //Important! See issue #1075
+                ignoreReadonly: true
+            });
+
+            $("#createdFrom").on("dp.change", function (e) {
+                $('#createdTo').data("DateTimePicker").minDate(e.date);
+            });
+
+            $("#createdTo").on("dp.change", function (e) {
+                $('#createdFrom').data("DateTimePicker").maxDate(e.date);
+            });
+            $('#fromdate').css({ "height": "34px" });
+            $('#todate').css({ "height": "34px" });
+            //$('#data_5 .input-daterange').datepicker({
+            //    keyboardNavigation: false,
+            //    forceParse: false,
+            //    autoclose: true
+            //});
+            var config = {
+                '.chosen-select': { width: "100%" },
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+            //$("#btnSearch").click(function () {
+            //    oTable.columns(0).search($('#Item2_Email').val());
+            //    oTable.columns(1).search($('#UserId').val());
+            //    if ($("#Item2_Fromdate").val() != '') {
+            //        oTable.columns(2).search($("#Item2_Fromdate").val() + ',' + $("#Item2_Todate").val());
+            //    }
+            //    else {
+            //        oTable.columns(2).search(null);
+            //    }
+            //    oTable.columns(3).search($('#UserStatusId').val());
+            //    //hit search on server
+            //    oTable.draw();
+            //});
+            //$("#btnSearch").click(function () {
+            //    $(".spiner-example").show();
+            //    oTable.columns(0).search($('#Item2_Email').val());
+            //    oTable.columns(1).search($('#Item2_MSISDN').val());
+            //    oTable.columns(2).search($('#UserId').val());
+            //    if ($("#Item2_Fromdate").val() != '') {
+            //        oTable.columns(3).search($("#Item2_Fromdate").val() + ',' + $("#Item2_Todate").val());
+            //    }
+            //    else {
+            //        oTable.columns(3).search(null);
+            //    }
+            //    oTable.columns(4).search($('#UserStatusId').val());
+            //    //hit search on server
+            //    oTable.draw();
+               
+            //    setTimeout(function () { $(".spiner-example").hide(); }, 4000);
+            //});            //$("#btnSearch").click(function () {
+            //    $(".spiner-example").show();
+            //    oTable.columns(0).search($('#Item2_Email').val());
+            //    oTable.columns(1).search($('#Item2_MSISDN').val());
+            //    oTable.columns(2).search($('#UserId').val());
+            //    if ($("#fromdate").val() != '') {
+            //        oTable.columns(3).search($("#fromdate").val() + ',' + $("#todate").val());
+            //    }
+            //    else {
+            //        oTable.columns(3).search(null);
+            //    }
+            //    oTable.columns(4).search($('#UserStatusId').val());
+            //    //hit search on server
+            //    oTable.draw();
+
+            //    setTimeout(function () { $(".spiner-example").hide(); }, 4000);
+            //});            //$("#btnSearch").click(function () {
+            //    $(".spiner-example").show();
+            //    oTable.columns(0).search($('#Item2_Email').val());
+            //    oTable.columns(1).search($('#Item2_MSISDN').val());
+            //    oTable.columns(2).search($('#UserId').val());
+            //    if ($("#fromdate").val() != '') {
+            //        oTable.columns(3).search($("#fromdate").val() + ',' + $("#todate").val());
+            //    }
+            //    else {
+            //        oTable.columns(3).search(null);
+            //    }
+            //    oTable.columns(4).search($('#UserStatusId').val());
+            //    //hit search on server
+            //    oTable.draw();
+
+            //    setTimeout(function () { $(".spiner-example").hide(); }, 4000);
+            //});            //$("#btnSearch").click(function () {
+            //    $(".spiner-example").show();
+            //    oTable.columns(0).search($('#Item2_Email').val());
+            //    oTable.columns(1).search($('#Item2_MSISDN').val());
+            //    oTable.columns(2).search($('#UserId').val());
+            //    if ($("#fromdate").val() != '') {
+            //        oTable.columns(3).search($("#fromdate").val() + ',' + $("#todate").val());
+            //    }
+            //    else {
+            //        oTable.columns(3).search(null);
+            //    }
+            //    oTable.columns(4).search($('#UserStatusId').val());
+            //    //hit search on server
+            //    oTable.draw();
+
+            //    setTimeout(function () { $(".spiner-example").hide(); }, 4000);
+            //});
+            $("#userreset").click(function () {
+                $('#fromdate').val('');
+                $('#todate').val('');
+                $(".spiner-example").show();
+                $("#Item2_Email").val('');
+                $("#Item2_MSISDN").val('');
+                $("#UserId").select2("val", "");
+                $("#Item2_Fromdate").val('');
+                $("#Item2_Todate").val('');
+               $("#UserStatusId").val('');
+                $("#UserStatusId").trigger("chosen:updated");
+
+                //oTable.columns(0).search(null);
+                //oTable.columns(1).search(null);
+                //oTable.columns(2).search(null);
+                //oTable.columns(3).search(null);
+                ////Apply search for Status // DataTable column index 3
+                //oTable.columns(4).search($('#UserStatusId').val());
+                ////hit search on server
+                //oTable.draw();
+                //setTimeout(function () { $(".spiner-example").hide(); },4000);
+                
+                $.ajax({
+                    data: null,
+                    datatype: "text/plain",
+                    type: "POST",
+                    url: '@Url.Action("SearchUsers", "UserAccount", new { area = "OperatorAdmin" })',
+                    cache: false,
+                    success: function (data) {
+                        $(".spiner-example").hide();
+                        $("#userList").html(data);
+                        dataTableSetup();
+                    }
+                });
+            });
+            $(".spiner-example").show();
+            $('#usermanagement').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "info": false,
+                "aaSorting": [],
+                "pageLength": 10,
+                "bLengthChange": false,
+                "searching": true,
+                // "processing": true, // for show processing bar
+                "serverSide": true, // for process on server side
+                "orderMulti": false, // for disable multi column order
+                //dom: '<"top"i>rt<"bottom"lp><"clear">', // for hide default global search box // little confusion? don't worry I explained in the tutorial website
+                //dom: 'Bfrtip',
+                dom: '<"floatRight"B><"clear">frtip',
+                buttons: [
+                    { extend: 'copy', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5] } },
+                    { extend: 'csv', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5] } },
+                    { extend: 'excel', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5] } },
+                    { extend: 'pdf', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3, 4, 5] } },
+
+                    {
+                        extend: 'print',
+                        exportOptions: { columns: [0, 1, 2, 3, 4, 5] },
+                        title: 'UserDetails',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "ajax": {
+                    "url": "/OperatorAdmin/UserAccount/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+
+                "aoColumns": [
+                    {
+                        "mData": "Email", "name": "Email", "bSortable": true, "autoWidth": true,
+                        "mRender": function (data, type, row) {
+                            if (row.Email == null) {
+                                return '<td>-</td>';
+                            }
+                            else {
+                                return '<td>' + data + '</td>';
+                            }
+                            //if (row.Activated != 3) {
+                            //    return '<td><a onclick="activeprofile(' + row.Id + ');">' + data + '</a></td>';
+                            //}
+                            //else {
+                                //return '<td>' + data + '</td>';
+                            //}
+                        }
+                    }, //index 0
+                    { "data": "MSISDN", "name": "MSISDN", "bSortable": true, "autoWidth": true }, //index 1
+                    { "data": "Name", "name": "Name", "bSortable": true, "autoWidth": true }, //index 2
+                    { "data": "RoleName", "name": "Role", "bSortable": true, "autoWidth": true }, //index 3
+                    { "data": "CreatedDate", "name": "CreatedDate", "bSortable": true, "autoWidth": true }, //index 4
+                    //{
+                    //    "data": "CreatedDate", "name": "CreatedDate", "bSortable": true, "autoWidth": true,
+                    //    "mRender": function (data, type, row) {
+                    //        return moment(row.CreatedDate).format("DD/MM/YYYY");
+                    //    }
+                    //},//index 4
+                    { "data": "Status", "name": "Status", "bSortable": true, "autoWidth": true }, //index 4
+                    {
+                        "mData": "Activated", "bSearchable": false, "bSortable": false, "autoWidth": true,
+                        "mRender": function (data, type, row) {
+                            if (row.Activated == 1) {
+                                return '  <a class="btn btn-danger btn-xs" onclick="updatestatus(' + row.Id + ',2)">Suspend</a>';
+                            }
+                            else if (row.Activated == 2 || row.Activated == 3) {
+                                return '  <a class="btn btn-blue btn-xs" onclick="updatestatus(' + row.Id + ',1)">Approve</a>';
+                            }
+                            else if (row.Activated == 0) {
+                                return '<a class="btn btn-blue btn-xs" onclick="updatestatus(' + row.Id + ',1)">Approve</a> &nbsp;  <a class="btn btn-danger btn-xs" onclick="updatestatus(' + row.Id + ',2)">Suspend</a>';
+
+                            }
+                            else {
+                                return '<td></td>';
+                            }
+                        }
+                    }//index 5
+
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () {
+                    $(".spiner-example").hide();
+                    $(".floatRight").css('float', 'right');
+                    $(".floatRight").css('padding-bottom', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                }	// Hide processingDiv when loading table is complete
+
+            });
+
+
+            
+
+
+            oTable = $('#usermanagement').DataTable();
+
+            //Add 18-02-2019
+            $(".dataTables_filter label:first-child").hide();
+
+            //$('#usermanagement').DataTable({
+            //    "aaSorting": [],
+            //    "info": false,
+            //    bFilter: false,
+            //    "bLengthChange": false,
+            //    "language": {
+            //        "infoEmpty": "No Record Found."
+            //    },
+            //    aoColumnDefs: [
+            //    {
+            //        bSortable: false,
+            //        aTargets: [-1]
+            //    }
+            //    ],
+            //    aoColumnDefs: [
+            //   {
+            //       bSortable: false,
+            //       aTargets: [0]
+            //   }
+            //    ],
+            //    dom: '<"html5buttons"B>lTfgitp',
+            //    buttons: [
+            //        { extend: 'copy', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3] } },
+            //        { extend: 'csv', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3] } },
+            //        { extend: 'excel', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3] } },
+            //        { extend: 'pdf', title: 'UserDetails', exportOptions: { columns: [0, 1, 2, 3] } },
+
+            //        {
+            //            extend: 'print',
+            //            exportOptions: { columns: [0, 1, 2, 3] },
+            //            title: 'UserDetails',
+            //            customize: function (win) {
+            //                $(win.document.body).addClass('white-bg');
+            //                $(win.document.body).css('font-size', '10px');
+
+            //                $(win.document.body).find('table')
+            //                        .addClass('compact')
+            //                        .css('font-size', 'inherit');
+            //            }
+            //        }
+            //    ]
+            //});
+        });
+
+    </script>
+}

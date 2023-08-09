@@ -1,0 +1,15 @@
+﻿User-agent: *
+Disallow: 
+Disallow: /App_Data/
+Disallow: /App_Start/
+Disallow: /bin/
+Disallow: /EmailTemplates/
+Disallow: /Helpers/
+Disallow: /Controllers/
+Disallow: /Mappers/
+Disallow: /Media/
+Disallow: /Models/
+Disallow: /obj/
+Disallow: /Properties/
+Disallow: /ViewModels/
+Sitemap: http://advertise.arthar.com/advertiser.sitemap

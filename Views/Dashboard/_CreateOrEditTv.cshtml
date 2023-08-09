@@ -1,0 +1,171 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileTvFormModel
+@Html.HiddenFor(model => model.CampaignProfileTvId)
+@Html.HiddenFor(model => model.CampaignProfileId)
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Radio</h5>
+
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SatalliteQuestion, new { @class = "col-lg-3 control-label" })
+
+
+                        <div class="col-lg-9 editor-field" style="line-height:28px;">
+
+                            @foreach (var SatalliteQuestion in @Model.SatalliteQuestion)
+                            {
+                                var checkBoxId = "chk" + SatalliteQuestion.QuestionValue;
+                                var tdId = "td" + SatalliteQuestion.QuestionValue;
+
+                                <table>
+                                    <tr>
+                                        @if (SatalliteQuestion.Selected)
+                                        {
+                                            <td>
+                                                <input type="checkbox" id="@checkBoxId" checked class="chkclassSocialNetworking i-checks" value="@SatalliteQuestion.QuestionValue" />
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <input type="checkbox" id="@checkBoxId" class="chkclassNationalQuestion i-checks" value="@SatalliteQuestion.QuestionValue" />
+                                            </td>
+                                        }
+
+                                        <td id="@tdId" style="padding-left:15px;">
+                                            @SatalliteQuestion.QuestionName
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            }
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CableQuestion, new { @class = "col-lg-3 control-label" })
+
+
+                        <div class="col-lg-9 editor-field" style="line-height:28px;">
+                            @foreach (var CableQuestion in @Model.CableQuestion)
+                            {
+                                var checkBoxId = "chk" + CableQuestion.QuestionValue;
+                                var tdId = "td" + CableQuestion.QuestionValue;
+
+                                <table>
+                                    <tr>
+                                        @if (CableQuestion.Selected)
+                                        {
+                                            <td>
+                                                <input type="checkbox" id="@checkBoxId" checked class="chkclassLocalQuestion i-checks" value="@CableQuestion.QuestionValue" />
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <input type="checkbox" id="@checkBoxId" class="chkclassLocalQuestion i-checks" value="@CableQuestion.QuestionValue" />
+                                            </td>
+                                        }
+
+                                        <td id="@tdId" style="padding-left:15px;">
+                                            @CableQuestion.QuestionName
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            }
+                        </div>
+
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TerrestrialQuestion, new { @class = "col-lg-3 control-label" })
+
+
+                        <div class="col-lg-9 editor-field" style="line-height:28px;">
+                            @foreach (var TerrestrialQuestion in @Model.TerrestrialQuestion)
+                            {
+                                var checkBoxId = "chk" + TerrestrialQuestion.QuestionValue;
+                                var tdId = "td" + TerrestrialQuestion.QuestionValue;
+
+                                <table>
+                                    <tr>
+                                        @if (TerrestrialQuestion.Selected)
+                                        {
+                                            <td>
+                                                <input type="checkbox" id="@checkBoxId" checked class="chkclassMusicQuestion i-checks" value="@TerrestrialQuestion.QuestionValue" />
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <input type="checkbox" id="@checkBoxId" class="chkclassMusicQuestion i-checks" value="@TerrestrialQuestion.QuestionValue" />
+                                            </td>
+                                        }
+
+                                        <td id="@tdId" style="padding-left:15px;">
+                                            @TerrestrialQuestion.QuestionName
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            }
+                        </div>
+
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.InternetQuestion, new { @class = "col-lg-3 control-label" })
+
+
+                        <div class="col-lg-9 editor-field" style="line-height:28px;">
+                            @foreach (var InternetQuestion in @Model.InternetQuestion)
+                            {
+                                var checkBoxId = "chk" + InternetQuestion.QuestionValue;
+                                var tdId = "td" + InternetQuestion.QuestionValue;
+
+                                <table>
+                                    <tr>
+                                        @if (InternetQuestion.Selected)
+                                        {
+                                            <td>
+                                                <input type="checkbox" id="@checkBoxId" checked class="chkclassSportQuestion i-checks" value="@InternetQuestion.QuestionValue" />
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <input type="checkbox" id="@checkBoxId" class="chkclassMagazinesQuestion i-checks" value="@InternetQuestion.QuestionValue" />
+                                            </td>
+                                        }
+
+                                        <td id="@tdId" style="padding-left:15px;">
+                                            @InternetQuestion.QuestionName
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            }
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-1">
+                            <button class="btn btn-blue" type="submit">Update</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>

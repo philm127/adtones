@@ -1,0 +1,101 @@
+<div class="row border-bottom white-bg">
+    <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <span class="minimalize-styl-2 topnav-wel">Welcome to Adtones</span>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("Advertiser"))
+            {
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                        @*<li class="active">
+            <a aria-expanded="false" role="button" href="@Url.Action("Index", "Layouts")"> Back to main Layout page</a>
+        </li>*@
+
+                        <li id="Campaigns">
+                            <a href='@Url.Action("Index", "Dashboard")'>Campaigns </a>
+
+                        </li>
+
+                        <li id="Clients">
+
+                            <a href='@Url.Action("Index", "Client")'>Clients</a>
+                        </li>
+                        <li id="Adverts">
+                            <a href='@Url.Action("Index", "Advert")'> Adverts</a>
+
+                        </li>
+                        <li id="Accounts">
+                            <a href='@Url.Action("Index", "UserProfile")'>Account</a>
+
+                        </li>
+                        <li id="Billing">
+                            <a href='@Url.Action("Index", "Billing")'>Billing</a>
+
+                        </li>
+                        <li id="Currency">
+                            <a href='@Url.Action("Index", "Currency")'>Currency</a>
+
+                        </li>
+
+                        <li id="Help">
+                            <a href='@Url.Action("Index", "Help")'>Help</a>
+
+                        </li>
+                        
+
+                        @*<li id="SagePayDemo">
+                            <a href='@Url.Action("Add", "SagePayDemo")'>SagePayDemo</a>
+
+                        </li>*@
+
+                    </ul>
+
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li id="userprofile">
+                            <a href='@Url.Action("Index", "UserProfile")'>
+                                @User.Identity.Name
+                            </a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("LogOff", "Landing")' id="logoutbtn">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            }
+            if (User.IsInRole("Admin"))
+            {
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                        <li id="adminIndex">
+                            <a href='@Url.Action("Index", "AdminDashboard")'>Index</a>
+
+                        </li>
+                        <li id="adminHelp">
+                            <a href='@Url.Action("Index", "AdminQuestion")'>Help</a>
+
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li id="userprofile">
+                            <a href='@Url.Action("Index", "UserProfile")'>
+                                @User.Identity.Name
+                            </a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("LogOff", "Landing")' id="logoutbtn">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            }
+        }
+</nav>
+</div>

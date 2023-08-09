@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+  <siteMapNode url="" title="" description="">
+    <siteMapNode url="http://my.arthar.com/" title="Home" description="Home" />
+    <siteMapNode url="http://my.arthar.com/Account/Register" title="Registration" description="User Registration" />
+    <siteMapNode url="http://my.arthar.com/Account/Login" title="Login" description="User Login" />
+  </siteMapNode>
+</siteMap>

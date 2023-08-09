@@ -1,0 +1,44 @@
+﻿@using EFMVC.Web.Models
+@model AccountInfo
+@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="row">
+        @Html.Partial("_BasicInfo",Model.UserProfileInfo)
+       
+        @*@Html.Partial("_ChangePassword")*@
+    </div>
+    <div class="row">
+        @Html.Partial("_ContactInfo",Model.ContactsFormModel)
+    </div>
+    <div class="row">
+        @Html.Partial("_CompanyDetails",Model.CompanyDetailsFormModel)
+    </div>
+</div>
+@section Styles {
+@Styles.Render("~/plugins/sweetAlertStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sweetAlert")
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            $(document).bind('keypress', function (e) {
+                if (e.keyCode == 13) {
+                    $('#btnSearch').trigger('click');
+                }
+            });
+        });
+    </script>
+}*@
+/**/
+/**/
+

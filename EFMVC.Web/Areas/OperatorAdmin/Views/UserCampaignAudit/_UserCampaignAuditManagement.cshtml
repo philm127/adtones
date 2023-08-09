@@ -1,0 +1,220 @@
+﻿@using EFMVC.Web.Models;
+@using EFMVC.Web.SearchClass;
+@model Tuple<List<CampaignAuditResult>, CampaignAuditFilter>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Campaign  Audit</h5>
+                <div style="text-align:right">
+                    @*<button class="btn btn-blue " type="button"><i class="fa fa-copy"></i>&nbsp;Campaign</button>*@
+                </div>
+
+            </div>
+
+            @using (Ajax.BeginForm("SearchAudit", "UserCampaignAudit",
+  null,
+  new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultaudit", OnBegin = "progressbar" },
+  null))
+            {
+
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Play ID</label>
+
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.HiddenFor(Model2 => Model2.Item2.CampaignProfileId)
+                                    @Html.TextBoxFor(Model2 => Model2.Item2.PlayID, new { @class = "form-control", @placeholder = "Play ID" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">User ID</label>
+
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(Model2 => Model2.Item2.UserID, new { @class = "form-control", @placeholder = "User ID" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Length of Play</label>
+
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model2 => Model2.Item2.FromPlayLength, new { @class = "form-control onlyDigit digitLength" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model2 => Model2.Item2.ToPlayLength, new { @class = "form-control onlyDigit digitLength" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Status of Play</label>
+
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownListFor(Model1 => Model1.Item2.Status, ViewBag.campaignauditStatus as IEnumerable<SelectListItem>, new { @class = "form-control input-s-sm inline" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Play Cost (@Model.Item1.FirstOrDefault().CurrencyCode)</label>
+
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model2 => Model2.Item2.FromPlayCost, new { @class = "form-control onlyDigit digitLength" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model2 => Model2.Item2.ToPlayCost, new { @class = "form-control onlyDigit digitLength" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Total Cost (@Model.Item1.FirstOrDefault().CurrencyCode)</label>
+
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model2 => Model2.Item2.FromTotalCost, new { @class = "form-control onlyDigit digitLength" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model2 => Model2.Item2.ToTotalCost, new { @class = "form-control onlyDigit digitLength" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">SMS</label>
+
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownListFor(Model1 => Model1.Item2.SMSStatus, ViewBag.campaignauditSMSStatus as IEnumerable<SelectListItem>, new { @class = "form-control input-s-sm inline" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Start Date/Time</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        <div class='input-group' id='startFrom'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.StartFromtime, new { @class = "input-sm form-control", @id = "startfromtime", @Value = "", @data_date_format = "DD/MM/YYYY hh:mm A", @readonly = "readonly", style = "height: 34px;" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                        <span class="input-group-addon" style="background-color: #eeeeee;">to</span>
+                                        <div class='input-group' id='startTo'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.StartTotime, new { @class = "input-sm form-control", @id = "starttotime", @Value = "", @data_date_format = "DD/MM/YYYY hh:mm A", @readonly = "readonly", style = "height: 34px;" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">End Date/Time</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        <div class='input-group' id='endFrom'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.EndFromtime, new { @class = "input-sm form-control", @id = "endfromtime", @Value = "", @data_date_format = "DD/MM/YYYY hh:mm A", @readonly = "readonly", style = "height: 34px;" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                        <span class="input-group-addon" style="background-color: #eeeeee;">to</span>
+                                        <div class='input-group' id='endTo'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.EndTotime, new { @class = "input-sm form-control", @id = "endtotime", @Value = "", @data_date_format = "DD/MM/YYYY hh:mm A", @readonly = "readonly", style = "height: 34px;" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 col-lg-12">
+                            <div class="col-sm-12 center">
+                                <label class="hidden-sm visible-md hidden-lg col-md-12 col-lg-2 control-label">&nbsp;</label>
+                                <button class="btn btn-blue" type="submit" id="btnSearch">Search</button>
+                                <button class="btn btn-white" type="button" id="resetaudit">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="compaignauditList">
+                        @{ Html.RenderPartial("_CampaignAuditList", Model.Item1);}
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultaudit = function (data) {
+        $(".spiner-example").hide();
+        if (data != "notauthorise")
+        {
+            $('.dataTables-audit').remove();
+            $("#compaignauditList").html(data);
+            dataTableSetup();
+        }
+        else {
+            window.location.href = '@Url.Action("Index","Landing")';
+        }
+    };
+    function dataTableSetup() {
+        $('.dataTables-audit').DataTable({
+            "aaSorting": [],
+            "info": false,
+            "pageLength": 10,
+            bFilter: false,
+            "bLengthChange": false,
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy', title: 'Campaign Audit' },
+                { extend: 'csv', title: 'Campaign Audit' },
+                { extend: 'excel', title: 'Campaign Audit' },
+                { extend: 'pdf', title: 'Campaign Audit' },
+
+                {
+                    extend: 'print',
+                    title: 'Campaign Audit',
+                    customize: function (win) {
+
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                    }
+                }
+            ]
+        });
+    }
+</script>

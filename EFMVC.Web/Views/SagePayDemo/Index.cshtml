@@ -1,0 +1,56 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "AddAdvert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <p>
+            Transaction Status : @TempData["Status"].ToString()
+        </p>
+
+        @if (TempData["StatusDetail"] != null)
+        {
+            <p>Transaction Status Detail : @TempData["StatusDetail"].ToString()</p><br />
+        }
+        else
+        {
+
+        }
+        @if (TempData["TransactionId"] != null)
+        {
+            <p>Transaction Id : @TempData["TransactionId"].ToString()</p><br />
+        }
+        else
+        {
+
+        }
+
+
+        @if (TempData["TransactionType"] != null)
+        {
+            <p> Transaction Type : @TempData["TransactionType"].ToString()</p><br />
+        }
+        else
+        {
+
+        }
+
+        @if (TempData["Currency"] != null)
+        {
+            <p>Transaction Currency : @TempData["Currency"].ToString()</p><br />
+        }
+        else
+        {
+
+        }
+        <div>
+            <a href="@Url.Action("Add", "SagePayDemo")"><i class="entypo-home"></i>check another card</a>
+        </div>
+    </div>
+</div>

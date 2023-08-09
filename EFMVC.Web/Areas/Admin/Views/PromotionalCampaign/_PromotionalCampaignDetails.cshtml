@@ -1,0 +1,75 @@
+﻿@using EFMVC.Web.Areas.Admin.Models;
+@model List<PromotionalCampaignResult>
+<div class="row">
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["success"]
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["Error"]
+        </div>
+    }
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-promotionalCampaign">
+        <thead>
+            <tr>
+                <th>Operator</th>
+                <th>Campaign</th>
+                <th>Advert</th>
+                <th>Batch ID</th>
+                <th>Max Daily</th>
+                <th>Max Weekly</th>
+                <th>Media File</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model)
+            {
+                <tr class="gradeX">
+                    <td>@result.OperatorName</td>
+                    <td><a href='@Url.Action("Index", "PromotionalCampaignAudit", new { area = "Admin", campaignId = result.CampaignId })'>@result.CampaignName</a></td>
+                    <td>@result.AdvertName</td>
+                    <td>@result.BatchID</td>
+                    <td>@result.MaxDaily</td>
+                    <td>@result.MaxWeekly</td>
+                    @if (result.AdvertLocation == null)
+                    {
+                        <td><audio class="audio-small" controls="controls" id=" + @result.AdvertName + " src=" + @result.AdvertLocation + '"></audio></td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.Html5().Media.Audio(result.AdvertName, result.AdvertLocation, "", new { @class = "audio-small" })
+                        </td>
+                    }
+                    @if (result.Status == 1)
+                    {
+                        <td>Play</td>
+                    }
+                    else
+                    {
+                        <td>Stop</td>
+                    }
+                    @if (result.Status == 1)
+                    {
+                        <td><a class="btn btn-danger btn-xs" onclick='updatestatus(@result.CampaignId, 2)'>Stop</a></td>
+                    }
+                    else
+                    {
+                        <td><a class="btn btn-blue btn-xs" onclick='updatestatus(@result.CampaignId, 1)'>Play</a></td>
+                    }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

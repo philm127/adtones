@@ -1,0 +1,153 @@
+﻿@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model Tuple<List<HelpAdminResult>, HelpAdminFilter>
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeIn">
+
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        @Html.Partial("_HelpManagement", Tuple.Create<List<HelpAdminResult>, HelpAdminFilter>(Model.Item1, Model.Item2))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+
+
+    
+    <script type="text/javascript">
+    function dataTableSetup() {
+        $('.dataTables-question').DataTable({
+            "aaSorting": [],
+            "info": false,
+            bFilter: false,
+            "bLengthChange": false,
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy', title: 'Question' },
+                { extend: 'csv', title: 'Question' },
+                { extend: 'excel', title: 'Question' },
+                { extend: 'pdf', title: 'Question' },
+
+                {
+                    extend: 'print',
+                    title: 'Question',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                    }
+                }
+            ]
+        });
+    }
+    $(document).ready(function () {
+        $("#helpreset").click(function () {
+            $("#Item2_ID").val('');
+            $("#Item2_ClientId").val('0');
+            $("#Item2_UserId").val('0');
+            $("#Item2_Fromdate").val('');
+            $("#Item2_Todate").val('');
+            $("#Item2_LastResponseFromdate").val('');
+            $("#Item2_LastResponseTodate").val('');
+            $("#Item2_SubjectId").val('0');
+            $("#Item2_Status").val('0');
+            $("#Item2_PaymentMethodId").val("0");
+            $.ajax({
+                data: null,
+                datatype: "text/plain",
+                type: "POST",
+                url: '@Url.Action("SearchQuestion", "AdminQuestion")',
+                cache: false,
+                success: function (data) {
+                    $("#questionList").html(data);
+                    dataTableSetup();
+                }
+            });
+        });
+        $('.dataTables-question').DataTable({
+            "aaSorting": [],
+            "info": false,
+            bFilter: false,
+            "bLengthChange": false,
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy', title: 'Question' },
+                { extend: 'csv', title: 'Question' },
+                { extend: 'excel', title: 'Question' },
+                { extend: 'pdf', title: 'Question' },
+
+                {
+                    extend: 'print',
+                    title: 'Question',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                    }
+                }
+            ]
+        });
+        });
+    </script>
+}

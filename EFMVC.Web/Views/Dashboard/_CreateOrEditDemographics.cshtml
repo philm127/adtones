@@ -1,0 +1,222 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileDemographicsFormModel
+@using MvcCheckBoxList.Model
+
+<style>
+    .advertitems {
+        display: table;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+
+            <div class="ibox-content" id="demographicsdiv">
+                <div class="alert alert-success alert-dismissable" id="dvdemographysuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvdemographyerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cdemographyerrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveDemographics", "Dashboard",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultdemography", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.CampaignProfileDemographicsId)
+                    @Html.HiddenFor(model => model.CampaignProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            <button class="btn btn-sm btn-blue" type="button" id="selectalldemographic">Select All</button>
+                            <button class="btn btn-sm btn-blue" type="button" id="deselectalldemographic">Deselect All</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            @if (Model.AgeQuestion.Count() > 0)
+                            {
+                                if (Model.Age == true)
+                                {
+                                    <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.AgeQuestion)</h3>
+                                }
+                            }
+                            @if (Model.GenderQuestion.Count() > 0)
+                            {
+                                if (Model.Gender == true)
+                                {
+                                    <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.GenderQuestion)</h3>
+                                }
+                            }
+                            @if (Model.HouseholdStatusQuestion.Count() > 0)
+                            {
+                                if (Model.HouseholdStatus == true)
+                                {
+                                    <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.HouseholdStatusQuestion)</h3>
+                                }
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.AgeQuestion.Count() > 0)
+                            {
+                                if (Model.Age == true)
+                                {
+                                    <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                        <ul>
+                                            @Html.EditorFor(model => model.AgeQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                        </ul>
+
+                                    </div>
+                                }
+                            }
+                            @if (Model.GenderQuestion.Count() > 0)
+                            {
+                                if (Model.Gender == true)
+                                {
+                                    <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                        <ul>
+                                            @Html.EditorFor(model => model.GenderQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                        </ul>
+                                    </div>
+                                }
+                            }
+                            @if (Model.HouseholdStatusQuestion.Count() > 0)
+                            {
+                                if (Model.HouseholdStatus == true)
+                                {
+                                    <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                        <ul>
+                                            @Html.EditorFor(model => model.HouseholdStatusQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                        </ul>
+                                    </div>
+                                }
+                            }
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.WorkingStatusQuestion.Count() > 0)
+                            {
+                                if (Model.WorkingStatus == true)
+                                {
+                                    <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.WorkingStatusQuestion)</h3>
+                                }
+                            }
+                            @if (Model.RelationshipStatusQuestion.Count() > 0)
+                            {
+                                if (Model.RelationshipStatus == true)
+                                {
+                                    <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.RelationshipStatusQuestion)</h3>
+                                }
+                            }
+                            @if (Model.EducationQuestion.Count() > 0)
+                            {
+                                if (Model.Education == true)
+                                {
+                                    <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.EducationQuestion)</h3>
+                                }
+                            }
+
+
+                        </div>
+
+                        <div class="row">
+                            @if (Model.WorkingStatusQuestion.Count() > 0)
+                            {
+                                if (Model.WorkingStatus == true)
+                                {
+                                    <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                        <ul>
+                                            @Html.EditorFor(model => model.WorkingStatusQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                        </ul>
+                                    </div>
+                                }
+                            }
+                            @if (Model.RelationshipStatusQuestion.Count() > 0)
+                            {
+                                if (Model.RelationshipStatus == true)
+                                {
+                                    <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                        <ul>
+                                            @Html.EditorFor(model => model.RelationshipStatusQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                        </ul>
+                                    </div>
+                                }
+                            }
+                            @if (Model.EducationQuestion.Count() > 0)
+                            {
+                                if (Model.Education == true)
+                                {
+                                    <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                        <ul>
+                                            @Html.EditorFor(model => model.EducationQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                        </ul>
+                                    </div>
+                                }
+                            }
+
+                        </div>
+                        @if (Model.IncomeBracketQuestion.Count() > 0)
+                        {
+                            if (ViewBag.Country != "Kenya")
+                            {
+                                <div class="row" style="padding-top:15px;">
+
+                                    @*
+                    code commented on 29-03-2017
+                    <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.LocationQuestion)</h3>*@
+                                    <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.IncomeBracketQuestion)</h3>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                        <ul>
+                                            @Html.EditorFor(model => model.IncomeBracketQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                        </ul>
+                                    </div>
+
+                                    @* code commented on 29-03-2017
+                        <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                        <ul>
+                            @Html.EditorFor(model => model.LocationQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                        </ul>
+                    </div>*@
+                                </div>
+                            }
+                        }
+                        </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-1">
+                            <button class="btn btn-blue" type="submit">Update</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultdemography = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvdemographysuc").show();
+            $("#dvdemographyerror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing")';
+            }
+            $("#cdemographyerrror").html(data);
+            $("#dvdemographysuc").hide();
+            $("#dvdemographyerror").show();
+        }
+    };
+</script>

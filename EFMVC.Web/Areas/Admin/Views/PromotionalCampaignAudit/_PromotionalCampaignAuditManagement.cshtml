@@ -1,0 +1,195 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass.Models;
+@model  Tuple<List<PromotionalCampaignAuditResult>, EFMVC.Web.Areas.Admin.SearchClass.PromotionalCampaignAuditFilter>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title" style="border-style:none;">
+                <h5>Promotional Campaign Management</h5>
+            </div>
+            @using (Ajax.BeginForm("SearchPromotionalCampaignAudit", "PromotionalCampaignAudit", null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getoperatorresult", OnBegin = "progressbar" },
+null))
+            {
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">MSISDN</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(Model2 => Model2.Item2.MSISDN, new { @class = "form-control", @placeholder = "MSISDN" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Length of Play</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model2 => Model2.Item2.FromPlayLength, new { @class = "form-control onlyDigit digitLength" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model2 => Model2.Item2.ToPlayLength, new { @class = "form-control onlyDigit digitLength" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">DTMF</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(Model2 => Model2.Item2.DTMFKey, new { @class = "form-control", @placeholder = "DTMF" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Start Date/Time</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        <div class='input-group' id='startFrom'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.StartFromtime, new { @class = "input-sm form-control", @id = "startfromtime", @Value = "", @data_date_format = "DD/MM/YYYY hh:mm A", @readonly = "readonly", style = "height: 34px;" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                        <span class="input-group-addon" style="background-color: #eeeeee;">to</span>
+                                        <div class='input-group' id='startTo'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.StartTotime, new { @class = "input-sm form-control", @id = "starttotime", @Value = "", @data_date_format = "DD/MM/YYYY hh:mm A", @readonly = "readonly", style = "height: 34px;" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">End Date/Time</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        <div class='input-group' id='endFrom'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.EndFromtime, new { @class = "input-sm form-control", @id = "endfromtime", @Value = "", @data_date_format = "DD/MM/YYYY hh:mm A", @readonly = "readonly", style = "height: 34px;" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                        <span class="input-group-addon" style="background-color: #eeeeee;">to</span>
+                                        <div class='input-group' id='endTo'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.EndTotime, new { @class = "input-sm form-control", @id = "endtotime", @Value = "", @data_date_format = "DD/MM/YYYY hh:mm A", @readonly = "readonly", style = "height: 34px;" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12 col-lg-12">
+                            <div class="col-sm-12 center">
+                                <button class="btn btn-blue" type="button" id="btnSearch">Search</button>
+                                <button class="btn btn-white" type="button" id="promotionalCampaignreset">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="promotionalCampaignAuditList">
+                        @{
+                            Html.RenderPartial("_PromotionalCampaignAuditDetails", Model.Item1);
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getoperatorresult = function (data) {
+        if (data != "notauthorise") {
+            $(".spiner-example").hide();
+            $('.dataTables-promotionalCampaignAudit').remove();
+            $("#promotionalCampaignAuditList").html(data);
+            dataTableSetup();
+        }
+        else {
+            window.location.href = '@Url.Action("Index","Landing",new { area = "" })';
+        }
+    };
+    function dataTableSetup() {
+        $('.dataTables-promotionalCampaignAudit').DataTable({
+            "preDrawCallback": function (settings) {
+                $(".spiner-example").show();
+            },
+            "info": false,
+            bFilter: false,
+            "searching": false,
+            "bLengthChange": false,
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            aoColumnDefs: [
+               {
+                   bSortable: false,
+                   aTargets: [-1]
+               }
+            ],
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                {
+                    extend: 'copy',
+                    title: 'PromotionalCampaignDetails',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 7],
+                    }
+                },
+                {
+                    extend: 'csv',
+                    title: 'PromotionalCampaignDetails',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 7],
+                    }
+                },
+                {
+                    extend: 'excel',
+                    title: 'PromotionalCampaignDetails',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 7],
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: 'PromotionalCampaignDetails',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 7],
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    title: 'PromotionalCampaignDetails',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 7],
+                    },
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                    }
+                }
+            ],
+            "drawCallback": function (settings) {
+                $(".spiner-example").hide();
+            },
+            "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+        });
+    }
+</script>

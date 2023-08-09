@@ -1,0 +1,125 @@
+﻿@using EFMVC.Web.Areas.UsersAdmin.ViewModel
+@model UserProfile
+@{
+    UserProfile _userinfo = (UserProfile)ViewBag.userinfo;
+    ViewBag.Title = "UserDetails";
+    
+}
+<div class="col-lg-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>User Details</h5>
+            <div style="float:right;">
+                <a class="btn-sm btn-danger" href='@Url.Action("DeleteUser", "AdvertisersManagement", new {area="Admin",@id = _userinfo.Id })'>Delete</a>
+            </div>
+        </div>
+
+        <div class="ibox-content">
+            @using (Html.BeginForm("UpdateUserInfo", "AdvertisersManagement",FormMethod.Post, new {@class= "form-horizontal" }))
+            {
+                @Html.ValidationSummary(true);
+                if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        @TempData["Error"]
+                    </div>
+                }
+                if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        @TempData["success"]
+                    </div>
+                }
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Email</label>
+
+                    <div class="col-lg-3">
+                        @Html.HiddenFor(Model => Model.Id)
+                        
+
+                        @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control trimmed", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(Model => Model.Email, null, new { @class = "btn-danger" })
+
+                    </div>
+                </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">First Name</label>
+
+                            <div class="col-lg-3">
+
+                                @Html.TextBoxFor(Model => Model.Fname, new { @class = "form-control trimmed" })
+                                @Html.ValidationMessageFor(Model => Model.Fname, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Last Name</label>
+
+                            <div class="col-lg-3">
+
+                                @Html.TextBoxFor(Model => Model.Lname, new { @class = "form-control trimmed" })
+                                @Html.ValidationMessageFor(Model => Model.Lname, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Organisation</label>
+
+                            <div class="col-lg-3">
+
+                                @Html.TextBoxFor(Model => Model.Organisation, new { @class = "form-control trimmed" })
+                                @Html.ValidationMessageFor(Model => Model.Organisation, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Outstanding Duedate Days <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-3">
+
+                                @Html.TextBoxFor(Model => Model.Outstandingdays, new { @class = "form-control trimmed" })
+                                @Html.ValidationMessageFor(Model => Model.Outstandingdays, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div>
+                            <label class="col-lg-2 control-label" style="margin-right: 5px;">Change Role <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group" style="margin-right: 5px;">
+
+                                    @Html.DropDownListFor(Model => Model.RoleId, ViewBag.userrole as IEnumerable<SelectListItem>, "--Select Role--", new { @class = "form-control input-s-sm inline" })
+                                    @Html.ValidationMessageFor(Model => Model.RoleId, null, new { @class = "btn-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index","AdvertisersManagement")'">Cancel</button>
+                            </div>
+                        </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/iCheck")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+
+    </script>
+}
+
+

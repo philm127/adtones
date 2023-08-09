@@ -1,0 +1,106 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileTvFormModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>TV</h5>
+
+                </div>*@
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvtvsuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvtvrror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="ctverrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveTv", "Profile",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresulttv", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.UserProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Satallite_TV)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Cable_TV)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Terrestrial_TV)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Satallite_TV, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Satallite_TV, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Satallite_TV, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Satallite_TV, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Satallite_TV)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Cable_TV, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Cable_TV, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Cable_TV, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Cable_TV, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Cable_TV)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Terrestrial_TV, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Terrestrial_TV, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Terrestrial_TV, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Terrestrial_TV, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Terrestrial_TV)
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Internet_TV)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Internet_TV, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Internet_TV, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Internet_TV, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Internet_TV, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Internet_TV)
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                   
+                    
+                    <div class="form-group">
+                        <div class="col-lg-1">
+                            <button class="btn btn-blue" type="submit">Save</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresulttv = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvtvsuc").show();
+            $("#dvtvrror").hide();
+        }
+        else
+        {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing", new { Area = "" })';
+            }
+            $("#ctverrror").html(data);
+            $("#dvtvsuc").hide();
+            $("#dvtvrror").show();
+        }
+    };
+</script>

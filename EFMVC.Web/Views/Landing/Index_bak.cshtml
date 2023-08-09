@@ -1,0 +1,832 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Landing page";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Adtones | @ViewBag.Title</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+    <!-- Add jQuery Style direct - used for jQGrid plugin -->
+    <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.css")" rel="stylesheet" type="text/css" />
+
+    <!-- Primary Inspinia style -->
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/font-awesome/css")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+</head>
+
+<body id="page-top" class="landing-page">
+    <div class="navbar-wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand page-scroll" style="margin-bottom:5px;" href="#page-top">adtones</a>
+                    @*<a class="navbar-brand loginpopupopen" style="font-size:14px !important;margin-bottom:5px;margin-left:15px;" data-toggle="modal" href="#modal-form">Sign in / Sign up</a>*@
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="page-scroll loginpopupopen" data-toggle="modal" href="#modal-form">Sign in / Sign up</a></li>
+                        @*<li><a class="page-scroll" href="#works">How it works</a></li>*@
+                        <li><a class="page-scroll" href="#media">ADVERTISERS</a></li>
+                        <li><a class="page-scroll" href="#operator">Operators</a></li>
+                        @*<li><a class="page-scroll" href="#caller">Caller</a></li>*@
+                        <li><a class="page-scroll" href="#about">About</a></li>
+                        <li><a class="page-scroll">BLOG</a></li>
+                        @*<li><a class="page-scroll" href="#contact">Contact</a></li>*@
+                        @*<li id="home-desktop"><a class="page-scroll" href="#page-top"><i class="fa fa-home" style="font-size:19px!important;"></i></a></li>
+                            <li id="home-mobile" style="display:none;"><a class="page-scroll" href="#page-top"><i class="fa fa-home"></i>Home</a></li>*@
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="navar-mobile" style="display:none"></div>
+    <section class="cd-hero">
+        <ul class="cd-hero-slider autoplay">
+            <li class="cd-bg-video selected">
+                <div class="cd-full-width carousel-caption">
+                    <h1>
+                        <span>Traceable to every second</span>
+                        <span>Accountable to every cent</span>
+                    </h1>
+                    <p style="color:#fff;">Total transparency for advertisers, operators and callers</p>
+                    <a href="#cservices" class="cd-btn secondary">How it works</a>
+                </div>
+                <div class="cd-bg-video-wrapper" data-video="../Video/13215416">
+                    <!-- video element will be loaded using jQuery -->
+                </div>
+            </li>
+            <li class="cd-bg-video">
+                <div class="cd-full-width carousel-caption">
+                    <h1>
+                        <span>COMBINE THE BEST FROM DIRECT MARKETING,</span>
+                        <span>RADIO AND DIGITAL</span>
+                    </h1>
+                    <p style="color:#fff;">adtones is a revolutionary new marketing channel</p>
+                    <a href="#cservices" class="cd-btn secondary">How it works</a>
+                </div>
+                <div class="cd-bg-video-wrapper" data-video="../Video/3222748">
+                    <!-- video element will be loaded using jQuery -->
+                </div>
+            </li>
+            <li class="cd-bg-video">
+                <div class="cd-full-width carousel-caption">
+                    <h1 style="color:#282828 !important;">
+                        <span>Operators get a</span>
+                        <span>new revenue stream</span>
+                    </h1>
+                    <p style="color:#282828 !important;">Giving telecoms a fair share of ad income</p>
+                    <a href="#cservices" class="cd-btn secondary">How it works</a>
+                </div>
+                <div class="cd-bg-video-wrapper" data-video="../Video/5808230">
+                    <!-- video element will be loaded using jQuery -->
+                </div>
+            </li>
+            <li class="cd-bg-video">
+                <div class="cd-full-width carousel-caption">
+                    <h1>
+                        <span>Callers earn money</span>
+                        <span>when making a phone call</span>
+                    </h1>
+                    <p style="color:#fff;">Subsidised monthly bill, satisfied customers and less churn</p>
+                    <a href="#cservices" class="cd-btn secondary">How it works</a>
+                </div>
+                <div class="cd-bg-video-wrapper" data-video="../Video/9245606">
+                    <!-- video element will be loaded using jQuery -->
+                </div>
+            </li>
+            <li class="cd-bg-video">
+                <div class="cd-full-width carousel-caption">
+                    <h1>
+                        <span>GET DIRECT ACCESS TO CUSTOMERS</span>
+                        <span>EVERYWHERE</span>
+                    </h1>
+                    <p style="color:#fff;">adtones gives access to customers in cities and savannah</p>
+                    <a href="#cservices" class="cd-btn secondary">How it works</a>
+                </div>
+                <div class="cd-bg-video-wrapper" data-video="../Video/4303817">
+                    <!-- video element will be loaded using jQuery -->
+                </div>
+            </li>
+        </ul> <!-- .cd-hero-slider -->
+    </section>
+    @*
+        <section class="cd-hero" id="highinternet" style="display:none;">
+            <ul class="cd-hero-slider autoplay">
+                <li class="cd-bg-video selected">
+                    <div class="cd-full-width carousel-caption">
+                        <h1>
+                            <span>Traceable to every second</span>
+                            <span>Accountable to every cent</span>
+                        </h1>
+                        <p>Total transparency for advertisers, operators and callers</p>
+                        <a href="#cservices" class="btn btn-lg btn-blue">How it Works</a>
+                    </div>
+                </li>
+                <li class="cd-bg-video">
+                    <div class="cd-full-width">
+                        <h1>
+                            <span>COMBINE THE BEST FROM DIRECT MARKETING,</span>
+                            <span>RADIO AND DIGITAL</span>
+                        </h1>
+                        <p>adtones is a revolutionary new marketing channel</p>
+                        <a href="#cservices" class="btn btn-lg btn-blue">How it Works</a>
+                    </div>
+                </li>
+                <li class="cd-bg-video">
+                    <div class="cd-full-width">
+                        <h1>
+                            <span>Operators get a</span>
+                            <span>new revenue stream</span>
+                        </h1>
+                        <p>Giving telecoms a fair share of ad income</p>
+                        <a href="#cservices" class="btn btn-lg btn-blue">How it Works</a>
+                    </div>
+                </li>
+                <li class="cd-bg-video">
+                    <div class="cd-full-width">
+                        <h1>
+                            <span>Callers earn money</span>
+                            <span>when making a phone call</span>
+                        </h1>
+                        <p>Subsidised monthly bill, satisfied customers and less churn</p>
+                        <a href="#cservices" class="btn btn-lg btn-blue">How it Works</a>
+                    </div>
+                </li>
+                <li class="cd-bg-video">
+                    <div class="cd-full-width">
+                        <h1>
+                            <span>GET DIRECT ACCESS TO CUSTOMERS</span>
+                            <span>EVERYWHERE</span>
+                        </h1>
+                        <p>adtones gives access to customers in cities and savannah</p>
+                        <a href="#cservices" class="btn btn-lg btn-blue">How it Works</a>
+                    </div>
+                </li>
+            </ul> <!-- .cd-hero-slider -->
+        </section>*@
+
+
+
+
+    <section class="container services" id="cservices">
+        <div class="row">
+            <div class="col-sm-3">
+                <h2>CAPTIVATE</h2>
+                @*<p>Almost 7 billion people has a mobile phone. Most of them use their phone many times every day. The simple process of making a call is a fundamental part of the daily life.</p>*@
+                <p><span class="text-blue">adtones</span> captivates highly profiled callers without prolonging or impacting the quality of the primary product - the phone call.</p>
+                @*<p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>*@
+            </div>
+            <div class="col-sm-3">
+                <h2>Focused</h2>
+                @*<p>On average a person makes 4 calls per day. Always alert and ready for the call to be picked up in order to start a conversation or leave a message. It is a focused personal moment.</p>*@
+                <p><span class="text-blue">adtones</span> uses a personal focused moment, when waiting for a call to be picked up, to deliver profiled advertising to the caller.</p>
+                @*<p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>*@
+            </div>
+            <div class="col-sm-3">
+                <h2>Receptive</h2>
+                @*<p>A lot of marketing resources are wasted getting the wrong commercial to the wrong people.</p>*@
+                <p><span class="text-blue">adtones</span> invites callers to sign up and make a profile of likes and dislikes. This ensures the ad is relevant and making the caller more receptive than on other channels.</p>
+                @*<p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>*@
+            </div>
+            <div class="col-sm-3">
+                <h2>Rewarding</h2>
+                @*<p>It’s the caller’s likes and dislikes that are interesting and it’s the caller who listens to the ad. The caller should get the biggest share of the income.</p>*@
+                <p><span class="text-blue">adtones</span> forwards almost all of the ad income giving operators a new revenue and callers their monthly bill partly or fully paid.</p>
+                @*<p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>*@
+            </div>
+        </div>
+    </section>
+
+    <section id="works" class="container features">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="navy-line"></div>
+                <h1>How it works? Just like normal!</h1>
+                @*<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>*@
+                <p class="p-color">The call is the primary product. Call quality is the same with adtones.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 features-text wow fadeInLeft">
+                <small>adtones</small>
+                <h2>Just like normal!</h2>
+                <ul style="color: #666666;">
+                    <li class="linespace">Make a phone call - just like normal.</li>
+                    <li class="linespace">Instead of a dial tone the caller hears an ad.</li>
+                    <li>The call is not prolonged: The ad stops when the call is picked up – just like normal.</li>
+                </ul>
+                <p>The caller is credited immediately via the operator.</p>
+                <p>The caller’s individual profile with likes and dislikes – e.g. likes music and movies and dislikes diapers and detergents – will increase the price of the ad creating a bigger income for the caller.</p>
+                @*<p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>*@
+                @*<p><a href="#contact" class="btn btn-primary">Learn more</a></p>*@
+            </div>
+            <div class="col-lg-8 features-text text-right wow fadeInRight">
+                <img src="~/Images/landing/infopic.png" alt="dashboard" class="img-responsive pull-right">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="navy-line"></div>
+                <h1>The best from DM, radio and digital</h1>
+                <p class="p-color">The focus of direct marketing, the advantages of radio, and the measured responsiveness of digital</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 features-text wow fadeInLeft">
+                <small>adtones</small>
+                <h2>Talk directly to customers</h2>
+                <p>adtones is a revolutionary new marketing channel. Advertisers get access to a personal, focused moment: The period a caller waits for somebody to pick up the call.</p>
+                <p>adtones’ users are mobile, fixed or IP telephony callers pooled from different telecom operators.</p>
+                <p><a class="navy-link" href="#about" role="button">Learn more &raquo;</a></p>
+                @*<a href="#contact" class="btn btn-primary">Learn more</a>*@
+            </div>
+            <div class="col-lg-6 text-right m-t-xs wow zoomIn">
+                <img src="~/Images/landing/bestDM.jpg" class="img-responsive" alt="dashboard">
+            </div>
+            <div class="col-lg-3 features-text text-right wow fadeInRight">
+                <small>adtones</small>
+                <h2>Track each caller’s interaction</h2>
+                <p>Media buyers can target callers;<br />Geographically:  Postcode and geo-location.<br />Demographically: Age, gender, income, education<br />Behaviour: using simplified target group index (TGI) questions. Ad types, likes and dislikes, Activities, Interests, Opinions, Attitudes<br />Usage; type of contract, spend etc.<br />Every play is recorded – length and time, every interaction e.g. SMS and email requests<br />Every cent is fully accountable and traceable.</p>
+                <p><a class="navy-link" href="#about" role="button">Learn more &raquo;</a></p>
+                @*<a href="#contact" class="btn btn-primary">Learn more</a>*@
+            </div>
+        </div>
+
+    </section>
+    <section id="media" class="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="navy-line"></div>
+                    <h1>Advertisers</h1>
+                    <p class="p-color">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 features-text wow fadeInLeft">
+                    <small>adtones</small>
+                    <h2>Open auction</h2>
+                    <p>Delivery price for an ad is based on an open auction system.</p>
+                    <p>The auction process selects the five highest bids associated with the time slot and caller profile, and puts the ads in the profile play list.</p>
+                    <p>In case the caller only makes one call in the specified period, the ad at the top of the play list is played. If 3 calls are made the top 3 ads are delivered and so on. Adtones cannot guarantee a caller will make a call over a specific period.</p>
+                    <p>Only ads played more than 6 seconds are considered delivered. Ads played for less than 6 seconds is not charged, the caller is not paid and the ad is kept in the playlist for the next call.</p>
+                    <p><a class="navy-link" href="#about" role="button">Learn more &raquo;</a></p>
+                </div>
+                <div class="col-lg-6 text-right m-t-xs wow zoomIn">
+                    <img src="~/Images/landing/iphone.jpg" class="img-responsive" alt="dashboard">
+                </div>
+                <div class="col-lg-3 features-text text-right wow fadeInRight">
+                    <small>adtones</small>
+                    <h2>Campaign management</h2>
+                    <p>Advertisers have access to an intuitive campaign manager that easily marries a campaign target profile with caller profiles.</p>
+                    <p>Time management functionality allows buyers to pinpoint when the ad must be delivered.</p>
+                    <p>Budget management functionality allows buyers to keep track of their tight budgets.</p>
+                    <p>Real time reporting system allows buyers to drill down to individual play records and interactions giving full transparency on the return on investment.</p>
+                    <p><a class="navy-link" href="#about" role="button">Learn more &raquo;</a></p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section id="operator" class="features">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="navy-line"></div>
+                    <h1>Operators</h1>
+                    <p class="p-color">Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 features-text">
+                    <small>adtones</small>
+                    <h2>New revenue stream</h2>
+                    <i class="fa fa-bar-chart big-icon pull-right"></i>
+                    <p>Adtones’s aim is pay mobile operators as much money as possible. Adtones exploits and manages a new revenue stream for the operators and directly subsidises end user communications costs. This allows operators to generate flexible business models and users to get more for their money.</p>
+                </div>
+                <div class="col-lg-5 features-text">
+                    <small>adtones</small>
+                    <h2>Callers want it - less churn</h2>
+                    <i class="fa fa-users big-icon pull-right"></i>
+                    <p>Adtones is a very basic concept – we help users sell their time and personal preferences to the highest bidder using personal time that is at best a waste of time and at worst a boring irritant. Our research should that over 90% of your adult mobile users would like to use adtones to subsidies their communication spend making this target group more sticky and effectively bigger spenders on products and services.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 features-text">
+                    <small>adtones</small>
+                    <h2>Simple to implement</h2>
+                    <i class="fa fa-clock-o big-icon pull-right"></i>
+                    <p>Adtones is very simple to implement – in some cases the initial set up can take just a few hours to get up and running. Adtones provides a fully managed service which can be housed on network (we supply secure black box servers, or totally cloud based using the latest cloud technology.</p>
+                </div>
+                <div class="col-lg-5 features-text">
+                    <small>adtones</small>
+                    <h2>Realise latent value</h2>
+                    <i class="fa fa-bolt big-icon pull-right"></i>
+                    <p>Every operator has a huge amount of latent value in their system that they do not exploit choosing to focus on generating revenue from an increasingly competitive marketplace. Adtones enables operators to exploit latent information already held in their network and package it up so it can be consumed by marketing organizations.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 features-text text-center">
+                    <p><a class="navy-link" href="#about" role="button">Learn more &raquo;</a></p>
+                </div>
+            </div>
+
+    </section>
+    @*<section id="caller" class="timeline">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="navy-line"></div>
+                        <h1>Caller</h1>
+                        <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
+                    </div>
+                </div>
+                <div class="row features-block">
+
+                    <div class="col-lg-12">
+                        <div id="vertical-timeline" class="vertical-container light-timeline center-orientation">
+                            <div class="vertical-timeline-block">
+                                <div class="vertical-timeline-icon navy-bg">
+                                    <i class="fa fa-briefcase"></i>
+                                </div>
+
+                                <div class="vertical-timeline-content">
+                                    <h2>Meeting</h2>
+                                    <p>
+                                        Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
+                                    </p>
+                                    <a href="#" class="btn btn-xs btn-primary"> More info</a>
+                                    <span class="vertical-date"> Today <br /> <small>Dec 24</small> </span>
+                                </div>
+                            </div>
+
+                            <div class="vertical-timeline-block">
+                                <div class="vertical-timeline-icon navy-bg">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+
+                                <div class="vertical-timeline-content">
+                                    <h2>Decision</h2>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
+                                    <a href="#" class="btn btn-xs btn-primary"> More info</a>
+                                    <span class="vertical-date"> Tomorrow <br /> <small>Dec 26</small> </span>
+                                </div>
+                            </div>
+
+                            <div class="vertical-timeline-block">
+                                <div class="vertical-timeline-icon navy-bg">
+                                    <i class="fa fa-cogs"></i>
+                                </div>
+
+                                <div class="vertical-timeline-content">
+                                    <h2>Implementation</h2>
+                                    <p>Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
+                                    <a href="#" class="btn btn-xs btn-primary"> More info</a>
+                                    <span class="vertical-date"> Monday <br /> <small>Jan 02</small> </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>*@
+
+    <section id="about" class="testimonials">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 text-center wow zoomIn">
+                    <div class="navy-line"></div>
+                    @*<i class="fa fa-comment big-icon"></i>*@
+                    <h1 class="navy">
+                        About adtones
+                    </h1>
+                    <div class="testimonials-text">
+                        <p>Adtones is created to solve 2 big questions in the advertising industry:</p>
+                        <p>"How can you reduce fragmentation within the industry and still delivery efficient relevant advertising";</p>
+                        <p>"How can you engage the consumers of advertising to work with the advertising industry to make more efficient advertising".</p>
+                        <p>We believe Adtones is the answer to these two questions, it can deliver direct advertising to up 70% of the world’s population through a relatively small number of core network operators. Adtones shares virtually all the advertising revenue with the consumers incentivising a productive environment for the consumer to model their personal advertising delivery around their needs.</p>
+                    </div>
+                    @*<small>
+                            <strong>12.02.2014 - Andy Smith</strong>
+                        </small>*@
+                </div>
+            </div>
+            <div class="row services">
+                <div class="col-sm-4">
+                    <h2>CAPTIVATE</h2>
+                    <p><span class="text-blue">adtones</span> captivates highly profiled callers without prolonging or impacting the quality of the primary product - the phone call.</p>
+                    <p><span class="text-blue">adtones</span> captivates highly profiled callers without prolonging or impacting the quality of the primary product - the phone call.</p>
+                </div>
+                <div class="col-sm-4">
+                    <h2>Focused</h2>
+                    <p><span class="text-blue">adtones</span> uses a personal focused moment, when waiting for a call to be picked up, to deliver profiled advertising to the caller.</p>
+                    <p><span class="text-blue">adtones</span> uses a personal focused moment, when waiting for a call to be picked up, to deliver profiled advertising to the caller.</p>
+                </div>
+                <div class="col-sm-4">
+                    <h2>Receptive</h2>
+                    <p><span class="text-blue">adtones</span> invites callers to sign up and make a profile of likes and dislikes. This ensures the ad is relevant and making the caller more receptive than on other channels.</p>
+                    <p><span class="text-blue">adtones</span> invites callers to sign up and make a profile of likes and dislikes. This ensures the ad is relevant and making the caller more receptive than on other channels.</p>
+                </div>
+            </div>
+            <div class="row services">
+                <div class="col-sm-4">
+                    <h2>CAPTIVATE</h2>
+                    <p><span class="text-blue">adtones</span> captivates highly profiled callers without prolonging or impacting the quality of the primary product - the phone call.</p>
+                    <p><span class="text-blue">adtones</span> captivates highly profiled callers without prolonging or impacting the quality of the primary product - the phone call.</p>
+                </div>
+                <div class="col-sm-4">
+                    <h2>Focused</h2>
+                    <p><span class="text-blue">adtones</span> uses a personal focused moment, when waiting for a call to be picked up, to deliver profiled advertising to the caller.</p>
+                    <p><span class="text-blue">adtones</span> uses a personal focused moment, when waiting for a call to be picked up, to deliver profiled advertising to the caller.</p>
+                </div>
+                <div class="col-sm-4">
+                    <h2>Receptive</h2>
+                    <p><span class="text-blue">adtones</span> invites callers to sign up and make a profile of likes and dislikes. This ensures the ad is relevant and making the caller more receptive than on other channels.</p>
+                    <p><span class="text-blue">adtones</span> invites callers to sign up and make a profile of likes and dislikes. This ensures the ad is relevant and making the caller more receptive than on other channels.</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section class="team">
+
+        <div class="container">
+            @*<div class="row m-b-lg">
+                    <div class="col-lg-12 text-center">
+                        <div class="navy-line"></div>
+                        <h1>About Adtones</h1>
+                        <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
+                    </div>
+                </div>*@
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="navy-line"></div>
+                    <h1>Meet the founders</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 wow" id="about-mobile" style="display:none;">
+                    <div class="team-member">
+                        <div class="team-member">
+                            @*<div class="teamabout">
+                                <address>
+                                    <strong><span class="navy">adtones ltd</span></strong><br />
+
+                                    12 Stukeley Street<br />
+                                    London WC2B 5LQ<br />
+                                    United Kingdom*@
+                            @*<abbr title="Phone">P:</abbr> (123) 456-7890*@
+                            @*</address>
+                                </div>*@
+                            <div class="col-lg-12 text-center">
+                                <a href="mailto:hello@sdtones.eu?subject=hello from the adtones website" class="btn btn-primary">Say Hello!</a>
+                                <p class="m-t-sm">
+                                    Follow us on
+                                </p>
+                                <ul class="list-inline social-icon">
+                                    <li>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 wow fadeInLeft">
+                    <div class="team-member">
+                        <img src="~/Images/landing/avatar2.jpg" class="img-responsive img-circle" alt="">
+                        <h4><span class="navy">S<span style="font-size:10px;">&Oslash;</span>ren Gravesen-Hvass</span><a href="#"><i class="fa fa-linkedin i-social"></i></a></h4>
+                        <p>S<span style="font-size:10px;">&Oslash;</span>ren has more than fifteen years of experience in the global telecom industry working in corporate and executive positions and as an entrepreneur. In addition to his extensive telecom experience he has also been active in such diverse areas as politics and energy efficiency.</p>
+                        <p>S<span style="font-size:10px;">&Oslash;</span>ren has a MSc in Public Administration and Politics from the University of Aalborg.</p>
+                        @*<ul class="list-inline social-icon">
+                                <li>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                            </ul>*@
+                    </div>
+                </div>
+
+                <div class="col-sm-4 wow" id="about-desktop">
+                    <div class="team-member" style="margin-top:170px;">
+                        @*<div class="teamabout">
+                            <address>
+                                <strong><span class="navy">adtones ltd</span></strong><br />
+
+                                12 Stukeley Street<br />
+                                London WC2B 5LQ<br />
+                                United Kingdom*@
+                        @*<abbr title="Phone">P:</abbr> (123) 456-7890*@
+                        @*</address>
+                            </div>*@
+                        <div class="col-lg-12 text-center">
+                            <a href="mailto:hello@sdtones.eu?subject=hello from the adtones website" class="btn btn-primary">Say Hello!</a>
+                            <p class="m-t-sm">
+                                Follow us on
+                            </p>
+                            <ul class="list-inline social-icon">
+                                <li>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 wow fadeInRight">
+                    <div class="team-member">
+                        <img src="~/Images/landing/avatar1.jpg" class="img-responsive img-circle" alt="">
+                        <h4><span class="navy">Benjamin Lynch</span><a href="#"><i class="fa fa-linkedin i-social"></i></a></h4>
+                        <p>Ben has been designing and developing various enterprise telco platforms over the last fifteen years for clients like, Vodafone, BT, and Verizon. Working in advertising and TV earlier in his career he eventually moved into management of technology companies including winning a DTi SMART in the 1990s.</p>
+                        <p>Ben was educated at Imperial College London and the University of Paris where he studied Chemistry.</p>
+                        @*<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>*@
+                        @*<ul class="list-inline social-icon">
+                                <li>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                </li>
+                            </ul>*@
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                    </div>
+                </div>*@
+        </div>
+    </section>
+
+    <section id="contact" @*class="contact"*@>
+        <div class="container">
+            @*<div class="row m-b-lg">
+                    <div class="col-lg-12 text-center">
+                        <div class="navy-line"></div>
+                        <h1>Contact Us</h1>
+                        <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
+                    </div>
+                </div>*@
+            <div class="row">
+                <div class="col-lg-12 features-text text-center">
+                    <address>
+                        <strong><span class="navy">adtones</span></strong><br />
+
+                        12 Stukeley Street<br />
+                        London WC2B 5LQ<br />
+                        United Kingdom<br /><br />
+                        <b>+44 (0)20 7692 2650</b>
+                    </address>
+                </div>
+                @*<div class="col-lg-4">
+                        <p class="text-color">
+                            Consectetur adipisicing elit. Aut eaque, totam corporis laboriosam veritatis quis ad perspiciatis, totam corporis laboriosam veritatis, consectetur adipisicing elit quos non quis ad perspiciatis, totam corporis ea,
+                        </p>
+                    </div>*@
+            </div>
+            <div class="row">
+
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <p><strong>&copy; 2016 adtones</strong>@*<br /> consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.*@</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    @Html.Partial("_LoginPartial")
+    <!-- Section for main scripts render -->
+    @Scripts.Render("~/bundles/jquery")
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    @Scripts.Render("~/plugins/unobtrusive")
+    @Scripts.Render("~/plugins/validate")
+    @Scripts.Render("~/bundles/validateunobtrusive")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+    <script src="~/Scripts/plugins/wow/wow.min.js"></script>
+    @Scripts.Render("~/plugins/iCheck")
+    <script>
+        var quotespeed = 5000;
+        var imagecurrentslide = 0;
+        var videocurrentslide = 0;
+        var iquotescounter = 0;
+        function GetURLParameter() {
+            var sPageURL = window.location.href;
+            var indexOfLastSlash = sPageURL.lastIndexOf("/");
+
+            if (indexOfLastSlash > 0 && sPageURL.length - 1 != indexOfLastSlash)
+                return sPageURL.substring(indexOfLastSlash + 1);
+            else
+                return 0;
+        }
+        //function setQuotesImaege() {
+        //    var idx = $('#inSlider .carousel-inner div.active').index();
+
+
+        //    var subquotes = ['Combining the focus of Direct Marketing with the ambiance of Radio and the responsiveness of Digital', 'Operators Reward Their Callers and Get a New Revenue Stream', '&nbsp;', '&nbsp;'];
+        //    var quotes = ['Adtones is a New Marketing Channel on two lines', '<span>USERS MAKE MONEY WHEN THEY CALL</span><span>Operators get a new revenue stream</span>', '<span>ADVERTISERS GET</span><span>DIRECT Access To Consumers</span>', '<span>Traceable to Every Second</span><span>Accountable to Every Cent</span>'];
+
+        //    if (idx == 0) {
+        //        $("#quotes").html('');
+        //        $("#quotes").html(quotes[iquotescounter]);
+        //        $("#qp").html(subquotes[iquotescounter]);
+
+        //    }
+        //    else {
+        //        $("#quotes1").html('');
+        //        $("#quotes1").html(quotes[iquotescounter]);
+        //        $("#qp1").html(subquotes[iquotescounter]);
+        //    }
+        //    iquotescounter = iquotescounter + 1;
+        //    if (iquotescounter == 4) {
+        //        iquotescounter = 0;
+        //    }
+        //}
+
+        //function setQuotesVideo() {
+        //    var idx = $('#inSlidervideo .carousel-inner div.active').index();
+
+
+        //    var subquotes = ['Combining the focus of Direct Marketing with the ambiance of Radio and the responsiveness of Digital', 'Operators Reward Their Callers and Get a New Revenue Stream', '&nbsp;', '&nbsp;'];
+        //    var quotes = ['Adtones is a New Marketing Channel on two lines', '<span>USERS MAKE MONEY WHEN THEY CALL</span><span>Operators get a new revenue stream</span>', '<span>ADVERTISERS GET</span><span>DIRECT Access To Consumers</span>', '<span>Traceable to Every Second</span><span>Accountable to Every Cent</span>'];
+
+        //    if (idx == 0) {
+        //        $("#viquotes").html('');
+        //        $("#viquotes").html(quotes[iquotescounter]);
+        //        $("#viqp").html(subquotes[iquotescounter]);
+        //    }
+        //    else {
+        //        $("#viquotes1").html('');
+        //        $("#viquotes1").html(quotes[iquotescounter]);
+        //        $("#viqp1").html(subquotes[iquotescounter]);
+        //    }
+        //    iquotescounter = iquotescounter + 1;
+        //    if (iquotescounter == 4) {
+        //        iquotescounter = 0;
+        //    }
+        //}
+        $(document).ready(function () {
+            var loginstatus = GetURLParameter();
+            if (loginstatus == "true") {
+                $(".loginpopupopen").click();
+            }
+            if (loginstatus != null) {
+
+            }
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+        });
+        function checkmobile() {
+            var isMobile = false; //initiate as false
+            // device detection
+            if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
+                || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0, 4))) {
+                isMobile = true;
+            }
+            return isMobile;
+        }
+        //internet speed in kbps
+        var minspeed = 100;
+
+        $(document).ready(function () {
+            $(".lowinternet").carousel({
+                interval: 10000
+            });
+            //$(".highinternet").carousel({
+            //    interval: 10000
+            //});
+            $('body').scrollspy({
+                target: '.navbar-fixed-top',
+                offset: 80
+            });
+            // Page scrolling feature
+            $('a.page-scroll').bind('click', function (event) {
+                var link = $(this);
+                $('html, body').stop().animate({
+                    scrollTop: $(link.attr('href')).offset().top - 50
+                }, 500);
+                event.preventDefault();
+                $('#navbar').collapse('hide');
+            });
+            if (checkmobile()) {
+                $(".lowinternet").show();
+                $(".highinternet").hide();
+                //setInterval(setQuotesImaege, quotespeed);
+            }
+            else {
+                //ajax post method check internet speed
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Checkinternetspeed", "Landing")',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        if (data > 0) {
+                            if (data > minspeed) {
+                                if (!checkmobile()) {
+                                    $(".lowinternet").hide();
+                                    $(".highinternet").show();
+                                }
+                                else {
+                                    $(".lowinternet").show();
+                                    $(".highinternet").hide();
+                                }
+                            }
+                            else {
+                                $(".lowinternet").show();
+                                $(".highinternet").hide();
+                            }
+                        }
+                        else {
+                            $(".lowinternet").hide();
+                            $(".highinternet").show();
+                        }
+                    },
+                    error: function (data) {
+                        $(".lowinternet").show();
+                        $(".highinternet").hide();
+                    }
+                });
+            }
+        });
+
+        var cbpAnimatedHeader = (function () {
+            var docElem = document.documentElement,
+                    header = document.querySelector('.navbar-default'),
+                    didScroll = false,
+                    changeHeaderOn = 200;
+            function init() {
+                window.addEventListener('scroll', function (event) {
+                    if (!didScroll) {
+                        didScroll = true;
+                        setTimeout(scrollPage, 250);
+                    }
+                }, false);
+            }
+            function scrollPage() {
+                var sy = scrollY();
+                if (sy >= changeHeaderOn) {
+                    $(header).addClass('navbar-scroll')
+                }
+                else {
+                    $(header).removeClass('navbar-scroll')
+                }
+                didScroll = false;
+            }
+            function scrollY() {
+                return window.pageYOffset || docElem.scrollTop;
+            }
+            init();
+
+        })();
+        new WOW().init();
+    </script>
+
+</body>
+</html>

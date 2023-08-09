@@ -1,0 +1,63 @@
+﻿@using EFMVC.Web.Core.Extensions
+@using EFMVC.Web.Core.Models
+@{
+    if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        EFMVCUser efmvcUser = HttpContext.Current.User.GetEFMVCUser();
+
+        <h5>Welcome back, @efmvcUser.DisplayName</h5>
+
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="panel" style="height: 400px; max-height: 400px; overflow-y: auto;">
+                    <h5>Intro</h5>
+                    <p>Nunc condimentum euismod enim, vitae mollis enim auctor quis. Etiam facilisis porta ligula. Phasellus venenatis nibh id interdum cursus. Phasellus et ornare odio. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec tristique aliquet auctor. Sed est augue, ultrices nec urna et, porttitor convallis enim.</p>
+                </div>
+            </div>
+            <div class="large-6 columns">
+                <div class="panel" style="height: 400px; max-height: 400px; overflow-y: auto;">
+                    <h5>News</h5>
+                    <p>Sed rutrum dictum magna non vehicula. Etiam fringilla enim consectetur elementum hendrerit. In semper, erat ut gravida euismod, sapien mauris viverra nunc, at dignissim lacus lorem quis metus. Praesent pharetra neque ac imperdiet placerat. Vivamus sit amet justo et orci volutpat venenatis non vitae magna. Maecenas et pellentesque diam. Suspendisse at magna auctor, tempus ligula sit amet, tristique metus. Donec posuere lorem non scelerisque porttitor. Etiam fringilla dignissim mi dapibus sodales. Curabitur venenatis lectus est, sit amet bibendum leo mollis dapibus.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <div class="panel" style="height: 300px; max-height: 300px; overflow-y: auto;">
+                    <h5>Twitter</h5>
+                    <p>Nunc vitae vestibulum velit, eu luctus risus. Suspendisse faucibus vel ante sit amet pretium.</p>
+                    <p> Aliquam volutpat ullamcorper orci vel lobortis. Nulla tristique enim non enim aliquet vehicula. Vestibulum porttitor risus eu varius viverra.</p>
+                    <p>Sed urna nunc, pretium eget dignissim ac, vehicula a metus. </p>
+                </div>
+            </div>
+            <div class="large-4 columns">
+                <div class="panel" style="height: 300px; max-height: 300px; overflow-y: auto;">
+                    <h5>Offers</h5>
+                    <p></p>
+                    <p>Vivamus arcu lectus, tincidunt vulputate purus vitae, faucibus tempus tellus. </p>
+                    <p>Etiam id porta orci. Ut id odio a leo iaculis accumsan ut ut velit.</p>
+                    <p>Morbi lacinia ante vitae urna porta dignissim id gravida enim.</p>
+                    <p>Curabitur elit ante, vestibulum ut ante at, dignissim laoreet ipsum.</p>
+                </div>
+            </div>
+            <div class="large-4 columns">
+                <div class="panel" style="height: 300px; max-height: 300px; overflow-y: auto;">
+                    <h5>Other Info</h5>
+                    <p>Nullam id neque sapien. Morbi quis egestas est. Nunc orci velit, elementum at sagittis a, bibendum quis ligula. Pellentesque malesuada est sit amet nulla feugiat, ac tristique libero molestie. </p>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h5>Welcome to Arthar.</h5>
+        <p>Please login or register.</p>
+
+        <p>Nam vitae ultrices enim. Aliquam consequat ut augue ac feugiat. Suspendisse rhoncus lacus vel pretium tincidunt. Maecenas ornare ante vitae leo imperdiet consectetur. Curabitur sodales dui nunc, eu ultrices ante aliquet vel. Etiam nec rhoncus justo. Etiam ac erat ac massa scelerisque vehicula et vitae lacus. Pellentesque sed consectetur ligula. Nam arcu nibh, cursus ut ante sed, pellentesque bibendum ligula.</p>
+        <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam pellentesque velit lorem, a viverra lectus vehicula vel. In hac habitasse platea dictumst. Duis magna libero, rutrum eu tellus non, dapibus adipiscing dolor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris quis tortor consectetur mi malesuada eleifend eu vitae arcu. Nunc cursus consequat mi, ultricies fermentum ante facilisis ut.</p>
+        <p>Nulla facilisi. Vivamus sed enim faucibus, mollis eros sit amet, pellentesque purus. Mauris eu purus orci. Nam egestas risus malesuada est imperdiet, eget bibendum augue suscipit. Donec id lacus mauris. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam mattis eros varius augue dapibus, imperdiet pulvinar orci porttitor. Praesent varius condimentum nunc sed vulputate. Donec at molestie libero, ut eleifend massa. Aenean quis porttitor quam. Fusce quis eleifend lectus, sed interdum odio.</p>
+        <p>Maecenas vehicula dui varius, egestas orci id, iaculis dolor. Quisque nec odio tincidunt, molestie quam sed, consequat enim. Vivamus eu tristique velit, eu lacinia ante. Ut non viverra neque, ac lobortis sapien. Nam et ante ac velit adipiscing interdum. Vivamus in tellus massa. Donec est nisi, gravida vitae facilisis sed, lobortis sed erat. Vivamus egestas, arcu ut porttitor posuere, tortor augue vestibulum dui, eget vestibulum justo ante ac risus. Donec eget laoreet ligula. Vestibulum adipiscing imperdiet sem, nec egestas velit tincidunt non.</p>
+        <p>Curabitur sit amet aliquet leo. Suspendisse id cursus orci. Suspendisse et neque non erat sollicitudin egestas. Sed quis aliquet elit. Nulla tempor dignissim viverra. Praesent sed tempus nisl. Vestibulum consectetur enim lacus, ac semper nibh malesuada id. Phasellus nec pulvinar augue. Ut vulputate metus at elementum cursus. Integer euismod posuere mi eget sollicitudin. Fusce lorem libero, tincidunt ut lacinia vitae, posuere ut elit. Proin ac nulla non est sollicitudin pellentesque ac a arcu. Nulla eleifend lacinia leo in tempus. In elementum non elit sed consectetur.</p>
+    }
+}

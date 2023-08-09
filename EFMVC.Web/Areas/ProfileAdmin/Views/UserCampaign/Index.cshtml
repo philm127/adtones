@@ -1,0 +1,426 @@
+﻿@using System.Web.Optimization
+@using EFMVC.Web.Areas.ProfileAdmin.Models;
+@model Tuple<List<UserCampaignResult>, UserCampaignFilter>
+@{
+    ViewBag.Title = "Campaigns";
+    Layout = "~/Areas/ProfileAdmin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        @Html.Partial("_UserCampaignManagement", Tuple.Create<List<UserCampaignResult>, UserCampaignFilter>(Model.Item1, Model.Item2))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/daterangepickerNewStyles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/daterangepickerNew")
+    <script type="text/javascript">
+
+        function dataTableSetup() {
+            $(".dataTables-usercampaign").DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                aoColumnDefs: [
+               {
+                   bSortable: false,
+                   aTargets: [-1]
+               }
+                ],
+                "bLengthChange": false,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy', title: 'Campaigns', exportOptions: { columns: [0, 1, 2, 3, 4,] } },
+                    { extend: 'csv', title: 'Campaigns', exportOptions: { columns: [0, 1, 2, 3, 4] } },
+                    { extend: 'excel', title: 'Campaigns', exportOptions: { columns: [0, 1, 2, 3, 4] } },
+                    { extend: 'pdf', title: 'Campaigns', exportOptions: { columns: [0, 1, 2, 3, 4] } },
+
+                    {
+                        extend: 'print',
+                        exportOptions: { columns: [0, 1, 2, 3, 4] },
+                        title: 'Campaigns',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+            });
+        }
+        $(document).ready(function () {
+            $('body').bind('keyup', function (event) {
+                if (event.keyCode === 13) {
+                    //$('#form0').submit();
+                    $('#btnSearch').trigger('click');
+                }
+            });
+            $(".chosen-container").bind('keyup', function (e) {
+                if (e.which === 13) {
+                    //$('#form0').submit();
+                    // or your stuff here...
+                    $('#btnSearch').trigger('click');
+                }
+            });
+
+            $('#createdFrom').datetimepicker({ ignoreReadonly: true });
+
+            $('#createdTo').datetimepicker({
+                useCurrent: false, //Important! See issue #1075
+                ignoreReadonly: true
+            });
+
+            $("#createdFrom").on("dp.change", function (e) {
+                $('#createdTo').data("DateTimePicker").minDate(e.date);
+            });
+
+            $("#createdTo").on("dp.change", function (e) {
+                $('#createdFrom').data("DateTimePicker").maxDate(e.date);
+            });
+            $('#fromdate').css({ "height": "34px" });
+            $('#todate').css({ "height": "34px" });
+
+            var config = {
+                '.chosen-select': { width: "100%" },
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+
+            $("#btnSearch").click(function () {
+                $(".spiner-example").show();
+                oTable.columns(0).search($('#UserId').val());
+                oTable.columns(1).search($('#ClientId').val());
+
+                oTable.columns(2).search($('#CampaignId').val());
+
+                if ($("#Item2_FromTotalBudget").val() != '' && $("#Item2_ToTotalBudget").val() != '') {
+                    oTable.columns(3).search($("#Item2_FromTotalBudget").val() + ',' + $("#Item2_ToTotalBudget").val());
+                }
+                else {
+                    oTable.columns(3).search(null);
+                }
+
+                if ($("#Item2_FromTotalAverageBid").val() != '' && $("#Item2_ToTotalAverageBid").val() != '') {
+                    oTable.columns(4).search($("#Item2_FromTotalAverageBid").val() + ',' + $("#Item2_ToTotalAverageBid").val());
+                }
+                else {
+                    oTable.columns(4).search(null);
+                }
+
+                if ($("#Item2_FromTotalSpend").val() != '' && $("#Item2_ToTotalSpend").val() != '') {
+                    oTable.columns(5).search($("#Item2_FromTotalSpend").val() + ',' + $("#Item2_ToTotalSpend").val());
+                }
+                else {
+                    oTable.columns(5).search(null);
+                }
+
+                if ($("#fromdate").val() != '' && $("#todate").val() != '') {
+                    oTable.columns(6).search($("#fromdate").val() + ',' + $("#todate").val());
+                }
+                else {
+                    oTable.columns(6).search(null);
+                }
+                //hit search on server
+                oTable.draw();
+            });
+
+            $("#btnreset").click(function () {
+                $(".spiner-example").show();
+                $("#UserId").val('');
+                $("#UserId").trigger("chosen:updated");
+                $("#ClientId").val('');
+                $("#ClientId").trigger("chosen:updated");
+                $("#CampaignId").val('');
+                $("#CampaignId").trigger("chosen:updated");
+                $("#Item2_FromTotalBudget").val('');
+                $("#Item2_ToTotalBudget").val('');
+                $("#Item2_FromTotalAverageBid").val('');
+                $("#Item2_ToTotalAverageBid").val('');
+                $("#Item2_FromTotalSpend").val('');
+                $("#Item2_ToTotalSpend").val('');
+                $("#fromdate").val('');
+                $("#todate").val('');
+
+                oTable.columns(0).search(null);
+                oTable.columns(1).search(null);
+                oTable.columns(2).search(null);
+                oTable.columns(3).search(null);
+                oTable.columns(4).search(null);
+                oTable.columns(5).search(null);
+                oTable.columns(6).search(null);
+                oTable.draw();
+            });
+
+            $(".dataTables-usercampaign").DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "info": false,
+                "aaSorting": [],
+                "pageLength": 10,
+                "bLengthChange": false,
+                "searching": true,
+                // "processing": true, // for show processing bar
+                "serverSide": true, // for process on server side
+                "orderMulti": false, // for disable multi column order
+                //dom: '<"top"i>rt<"bottom"lp><"clear">', // for hide default global search box // little confusion? don't worry I explained in the tutorial website
+                //dom: 'Bfrtip',
+                dom: '<"floatRight"B><"clear">frtip',
+                buttons: [
+                    { extend: 'copy', title: 'Campaigns', exportOptions: { columns: [0, 1, 2, 3, 4] } },
+                    { extend: 'csv', title: 'Campaigns', exportOptions: { columns: [0, 1, 2, 3, 4] } },
+                    { extend: 'excel', title: 'Campaigns', exportOptions: { columns: [0, 1, 2, 3, 4] } },
+                    { extend: 'pdf', title: 'Campaigns', exportOptions: { columns: [0, 1, 2, 3, 4] } },
+
+                    {
+                        extend: 'print',
+                        exportOptions: { columns: [0, 1, 2, 3, 4] },
+                        title: 'Campaigns',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "ajax": {
+                    "url": "/ProfileAdmin/UserCampaign/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+
+                "aoColumns": [
+                    { "data": "CampaignName", "name": "CampaignName", "bSortable": true, "autoWidth": true, "width": "10%" }, //index 0
+                    { "data": "AdvertName", "name": "AdvertName", "bSortable": true, "autoWidth": true, "width": "10%" }, //index
+                    { "data": "TotalPlayCount", "name": "Play", "bSortable": true, "autoWidth": true, "width": "3%" }, //index 2
+                    { "data": "CountryName", "name": "CountryName", "bSortable": true, "autoWidth": true, "width": "10%" }, //index 3
+                    { "data": "OperatorName", "name": "OperatorName", "bSortable": true, "autoWidth": true, "width": "10%" }, //index 4
+                    { "data": "ProfileType", "name": "ProfileType", "bSortable": true, "autoWidth": true, "width": "10%" }, //index 5
+                    { "data": "ProfileName", "name": "ProfileName", "bSortable": true, "autoWidth": true, "width": "10%" }, //index 6
+                    { "data": "ExpectedResponse", "name": "ExpectedResponse", "bSortable": true, "autoWidth": true, "width": "10%" }, //index 7
+                    {
+                        "data": "Listen", "name": "Listen", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            return '<td><audio class="audio-small" controls="controls" id="' + row.AdvertName + '" src="' + row.Listen + '"></audio></td>';
+                        }
+                    },
+                    {
+                        "data": "Action", "name": "Action", "autoWidth": false, "width": "10%",
+                        "mRender": function (data, type, row) {
+                            return '<td><a class="btn btn-danger btn-xs" href="/ProfileAdmin/UserCampaign/UpdateProfileAdminRegistration?id=' + row.Id + '"})>Update Audio File</a></td>';
+                        }
+                    }//index-9
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () {
+                    $(".spiner-example").hide();
+                    $(".floatRight").css('float', 'right');
+                    $(".floatRight").css('padding-bottom', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                }	// Hide processingDiv when loading table is complete
+
+            });
+
+            oTable = $('.dataTables-usercampaign').DataTable();
+            $(".dataTables_filter label:first-child").hide();
+        });
+
+        $("#CountryId").change(function () {
+            var countryId = new Array();
+            $("select#CountryId option:selected").each(function () {
+                countryId.push($(this).val());
+            });
+            if (countryId.length > 0) {
+                getCampaignByCountryId(countryId);
+                getOperatorByCountryId(countryId);
+                getAdvertByCountryId(countryId, null, null);
+            }
+            else {
+                getCampaignByCountryId(null);
+                getOperatorByCountryId(null);
+                getAdvertByCountryId(null, null, null);
+            }
+        });
+
+        $("#OperatorId").change(function () {
+            var operatorId = new Array();
+            $("select#OperatorId option:selected").each(function () {
+                operatorId.push($(this).val());
+            });
+            if (operatorId.length > 0) {
+                getAdvertByCountryId(null, operatorId, null);
+            }
+            else {
+                getAdvertByCountryId(null, null, null);
+            }
+        });
+
+        $("#CampaignId").change(function () {
+            var campaignId = new Array();
+            $("select#CampaignId option:selected").each(function () {
+                campaignId.push($(this).val());
+            });
+            if (campaignId.length > 0) {
+                getAdvertByCountryId(null, null, campaignId);
+            }
+            else {
+                getAdvertByCountryId(null, null, null);
+            }
+        });
+
+        function getOperatorByCountryId(countryId) {
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("getOperatorByCountryId", "UserCampaign", new { area = "ProfileAdmin" })',
+                type: "POST",
+                data: { countryId: countryId },
+                success: function (data) {
+                    $("#OperatorId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, operators) {
+                            $("#OperatorId").append('<option value="' + operators.Id + '">' +
+                                operators.Name + '</option>');
+                        });
+                    }
+                    $("#OperatorId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+        }
+
+        function getCampaignByCountryId(countryId) {
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("GetCampaignsByCountryId", "UserCampaign", new { area = "ProfileAdmin" })',
+                type: "POST",
+                data: { countryId: countryId },
+                success: function (data) {
+                    $("#CampaignId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, campaigns) {
+                            $("#CampaignId").append('<option value="' + campaigns.Id + '">' +
+                                                            campaigns.Name + '</option>');
+                        });
+                    }
+                    $("#CampaignId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+        }
+
+        function getAdvertByCountryId(countryId, operatorId, campaignId) {
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("getAdvertByCountryId", "UserCampaign", new { area = "ProfileAdmin" })',
+                type: "POST",
+                data: { countryId: countryId, operatorId: operatorId, campaignId: campaignId },
+                success: function (data) {
+                    $("#AdvertId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, operators) {
+                            $("#AdvertId").append('<option value="' + operators.Id + '">' +
+                                operators.Name + '</option>');
+                        });
+                    }
+                    $("#AdvertId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+        }
+
+</script>
+}

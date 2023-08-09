@@ -1,0 +1,430 @@
+﻿@using System.Web.Optimization
+@model EFMVC.Web.ViewModels.UserFormModel
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    @*<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">*@
+
+    <meta http-equiv='cache-control' content='no-cache'>
+
+    <meta http-equiv='expires' content='0'>
+
+    <meta http-equiv='pragma' content='no-cache'>
+
+    <title>adtones | Register</title>
+
+
+
+    <link href="~/Content/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/custom.css" rel="stylesheet" />
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style_campaign.css" rel="stylesheet">
+
+    @*Add 18-03-2019*@
+    <link href="~/Content/Common.css" rel="stylesheet" />
+
+    <style>
+        .form-control-box {
+            background-color: #FFFFFF;
+            background-image: none;
+            border: 1px solid #e5e6e7;
+            border-radius: 1px;
+            color: inherit;
+            display: inline-block;
+            padding: 6px 12px;
+            transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+            width: 95%;
+            font-size: 14px;
+        }
+
+        .textbox {
+            width: 95%;
+            margin-left: 3px;
+        }
+
+        .btn-full-width {
+            width: 96% !important;
+        }
+    </style>
+
+    <script src="~/Scripts/jquery.js"></script>
+    <script src="~/Scripts/jquery.mask.js"></script>
+
+    <link href="~/Content/example.css" rel="stylesheet" />
+    @*<link href="~/Content/sweetalert.css" rel="stylesheet" />*@
+    <script src="~/Scripts/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="~/Scripts/sweetalert-dev.js"></script>
+</head>
+
+<body class="gray-bg">
+    <div class="preloader" style="display:none"></div>
+
+    <span id="UserTokenValue" style="display:none">@ViewBag.UserToken</span>
+    <span id="ConnectionTokenValue" style="display:none">@ViewBag.ConnectionToken</span>
+    <div class="middle-box text-center loginscreen animated fadeInDown" style="width:auto;">
+        <label class="control-label" for="number">Please enter your mobile number without the '0' at the start.</label>
+        <div class="form-group">
+            <div class="col-md-12">
+                <div>
+                    <div class="form-group">
+                        @Html.DropDownList("CountryCode", new List<SelectListItem>
+                        {
+                            new SelectListItem{ Text="UK +44", Value = "44" },
+                            new SelectListItem{ Text="Kenya +254", Value = "254" },
+                            new SelectListItem{ Text="Senegal +221", Value = "221" },
+                            new SelectListItem{ Text="India +91", Value = "91" },
+                            new SelectListItem{ Text="Italy +39", Value = "39" },
+                            new SelectListItem{ Text="France +33", Value = "33" },
+                            new SelectListItem{ Text="Denmark +45", Value = "45" }
+                         }, null, new { @class = "form-control input-s-sm textbox" })@*inline*@
+                    </div>
+                </div>
+
+                <div id="OperatorDiv" style="display:none">
+                    @*@if (ViewBag.OperatorList == "True")
+                        {*@
+                    <div class="form-group">
+                        @Html.DropDownList("OperatorId", Enumerable.Empty<SelectListItem>(), new { @class = "form-control input-s-sm textbox" })@*inline*@
+                    </div>
+                    @*}*@
+                </div>
+
+                <div>
+                    @Html.TextBoxFor(model => model.MSISDN, new { @class = "form-control-box", @onkeypress = "return isNumber(event)", @placeholder = "Mobile Number" })@*form-control , @maxlength = "10"*@
+                    <label class="lbldanger">*</label>
+                    <span id="msisdnmsg" class="btn-danger field-validation-error"></span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-4" style="margin-top:10px;margin-right: 72px;">
+                <input type="button" id="btnVerify" class="btn btn-blue block full-width m-b" value="Verify" />
+            </div>
+            <p class="m-t"> <small id="copyright" style="font-family: sans-serif;"></small> </p>
+        </div>
+        @*<p class="m-t"> <small id="copyright" style="font-family: sans-serif;"></small> </p>*@
+
+    </div>
+
+</body>
+
+</html>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '@Url.Action("GetCopyRight", "Login", new { area = "Users" })',
+            success: function (data) {
+                $("#copyright").text(data);
+            }
+        });
+    });
+
+    $("#MSISDN").change(function () {
+        var countryCode = $("#CountryCode").val();
+        var phoneNumber = $("#MSISDN").val();
+        if (countryCode == "254" || countryCode == "221") {
+            if (phoneNumber == "") {
+                $("#msisdnmsg")[0].innerHTML = "The Contact number field is required to be only 9 characters.";
+                return false;
+            }
+            else if (phoneNumber.length < 9 || phoneNumber.length > 9) {
+                $("#msisdnmsg")[0].innerHTML = "The Contact number field can only be 9 characters."; /*The Contact number field cannot be more than 9 characters.*/
+                return false;
+            }
+            else {
+                $("#msisdnmsg")[0].innerHTML = "";
+            }
+        }
+        else {
+            if (phoneNumber == "") {
+                $("#msisdnmsg")[0].innerHTML = "The Contact number field is required to be only 10 characters.";
+                return false;
+            }
+            else if (phoneNumber.length < 10 || phoneNumber.length > 10) {
+                $("#msisdnmsg")[0].innerHTML = "The Contact number field can only be 10 characters.";
+                return false;
+            }
+            else {
+                $("#msisdnmsg")[0].innerHTML = "";
+            }
+        }
+    });
+
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+
+    function FillOperatorDrd() {
+        var name = $("#CountryCode option:selected").text();
+        var splitValue = name.split(" ")[0];
+        var countryName = "";
+        if (splitValue == "UK") {
+            countryName = "United Kingdom";
+        }
+        else {
+            countryName = splitValue;
+        }
+
+        $.ajax({
+            url: '@Url.Action("GetOperator", "Login", new {Area="Users" })',
+            data: { countryName: countryName },
+            success: function (data) {
+                var items = '';
+                if (data == "False") {
+                    $('#OperatorId').html("<option value=''>Select Operator</option>");
+                }
+                else {
+                    if (data.length > 1)
+                        $('#OperatorDiv').show();
+                    else
+                        $('#OperatorDiv').hide();
+
+                    $.each(data, function (i, us) {
+                        items += "<option value='" + us.Value + "'>" + us.Text + "</option>";
+                    });
+                    $('#OperatorId').html(items);
+                }
+
+            }
+        });
+
+    }
+
+    $("#CountryCode").change(function () {
+        FillOperatorDrd();
+    });
+
+    FillOperatorDrd();
+
+    $("#btnVerify").click(function () {
+        var phoneNumber = $("#MSISDN").val();
+        var countryCode = $("#CountryCode").val();
+        var providerValue = '@ViewBag.Provider';
+
+        var valida = true;
+
+        if (phoneNumber == "" || phoneNumber == null) {
+            swal("Oops!", "Please enter the phone number", "error");
+            return false;
+        }
+        if (countryCode != "") {
+            if (countryCode == "254" || countryCode == "221") {
+                if (phoneNumber.length < 9 || phoneNumber.length > 9) {
+                    $("#msisdnmsg")[0].innerHTML = "The Contact number field can only be 9 characters."; /*The Contact number field cannot be more than 9 characters.*/
+                    valida = false;
+                }
+                else {
+                    $("#msisdnmsg")[0].innerHTML = "";
+                }
+            }
+            else {
+                if (phoneNumber.length < 10 || phoneNumber.length > 10) {
+                    $("#msisdnmsg")[0].innerHTML = "The Contact number field can only be 10 characters.";
+                    valida = false;
+                }
+                else {
+                    $("#msisdnmsg")[0].innerHTML = "";
+                }
+            }
+        }
+
+        if (valida == true) {
+            $(".preloader").show();
+            $.ajax({
+                url: '@Url.Action("Verification", "Login", new {Area="Users" })',
+                data: { phoneNumber: phoneNumber, countryCode: countryCode },
+                success: function (data) {
+                    $(".preloader").hide();
+                    if (data == "Success") {
+                        opendialog(phoneNumber)
+                    }
+                    else if (data == "MobileExist") {
+                        swal({
+                            title: "Already Exist",
+                            //text: "This number already has an account, do you want to change your log in method to " + providerValue + " ?",
+                            text: phoneNumber + " This number already has an account, do you want to change your log in method to " + providerValue + " ?",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonClass: "btn-danger",
+                            confirmButtonText: "Yes",
+                            cancelButtonText: "No",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        },
+                            function (isConfirm) {
+                                if (isConfirm) {
+                                    $.ajax({
+                                        url: '@Url.Action("ChangeSocialLogin", "Login", new {Area="Users" })',
+                                        data: { phoneNumber: phoneNumber, countryCode: countryCode },
+                                        success: function (data) {
+                                            if (data == "Success") {
+                                                var connectionToken = $("#ConnectionTokenValue").text();
+                                                var userToken = $("#UserTokenValue").text();
+                                                window.location.href = '/Users/Login/ConfirmCode?phoneNumber=' + phoneNumber + "&countryCode=" + countryCode + "&connectionToken=" + connectionToken + "&userToken=" + userToken;
+                                            }
+                                        }
+                                    });
+                                } else {
+
+                                    $.ajax({
+                                        url: '@Url.Action("SameSocialLogin", "Login", new {Area="Users" })',
+                                        data: { phoneNumber: phoneNumber, countryCode: countryCode },
+                                        success: function (data) {
+                                            if (data == "Success") {
+                                                var connectionToken = $("#ConnectionTokenValue").text();
+                                                window.location.href = '/Users/AccountOverview/Index';
+                                            }
+                                            else if (data == "Cancel") {
+                                                window.location.href = '/Users/Login/Index';
+                                            }
+                                            else {
+                                                swal("Oops!", "Someting went wrong.Please try again!", "error");
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                    }
+                    else {
+                        window.location.href = '/Users/Login/VerificationFail';
+                    }
+                }
+            });
+        }
+    });
+
+    function opendialog(phoneNumber) {
+        var connectionToken = $("#ConnectionTokenValue").text();
+        var userToken = $("#UserTokenValue").text();
+        var countryCode = $("#CountryCode").val();
+        var operatorId = $("#OperatorId").val();
+        if (operatorId == "" || operatorId == null) {
+            alert("Operator is not exist for this country. Please contact to adtones admin.")
+            return false;
+        }
+        else {
+            swal({
+                title: 'Verification Code',
+                type: "input",
+                inputPlaceholder: "Adtones mobile verification code",
+                buttons: [
+                    {
+                        text: 'Confirm',
+                        className: 'cls1',
+                        //showLoaderOnConfirm: true,
+                        click: function () {
+
+                            var inputValue = $(".verificationcodeformat").val();
+                            if (inputValue === false) return false;
+                            if (inputValue === "") {
+                                alert("Please enter the verification code")
+                                return false
+                            }
+                            else {
+                                var len = $(".verificationcodeformat").val().length
+                                if (parseInt(len) < 8) {
+                                    alert("Please enter 6 digit verification code");
+                                    return false;
+                                }
+                                else {
+
+                                    $(".preloader").show();
+                                    $.ajax({
+                                        url: '@Url.Action("SocialLoginRegistration", "Login", new {Area="Users" })',
+                                        data: { confirmCode: inputValue, phoneNumber: phoneNumber, countryCode: countryCode, connectionToken: connectionToken, userToken: userToken, operatorId: operatorId },
+                                        success: function (data) {
+                                            $(".preloader").hide();
+                                            if (data.status == "Success") {
+                                                swal({
+                                                    title: "Done",
+                                                    text: "Your code is verified.",
+                                                    type: "success",
+                                                    // showCancelButton: true,
+                                                    // confirmButtonColor: "#DD6B55",
+                                                    confirmButtonText: "Ok",
+                                                    // closeOnConfirm: false
+                                                }, function () {
+                                                    window.location.href = "/Users/AccountOverview/Index";
+                                                });
+
+                                            }
+                                            else if (data.status == "TechnicalError") {
+                                                alert("I'm sorry we have experienced a technical error - please try again in 15 minutes - apologies for the inconvenience.if the interface is generating multiple time outs contact safaricom support at support@adtones.xyz or call  +44 (0) 7711 760 222");
+                                                return false;
+                                            }
+                                            else {
+                                                //swal("Oops!", "You need to write correct verification code!", "error");
+                                                alert("I'm sorry this code was not recognised - please re-enter the code or press the code re-send button below")
+                                                //alert(data.Message)
+                                                return false;
+                                            }
+                                        }
+                                    });
+                                }
+
+                            }
+
+
+
+                        }
+                        //close: true
+                    },
+                    {
+                        text: 'Resend',
+                        className: 'cls2',
+                        click: function () {
+                            $(".preloader").show();
+                            $.ajax({
+                                url: '@Url.Action("Verification", "Login", new {Area="Users" })',
+                                data: { phoneNumber: phoneNumber, countryCode: countryCode },
+                                success: function (data) {
+                                    $(".preloader").hide();
+                                    if (data == "Success") {
+                                        alert("Verification code is sent. Please enter the verification code")
+                                    }
+                                    else {
+                                        window.location.href = '/Users/Login/VerificationFail';
+                                    }
+                                }
+                            });
+                        },
+                        //close: true
+                    }, {
+                        text: 'Cancel',
+                        className: 'cls3',
+                        click: function () {
+                            //alert('alert3');
+                        },
+                        close: true
+                    }
+                ]
+            });
+            $("fieldset input").addClass("verificationcodeformat")
+            $('.verificationcodeformat').mask('00-00-00');
+            $('div.sweet-alert').prepend($('<div class="preloader" style="display:none"></div>'));
+        }
+    }
+
+</script>

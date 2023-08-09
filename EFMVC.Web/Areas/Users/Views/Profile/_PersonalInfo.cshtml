@@ -1,0 +1,143 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileFormModel
+    <div class="row" id="budgetInfo">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Personal Info</h5>
+
+                </div>
+                <div class="ibox-content">
+                    <div class="alert alert-success alert-dismissable" id="dvbudinfosuc" style="display:none;">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <span id="cbudsuceess">Record updated successfully</span>
+                    </div>
+
+
+                    <div class="alert alert-danger alert-dismissable" id="dvbudinfoerror" style="display:none;">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <span id="cbuderrror"></span>
+                    </div>
+                    @using (Ajax.BeginForm("Save", "Profile",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresult" },
+new { @class = "form-horizontal" }))
+                    {
+                        @Html.HiddenFor(m => m.UserProfileId);
+                        
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Mobile Number</label>
+
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(model => model.MSISDN, new { @class = "input-sm form-control",@placeholder="Mobile Number" })
+                                @Html.ValidationMessageFor(model => model.MSISDN)
+                                <label class="label label-danger">Important - Changing your registered mobile phone will change where you hear advertisements.</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">DOB</label>
+                          
+                            <div class="col-lg-4" id="data_1">
+                                @{
+                                    string parameterValue = string.Empty;
+                                    if (Model.DOB != null)
+                                    {
+                                        parameterValue = Model.DOB.Value.ToString("dd/MM/yyyy");
+                                    }
+
+                                }
+                                @if (String.IsNullOrEmpty(parameterValue))
+                                {
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        @Html.TextBoxFor(model => model.DOB, new { @class = "form-control" })
+                                    </div>
+                                }
+                                else
+                                {
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    @Html.TextBoxFor(model => parameterValue, new { @class = "form-control" })
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Location</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.Location, Model.LocationList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.Location)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Gender</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.Gender, Model.GenderList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.Gender)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Household Status</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.HouseholdStatus, Model.HouseholdStatusList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.HouseholdStatus)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Relationship Status</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.RelationshipStatus, Model.RelationshipStatusList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.RelationshipStatus)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Income Bracket</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.IncomeBracket, Model.IncomeBracketList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.IncomeBracket)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Education</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.Education, Model.EducationList, "--Select--",new {@class= "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.Education)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Working Status</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.WorkingStatus, Model.WorkingStatusList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.WorkingStatus)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-3 col-lg-1">
+                                <button class="btn btn-blue" type="submit">Save</button>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var getresult = function (data) {
+            if (data == "success") {
+                $("#dvbudinfosuc").show();
+                $("#dvbudinfoerror").hide();
+            }
+            else {
+                $("#cbuderrror").html(data);
+                $("#dvbudinfosuc").hide();
+                $("#dvbudinfoerror").show();
+            }
+        };
+    </script>

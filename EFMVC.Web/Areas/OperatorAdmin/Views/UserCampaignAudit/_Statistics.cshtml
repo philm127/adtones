@@ -1,0 +1,8 @@
+﻿@using EFMVC.Web.Models; 
+@using EFMVC.Web.SearchClass;
+@model EFMVC.Web.Models.CampaignProfileMapping
+
+<div class="row">&nbsp;</div>
+@Html.Partial("_CampaignDetailsStatistics", Model.CampaignDashboardChartResult)
+
+@Html.Partial("_UserCampaignAuditManagement", Tuple.Create<List<CampaignAuditResult>, CampaignAuditFilter>(Model.CampaignAudit, Model.CampaignAuditFilter))

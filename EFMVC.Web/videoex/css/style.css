@@ -1,0 +1,104 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Table of Contents
+-----------------------------------------------------------------------------
+	1. Clean Base
+	2. Base Typography
+	3. Images
+	4. Links
+	5. Forms
+	6. Tables
+	7. Framework 
+*/
+
+/* 1. Clean Base
+------------------------------------------------------------------------------*/
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, 
+legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, a, nav, section, summary, time, mark, audio, video 
+{margin:0 auto; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; background:transparent; text-decoration:none; list-style:none; outline:none; -webkit-font-smoothing: subpixel-antialiased; -webkit-tap-highlight-color:rgba(0,0,0,0);}
+	
+html,body { -webkit-text-size-adjust:none; -webkit-font-smoothing: antialiased;}
+article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {display: block;}
+img{border:none;}
+
+input[type="text"], input[type="submit"], input[type="button"], input[type="password"], input[type="email"], input[type="tel"], input[type="search"], textarea {-webkit-appearance: none; outline: none;}
+textarea:focus, input:focus, a, div, img { outline: none; }
+ 
+.cf:before, .cf:after { content: ""; display: table; }
+.cf:after { clear: both; }
+.cf { zoom: 1; }
+.clear { clear: both; }
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.clearfix { display: inline-block; }
+* html .clearfix { height: 1%; }
+.clearfix { display: block;}
+
+/* 2. Base Typography
+------------------------------------------------------------------------------*/
+body{ color:#000000; font-size:18px; font-family:'MuseoSlab-500Italic'; line-height:26px;}
+
+h1, h2, h3, h4, h5, h6{font-weight:normal; font-family:'MuseoSlab-500Italic'; font-weight:500;  margin-bottom:20px;}
+h1{ font-size:45px; line-height:65px; color:#000; margin-bottom:30px;}
+h2{ font-size:36px;}
+h3{ font-size:30px;}
+h4{ font-size:26px;}
+h5{ font-size:25px;}
+h6{ font-size:25px;}
+
+p{ color:#000000; font-size:40px; font-weight:400; line-height:1.1; margin-bottom:20px;}
+
+ul{ margin:20px 20px; padding:0;}
+ul li{ font-size:18px;  color:#000; line-height:26px; padding:0 0 10px 0; list-style:outside circle;}
+
+ol{ margin:20px 20px; padding:0;}
+ol li{ font-size:13px;  color:#373d48; font-weight:400; line-height:18px; padding:0 0 5px 0; list-style: decimal; margin-left:20px;}
+
+blockquote{ display:block; text-align:left; margin-bottom:20px; position:relative; background:#f3f3f3; padding:20px 20px 10px 20px; border-left:2px solid #1589cb;}
+blockquote p{ font-size:13px; font-weight:400; line-height:17px; margin-bottom:15px; position:relative; }
+
+hr {border:0 #000 solid; border-top-width:1px; clear:both; height:0;}
+i{color:#3785b8; font-style:normal;}
+
+/* 3. Images
+------------------------------------------------------------------------------*/
+img{border:none; border-style: none; max-width:100%; height:auto;}
+
+/* 4. Link
+------------------------------------------------------------------------------*/
+a{color:#4777ac;}
+a:hover{color:#4777ac; text-decoration: underline;}
+a:active, a.current {color: #e8941a;}
+a:focus {outline: none;}
+
+/* 5. Forms
+------------------------------------------------------------------------------*/
+input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="search"]{ border:1px solid #dedede; padding:0 15px; color:#666666; font-size:12px; height:36px; }
+textarea{ border:1px solid #dedede; padding:5px 15px; color:#666666; font-size:12px; height:60px; resize:none;  line-height:16px;}
+
+input[type="submit"], input[type="button"], input[type="reset"]{ background:#666; cursor:pointer; color:#fff; border:none; height:30px; line-height:28px; display:block; font-size:15px;}
+input[type="submit"]:hover, input[type="button"]:hover{ background:#666; color:#fff;}
+
+/* 6. Tables
+------------------------------------------------------------------------------*/
+table{border-spacing: 0; border-collapse: collapse;}
+td{text-align: left; font-weight: normal;}
+
+/* 7. Layout Framework
+------------------------------------------------------------------------------*/
+
+/* main container */
+#wrapper{ width:100%; min-height:100%;}
+.container{ max-width:1170px; width:100%; box-sizing:border-box;}
+
+
+/* Banner Part */
+.main-banner{display:block; width:100%; position:relative;  overflow:hidden; min-height:650px;}
+.video-block {  left: 0;  overflow: hidden;  position: absolute;  top: 0;  z-index: 0; height:100%; width:100%; background:rgba(0, 0, 0, 0) url("../images/banner-img.jpg") repeat scroll center center ; background-size:cover;}
+.video-block iframe {  height: 120%;  width: 120%; margin-left:-10%; }
+
+
+/*.video-block video {height:100%; width:100%;}*/
+.video-block .video{  position: absolute; top: 50%;  left: 50%;  z-index: 1; min-width: 100%; min-height: 100%; width: auto; height: auto;  -webkit-transform:translate(-50%, -50%);  -ms-transform: translate(-50%, -50%);  transform: translate(-50%, -50%);}
+
+

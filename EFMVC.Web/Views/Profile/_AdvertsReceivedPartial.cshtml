@@ -1,0 +1,90 @@
+﻿@using EFMVC.Web.ViewModels
+@using PagedList
+@using PagedList.Mvc
+@{
+    var list = (IPagedList<UserProfileAdvertsReceivedFromModel>) ViewData["ListPaged"];
+}
+
+<div class="row">
+    <div class="large-12">
+        <ul id="names" start="@list.FirstItemOnPage" class="font12" style="list-style: none">
+            <li>
+                <div class="row"  style="height: 60px">
+                    <div class="panel">
+                        <div class="large-1 columns hide-for-small">
+                            AdvertRef
+                        </div>
+                        <div class="large-2 columns small-3">
+                            AdvertName
+                        </div>
+                        <div class="large-2 columns hide-for-small">
+                            Brand
+                        </div>
+                        <div class="large-2 columns small-3">
+                            Date Played
+                        </div>
+                        <div class="large-1 columns hide-for-small">
+                            Time Played
+                        </div>
+                        <div class="large-1 columns small-1">
+                            Credits Received
+                        </div>
+                        <div class="large-3 columns hide-for-small">
+                            Advert Played
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="row">
+                    <div class="large-12" style="border-bottom-color: #d9d9d9; border-bottom-style: solid; border-bottom-width: 1px;">
+                        <div class="clr3"></div>
+                    </div>
+                </div>
+            </li>
+            @foreach (UserProfileAdvertsReceivedFromModel advert in list)
+            {
+                <li>
+                    <div class="row">
+                        <div class="clr3"></div>
+                        <div class="large-1 columns hide-for-small">
+                            @advert.AdvertRef
+                        </div>
+                        <div class="large-2 columns small-3">
+                            @advert.AdvertName
+                        </div>
+                        <div class="large-2 columns hide-for-small">
+                            @advert.Brand
+                        </div>
+                        <div class="large-2 columns small-3">
+                            @advert.DateTimePlayed.ToString("dd/MM/yyyy")
+                        </div>
+                        <div class="large-1 columns hide-for-small">
+                            @advert.DateTimePlayed.ToString("HH:mm")
+                        </div>
+                        <div class="large-1 columns small-3">
+                            @advert.CreditsReceived
+                        </div>
+                        <div class="large-3 columns hide-for-small">
+                            @Html.Html5().Media.Audio(advert.AdvertName, @"~/Media/Archive/" + advert.FileName, "", new {@class = "audio-small"})
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div class="large-12" style="border-bottom-color: #d9d9d9; border-bottom-style: solid; border-bottom-width: 1px;">
+                            <div class="clr3"></div>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="large-2 columns">&nbsp;</div>
+    <div class="large-8 columns" style="horiz-align: center">
+        @Html.PagedListPager(list, page => Url.Action("AdvertsReceived", new {page}), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "unobtrusive", OnComplete = "PagedOnComplete"}))        
+    </div>
+    <div class="large-2 columns">&nbsp;</div>
+</div>

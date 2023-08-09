@@ -1,0 +1,21 @@
+﻿@using EFMVC.Web.ViewModels
+@model IEnumerable<EFMVC.Web.ViewModels.UserProfileFormModel>
+
+@{
+    ViewBag.Title = "Index";
+    var user = ViewData["User"] as UserFormModel;
+}
+
+<div class="row">
+
+    <div class="large-12 columns">
+        <h5>Your Profile</h5>
+        @Html.Partial("_ProfileList", Model)
+    </div>
+    
+</div>
+
+@*<h2>Profile - @user.FirstName @user.LastName</h2>*@
+@*<div id="divProfileList">*@
+@*    @Html.Partial("_ProfileList", Model)*@
+@*</div>*@

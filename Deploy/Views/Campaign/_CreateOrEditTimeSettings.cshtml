@@ -1,0 +1,95 @@
+﻿@using MvcCheckBoxList.Model
+@model EFMVC.Web.ViewModels.CampaignProfileTimeSettingFormModel
+<style type="text/css">
+    label { float: right; }
+
+</style>
+
+@Html.HiddenFor(model => model.CampaignProfileTimeSettingsId)
+@Html.HiddenFor(model => model.CampaignProfileId)
+
+<div class="row">
+    <div class="large-12 columns">
+        <h6>Time Settings</h6>
+        <h6 class="font14">Please select the profile matching criteria for the following</h6><h6 class="font11">Select one or more answers for each question.</h6><h6 class="font11">If more than one answer for each question is selected then profiles that match one of the answers chosen will be selected.</h6>
+    </div>
+</div>
+
+<div class="clr10"></div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div class="row">
+            <div class="left small-12 large-even-14-column panel" >
+                <h6>Monday</h6>
+                @Html.CheckBoxListFor(m => m.MondayPostedTimes.DayIds,
+                                      m => m.AvailableTimes,
+                                      time => time.Id,
+                                      time => time.Name,
+                                      m => m.MondaySelectedTimes,
+                                      Position.Vertical)
+            </div>
+                
+            <div class="left small-12  large-even-14-column panel">
+                <h6>Tuesday</h6>
+                @Html.CheckBoxListFor(m => m.TuesdayPostedTimes.DayIds,
+                                      m => m.AvailableTimes,
+                                      time => time.Id,
+                                      time => time.Name,
+                                      m => m.TuesdaySelectedTimes,
+                                      Position.Vertical)
+            </div>
+                
+            <div class="left small-12  large-even-14-column panel">
+                <h6>Wednesday</h6>
+                @Html.CheckBoxListFor(m => m.WednesdayPostedTimes.DayIds,
+                                      m => m.AvailableTimes,
+                                      time => time.Id,
+                                      time => time.Name,
+                                      m => m.WednesdaySelectedTimes,
+                                      Position.Vertical)
+            </div>
+                
+            <div class="left small-12  large-even-14-column panel">
+                <h6>Thursday</h6>
+                @Html.CheckBoxListFor(m => m.ThursdayPostedTimes.DayIds,
+                                      m => m.AvailableTimes,
+                                      time => time.Id,
+                                      time => time.Name,
+                                      m => m.ThursdaySelectedTimes,
+                                      Position.Vertical)
+            </div>
+                
+            <div class="left small-12  large-even-14-column panel">
+                <h6>Friday</h6>
+                @Html.CheckBoxListFor(m => m.FridayPostedTimes.DayIds,
+                                      m => m.AvailableTimes,
+                                      time => time.Id,
+                                      time => time.Name,
+                                      m => m.FridaySelectedTimes,
+                                      Position.Vertical)
+            </div>
+                
+            <div class="left small-12  large-even-14-column panel">
+                <h6>Saturday</h6>
+                @Html.CheckBoxListFor(m => m.SaturdayPostedTimes.DayIds,
+                                      m => m.AvailableTimes,
+                                      time => time.Id,
+                                      time => time.Name,
+                                      m => m.SaturdaySelectedTimes,
+                                      Position.Vertical)
+            </div>
+                
+            <div class="left small-12  large-even-14-column panel">
+                <h6>Sunday</h6>
+                @Html.CheckBoxListFor(m => m.SundayPostedTimes.DayIds,
+                                      m => m.AvailableTimes,
+                                      time => time.Id,
+                                      time => time.Name,
+                                      m => m.SundaySelectedTimes,
+                                      Position.Vertical)
+            </div>
+                
+        </div>
+    </div>
+</div>

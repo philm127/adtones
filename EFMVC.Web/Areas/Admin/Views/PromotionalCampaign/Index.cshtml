@@ -1,0 +1,342 @@
+﻿@using EFMVC.Web.Areas.Admin.Models;
+@model  List<PromotionalCampaignResult>
+@{
+    ViewBag.Title = "Promotional Campaigns";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        @Html.Partial("_PromotionalCampaignManagement", Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    <script type="text/javascript">
+
+        function dataTableSetup() {
+            $('.dataTables-promotionalCampaign').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                "bLengthChange": false,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [-1]
+                    },
+                    {
+                        bSortable: false,
+                        aTargets: [6]
+                    }
+                ],
+                exportOptions: {
+                    columns: ':not(:last-child)',
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+
+                    {
+                        extend: 'copy',
+                        text: 'Copy',
+                        titleAttr: 'Copy',
+                        title: 'PromotionalCampaignDetails',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 7],
+                        }
+
+                    },
+
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        titleAttr: 'Excel',
+                        title: 'PromotionalCampaignDetails',
+                        exportOptions: {
+                            ccolumns: [0, 1, 2, 3, 4, 5, 7],
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: 'CSV',
+                        titleAttr: 'CSV',
+                        title: 'PromotionalCampaignDetails',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 7],
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        titleAttr: 'PDF',
+                        title: 'PromotionalCampaignDetails',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 7],
+                        },
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 7],
+                        },
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    setTimeout(function () {
+                        $(".spiner-example").hide();
+                    }, 1000);
+                    //$(".spiner-example").hide();
+                },
+                "fnInitComplete": function () {
+                    setTimeout(function () {
+                        $(".spiner-example").hide();
+                    }, 1000);
+                    //$(".spiner-example").hide();
+                }	// Hide processingDiv when loading table is complete
+            });
+        }
+
+        function updatestatus(id, status) {
+            var promotionalCampaignObject = new Object();
+            promotionalCampaignObject.id = id;
+            promotionalCampaignObject.status = status;
+            $.post('@Url.Action("UpdatePromotionalCampaign", "PromotionalCampaign", new { area = "Admin" })', promotionalCampaignObject, function (data) {
+                if (data == "success") {
+                    window.location.href = '@Url.Action("Index", "PromotionalCampaign", new { area = "Admin" })';
+                }
+                else {
+                    window.location.href = '@Url.Action("Index", "PromotionalCampaign", new { area = "Admin" })';
+                }
+            });
+        }
+
+        $(document).ready(function () {
+
+            var config = {
+                '.chosen-select': { width: "100%" },
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+
+            $("#promotionalCampaignreset").click(function () {
+                $(".spiner-example").show();
+                $("#OperatorId").val('');
+                $("#OperatorId").trigger("chosen:updated");
+                $("#BatchId").val('');
+                $("#BatchId").trigger("chosen:updated");
+                OperatorId();
+                $.ajax({
+                    data: null,
+                    datatype: "text/plain",
+                    type: "POST",
+                    url: '@Url.Action("SearchPromotionalCampaign", "PromotionalCampaign", new { area = "Admin" })',
+                    cache: false,
+                    success: function (data) {
+                        $(".spiner-example").hide();
+                        $("#promotionalCampaignList").html(data);
+                        dataTableSetup();
+                    }
+                });
+            });
+
+            $("#OperatorId").change(function () {
+                OperatorId();
+            });
+            function OperatorId() {
+                $(".spiner-example").show();
+                $("#BatchId").empty(); //remove all child nodes
+                $("#BatchId").trigger("chosen:updated");
+                var id = $("#OperatorId").val();
+                if (id == null)
+                    id = 0;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("FillBatchID", "PromotionalCampaign", new { area = "Admin" })',
+                    data: { operatorId: id },
+                    success: function (data) {
+                        if (data.length == 0) {
+                            $("#BatchId").empty(); //remove all child nodes
+                            $("#BatchId").trigger("chosen:updated");
+                            $("#BatchId").append('<option value="' + 0 + '">' + 'All BatchID' + '</option>');
+                        }
+                        else {
+                            $("#BatchId").append('<option value="' + 0 + '">' + 'All BatchID' + '</option>');
+                            $.each(data, function (i, data) {
+                                $("#BatchId").append('<option value="' + data.Value + '">' +
+                                    data.Text + '</option>');
+                            });
+                            $("#BatchId").trigger("chosen:updated");
+                        }
+                        $(".spiner-example").hide();
+                    }
+                });
+            }
+
+            $('.dataTables-promotionalCampaign').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                "bLengthChange": false,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [-1]
+                    },
+                    {
+                        bSortable: false,
+                        aTargets: [6]
+                    }
+                ],
+                exportOptions: {
+                    columns: ':not(:last-child)',
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+
+                    {
+                        extend: 'copy',
+                        text: 'Copy',
+                        titleAttr: 'Copy',
+                        title: 'PromotionalCampaignDetails',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 7],
+                        }
+
+                    },
+
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        titleAttr: 'Excel',
+                        title: 'PromotionalCampaignDetails',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 7],
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: 'CSV',
+                        titleAttr: 'CSV',
+                        title: 'PromotionalCampaignDetails',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 7],
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        titleAttr: 'PDF',
+                        title: 'PromotionalCampaignDetails',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 7],
+                        },
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 7],
+                        },
+                        customize: function (win) {
+                                    $(win.document.body).addClass('white-bg');
+                                    $(win.document.body).css('font-size', '10px');
+
+                                    $(win.document.body).find('table')
+                                            .addClass('compact')
+                                            .css('font-size', 'inherit');
+                                }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    setTimeout(function () {
+                        $(".spiner-example").hide();
+                    }, 1000);
+                    //$(".spiner-example").hide();
+                },
+                "fnInitComplete": function () {
+                    setTimeout(function () {
+                        $(".spiner-example").hide();
+                    }, 1000);
+                    //$(".spiner-example").hide();
+                }	// Hide processingDiv when loading table is complete
+            });
+        });
+    </script>
+}

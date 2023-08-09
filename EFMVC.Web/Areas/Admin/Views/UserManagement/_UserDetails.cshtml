@@ -1,0 +1,142 @@
+﻿@using EFMVC.Web.Areas.Admin.Models;
+@model List<UserResult>
+<div class="row">
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["status"]
+        </div>
+    }
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-usermanagement">
+        <thead>
+            <tr>
+
+                <th>Email</th>
+                <th>Advertiser</th>
+                <th>Role</th>
+                <th>No. of Active Campaign</th>
+                <th>No. of Unapproved Adverts</th>
+                <th>New Help Tickets</th>
+                <th>Credit Limit</th>
+                <th>Outstanding Invoice</th>
+                <th>Created Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (UserResult result in Model)
+            {
+            <tr class="gradeX">
+                @if (result.status != 3)
+                {
+                    <td><a href='@Url.Action("UserDetails", "UserManagement", new { @id = result.Id })'>@result.Email</a></td>
+                }
+                else
+                {
+                    <td>@result.Email</td>
+                }
+                <td>@result.Name</td>
+                @if (result.RoleId == 1)
+                {
+                    <td>Admin</td>
+                }
+                else if (result.RoleId == 2)
+                {
+                    <td>User</td>
+                }
+                else if (result.RoleId == 3)
+                {
+                    <td>Advertiser</td>
+                }
+                else
+                {
+                    <td>UserAdmin</td>
+                }
+                @if (result.NoOfactivecampaign > 0)
+                {
+                    <td><a href='@Url.Action("Index", "Campaign", new { @userId = result.Id })'>@result.NoOfactivecampaign</a></td>
+                }
+                else
+                {
+                    <td>@result.NoOfactivecampaign</td>
+                }
+                @if (result.NoOfunapprovedadverts > 0)
+                {
+                    <td><a href='@Url.Action("Index", "UserAdvert", new { area = "Admin", userId = result.Id, status = 4 })'>@result.NoOfunapprovedadverts</a></td>
+                }
+                else
+                {
+                    <td>@result.NoOfunapprovedadverts</td>
+                }
+                @if (result.TicketCount > 0)
+                {
+                    <td><a href='@Url.Action("Index", "Question", new { area = "Admin", userId = result.Id })'>@result.TicketCount</a></td>
+                }
+                else
+                {
+                    <td>@result.TicketCount</td>
+                }
+                @if (result.Creditlimit > 0)
+                {
+                    <td><a href='@Url.Action("CreditDetails", "UserCredit", new { area = "Admin", id = 0, userId = result.Id })'>@result.Creditlimit</a></td>
+                }
+                else
+                {
+                    <td>@result.Creditlimit</td>
+                }
+
+                <td>@result.Outstandinginvoice</td>
+                <td>@result.CreatedDate</td>                
+                <td>
+                    @if (result.status == 0)
+                    {
+                        <label class="label label-default">Pending</label>
+                    }
+                    else if (result.status == 1)
+                    {
+                        <label class="label label-primary">Approved</label>
+                    }
+                    else if (result.status == 2)
+                    {
+                        <label class="label label-danger">Suspended</label>
+                    }
+                    else
+                    {
+                        <label class="label label-danger">Deleted</label>
+                    }
+                </td>
+                @if (result.status == 1)
+                {
+                    <td>
+                        <a class="btn btn-danger btn-xs" onclick='updatestatus(@result.Id,2)'>Suspend</a>
+                    </td>
+                }
+                else if (result.status == 2)
+                {
+                    <td>
+
+                        <a class="btn btn-blue btn-xs" onclick='updatestatus(@result.Id,1)'>Approve</a>
+                    </td>
+                }
+                else if (result.status == 0)
+                {
+                    <td>
+                        <a class="btn btn-blue btn-xs" onclick='updatestatus(@result.Id,1)'>Approve</a>
+                        <a class="btn btn-danger btn-xs" onclick='updatestatus(@result.Id,2)'>Suspend</a>
+                    </td>
+
+                }
+                else
+                {
+                    <td></td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,291 @@
+﻿@using EFMVC.Web.ViewModels;
+@using EFMVC.Web.Models;
+@model Tuple<EFMVC.Web.ViewModels.CampaignProfileFormModel, CampaignProfileMapping>
+<style>
+    .ProfileMappingUl{
+            list-style-type: none;
+            padding-left:0px;
+    }
+</style>
+
+<div class="row">&nbsp;</div>
+<div class="row">
+    <div class="wrapper-content animated fadeInRight">
+        @Html.Partial("_AddCampaignInfo", Model.Item1)
+
+        <div id="CampaignOtherInfo" style="display:none">
+            @Html.Partial("_AddBudgetInfo", Model.Item1)
+            @Html.Partial("_AddSMSANDEMAIL", Model.Item1)
+            <div class="row">
+                @Html.Partial("_AddListOfAdverts", Tuple.Create<EFMVC.Web.ViewModels.CampaignProfileFormModel, IEnumerable<AdvertFormModel>>(Model.Item1, Model.Item2.AdvertFormModel))
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12" id="profile">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Ads Profile Mapping</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <button class="accordion">Geographic</button>
+                            <div class="panel" id="GeographicPanel">
+                                @Html.Partial("_AddCreateOrEditGeographic", Model.Item2.CampaignProfileGeographicModel)
+
+                            </div>
+
+                            <button class="accordion">Demographic</button>
+                            <div class="panel" id="DemographicPanel">
+                                @Html.Partial("_AddCreateOrEditDemographics", Model.Item2.CampaignProfileDemographicsmodel)
+                            </div>
+
+                            <button class="accordion">Ad Types</button>
+                            <div class="panel" id="AdvertPanel">
+                                @*<button class="Nestedaccordion">Advert</button>
+                                <div class="panel" id="AdvertPanel">*@
+                                    @Html.Partial("_AddCreateOrEditAdvert", Model.Item2.CampaignProfileAd)
+                                @*</div>*@
+                                @*<button class="Nestedaccordion">Attitude</button>
+                                <div class="panel" id="AttitudePanel">
+                                    @Html.Partial("_AddCreateOrEditAttitude", Model.Item2.campaignProfileAttitude)
+                                </div>
+                                <button class="Nestedaccordion">Cinema</button>
+                                <div class="panel" id="CinemaPanel">
+                                    @Html.Partial("_AddCreateOrEditCinema", Model.Item2.CampaignProfileCinemaFormModel)
+                                </div>
+                                <button class="Nestedaccordion">Internet</button>
+                                <div class="panel" id="InternetPanel">
+                                    @Html.Partial("_AddCreateOrEditInternet", Model.Item2.CampaignProfileInternetFormModel)
+                                </div>
+                                <button class="Nestedaccordion">Press</button>
+                                <div class="panel" id="PressPanel">
+                                    @Html.Partial("_AddCreateOrEditPress", Model.Item2.CampaignProfilePressFormModel)
+                                </div>
+                                <button class="Nestedaccordion">Products & Services</button>
+                                <div class="panel" id="PrdSrcPanel">
+                                    @Html.Partial("_AddCreateOrEditProductsServices", Model.Item2.CampaignProfileProductsServiceFormModel)
+                                </div>
+                                <button class="Nestedaccordion">Radio</button>
+                                <div class="panel" id="RadioPanel">
+                                    @Html.Partial("_AddCreateOrEditRadio", Model.Item2.CampaignProfileRadioFormModel)
+                                </div>
+                                <button class="Nestedaccordion">TV</button>
+                                <div class="panel" id="TVPanel">
+                                    @Html.Partial("_AddCreateOrEditTv", Model.Item2.CampaignProfileTvFormModel)
+                                </div>*@
+                            </div>
+
+                            <button class="accordion">Usage</button>
+                            <div class="panel" id="MobilePanel">
+                                @*<button class="NestedaccordionUsage">Mobile</button>
+                                <div class="panel" id="MobilePanel">*@
+                                    @Html.Partial("_AddCreateOrEditMobile", Model.Item2.CampaignProfileMobileFormModel)
+                                @*</div>
+                                <button class="NestedaccordionUsage">Time Settings</button>
+                                <div class="panel" id="TimeSettingsPanel">
+                                    @Html.Partial("_AddCreateOrEditTimeSettings", Model.Item2.CampaignProfileTimeSettingFormModel)
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+   
+    $('#data_2 .input-group.date').datepicker({
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true,
+    });
+
+    $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+    });
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        var items;
+        acc[i].onclick = function () {
+
+            var currentpanel = $('#profile').find(".panel");
+            var current = this.nextElementSibling;
+            for (var j = 0; j < currentpanel.length; j++) {
+                if ($(currentpanel[j]).attr("id") == $(current).attr("id")) {
+                    this.classList.toggle("active");
+                    this.nextElementSibling.classList.toggle("show");
+                }
+                else {
+                    $(currentpanel[j]).removeClass("show");
+                    var prevelement = $(currentpanel[j]).prev();
+                    $(prevelement).removeClass("active");
+                }
+            }
+        }
+    }
+
+    var accNested = document.getElementsByClassName("Nestedaccordion");
+    var ii;
+
+    for (ii = 0; ii < accNested.length; ii++) {
+        var items;
+        accNested[ii].onclick = function () {
+
+            var currentpanel = $('#profile #BehaviourPanel').find(".panel");
+            var current = this.nextElementSibling;
+            for (var jj = 0; jj < currentpanel.length; jj++) {
+                if ($(currentpanel[jj]).attr("id") == $(current).attr("id")) {
+                    this.classList.toggle("active");
+                    this.nextElementSibling.classList.toggle("show");
+                }
+                else {
+                    $(currentpanel[jj]).removeClass("show");
+                    var prevelement = $(currentpanel[jj]).prev();
+                    $(prevelement).removeClass("active");
+                }
+            }
+        }
+    }
+
+    var accNestedUsage = document.getElementsByClassName("NestedaccordionUsage");
+    var ii;
+
+    for (ii = 0; ii < accNestedUsage.length; ii++) {
+        var items;
+        accNestedUsage[ii].onclick = function () {
+
+            var currentpanel = $('#profile #UsagePanel').find(".panel");
+            var current = this.nextElementSibling;
+            for (var jj = 0; jj < currentpanel.length; jj++) {
+                if ($(currentpanel[jj]).attr("id") == $(current).attr("id")) {
+                    this.classList.toggle("active");
+                    this.nextElementSibling.classList.toggle("show");
+                }
+                else {
+                    $(currentpanel[jj]).removeClass("show");
+                    var prevelement = $(currentpanel[jj]).prev();
+                    $(prevelement).removeClass("active");
+                }
+            }
+        }
+    }
+
+
+   
+    $("#selectall").click(function () {
+        $("#timesetting input:checkbox").iCheck('check');
+        $('#timesetting input:checkbox').iCheck('update');
+
+    });
+    $("#deselectall").click(function () {
+        $("#timesetting input:checkbox").iCheck('uncheck');
+        $('#timesetting input:checkbox').iCheck('update');
+    });
+
+    $("#selectalldemographic").click(function () {
+        $("#demographicsdiv input:checkbox").iCheck('check');
+        $('#demographicsdiv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectalldemographic").click(function () {
+        $("#demographicsdiv input:checkbox").iCheck('uncheck');
+        $('#demographicsdiv input:checkbox').iCheck('update');
+    });
+
+    $("#selectalladvert").click(function () {
+        $("#advertsdiv input:checkbox").iCheck('check');
+        $('#advertsdiv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectalladvert").click(function () {
+        $("#advertsdiv input:checkbox").iCheck('uncheck');
+        $('#advertsdiv input:checkbox').iCheck('update');
+    });
+
+    $("#selectallattitude").click(function () {
+        $("#atitudediv input:checkbox").iCheck('check');
+        $('#atitudediv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectallattitude").click(function () {
+        $("#atitudediv input:checkbox").iCheck('uncheck');
+        $('#atitudediv input:checkbox').iCheck('update');
+    });
+
+    $("#selectallcinema").click(function () {
+        $("#cinemadiv input:checkbox").iCheck('check');
+        $('#cinemadiv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectallcinema").click(function () {
+        $("#cinemadiv input:checkbox").iCheck('uncheck');
+        $('#cinemadiv input:checkbox').iCheck('update');
+    });
+
+    $("#selectallinternet").click(function () {
+        $("#internetdiv input:checkbox").iCheck('check');
+        $('#internetdiv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectallinternet").click(function () {
+        $("#internetdiv input:checkbox").iCheck('uncheck');
+        $('#internetdiv input:checkbox').iCheck('update');
+    });
+
+    $("#selectallpress").click(function () {
+        $("#pressdiv input:checkbox").iCheck('check');
+        $('#pressdiv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectallpress").click(function () {
+        $("#pressdiv input:checkbox").iCheck('uncheck');
+        $('#pressdiv input:checkbox').iCheck('update');
+    });
+
+    $("#selectallprodservice").click(function () {
+        $("#prodservice input:checkbox").iCheck('check');
+        $('#prodservice input:checkbox').iCheck('update');
+
+    });
+    $("#deselectallprodservice").click(function () {
+        $("#prodservice input:checkbox").iCheck('uncheck');
+        $('#prodservice input:checkbox').iCheck('update');
+    });
+
+    $("#selectallradio").click(function () {
+        $("#radiodiv input:checkbox").iCheck('check');
+        $('#radiodiv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectallradio").click(function () {
+        $("#radiodiv input:checkbox").iCheck('uncheck');
+        $('#radiodiv input:checkbox').iCheck('update');
+    });
+
+    $("#selectalltv").click(function () {
+        $("#tvdiv input:checkbox").iCheck('check');
+        $('#tvdiv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectalltv").click(function () {
+        $("#tvdiv input:checkbox").iCheck('uncheck');
+        $('#tvdiv input:checkbox').iCheck('update');
+    });
+
+
+    $("#selectallmobile").click(function () {
+        $("#mobilediv input:checkbox").iCheck('check');
+        $('#mobilediv input:checkbox').iCheck('update');
+
+    });
+    $("#deselectallmobile").click(function () {
+        $("#mobilediv input:checkbox").iCheck('uncheck');
+        $('#mobilediv input:checkbox').iCheck('update');
+    });
+ </script>

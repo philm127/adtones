@@ -1,0 +1,103 @@
+﻿@model EFMVC.Web.ViewModels.UserProfilePressFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>Press</h5>
+
+                </div>*@
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvpresssuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvpresserror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cpresserrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SavePress", "UserAdminProfile",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultpress", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.UserProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Local_Press)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.National_Press)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.FreeNewpapers_Press)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Local_Press, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Local_Press, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Local_Press, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Local_Press, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Local_Press)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.National_Press, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.National_Press, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.National_Press, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.National_Press, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.National_Press)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FreeNewpapers_Press, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FreeNewpapers_Press, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FreeNewpapers_Press, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FreeNewpapers_Press, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.FreeNewpapers_Press)
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Magazines_Press)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Magazines_Press, "A")Don&apos;t Know</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Magazines_Press, "B")Never</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Magazines_Press, "C")Rarely</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Magazines_Press, "D")Regular</label></div>
+                                @Html.ValidationMessageFor(model => model.Magazines_Press)
+
+                            </div>
+
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <div class="col-lg-1">
+                            <button class="btn btn-blue" type="submit">Save</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultpress = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvpresssuc").show();
+            $("#dvpresserror").hide();
+        }
+        else
+        {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing", new { Area = "" })';
+            }
+            $("#cpresserrror").html(data);
+            $("#dvpresssuc").hide();
+            $("#dvpresserror").show();
+        }
+    };
+</script>

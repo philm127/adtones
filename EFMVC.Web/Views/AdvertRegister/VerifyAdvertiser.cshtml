@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "RegisterAdvertiserSuccess";
+}
+@{
+    ViewBag.Title = "Verify advertiser";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>adtones | @ViewBag.Title</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">ad+</h1>
+
+            </div>
+
+            <div class="row">
+                <div class="large-12 columns">
+                    @{
+                        var verifyAdvertiserResult = (string)ViewData["VerifyAdvertiserResult"];
+
+                        if (verifyAdvertiserResult == "success")
+                        {
+                            <h5>Your new account request has been submitted.</h5>
+
+                            <div class="clr10"></div>
+
+                            <p> You will shortly be contacted by a member of the adtones team to discuss your requirements. </p>
+
+                            <div class="clr20"></div>
+                        }
+                        else
+                        {
+                            <h5>We are unable to verify your email address.</h5>
+                            <div class="clr10"></div>
+                            <p>Please contact adtones team regarding email Verification.</p>
+                            <div class="clr20"></div>
+                        }
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

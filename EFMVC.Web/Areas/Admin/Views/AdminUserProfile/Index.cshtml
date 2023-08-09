@@ -1,0 +1,67 @@
+﻿@using EFMVC.Web.Models
+@model AccountInfo
+@{
+    ViewBag.Title = "User Profile";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/plugins/sweetalert/sweetalert.min.js"></script>
+
+<div class="wrapper wrapper-content animated">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="row">
+        @Html.Partial("_BasicInfo", Model.UserProfileInfo)
+
+    </div>
+    <div class="row">
+        @Html.Partial("_ChangePassword", Model.ChangePasswordFormModel)
+    </div>
+
+    <div class="row">
+        @Html.Partial("_ContactInfo", Model.ContactsFormModel)
+
+    </div>
+    <div class="row">
+        @Html.Partial("_CompanyDetails", Model.CompanyDetailsFormModel)
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            trimmed();
+            $('.txtOnly').on('input', function() {
+              $(this).val($(this).val().replace(/[^a-z]/gi, ''));
+            });
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+}

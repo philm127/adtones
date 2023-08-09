@@ -1,0 +1,48 @@
+﻿@using EFMVC.Web.Areas.Users.Models;
+@model List<BlockedNumberResult>
+<div class="row">
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["success"]
+        </div>
+    }
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-blockednumber">
+        <thead>
+            <tr>
+                <th>Telephone Number</th>
+                <th>Name</th>
+                <th>Active</th>
+                <th>Action</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (BlockedNumberResult result in Model)
+            {
+                <tr class="gradeX">
+                    <td>@result.TelephoneNumber</td>
+                    <td>@result.Name</td>
+                    <td>
+                    @if (result.Active)
+                    {
+                        <label class="label label-primary">True</label>
+                    }
+                    else
+                    {
+                        <label class="label label-danger">False</label>
+                    }
+                        
+                    </td>
+                    <td>
+                        <a class="btn btn-danger btn-xs" href='@Url.Action("Edit","BlockedNumber",new {@id=result.Id,Area="Users" })'>Update</a>
+                        <a class="btn btn-danger btn-xs" href='@Url.Action("Delete","BlockedNumber",new {@id=result.Id,Area="Users" })'>Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

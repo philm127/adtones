@@ -1,0 +1,297 @@
+﻿body {
+}
+
+/*Add 08-03-2019*/
+label.lbldanger {
+    color: cornflowerblue;
+    /*cornflowerblue*/
+}
+
+/* 21-05-2019 onchange drop-down UserID */
+.avatar {
+    width: 100%;
+    float: right;
+}
+
+.info {
+    width: 100%;
+    float: right;
+}
+
+td.dt-body-right {
+    text-align: right;
+}
+td.dt-body-left {
+    text-align: left;
+}
+td.dt-body-center {
+    text-align: center;
+}
+
+#select2-UserId-results li.select2-results__option {
+    overflow: auto;
+}
+
+.bigdrop {
+    width: 600px !important;
+}
+
+.userdrp {
+    font-family: sans-serif;
+    font-size: 13px;
+    color: #666;
+    border: 1px solid #CBD5DD;
+}
+
+/*.float-left {
+    float: left !important;
+}*/
+
+/* 12-06-19 */
+.set-time-wrapper {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+    .set-time-wrapper .input-group-addon {
+        padding: 6px 8px;
+    }
+
+        .set-time-wrapper .input-group-addon.divider-date {
+            padding: 4px 5px;
+        }
+
+@media only screen and (max-width:1280px) {
+    .set-time-wrapper .form-control {
+        padding: 6px;
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-width:480px) {
+    .set-time-wrapper {
+        flex-direction: column;
+    }
+
+        .set-time-wrapper .date {
+            width: 100%;
+        }
+
+        .set-time-wrapper .input-group-addon.divider-date {
+            padding: 4px 10px;
+        }
+}
+
+/* 16-6-19 */
+
+.form-group .input-group {
+    width: 100%;
+}
+
+    /*.form-group .input-group.date {
+        width: auto;
+    }*/
+
+/* 20-6-19 */
+.input-group-addon {
+    padding: 6px 8px;
+}
+
+@media only screen and (max-width:1900px) {
+    .ibox-field {
+        width: 50% !important;
+    }
+}
+
+@media only screen and (min-width:1279px) {
+    .set-time-wrapper .form-control,
+    .wizard > .content > .body input,
+    .input-group .form-control {
+        font-size: 12px;
+    }
+}
+
+    @media only screen and (max-width:1280px) {
+        .set-time-wrapper .form-control,
+        .wizard > .content > .body input,
+        .input-group .form-control {
+            padding: 6px;
+            font-size: 11px;
+        }
+    }
+
+    @media only screen and (max-width:991px) {
+
+        .ibox-field {
+            width: auto !important;
+        }
+
+        .form-group .input-group.date {
+            width: 50%;
+        }
+
+        .set-time-wrapper .input-group-addon.divider-date {
+            padding: 4px 16px;
+        }
+
+        .from-to-label {
+            width: auto;
+        }
+    }
+
+    @media only screen and (max-width:768px) {
+        .set-time-wrapper .input-group-addon.divider-date {
+            padding: 4px 10px;
+        }
+    }
+
+    @media only screen and (max-width:576px) {
+
+        .wizard > .content > .body {
+            width: 100%;
+        }
+
+        .top-navigation .wrapper.wrapper-content {
+            padding: 40px 0;
+        }
+
+        .ibox-content {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .form-group .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .set-time-wrapper {
+            flex-direction: column;
+        }
+
+        .form-group .input-group.date {
+            width: 100%;
+        }
+
+        .from-to-label {
+            width: 100%;
+        }
+
+        .form-group .input-group.date {
+            position: relative;
+        }
+
+        /*.input-group.date .input-group-addon {
+            width:100%;
+        }*/
+
+        .input-group-addon {
+            width: 100%;
+        }
+
+        .calendar-icon {
+            min-width: 35px;
+            width: auto;
+            position: absolute;
+            z-index: 9;
+            right: 0;
+            height: 100%;
+            margin: 0 !important;
+        }
+
+        .input-daterange .input-group-addon {
+            margin: 0;
+        }
+
+        .set-time-wrapper .input-group-addon.divider-date {
+            padding: 2px 10px;
+        }
+    }
+
+    @media only screen and (max-width:480px) {
+        .set-time-wrapper {
+            flex-direction: column;
+        }
+
+            .set-time-wrapper .date {
+                width: 100%;
+            }
+
+            .set-time-wrapper .input-group-addon.divider-date {
+                padding: 4px 10px;
+            }
+    }
+
+    /*Add by Krunal*/
+    .center {
+        text-align: center;
+    }
+
+    /*Add 12-07-2019*/
+/*@media only screen and (max-width:1400px) {
+    .navbar-nav{
+        font-size:9px;
+    }
+
+    .minimalize-styl-2 {
+        font-size: 9px;
+        padding: 7px 0px;
+    }
+}*/
+
+/*Add 06-08-2019 by Krunal For Admin Menu Design*/
+.page-container.horizontal-menu header.navbar .navbar-nav > li > a span {
+    font-family: "webnarregular";
+    /*font-weight: 600;*/
+}
+.page-container.horizontal-menu header.navbar .navbar-nav > li ul li a {
+    font-family: "webnarregular";
+    /*font-weight: 600;*/
+}
+.page-container.horizontal-menu header.navbar ul.nav > li > a {
+    font-family: "webnarregular";
+    /*font-weight: 600;*/
+}
+.page-container.horizontal-menu header.navbar .navbar-nav > li > a {
+    font-family: "webnarregular";
+    /*font-weight: 600;*/
+}
+.table-bordered > thead > tr > th {
+    color: #676a6c;
+}
+.dataTables_wrapper table thead tr th.sorting_desc {
+    color: #676a6c;
+}
+.dataTables_wrapper table thead tr th.sorting_asc {
+    color: #676a6c;
+}
+.dataTables_wrapper table thead tr th.sorting_asc:before, .dataTables_wrapper table thead tr th.sorting_desc:before {
+    display: none;
+    /*float: right;
+    color: #303641;
+    font-family: 'Entypo';
+    content: '\e876';*/
+}
+.btn-blue:hover, .btn-blue:focus, .btn-blue:active, .btn-blue.active, .open .dropdown-toggle.btn-blue {
+    background-color: #1e90ff;
+    border-color: #1e90ff;
+    color: #FFFFFF;
+}
+.dataTables_wrapper .dataTables_paginate {
+    margin: 0;
+    white-space: nowrap;
+    text-align: right;
+    padding: 0px 2px;
+    border: 0px solid #ebebeb;
+    border-top: 0;
+    background: #fafafa;
+    height: 47px;
+}
+
+/*Add 19-08-2019 by Krunal For Calander Design in IE*/
+.calendar-icon{
+    cursor: default;
+}

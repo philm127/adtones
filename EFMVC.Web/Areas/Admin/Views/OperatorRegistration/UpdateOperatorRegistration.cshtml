@@ -1,0 +1,314 @@
+﻿@using EFMVC.Web.Models
+@model OperatorAdminFormModel
+@{
+    ViewBag.Title = "Update Operator Admin Registration";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Update Operator Admin Registration</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "OperatorRegistration",new {area="Admin" })">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>Update Operator Admin Registration</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Update Operator Admin Registration</h5>
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("UpdateOperatorRegistration", "OperatorRegistration", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        @Html.HiddenFor(Model => Model.UserId)
+                        @Html.HiddenFor(Model => Model.OldEmail)
+                        @Html.HiddenFor(Model => Model.OldPassword)
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Email <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control trimmed", @placeholder = "Email", autocomplete = "off" })
+                                @Html.ValidationMessageFor(Model => Model.Email, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">First Name <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.FirstName, new { @class = "form-control trimmed", @placeholder = "First Name" })
+                                @Html.ValidationMessageFor(Model => Model.FirstName, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Last Name <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.LastName, new { @class = "form-control trimmed", @placeholder = "Last Name" })
+                                @Html.ValidationMessageFor(Model => Model.LastName, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Organisation</label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.Organisation, new { @class = "form-control trimmed", @placeholder = "Organisation" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Country <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.CountryId, ViewBag.countrydetails as IEnumerable<SelectListItem>, "--Select Country--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.CountryId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Operator <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.OperatorId, ViewBag.operatordetails as IEnumerable<SelectListItem>, new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.OperatorId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Mobile Number <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.MobileNumber, new { @class = "form-control trimmed", @onkeypress = "return isNumber(event)", @placeholder = "Mobile Number" })
+                                @Html.ValidationMessageFor(Model => Model.MobileNumber, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Phone Number</label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.PhoneNumber, new { @class = "form-control trimmed", @onkeypress = "return isNumber(event)", @placeholder = "Phone Number" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Address</label>
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(Model => Model.Address, new { @class = "form-control trimmed", @placeholder = "Address" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Password</label>
+                            <div class="col-lg-6">
+                                @Html.PasswordFor(Model => Model.Password, new { @class = "form-control trimmed", @placeholder = "Password", autocomplete = "off" })
+                                @Html.ValidationMessageFor(Model => Model.Password, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Confirm Password</label>
+                            <div class="col-lg-6">
+                                @Html.PasswordFor(Model => Model.ConfirmPassword, new { @class = "form-control trimmed", @placeholder = "Confirm Password" })
+                                @Html.ValidationMessageFor(Model => Model.ConfirmPassword, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">IsActive</label>
+                            <div class="col-lg-6">
+                                <div class="radio i-checks">
+                                    <label>@Html.RadioButtonFor(model => model.Activated, 1) Yes</label> &nbsp;
+                                    <label>@Html.RadioButtonFor(model => model.Activated, 0) No</label>
+                                </div>
+                                @Html.ValidationMessageFor(Model => Model.Activated, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-3 col-lg-6">
+                                <button class="btn btn-sm btn-blue" type="submit" id="btnoperatorsubmit">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index", "OperatorRegistration", new { area = "Admin" })'">Cancel</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            trimmed();
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+        $("#CountryId").change(function () {
+            $(".loader").show();
+            $("#OperatorId").html("");
+            var countryId = $(this).val();
+            if (countryId == "")
+                countryId = "0";
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("FillOperatorForAdd", "OperatorRegistration", new { area = "Admin" })',
+                data: { countryId: countryId },
+                success: function (data) {
+                    $.each(data, function (i, data) {
+                        $("#OperatorId").append('<option value="' + data.Value + '">' +
+                            data.Text + '</option>');
+                        $(".loader").hide();
+                    });
+                }
+            });
+        });
+
+        $("#MobileNumber").change(function () {
+            var countryId = $("#CountryId").val();
+            var mobileNumber = $("#MobileNumber").val();
+            if (countryId == "10" || countryId == "9") {//9
+                if (mobileNumber == "") {
+                    $("#MobileNumber")[0].nextElementSibling.innerHTML = "The Mobile Number field can only be 9 characters."; /*The Contact number field cannot be more than 9 characters.*/
+                    return false;
+                }
+                else if (mobileNumber.length < 9 || mobileNumber.length > 9) {
+                    $("#MobileNumber")[0].nextElementSibling.innerHTML = "The Mobile Number field can only be 9 characters."; /*The Contact number field cannot be more than 9 characters.*/
+                    return false;
+                }
+                else {
+                    $("#MobileNumber")[0].nextElementSibling.innerHTML = "";
+                }
+            }
+            else {
+                if (mobileNumber == "") {
+                    $("#MobileNumber")[0].nextElementSibling.innerHTML = "The Mobile Number field is required to be only 10 characters.";
+                    return false;
+                }
+                else if (mobileNumber.length < 10 || mobileNumber.length > 10) {
+                    $("#MobileNumber")[0].nextElementSibling.innerHTML = "The Mobile Number field can only be 10 characters.";
+                    return false;
+                }
+                else {
+                    $("#MobileNumber")[0].nextElementSibling.innerHTML = "";
+                }
+            }
+        });
+
+        function validation() {
+            var returnval = true;
+            if ($("#Email").val() == "") {
+                $("#Email")[0].nextElementSibling.innerHTML = "The Email field is required.";
+                returnval = false;
+            }
+            else {
+                $("#Email")[0].nextElementSibling.innerHTML = ""
+            }
+            if ($("#FirstName").val() == "") {
+                $("#FirstName")[0].nextElementSibling.innerHTML = "The FirstName field is required.";
+                returnval = false;
+            }
+            else {
+                $("#FirstName")[0].nextElementSibling.innerHTML = ""
+            }
+            if ($("#LastName").val() == "") {
+                $("#LastName")[0].nextElementSibling.innerHTML = "The LastName field is required.";
+                returnval = false;
+            }
+            else {
+                $("#LastName")[0].nextElementSibling.innerHTML = ""
+            }
+            if ($("#CountryId").val() == "" || $("#CountryId").val() == "0") {
+                $("#CountryId")[0].nextElementSibling.innerHTML = "The Country field is required.";
+                returnval = false;
+            }
+            else {
+                $("#CountryId")[0].nextElementSibling.innerHTML = ""
+            }
+            if ($("#OperatorId").val() == "" || $("#OperatorId").val() == "0") {
+                $("#OperatorId")[0].nextElementSibling.innerHTML = "The Operator field is required.";
+                returnval = false;
+            }
+            else {
+                $("#OperatorId")[0].nextElementSibling.innerHTML = ""
+            }
+            if ($("#MobileNumber").val() == "" || $("#MobileNumber").val() == "0") {
+                $("#MobileNumber")[0].nextElementSibling.innerHTML = "The Mobile Number field is required.";
+                returnval = false;
+            }
+            else {
+                $("#MobileNumber")[0].nextElementSibling.innerHTML = ""
+            }
+            //if ($("#Password").val() == "") {
+            //    $("#Password")[0].nextElementSibling.innerHTML = "The Password field is required.";
+            //    returnval = false;
+            //}
+            //else {
+            //    $("#Password")[0].nextElementSibling.innerHTML = ""
+            //    returnval = true;
+            //}
+            if ($("#Password").val() != "") {
+                if ($("#ConfirmPassword").val() == "") {
+                    $("#ConfirmPassword")[0].nextElementSibling.innerHTML = "The Confirm Password field is required.";
+                    returnval = false;
+                }
+                else {
+                    $("#ConfirmPassword")[0].nextElementSibling.innerHTML = ""
+                }
+            }
+            if ($("#CountryId").val() != "") {
+                if ($("#CountryId").val() == "9" || $("#CountryId").val() == "10") {
+                    if ($("#MobileNumber").val().length < 9 || $("#MobileNumber").val().length > 9) {
+                        $("#MobileNumber")[0].nextElementSibling.innerHTML = "The Mobile Number field can only be 9 characters."; /*The Contact number field cannot be more than 9 characters.*/
+                        returnval = false;
+                    }
+                    else {
+                        $("#MobileNumber")[0].nextElementSibling.innerHTML = "";
+                    }
+                }
+                else {
+                    if ($("#MobileNumber").val().length < 10 || $("#MobileNumber").val().length > 10) {
+                        $("#MobileNumber")[0].nextElementSibling.innerHTML = "The Mobile Number field can only be 10 characters.";
+                        returnval = false;
+                    }
+                    else {
+                        $("#MobileNumber")[0].nextElementSibling.innerHTML = "";
+                    }
+                }
+            }
+            return returnval;
+        }
+
+        $("#btnoperatorsubmit").click(function () {
+            var valida = validation();
+            if (valida == true) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+
+    </script>
+}
+

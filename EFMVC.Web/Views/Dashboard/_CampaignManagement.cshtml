@@ -1,0 +1,257 @@
+@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model Tuple<List<CampaignProfileResult>, FilterCritearea>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Manage Campaigns</h5>
+                <div style="text-align:right">
+                    @*<button class="btn btn-blue " type="button" onclick="window.location.href='@Url.Action("Initialise","Dashboard")'">New Campaign</button>*@
+                    @*<button class="btn btn-blue " type="button" onclick="window.location.href='@Url.Action("AddNewCampaign","Dashboard")'">New Campaign</button>*@
+                    @*<button class="btn btn-blue " type="button" id="btncampaignwizard" onclick="window.location.href='@Url.Action("AddNewCampaign","Dashboard")'">Create New Campaign</button>*@
+                    <button class="btn btn-blue " type="button" id="btncampaignwizard">Create New Campaign</button>
+                </div>
+
+            </div>
+
+            @using (Ajax.BeginForm("SearchCampain", "Dashboard",
+  null,
+  new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresult", OnBegin = "Progressbar" },
+  null))
+            {
+
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Clients</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("CampaignClientId", (MultiSelectList)ViewBag.client, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Clients" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Campaigns</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @if (ViewBag.compaign != null)
+                                    {
+                                        @Html.DropDownList("CampaignProfileId", (MultiSelectList)ViewBag.compaign, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Campaigns" })
+                                    }
+                                    else
+                                    {
+                                        <select name="CampaignProfileId" id="CampaignProfileId" class="chosen-select" multiple="multiple" data-placeholder="All Campaigns"></select>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Adverts</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @if (ViewBag.advert != null)
+                                    {
+                                        @Html.DropDownList("CampaignAdvertId", (MultiSelectList)ViewBag.advert, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Adverts" })
+                                    }
+                                    else
+                                    {
+                                        <select name="CampaignAdvertId" id="CampaignAdvertId" class="chosen-select" multiple="multiple" data-placeholder="All Adverts"></select>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Status</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("CampaingStatusId", (MultiSelectList)ViewBag.compaignStatus, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Campaign Status" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Spend (@Model.Item1.FirstOrDefault().CurrencyCode)</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.FromSpend, new { @class = "form-control onlyDigit digitLength" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.ToSpend, new { @class = "form-control onlyDigit digitLength" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Plays</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.FromPlays, new { @class = "form-control only-numeric digitLength" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.ToPlays, new { @class = "form-control only-numeric digitLength" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Average Bid (@Model.Item1.FirstOrDefault().CurrencyCode)</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.FromAvgbid, new { @class = "form-control onlyDigit digitLength" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.ToAvgbid, new { @class = "form-control onlyDigit digitLength" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 col-lg-12">
+                            @*<label class="col-lg-1 control-label"></label>*@
+                            <div class="col-sm-12 center">
+                                @*<button class="btn btn-blue" type="submit">Filter</button>*@
+                                <button class="btn btn-blue" type="button" id="btnSearch">Filter</button>
+                                <button class="btn btn-white" type="button" id="reset">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div id="compaignList">
+                        @{ Html.RenderPartial("_CampaignList", Model.Item1);}
+                    </div>
+
+                </div>
+                            }
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $("#btncampaignwizard").click(function () {
+        $(".spiner-example").show();
+        window.location.href = '@Url.Action("AddNewCampaign", "Dashboard")';
+    });
+
+    var Progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresult = function (data) {
+        $(".spiner-example").hide();
+        if (data != "notauthorise") {
+            $('.dataTables-campaign').remove();
+            $("#compaignList").html(data);
+            dataTableSetup();
+        }
+        else {
+            window.location.href = '@Url.Action("Index","Landing")';
+        }
+    };
+    function getcurrentTime() {
+        var date = new Date();
+        var month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : "0" + (date.getMonth() + 1);
+        var day = (date.getDate() + 1) > 9 ? (date.getDate() + 1) : "0" + (date.getDate() + 1);
+        var hours = (date.getHours()) > 9 ? (date.getHours()) : "0" + (date.getHours());
+        var minutes = (date.getMinutes()) > 9 ? (date.getMinutes()) : "0" + (date.getMinutes());
+        var seconds = (date.getSeconds()) > 9 ? (date.getSeconds()) : "0" + (date.getSeconds());
+
+        var dateString =
+            day + "-" +
+            month + "-" +
+            date.getFullYear() + " " +
+            hours + "-" +
+            minutes;
+        return dateString;
+    }
+    function dataTableSetup() {
+        $('.dataTables-campaign').DataTable({
+            "aaSorting": [],
+            "info": false,
+            bFilter: false,
+            "searching": false,
+            "lengthMenu": [[20, 50, -1], [20, 50, "All"]],
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                {
+                    extend: 'copy', title: 'Adtones-Campaigns', filename: 'Adtones-Campaigns-' + getcurrentTime(),
+                   // message: 'PDF created by PDFMake with Buttons for DataTables.',
+                    exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
+                    init: function (dt, node, config) {
+                        window.setInterval(function () {
+                            var dateString = getcurrentTime();
+                            config.filename = 'Adtones-Campaigns-' + dateString;
+                        }, 2000);
+                    }
+
+                },
+                {
+                    extend: 'csv', title: 'Adtones-Campaigns', filename: 'Adtones-Campaigns-' + getcurrentTime(),
+                    //message: 'PDF created by PDFMake with Buttons for DataTables.',
+                    exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
+                    init: function (dt, node, config) {
+                        window.setInterval(function () {
+                            var dateString = getcurrentTime();
+                            config.filename = 'Adtones-Campaigns-' + dateString;
+                        }, 2000);
+                    }
+                },
+                {
+                    extend: 'excel', title: 'Adtones-Campaigns', filename: 'Adtones-Campaigns-' + getcurrentTime(),
+                    //message: 'PDF created by PDFMake with Buttons for DataTables.',
+                    exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
+                    init: function (dt, node, config) {
+                        window.setInterval(function () {
+                            var dateString = getcurrentTime();
+                            config.filename = 'Adtones-Campaigns-' + dateString;
+                        }, 2000);
+                    }
+                },
+                {
+                    extend: 'pdf', title: 'Adtones-Campaigns', filename: 'Adtones-Campaigns-' + getcurrentTime(),
+                   // message: 'PDF created by PDFMake with Buttons for DataTables.',
+                    exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
+                    init: function (dt, node, config) {
+                        window.setInterval(function () {
+                            var dateString = getcurrentTime();
+                            config.filename = 'Adtones-Campaigns-' + dateString;
+                        }, 2000);
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    //message: 'PDF created by PDFMake with Buttons for DataTables.',
+                    title: 'Adtones-Campaigns',
+                    filename: 'Adtones-Campaigns-' + getcurrentTime(),
+                    exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
+                    init: function (dt, node, config) {
+                        window.setInterval(function () {
+                            var dateString = getcurrentTime();
+                            config.filename = 'Adtones-Campaigns-' + dateString;
+                        }, 2000);
+                    },
+                    customize: function (win) {
+
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                    }
+                }
+            ]
+        });
+    }
+</script>
+
+

@@ -1,0 +1,133 @@
+﻿@using EFMVC.Web.ViewModels
+@model IEnumerable<EFMVC.Web.ViewModels.CampaignProfileFormModel>
+
+
+@{
+    var advertFormModels = (IEnumerable<AdvertFormModel>) ViewData["Adverts"];
+}
+
+<div class="row">
+    <div class="large-11 columns large large-centered small-11 small-centered">
+            
+        <div class="row">
+                
+            <div class="large-4">
+                <h5>Your Campaigns</h5>
+            </div>
+            <div class="clr30"></div>
+            <div class="large-4">
+                <h5>Manage Campaigns</h5>
+            </div>
+
+            <div class="large-11 small-11">
+                @Html.ActionLink(" ", "Initialise", null, new {@class = "addLinkImg", @alt = "Create New"})
+            </div>
+                
+            <div class="clr10"></div>
+
+        </div>
+            
+        <div class="row">
+
+            <table style="width: 100%">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Desciption</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (CampaignProfileFormModel campaignProfile in Model)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(campaignProfile.CampaignName, "Edit", new {id = campaignProfile.CampaignProfileId})</td>
+                            <td>@Html.ActionLink(campaignProfile.CampaignDescription, "Edit", new {id = campaignProfile.CampaignProfileId})</td>
+                            <td>
+                                <div class="row">
+                                    
+                                    <div class="large-1 " style="margin: 0 auto">
+                                        @Html.ActionLink(" ", "Edit", new {id = campaignProfile.CampaignProfileId}, new {@class = "editLinkImg"})
+                                    </div>
+
+                                    <div class="clr20"></div>
+
+                                    <div class="large-1 " style="margin: 0 auto">
+                                        @Ajax.ActionLink(" ", "Delete", new {id = campaignProfile.CampaignProfileId},
+                                                         new AjaxOptions
+                                                             {
+                                                                 Confirm = "Delete Campaign?",
+                                                                 HttpMethod = "Post",
+                                                                 UpdateTargetId = "divBlockedNumberList"
+                                                             },
+                                                         new {@class = "deleteLinkImg", @alt = "Delete?"})
+                                    </div>
+
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+                
+            <div class="large-4">
+                <h5>Manage Adverts</h5>
+            </div>
+
+            <div class="large-11 small-11">
+                @Html.ActionLink(" ", "CreateMediaAdvert", null, new {@class = "addLinkImg", @alt = "Create New"})
+            </div>
+                
+            <div class="clr10"></div>
+
+        </div>
+            
+        <div class="row">
+            <table style="width: 100%">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Brand</td>
+                        <td>Listen</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (AdvertFormModel advert in advertFormModels)
+                    {
+                        string mediaLocation = @"~" + advert.MediaFileLocation;
+                        <tr>
+                            <td>@advert.AdvertName</td>
+                            <td>@advert.Brand</td>
+
+                            <td>@Html.Html5().Media.Audio(advert.AdvertName, mediaLocation, "", new {@class = "audio-small"})</td>
+                            <td>
+                                <div class="row">
+                                    <div class="large-1" style="margin: 0 auto">
+                                        @Html.ActionLink(" ", "EditAdvertMedia", new {id = advert.AdvertId}, new {@class = "editLinkImg"})
+                                    </div>
+                                    
+                                    <div class="clr20"></div>
+
+                                    <div class="large-1" style="margin: 0 auto">
+                                        @Ajax.ActionLink(" ", "DeleteAdvertMedia", new {id = advert.AdvertId},
+                                                         new AjaxOptions
+                                                             {
+                                                                 Confirm = "Delete Advert?",
+                                                                 HttpMethod = "Post",
+                                                                 UpdateTargetId = "divBlockedNumberList"
+                                                             },
+                                                         new {@class = "deleteLinkImg", @alt = "Delete?"})
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

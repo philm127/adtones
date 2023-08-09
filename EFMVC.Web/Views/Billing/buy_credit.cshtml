@@ -1,0 +1,730 @@
+﻿@using EFMVC.Web.Models
+@model PaymentModel
+@{
+    ViewBag.Title = "Generate Invoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="spiner-example loader" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <h2>Generate Invoice</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Dashboard")">Dashboard</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Billing")">Billing</a>
+            </li>
+            <li class="active">
+                <strong>Purchase</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        @TempData["success"]
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        @TempData["error"]
+                    </div>
+                }
+                <div class="ibox-title">
+                    @*<h5>Geneate Invoice</h5>*@
+                    <h5>Generate Invoice</h5>
+                </div>
+                <div class="ibox-content">
+                    @Html.Partial("_BillingInfo", Model.BillingInfoDetails)
+                </div>
+                <div class="ibox-content">
+                    <div class="panel-group payments-method" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="border-left: 1px solid #ddd;border-bottom: 1px solid #ddd;">
+
+                                <h5 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Purchase campaign funds with credit</a>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    <div class="row">
+                                        @Html.Partial("_Campaigncredit", Model.BillingPaymentInfoDetailswithPaypalCreditCard)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="border-left: 1px solid #ddd;border-bottom: 1px solid #ddd;">
+                                <div class="pull-right">
+
+                                    <i class="fa fa-cc-amex text-success"></i>
+                                    <i class="fa fa-cc-mastercard text-warning"></i>
+                                    <i class="fa fa-cc-discover text-danger"></i>
+                                </div>
+                                <h5 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Purchase campaign funds with Card </a>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    <div class="row">
+                                        @Html.Partial("_Campaigncard", Model.BillingPaymentInfoDetailswithPaypalCreditCard)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default" id="paypalpanel">
+                            <div class="panel-heading" style="border-left: 1px solid #ddd;border-bottom: 1px solid #ddd;">
+                                <div class="pull-right">
+                                    <div class="pull-right">
+                                        <i class="fa fa-cc-paypal text-success"></i>
+                                    </div>
+
+                                </div>
+                                <h5 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Purchase campaign funds with PayPal</a>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    <div class="row">
+                                        @Html.Partial("_CampaignPaypal", Model.BillingPaymentInfoDetailswithPaypal)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (ViewBag.userCountryCode == "KES")
+                        {
+                            <div class="panel panel-default" id="mpesapanel">
+                                <div class="panel-heading" style="border-left: 1px solid #ddd;border-bottom: 1px solid #ddd;">
+                                    <div class="pull-right">
+                                        <div class="pull-right">
+                                            <i class="fa fa-cc-mpesapanel text-success"></i>
+                                        </div>
+
+                                    </div>
+                                    <h5 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Purchase campaign funds with Mpesa</a>
+                                    </h5>
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse">
+                                    <div class="panel-body">
+
+                                        <div class="row">
+                                            @Html.Partial("_CampaignMpesa", Model.MpesaBillingDetails)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        //$(document).keydown(function (e) {
+        //    if (e.which === 123) {
+        //        return false;
+        //    }
+        //});
+
+        //$(document).bind("contextmenu", function (e) {
+        //    e.preventDefault();
+        //});
+
+        $(document).ready(function () {
+
+            
+            $('#btncard').click(function () {
+                if (flag == true) {
+                    $("#PaywithSagePayCreditCard").submit();
+                } else {
+                    return false;
+                }
+            });
+
+            $("#acal").click(function () {
+                $.post('@Url.Action("CalculateModelAmount", "Billing")', { amount: $("#Fundamount").val(), campaingId: $("#campaign").val() }, function (billamout) {
+                    $("#spfundamount").html(billamout[0].FundAmount);
+                    $("#sptaxamount").html(billamout[0].TaxAmount);
+                    $("#spptotalamount").html(billamout[0].TotaAmount);
+                    $("#myModal6").modal();
+                });
+                $("#myModal6").modal({ backdrop: 'static', keyboard: false })
+            });
+            flag = true;
+            var clientId = '@Request.QueryString["clientId"]';
+            var campaignId = '@Request.QueryString["campaignId"]';
+            //if (clientId!="" && campaignId !="")
+            //{
+            if (clientId == '')
+                clientId = 0;
+                $("#campaign").empty();
+                $(".loader").show();
+                $.post('@Url.Action("GetCampaign", "Billing")', { ClientId: clientId }, function (campaigns) {
+                    $.each(campaigns, function (i, campaign) {
+                        //if (campaignId == campaign.Value) {
+                        //    $("#campaign").append('<option selected = "selected" value="' + campaign.Value + '">' +
+                        //        campaign.Text + '</option>');
+                        //    $(".loader").hide();
+                        //}
+                        //else {
+                            $("#campaign").append('<option value="' + campaign.Value + '">' +
+                                campaign.Text + '</option>');
+                        //}
+                    });
+                    $(".loader").hide();
+
+                });
+            //}
+            $("#poclientid").change(function () {
+                $(".loader").show();
+                $("#campaign").empty();
+                var ClientId = $("#poclientid").val();;
+                $.post('@Url.Action("GetCampaign", "Billing")', { ClientId: ClientId }, function (campaigns) {
+                    $.each(campaigns, function (i, campaign) {
+                        $("#campaign").append('<option value="' + campaign.Value + '">' +
+                            campaign.Text + '</option>');
+                    });
+                    $(".loader").hide();
+                    $("#CampaignFundsAvailable").text("Please select a campaign");
+                });
+            });
+
+            //Comment 11-06-2019
+            @*$("#campaign").change(function () {
+                if ($("#campaign").val() == "0") {
+                    $("#CampaignFundsAvailable").text("Please select a campaign");
+                }
+                var campaingdata = new Object();
+                campaingdata.CampaingId = $("#campaign").val();
+                campaingdata.Fundamount = $("#Fundamount").val();
+                campaingdata.DropdownChange = "True";
+                $.post('@Url.Action("SetCampaign", "Billing")', campaingdata, function (data) {
+                    if (data.data = "success") {
+                        if (data.value == "0") {
+                            $("#CampaignFundsAvailable").text("Campaign funds not available.");
+			    //Please select a campaign
+                        }
+                        else {
+                            var countrySymbole = $("#currencySymbol").text();
+                            $("#CampaignFundsAvailable").text(countrySymbole + " " + data.value);
+                        }
+
+                    }
+                });
+            });*@
+
+            $("#Fundamount").keypress(function (event) {
+                $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+                if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                    return false;
+                }
+                var fundAmount = $(this).val();
+                if ((fundAmount.indexOf('.') != -1) &&
+                    (fundAmount.substring(fundAmount.indexOf('.')).length > 5) &&
+                    (event.which != 0 && event.which != 8) &&
+                    ($(this)[0].selectionStart >= fundAmount.length - 2)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+            $("#PhoneNumber").blur(function () {
+                $("#phonenumbererror").hide();
+            });
+            $("#Fundamount").blur(function () {
+                var campaingdata = new Object();
+                campaingdata.CampaingId = $("#campaign").val();
+                campaingdata.Fundamount = $("#Fundamount").val();
+                campaingdata.DropdownChange = "False";
+                if ($("#Fundamount").val() == "0") {
+                    $("#fundamounterror").html('Please Enter Valid Fund Amount.');
+                    $('#dvtotalamount').hide();
+                    return false;
+                } else {
+                    $("#fundamounterror").html('');
+                     $.post('@Url.Action("SetCampaign", "Billing")', campaingdata, function (data) {
+                    var campaingId = $("#campaign").val();
+                    var currencyId = $("#CurrencyId").val();
+                    if (campaingId != "0") {
+                        if (currencyId != "") {
+                            $.post('@Url.Action("CalculateAmount", "Billing")', { amount: $("#Fundamount").val(), campaingId: campaingId, currencyId: currencyId }, function (billamout) {
+
+                                if (billamout == -1) {
+                                    $("#dverror").show();
+                                    $("#dvtotalamount").hide();
+                                    $("#campaignerror").hide();
+                                    $("#sperror").html('Please update your company info in profile section');
+                                }
+                                else if (billamout == -2) {
+                                    $("#dverror").show();
+                                    $("#dvtotalamount").hide();
+                                    $("#campaignerror").hide();
+                                    $("#sperror").html('Internal server error. Please try again.');
+                                }
+                                else if (billamout == -3) {
+                                    $("#dvtotalamount").hide();
+                                    $("#fundamounterror").html('Please Enter Fund Amount.');
+                                }
+                                else {
+                                     $('#TotalFundAmount').val(billamout.value);
+                                    $("#dvtotalamount").show();
+                                    $("#dverror").hide();
+                                    $("#campaignerror").hide();
+                                    $("#fundamounterror").html("");
+                                    $("#sptotalamount").html(billamout.value);
+                                    $("#lblfundamount1").text(billamout.value1);
+                                    $("#lbltotalamount1").text(billamout.value1);
+                                }
+
+                            });
+                        }
+                        else {
+                            $("#dvtotalamount").hide();
+                            $("#errormsg").html("Please Select a Currency.");
+                        }
+                    }
+                    else {
+                        $("#dvtotalamount").hide();
+                        $("#campaignerror").html('Please Select Campaign.');
+                    }
+                });
+                }
+               
+            });
+            // 05-06-2019  ben suggest month first then year
+
+            @*$("#ExpiryYear").change(function () {
+                $("#ExpiryMonth").empty();
+                if ($('#ExpiryYear').val() != "") {
+                    $.post('@Url.Action("GetCreditcardMonth", "Billing")', { Year: $("#ExpiryYear").val() }, function (months) {
+                        $.each(months, function (i, month) {
+                            $("#ExpiryMonth").append('<option value="' + month.Value + '">' +
+                                month.Text + '</option>');
+                        });
+
+                    });
+                } else {
+                    $("#ExpiryMonth").append('<option value="">Select Month</option>');
+                }
+            });*@
+        });
+
+        $("#CardNumber").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                $('#Card_Number').val('');
+                return false;
+            }
+        });
+
+        $('#CardNumber').on("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+        $("#SecurityCode").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+        $("#SecurityCode").change(function (e) {
+            if ($(this).val().length < 3) {
+                $("#errormsgsecurity").html("Security code must be 3 digit").show().fadeOut("slow");
+                flag = false;
+            }
+        });
+
+        $('#SecurityCode').on("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+        $("#campaign").change(function () {
+            var campaignId = $("#campaign").val();
+            var poClientId = $("#poclientid").val();
+            var label = "campaign";
+            var fundavailable = $("#CampaignFundsAvailable").text();
+            if (campaignId == "0") {
+                $("#campaignerror").show();
+                $("#campaignerror").html("Please Select Campaign.");
+                $("#lblfundamount").html("");
+                $("#lbltotalamount").html("");
+            }
+            else {
+                @*$.post('@Url.Action("GetCountryCode", "Billing")', { campaignId: campaignId }, function (data) {*@
+                $.post('@Url.Action("GetCurrencyCode", "Billing")', { id: campaignId, campaignid: 0, label: label, poClientId: poClientId }, function (data) { //GetCountryCode
+                    //if (data.value3 == 9) {
+                    //    $("#paypalpanel").hide();
+                    //}
+                    //else {
+                    //    $("#paypalpanel").show();
+                    //}
+                    if (data.value1 == "4") {
+                        $("#paypalpanel").hide();
+                       // $("#mpesapanel").show();
+                    }
+                    else {
+                        $("#paypalpanel").show();
+                       // $("#mpesapanel").hide();
+                    }
+                    if (data == -1) {
+                        $("#lblfundamount").html("");
+                        $("#lbltotalamount").html("");
+                    }
+                    else {
+                        var countrySymbole = data.value2;
+                        $("#CurrencyId").val(data.value1);
+                        //$("#lblmaxamountofcredit").html("");
+                        //$("#lblcreditavailable").html("");
+                        //$("#lblmaxamountofcredit").html(countrySymbole + data.value3);
+                        //$("#lblcreditavailable").html(countrySymbole + data.value4);
+                        $("#lblfundamount").html(data.value);
+                        $("#totalamount").html(data.value);
+                        // 03-12-2019
+                       //$("#currencySymbol").html(countrySymbole);
+                        $("#currencySymbol").html(data.value);
+                        $("#lblfundamount1").text(data.value);
+                        $("#lbltotalamount1").text(data.value);
+
+                        //Add 11-06-2019
+                        $("#CampaignFundsAvailable").text("");
+                        if (data.value5 == "0") {
+                            $("#CampaignFundsAvailable").text("Campaign funds not available.");
+                        }
+                        else {
+                            $("#CampaignFundsAvailable").text(countrySymbole + " " + data.value5);
+                        }
+
+                        var campaingdata = new Object();
+                        campaingdata.CampaingId = $("#campaign").val();
+                        campaingdata.Fundamount = $("#Fundamount").val();
+                        campaingdata.DropdownChange = "True";
+
+                        //Comment 11-06-2019
+                        @*$.post('@Url.Action("SetCampaign", "Billing")', campaingdata, function (data) {
+                            if (data.data = "success") {
+                                if (data.value == "0") {
+                                    $("#CampaignFundsAvailable").text("Campaign funds not available.");
+				    //Please select a campaign
+                                }
+                                else {
+                                    var countrySymbole = $("#currencySymbol").text();
+                                    $("#CampaignFundsAvailable").text(countrySymbole + " " + data.value);
+                                }
+
+                            }
+                        });*@
+                    }
+                });
+                $("#campaignerror").hide();
+                $("#campaignerror").html("");
+            }
+        });
+        $('#CardType').change(function () {
+            $('#Card_Type').hide();
+            $('#CardNumber').val('');
+            $('#SecurityCode').val('');
+            if ($('#CardType').val() == "3") {
+                $('#SecurityCode').attr('maxlength', '4');
+            } else {
+                    $('#SecurityCode').attr('maxlength', '3');
+            }
+        });
+        $('#CardNumber').change(function () {
+            if ($('#CardType').val() != "") {
+                if ($(this).val() == "") {
+                    $(this).removeClass("error");
+                    $('#Card_Number').hide();
+                    $('#Card_Type').hide();
+                    return false;
+                }
+
+                //var validationResult = CCValidationWithType($(this).val());
+                var validationResult = creditCardValidator.validate($(this).val(), $('#CardType').val());
+                if (validationResult) {
+                    $('#Card_Number').text('');
+                    flag = true;
+                } else {
+                    flag = false;
+                    $(this).addClass("error");
+                    $('#Card_Number').css("color", "red").text("Your card is invalid!");
+                    $('#Card_Number').show();
+                }
+            } else {
+                flag = false;
+                $(this).addClass("error");
+                $('#Card_Type').css("color", "red").text("Please select card type.");
+                $('#Card_Type').show();
+                $('#Card_Number').text('');
+            }
+        });
+        // Create an object
+        var creditCardValidator = {
+            // Pin the cards to them
+            'cards': {
+                '2': '5[1-5][0-9]{14}',
+                'ec': '5[1-5][0-9]{14}',
+                '1': '4(?:[0-9]{12}|[0-9]{15})',
+                '3': '3[47][0-9]{13}',
+                'dc': '3(?:0[0-5][0-9]{11}|[68][0-9]{12})',
+                'bl': '3(?:0[0-5][0-9]{11}|[68][0-9]{12})',
+                'di': '6011[0-9]{12}',
+                'jcb': '(?:3[0-9]{15}|(2131|1800)[0-9]{11})',
+                'er': '2(?:014|149)[0-9]{11}'
+            },
+            // Add the structure validator to them
+            'validateStructure': function (value, ccType) {
+                value = String(value).replace(/[^0-9]/g, ''); // ignore dashes and whitespaces - We could even ignore all non-numeric chars (/[^0-9]/g)
+
+                var cardinfo = creditCardValidator.cards,
+                    results = [];
+                if (ccType) {
+                    var expr = '^' + cardinfo[ccType.toLowerCase()] + '$';
+                    return expr ? !!value.match(expr) : false; // boolean
+                }
+
+                for (var i in cardinfo) {
+                    if (value.match('^' + cardinfo[i] + '$')) {
+                        results.push(i);
+                    }
+                }
+                return results.length ? results.join('|') : false; // String | boolean
+            },
+            // Add the Luhn validator to them
+            'validateChecksum': function (value) {
+                value = String(value).replace(/[^0-9]/g, ''); // ignore dashes and whitespaces - We could even ignore all non-numeric chars (/[^0-9]/g)
+
+                var sum = 0,
+                    parity = value.length % 2;
+
+                for (var i = 0; i <= (value.length - 1); i++) { // We'll iterate LTR - it's faster and needs less calculating
+                    var digit = parseInt(value[i], 10);
+
+                    if (i % 2 == parity) {
+                        digit = digit * 2;
+                    }
+                    if (digit > 9) {
+                        digit = digit - 9; // get the cossfoot - Exp: 10 - 9 = 1 + 0 | 12 - 9 = 1 + 2 | ... | 18 - 9 = 1 + 8
+                    }
+
+                    sum += digit;
+                }
+
+                return ((sum % 10) == 0); // divide by 10 and check if it ends in 0 - return true | false
+            },
+            // Apply both validations
+            'validate': function (value, ccType) {
+                if (this.validateChecksum(value)) {
+                    return this.validateStructure(value, ccType);
+                }
+                return false;
+            }
+        };
+
+        $('#btncard').click(function () {
+            var fundamount = $("#Fundamount").val();
+            if (fundamount != null && fundamount != "") {
+                if (fundamount == "0") {
+                    $("#fundamounterror").html('Please Enter Valid Fund Amount.');
+                    return false;
+                }
+                return true;
+            }
+            else {
+                $("#fundamounterror").html('Please Enter Fund Amount.');
+                return false;
+            }
+            if (flag != 0) {
+                return false;
+                flag = false;
+            } else {
+
+            }
+        });
+
+        var i = 0;
+        //Add 06-03-2019
+        $("#btncredit").click(function () {
+            if (i == 0) {
+                submitCredit();
+            }
+        });
+
+        function submitCredit() {
+            i = 1;
+            $(".loader").show();
+            var fundamount = $("#Fundamount").val();
+            if (fundamount != null && fundamount != "") {
+                if (fundamount == "0") {
+                    $("#fundamounterror").html('Please Enter Valid Fund Amount.');
+                    $(".loader").hide();
+                    i = 0;
+                    return false;
+                }
+                $("#PaywithUserCreditForm").submit();
+                //return true;
+            }
+            else {
+                $("#fundamounterror").html('Please Enter Fund Amount.');
+                $(".loader").hide();
+                i = 0;
+                return false;
+            }
+        }
+
+        $("#btnmpesa").click(function () {
+            var fundamount = $("#Fundamount").val();
+            var phonenumber = $("#PhoneNumber").val();
+            if (fundamount != null && fundamount != "") {
+                if (fundamount == "0") {
+                    $("#fundamounterror").html('Please Enter Valid Fund Amount.');
+                    return false;
+                }
+               // return true;
+            }
+            else {
+                $("#fundamounterror").html('Please Enter Fund Amounpoclient.');
+                return false;
+            }
+            if (phonenumber != null && phonenumber != "") {
+                if (phonenumber == "0") {
+                    $("#phonenumbererror").show();
+                    return false;
+                }
+                if (phonenumber.length < 12) {
+                    $("#phonenumbererror").html('Phone Number must be at least 12 characters');
+                    $("#phonenumbererror").show();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            else {
+                $("#phonenumbererror").show();
+                return false;
+            }
+        });
+
+        $(document).ready(function () {
+            trimmed();
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+        $("#CurrencyId").change(function () {
+            $(".loader").show();
+            var id = $(this).val();
+            var poClientId = $("#poclientid").val();
+            var label = "currency";
+            var fundavailable = $("#CampaignFundsAvailable").text();
+            var campaignId = $("#campaign").val();
+            fundavailable = fundavailable.split(" ");
+            if (id == "") {
+                if (id == "")
+                    id = 0;
+                $.post('@Url.Action("GetCurrencyCode", "Billing")', { id: id, campaignid: campaignId, label: label, poClientId: poClientId }, function (data) {
+                    $("#errormsg").html("Please Select a Currency.");
+                    //$("#lblmaxamountofcredit").html(data.value3);
+                    //$("#lblcreditavailable").html(data.value4);
+                    $("#lblfundamount").html("");
+                    $("#totalamount").html("");
+                    $("#currencySymbol").html("");
+                    if (fundavailable.length > 2) {
+                        $("#CampaignFundsAvailable").text("Please select a campaign");
+                    }
+                    else {
+                        $("#CampaignFundsAvailable").text(fundavailable[1]);
+                    }
+                    $("#lblfundamount1").text("");
+                    $("#lbltotalamount1").text("");
+                    $(".loader").hide();
+                });
+            }
+            else {
+                $.post('@Url.Action("GetCurrencyCode", "Billing")', { id: id, campaignid: campaignId, label: label, poClientId: poClientId }, function (data) {
+                    if (data.data = "success") {
+                        if (data.value2 == "4") {
+                            $("#paypalpanel").hide();
+                         //   $("#mpesapanel").show();
+                        }
+                        else {
+                            $("#paypalpanel").show();
+                          //  $("#mpesapanel").hide();
+                        }
+                        $("#errormsg").html("");
+                        var countrySymbole = data.value;
+                        //$("#maxamountofcredit").html(countrySymbole);
+                        //$("#creditavailable").html(countrySymbole);
+                        //$("#lblmaxamountofcredit").html(countrySymbole + data.value3);
+                        //$("#lblcreditavailable").html(countrySymbole + data.value4);
+                        $("#lblfundamount").html("(" + data.value1 + ")");
+                        $("#totalamount").html("(" + data.value1 + ")");
+                        $("#currencySymbol").html(countrySymbole);
+                        $("#lblfundamount1").text("(" + data.value1 + ")");
+                        $("#lbltotalamount1").text("(" + data.value1 + ")");
+                        if (fundavailable.length == 2) {
+                            if (fundavailable[0] != "" && fundavailable[1] != "") {
+                                //$("#CampaignFundsAvailable").text(countrySymbole + " " + fundavailable[1]);
+                                $("#CampaignFundsAvailable").text(countrySymbole + " " + data.value5);
+                            }
+                            //else if (fundavailable[0] != "") {
+                            //    $("#CampaignFundsAvailable").text(countrySymbole + " " + fundavailable[1]);
+                            //}
+                            //else {
+                            //    $("#CampaignFundsAvailable").text(fundavailable[0]);
+                            //}
+                        }
+                        else if (fundavailable.length == 1) {
+                            $("#CampaignFundsAvailable").text(countrySymbole + " " + data.value5);
+                            //$("#CampaignFundsAvailable").text(countrySymbole + " " + fundavailable[0]);
+                        }
+                        $(".loader").hide();
+                    }
+                    else if (data.data = "fail") {
+                        $(".loader").hide();
+                    }
+                });
+            }
+        });
+
+    </script>
+}

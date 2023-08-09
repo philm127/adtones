@@ -1,0 +1,56 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@model PromotionalCampaignAuditMapping
+<div class="row">
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Plays to date</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@Model.promotionalCampaignAuditDashboardResult.PlaystoDate</h1>
+                <small>Total number of plays to date</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 chartheader">
+        <div class="col-lg-7">
+            <div class="ibox-title">
+                <h5 class="m-b-xs">Total Reach</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@Model.promotionalCampaignAuditDashboardResult.TotalReach</h1>
+                <div class="font-bold text-navy text-break chartheadersubmaxbid">Total number of targeted users to date</div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <canvas id="doughnutMaxBid" height="100" width="150"></canvas>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Average Play Time</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@Model.promotionalCampaignAuditDashboardResult.AveragePlayTime.ToString("0.00") seconds</h1>
+                <small>Average play time over campaign life</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 chartheader">
+        <div class="col-lg-7">
+            <div class="ibox-title">
+                <h5 class="m-b-xs">Average play length</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@Model.promotionalCampaignAuditDashboardResult.MaxPlayLength.ToString("0.00")</h1>
+                <div class="font-bold text-navy">Across current campaign</div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <span id="sparkline8"></span>
+        </div>
+    </div>
+</div>
+
+<div class="row">&nbsp;</div>

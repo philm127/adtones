@@ -1,0 +1,221 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileFormModel
+<div class="row" id="campaignInfo">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Campaign Information</h5>
+
+            </div>
+
+
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvcaminfosuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    @*<span id="csuceess">Record updated successfully</span>*@
+                    <span id="csuceess"></span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvcaminfoerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cerrror"></span>
+                </div>
+
+                @using (Ajax.BeginForm("UpdateCampaignInfo", "Dashboard",
+      null,
+      new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultcampaign" },
+      new { @class = "form-horizontal" }))
+                {
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Name <label class="lbldanger">*</label></label>
+                        @Html.HiddenFor(Model => Model.Status, new { @id = "hdnstatus" })
+                        <div class="col-lg-4">
+                            @Html.HiddenFor(Model => Model.CampaignProfileId, new { @id = "hdncampaignid" })
+                            @Html.TextBoxFor(Model => Model.CampaignName, new { @class = "form-control trimmed", @placeholder = "Name" })
+                            @Html.ValidationMessageFor(Model => Model.CampaignName, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Description <label class="lbldanger">*</label></label>
+
+                        <div class="col-lg-4">
+                            @Html.TextAreaFor(Model => Model.CampaignDescription, new { @class = "form-control trimmed", @placeholder = "Description" })
+                            @Html.ValidationMessageFor(Model => Model.CampaignDescription, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Client</label>
+
+                        <div class="col-lg-4">
+                            @Html.DropDownListFor(Model => Model.ClientId, ViewBag.client as IEnumerable<SelectListItem>, "--Select Client--", new { @class = "form-control input-s-sm inline" })
+                            @*@Html.ValidationMessageFor(Model => Model.ClientId, null, new { @class = "btn-danger" })*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">StartDate</label>
+
+                        <div class="col-lg-4" id="data_1">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control trimmed StartDate" })
+                            </div>
+                            <span class="field-validation-valid btn-danger" id="startdateerrmsg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">EndDate</label>
+
+                        <div class="col-lg-4" id="data_1">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control trimmed EndDate" })
+                            </div>
+                            <span class="field-validation-valid btn-danger" id="enddateerrmsg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Number In Batch <label class="lbldanger">*</label></label>
+
+                        <div class="col-lg-4">
+                            @*@Html.HiddenFor(Model => Model.NumberInBatch, new { @id = "hdnnumberinbatch" })*@
+
+                            @Html.TextBoxFor(model => model.NumberInBatch, new { @class = "form-control trimmed" })
+                            @Html.ValidationMessageFor(model => model.NumberInBatch, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Country <label class="lbldanger">*</label></label>
+
+                        <div class="col-lg-4">
+                            @Html.DropDownListFor(Model => Model.CountryId, ViewBag.countryList as IEnumerable<SelectListItem>, "--Select Country--", new { @class = "form-control input-s-sm inline" })
+                            @Html.ValidationMessageFor(Model => Model.CountryId, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Currency</label>
+
+                        <div class="col-lg-4">
+                            @Html.DropDownListFor(Model => Model.CurrencyId, ViewBag.currencyList as IEnumerable<SelectListItem>, "--Select Currency--", new { @class = "input-sm form-control input-s-sm inline", @style = "Height:36px" })
+                            <span class="btn-danger" id="errormsg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-1">
+                            <button class="btn btn-blue" type="submit" id="btncampaigninfo">Update</button>
+
+                        </div>
+                    </div>
+                    //Old 05-02-2019
+                    @*if (@ViewData["statuscheck"].ToString() == "7")
+                        {
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Status</label>
+
+                                <div class="col-lg-1"><label class="control-label" id="camstatus" style="text-transform:capitalize;">@ViewData["status"]</label></div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Status</label>
+
+                                <div class="col-lg-1"><label class="control-label" id="camstatus" style="text-transform:capitalize;">@ViewData["status"]</label></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label"></label>
+                                @Html.HiddenFor(Model => Model.Status, new { @id = "hdnstatus" })
+                                @Html.HiddenFor(Model => Model.CampaignProfileId)
+                                @Html.HiddenFor(Model => Model.NumberInBatch)
+                                <div class="col-lg-6">
+                                    <div id="wizard1">
+                                        <h1>Play</h1>
+                                        <div class="step-content">
+
+                                        </div>
+
+                                        <h1>Pause</h1>
+                                        <div class="step-content">
+
+                                        </div>
+                                        <h1>Archive</h1>
+                                        <div class="step-content">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }*@
+
+                    //New 05-02-2019
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Status</label>
+                        @if (ViewData["status"].ToString() == "InProgress")
+                        {
+                            <div class="col-lg-3"><label class="control-label" id="camstatus" style="text-transform:capitalize;">@ViewData["status"]</label></div>
+                        }
+                        else
+                        {
+                            <div class="col-lg-3"><label class="control-label" id="camstatus" style="text-transform:capitalize;">@ViewData["status"]</label></div>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label"></label>
+                        @Html.HiddenFor(Model => Model.Status, new { @id = "hdnstatus" })
+                        @Html.HiddenFor(Model => Model.CampaignProfileId)
+                        @Html.HiddenFor(Model => Model.NumberInBatch)
+                        @if (ViewData["status"].ToString() != "Campaign Paused Due To Insufficient Funds")
+                        {
+                            <div class="col-lg-6">
+                                <div id="wizard1">
+                                    @if (ViewData["status"].ToString() == "InProgress")
+                                    {
+                                        <h1>InProgress</h1>
+                                        <div class="step-content">
+                                        </div>
+                                    }
+                                    <h1>Play</h1>
+                                    <div class="step-content">
+
+                                    </div>
+
+                                    <h1>Pause</h1>
+                                    <div class="step-content">
+
+                                    </div>
+                                    @if (ViewData["status"].ToString() != "InProgress")
+                                    {
+                                        <h1>Archive</h1>
+                                        <div class="step-content">
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var getresultcampaign = function (data) {
+        var campaignName = $("#CampaignName").val();
+        if (data == "success") {
+            var successmsg = "Campaign " + campaignName + " updated successfully.";
+            $("#csuceess").html(successmsg);
+            $("#dvcaminfosuc").show();
+            $("#dvcaminfoerror").hide();
+        }
+        else {
+            $("#cerrror").html(data);
+            $("#dvcaminfosuc").hide();
+            $("#dvcaminfoerror").show();
+        }
+    };
+
+</script>

@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace EFMVC.Web.ViewModels
+{
+    public class OperatorConfigurationFormModel
+    {
+        public int OperatorConfigurationId { get; set; }
+        [Required]
+        [StringLength(10, ErrorMessage = "Days Field Maximum length is 10")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Days Must be Numeric")]
+        public string Days { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime Addeddate { get; set; }
+        public Nullable<DateTime> Updateddate { get; set; }
+        [Required]
+        public int OperatorId { get; set; }
+        public string OperatorName { get; set; }
+    }
+}

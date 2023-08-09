@@ -1,0 +1,7 @@
+﻿@using EFMVC.Web.Helpers
+<div class="row">
+
+    <div class="large-12 columns large-centered">      
+        @Html.Partial(SiteHelper.Instance.IsAdvertiserUrl ? "_AdvertiserHomepageContent" : "_UserHomepageContent")
+    </div>
+</div>

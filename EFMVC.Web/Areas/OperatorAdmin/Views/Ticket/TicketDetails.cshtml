@@ -1,0 +1,585 @@
+﻿@using EFMVC.Model;
+@using EFMVC.Web.ViewModels;
+@using EFMVC.Web.Common;
+@model Tuple<QuestionCommentFormModel, Question>
+@{
+    ViewBag.Title = "TicketDetails";
+    Layout = "~/Areas/OperatorAdmin/Views/Shared/_Layout.cshtml";
+    var commentstatus = false;
+    var lastuserRecord = new QuestionComment();
+}
+<style>
+    .fancybox-overlay {
+        z-index: 100 !important;
+    }
+</style>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Ticket Details</h2>
+        <ol class="breadcrumb">
+
+            <li class="active">
+                <strong>@Model.Item2.QNumber</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                @if (TempData["msgsuccess"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        @TempData["msgsuccess"]
+                    </div>
+                }
+                @if (TempData["msgerror"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        @TempData["msgerror"]
+                    </div>
+                }
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    @if (Model.Item2.Status == 2 || Model.Item2.Status == 1)
+                    {
+                        <p style="text-align:right;">
+                            <button type="button" class="btn btn-danger" onclick="CloseQuestion('@Model.Item2.Id')">Close</button>
+                        </p>
+                    }
+                    <p>
+                        <strong>Subject :</strong> @Model.Item2.QuestionSubject.Name
+                    </p>
+                    @if (Model.Item2.Client != null)
+                    {
+                        <p><strong>Client Name :</strong> @Model.Item2.Client.Name</p>
+                    }
+                    @if (Model.Item2.CampaignProfile != null)
+                    {
+                        <p><strong>Campaign Name :</strong> @Model.Item2.CampaignProfile.CampaignName</p>
+                    }
+                    @{
+                        string status = string.Empty;
+                        QuestionStatus qStatus = (QuestionStatus)Model.Item2.Status;
+                        status = qStatus.ToString();
+                    }
+                    @if (Model.Item2.Status == 3 || Model.Item2.Status == 4)
+                    {
+                        <p><strong>Status :</strong> <label class="label label-danger">@status</label></p>
+                        if (ViewBag.closeMsg != "")
+                        {
+                            <span>@ViewBag.closeMsg</span>
+                        }
+                    }
+                    else
+                    {
+                        <p><strong>Status :</strong> <label class="label label-primary">@status</label></p>
+                    }
+                    @if (Model.Item2.QuestionImages.Count > 0)
+                    {
+                        <p style="text-align:right;"><a onclick="GetImages('@Model.Item2.Id')">View attached document</a></p>
+                    }
+                </div>
+                <div class="ibox-content">
+                    <h1>Question</h1>
+                    @Model.Item2.Description
+                    @if (Model.Item2.AdvertId != null)
+                    {
+                        <br />
+                        <a target="_blank" href="@Url.Action("Index", "UserAdvert",new { area = "OperatorAdmin", @id=Model.Item2.AdvertId })">@Model.Item2.Advert.AdvertName</a>
+                    }
+                    @if (Model.Item2.QuestionComment.Count > 0)
+                    {
+                        //if (Model.Item2.Status == 1 || Model.Item2.Status == 2)
+                        if (Model.Item2.Status != 4)
+                        {
+                            var questionCommentStatus = Model.Item2.QuestionComment.OrderByDescending(Top => Top.ResponseDatetime).FirstOrDefault();
+                            if (questionCommentStatus.UserId != ViewBag.UserId)
+                            {
+                                commentstatus = true;
+                                <div style="float:right;clear:both;margin-top:-30px;">
+                                    <button type="button" class="btn btn-blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal2">
+                                        Add Comment
+                                    </button>
+                                </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // if (Model.Item2.Status == 1 || Model.Item2.Status == 2)
+                        if (Model.Item2.Status != 4)
+                        {
+                            <div style="float:right;clear:both;margin-top:-30px;">
+                                <button type="button" class="btn btn-blue" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#myModal2">
+                                    Add Comment
+                                </button>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (Model.Item2.QuestionComment.Count > 0)
+    {
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox chat-view">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="chat-discussion">
+                                    @{
+                                        if (Model.Item2.QuestionComment != null)
+                                        {
+                                            if (Model.Item2.QuestionComment.Count > 0)
+                                            {
+                                                lastuserRecord = Model.Item2.QuestionComment.Where(top => top.UserId == ViewBag.UserId).OrderByDescending(top => top.ResponseDatetime).FirstOrDefault();
+                                            }
+                                        }
+                                    }
+                                    @foreach (var item in Model.Item2.QuestionComment)
+                                    {
+                                        if (item.UserId != ViewBag.UserId)
+                                        {
+                                            <div class="chat-message left">
+                                                @{
+                                                    var dayweekName = item.ResponseDatetime.DayOfWeek;
+                                                    string weekName = dayweekName.ToString();
+                                                    string username = item.User.FirstName + " " + item.User.LastName;
+                                                }
+                                                <div class="message">
+                                                    <a class="message-author" href="#">@username</a>
+                                                    @*<span> - @item.TicketCode</span>*@
+                                                    <span class="message-date">@weekName @item.ResponseDatetime.ToString("MMM dd yyyy - HH:mm") </span>
+                                                    <span class="message-content">
+                                                        @item.Description
+                                                    </span>
+                                                    <div>
+                                                        @if (item.QuestionCommentImages.Count > 0)
+                                                        {
+                                                            <div style="float:left;">
+                                                                <a onclick="GetCommentImages('@item.Id')">View <i class="fa fa-file-image-o"></i></a>
+                                                            </div>
+                                                        }
+                                                        @{
+                                                            if (lastuserRecord != null)
+                                                            {
+                                                                if (item.UserId == lastuserRecord.UserId && item.Id == lastuserRecord.Id && Model.Item2.QuestionComment.ToList()[Model.Item2.QuestionComment.Count - 1].Id == lastuserRecord.Id && (Model.Item2.Status == 1 || Model.Item2.Status == 2))
+                                                                {
+                                                                    <div style="float:right;">
+                                                                        <button class="btn btn-blue btn-xs" type="button" onclick='getCommentresult(@item.Id)'><i class="fa fa-pencil"></i></button>
+                                                                        <button class="btn btn-white btn-xs" type="button" onclick='deletecomment(@item.Id, "@item.TicketCode")'><i class="fa fa-times"></i></button>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                        }
+                                                        <div style="clear:both;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="chat-message left">
+                                                @{
+                                                    var dayweekName = item.ResponseDatetime.DayOfWeek;
+                                                    string weekName = dayweekName.ToString();
+                                                    string username = item.User.FirstName + " " + item.User.LastName;
+                                                }
+                                                <div class="message">
+                                                    <a class="message-author" href="#">@username</a>
+                                                    @*<span> - @item.TicketCode</span>*@
+                                                    <span class="message-date">@weekName @item.ResponseDatetime.ToString("MMM dd yyyy - HH:mm") </span>
+                                                    <span class="message-content">
+                                                        @item.Description
+                                                    </span>
+                                                    <div>
+                                                        @if (item.QuestionCommentImages.Count > 0)
+                                                        {
+                                                            <div style="float:left;">
+                                                                <a onclick="GetCommentImages('@item.Id')">View <i class="fa fa-file-image-o"></i></a>
+                                                            </div>
+                                                        }
+                                                        @{
+                                                            if (lastuserRecord != null)
+                                                            {
+                                                                if (item.UserId == lastuserRecord.UserId && item.Id == lastuserRecord.Id && Model.Item2.QuestionComment.ToList()[Model.Item2.QuestionComment.Count - 1].Id == lastuserRecord.Id && (Model.Item2.Status == 1 || Model.Item2.Status == 2))
+                                                                {
+                                                                    <div style="float:right;">
+                                                                        <button class="btn btn-blue btn-xs" type="button" onclick='getCommentresult(@item.Id)'><i class="fa fa-pencil"></i></button>
+                                                                        <button class="btn btn-white btn-xs" type="button" onclick='deletecomment(@item.Id, "@item.TicketCode")'><i class="fa fa-times"></i></button>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                        }
+                                                        <div style="clear:both;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@{
+    <div id="questioncomment">
+        @if (commentstatus)
+        {
+            var questionCommentmodel = new QuestionCommentFormModel();
+            questionCommentmodel.Title = Model.Item2.Title;
+            questionCommentmodel.QuestionId = Model.Item2.Id;
+            @Html.Partial("_AddComment", questionCommentmodel);
+        }
+        else
+        {
+            @Html.Partial("_AddComment", Model.Item1)
+        }
+    </div>
+}
+
+@section Styles {
+    @Styles.Render("~/Scripts/plugins/jquery-ui/fancyboxStyles")
+}
+@section Scripts{
+
+    @Scripts.Render("~/bundles/fancyboxjs")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //Commented 04-03-2019
+            //$("#commentfile").change(function () {
+            //    var files = $(this)[0].files;
+            //    for (var i = 0; i < files.length; i++) {
+            //        if ($("#filename").html().trim() == "") {
+            //            $("#filename").append(files[i].name.trim());
+            //        }
+            //        else {
+            //            $("#filename").append(" , " + files[i].name.trim());
+            //        }
+            //    }
+            //});
+
+            //Add 04-03-2019
+            $("#commentfile").change(function () {
+                var files = $(this)[0].files;
+                var iSize;
+                if (files.length > 0) {
+                    iSize = ($(this)[0].files.size / 1024);
+                } else {
+                    $("#filename").html("");
+                    return false;
+                }  
+                for (var i = 0; i < files.length; i++) {
+                    //if ($("#filename").html().trim() == "") {
+                    if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                        $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                        return false;
+                    }
+                    else if (iSize != "" || iSize != null) {
+                        iSize = (Math.round(iSize * 100) / 100)
+                        if (iSize > 250) {
+                            $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                            return false;
+                        }
+                        else {
+                            $("#questionfileerrmsg")[0].innerHTML = "";
+                            $("#filename").html("");
+                            $("#filename").append(files[i].name.trim());
+                        }
+                    }
+                    else {
+                        $("#questionfileerrmsg")[0].innerHTML = "";
+                        $("#filename").html("");
+                        $("#filename").append(files[i].name.trim());
+                    }
+                    //}
+                    //Add 29-05-2019
+                    //else {
+                    //    $("#questionfileerrmsg")[0].innerHTML = "";
+                    //    $("#filename").html("");
+                    //    $("#filename").append(files[i].name.trim());
+                    //}
+
+                    //Comment 29-05-2019
+                    //else {
+                    //    if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                    //        $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                    //        return false;
+                    //    }
+                    //    else if (iSize != "" || iSize != null) {
+                    //        iSize = (Math.round(iSize * 100) / 100)
+                    //        if (iSize > 250) {
+                    //            $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                    //            return false;
+                    //        }
+                    //        else {
+                    //            $("#questionfileerrmsg")[0].innerHTML = "";
+                    //            $("#filename").append(files[i].name.trim());
+                    //        }
+                    //    }
+                    //    else {
+                    //        $("#questionfileerrmsg")[0].innerHTML = "";
+                    //        //$("#filename").append(" , " + files[i].name.trim());
+                    //        $("#filename").append(files[i].name.trim());
+                    //    }
+                    //}
+                }
+            });
+
+            trimmed();
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+        function getCommentresult(id) {
+            $("#questioncomment").empty();
+            $.post('@Url.Action("UpdateTicket", "Ticket", new { area = "OperatorAdmin" })', { commentId: id }, function (data) {
+
+                $("#questioncomment").html(data);
+                //$("#myModal2").modal();
+                $("#myModal2").modal({ backdrop: 'static', keyboard: false });
+                $("#commentfile").change(function () {
+                    var files = $(this)[0].files;
+                    var iSize;
+                    if (files.length > 0) {
+                        iSize = ($(this)[0].files.size / 1024);
+                    } else {
+                        $("#filename").html("");
+                        return false;
+                    }  
+                    for (var i = 0; i < files.length; i++) {
+                        if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                            $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                            return false;
+                        }
+                        else if (iSize != "" || iSize != null) {
+                            iSize = (Math.round(iSize * 100) / 100)
+                            if (iSize > 250) {
+                                $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                                return false;
+                            }
+                            else {
+                                $("#questionfileerrmsg")[0].innerHTML = "";
+                                $("#filename").html("");
+                                $("#filename").append(files[i].name.trim());
+                            }
+                        }
+                        else {
+                            $("#questionfileerrmsg")[0].innerHTML = "";
+                            $("#filename").html("");
+                            $("#filename").append(files[i].name.trim());
+                        }
+                    }
+                });
+                trimmed();
+                $("#btnsubmit").click(function () {
+                    if ($("#Description").val() == "") {
+                        $("#Description")[0].nextElementSibling.innerHTML = "The Description field is required.";
+                        return false;
+                    }
+                    else {
+                        if ($("#Description").val().length > 200) {
+                            $("#Description")[0].nextElementSibling.innerHTML = "The Description field cannot be more than 200 characters.";
+                            return false;
+                        }
+                        else {
+                            $("#Description")[0].nextElementSibling.innerHTML = "";
+                        }
+                    }
+                    var files = $("#commentfile")[0].files;
+                    var iSize = (files[0].size / 1024);
+                    for (var i = 0; i < files.length; i++) {
+                        if ($("#filename").html().trim() == "") {
+                            if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                                $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                                return false;
+                            }
+                            else if (iSize != "" || iSize != null) {
+                                iSize = (Math.round(iSize * 100) / 100)
+                                if (iSize > 250) {
+                                    $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                                    return false;
+                                }
+                            }
+                        }
+                        else {
+                            if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                                $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                                return false;
+                            }
+                            else if (iSize != "" || iSize != null) {
+                                iSize = (Math.round(iSize * 100) / 100)
+                                if (iSize > 250) {
+                                    $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        }
+        function deletecomment(id, ticketCode) {
+            var questionId = getUrlParameter('id');
+            if (confirm("Are you sure want to delete this comment?")) {
+                $.post('@Url.Action("DeleteComment", "Ticket", new { area = "OperatorAdmin" })', { commentId: id, ticketCode: ticketCode }, function (data) {
+
+                    if (data == "success") {
+                        window.location.href = "/OperatorAdmin/Ticket/TicketDetails?id=" + questionId;
+                    }
+                });
+            }
+
+        }
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+        };
+        function CloseQuestion(r_id) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("CloseTicket", "Ticket", new { area="OperatorAdmin" })',
+                data: { id: r_id },
+                success: function (data) {
+                    if (data == "success") {
+                        window.location.href = '@Url.Action("Index", "Ticket")'
+                    }
+
+                }
+            });
+        }
+        function GetImages(r_id) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetScreenshot", "Ticket", new { area="OperatorAdmin" })',
+                data: { id: r_id },
+                success: function (data) {
+                    var object = new Array();
+                    var details = data.split(',');
+                    for (var i = 0; i < details.length; i++) {
+                        object.push(details[i]);
+                    }
+
+                    $.fancybox(object, {
+                        'padding': 0,
+                        'transitionIn': 'none',
+                        'transitionOut': 'none',
+                        'type': 'image',
+                        'changeFade': 0,
+                        'helpers': {
+                            overlay: { closeClick: false } // prevents closing when clicking OUTSIDE fancybox 
+                        }
+                    });
+
+
+                }
+            });
+        }
+        function GetCommentImages(r_id) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetCommentScreenshot", "Ticket", new { area="OperatorAdmin" })',
+                data: { id: r_id },
+                success: function (data) {
+                    var object = new Array();
+                    var details = data.split(',');
+                    for (var i = 0; i < details.length; i++) {
+                        object.push(details[i]);
+                    }
+
+                    $.fancybox(object, {
+                        'padding': 0,
+                        'transitionIn': 'none',
+                        'transitionOut': 'none',
+                        'type': 'image',
+                        'changeFade': 0,
+                        'helpers': {
+                            overlay: { closeClick: false } // prevents closing when clicking OUTSIDE fancybox 
+                        }
+                    });
+
+
+                }
+            });
+        }
+
+        $("#btnsubmit").click(function () {
+            if ($("#Description").val() == "") {
+                $("#Description")[0].nextElementSibling.innerHTML = "The Description field is required.";
+                return false;
+            }
+            else {
+                if ($("#Description").val().length > 200) {
+                    $("#Description")[0].nextElementSibling.innerHTML = "The Description field cannot be more than 200 characters.";
+                    return false;
+                }
+                else {
+                    $("#Description")[0].nextElementSibling.innerHTML = "";
+                }
+            }
+            var files = $("#commentfile")[0].files;
+            var iSize = (files[0].size / 1024);
+            for (var i = 0; i < files.length; i++) {
+                if ($("#filename").html().trim() == "") {
+                    if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                        $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                        return false;
+                    }
+                    else if (iSize != "" || iSize != null) {
+                        iSize = (Math.round(iSize * 100) / 100)
+                        if (iSize > 250) {
+                            $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                            return false;
+                        }
+                    }
+                }
+                else {
+                    if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                        $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                        return false;
+                    }
+                    else if (iSize != "" || iSize != null) {
+                        iSize = (Math.round(iSize * 100) / 100)
+                        if (iSize > 250) {
+                            $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                            return false;
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+}

@@ -1,0 +1,44 @@
+﻿@using EFMVC.Web.Models;
+@model KeyFeatureAdvert
+<div class="row">
+    <div class="col-lg-3">
+        <div class="ibox">
+            <div class="ibox-content">
+                <h5>Total number of plays in period</h5>
+                <h1 class="no-margins">@String.Format("{0:n0}", @Model.NoOfPlays)</h1>
+
+                <small>Total number of plays in period</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox">
+            <div class="ibox-content">
+                <h5>Average play time</h5>
+                <h1 class="no-margins">@String.Format("{0:n2}", @Model.AvgPlayTime)</h1>
+
+                <small>Average play time</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox">
+            <div class="ibox-content">
+                <h5>Total number of SMS</h5>
+                <h1 class="no-margins">@Model.NoOfSMS</h1>
+            
+                <small>Total number of SMS</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox">
+            <div class="ibox-content">
+                <h5>Total number of emails</h5>
+                <h1 class="no-margins">@Model.NoOfEmail</h1>
+                
+                <small>Total number of emails</small>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,631 @@
+@using EFMVC.Web.Models;
+@model CampaignDashboardChartResult
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="~/Scripts/plugins/select2/select2.full.min.js"></script>
+<script src="~/Scripts/plugins/chosen/chosen.jquery.js"></script>
+
+<div class="row">
+
+
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+
+                <h5>Plays to date</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@String.Format("{0:n0}", @Model.PlaystoDate)</h1>
+                <small>Total number of plays to date</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+
+                <h5>Spend to date (in @Model.CurrencyCode)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@String.Format("{0:n0}", @Model.SpendToDate)</h1>
+
+                <small>Total spend to date</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+
+                <h5>Average Bid (in @Model.CurrencyCode)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">@String.Format("{0:n2}", @Model.AverageBid) (@Model.CurrencyCode)</h1>
+
+                <small>Average bid over campaign life</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Average Play Time</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;" id="avgPlayTime">@Model.AveragePlayTime seconds</h1>
+                <small>Average play time over campaign life</small>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-sm-3 chartheader">
+
+        <div class="col-lg-6">
+            <div>
+                <h5 class="m-b-xs">Free plays</h5>
+                <h1 class="no-margins">@String.Format("{0:n0}", @Model.FreePlays)</h1>
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div>
+                <canvas id="doughnutFreePlays" height="100" width="150"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-12" style="position:absolute; padding-top:55px;">
+            <div class="font-bold text-navy text-break chartheadersubtext">@Model.FreePlaysPercantage % of all plays are under 6 seconds</div>
+
+        </div>
+    </div>
+    <div class="col-sm-3 chartheader">
+
+        <div class="col-lg-6">
+            <div>
+                @if (String.Format("{0:n0}", Model.TotalBudget).Length <= 8)
+                {
+                    <h5 class="m-b-xs">Total Budget (in @Model.CurrencyCode)</h5>
+                }
+                else
+                {
+                    <h5 class="m-b-xs">Total Budget (in @Model.CurrencyCode)</h5><br />
+                }
+                <h1 class="no-margins">@String.Format("{0:n0}", @Model.TotalBudget)</h1>
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div>
+                <canvas id="doughnutChartbudget" height="100" width="150"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="font-bold text-navy text-break chartheadersubtext">Spend to date is @String.Format("{0:n2}", @Model.TotalBudgetPercantage) % of the budget</div>
+
+        </div>
+    </div>
+    <div class="col-sm-3 chartheader">
+
+        <div class="col-lg-6">
+            <div>
+                <h5 class="m-b-xs">Average Max bid</h5>
+                <h1 class="no-margins">@Model.MaxBid</h1>
+
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div>
+                <canvas id="doughnutMaxBid" height="100" width="150"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-12 chartheadersub">
+            <div class="font-bold text-navy text-break chartheadersubmaxbid">Average is the @Model.MaxBidPercantage of the average max bid</div>
+
+        </div>
+    </div>
+    <div class="col-sm-3 chartheader">
+
+        <div class="col-lg-6">
+            <div>
+                <h5 class="m-b-xs">Average play length</h5>
+                <h1 class="no-margins">@Model.MaxPlayLength</h1>
+
+            </div>
+
+        </div>
+        <div class="col-lg-6">
+            <div>
+                <span id="sparkline8"></span>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="font-bold text-navy text-break chartheadersubmaxplay" style="width:50%;">Across all current campaigns</div>
+
+        </div>
+    </div>
+
+</div>
+<div class="row">&nbsp;</div>
+<div class="row">
+    @if (ViewBag.Campaignavgplayresult != null)
+    {
+        <div class="col-lg-9" style="background-color:#FFFFFF;min-height:220px;margin-left:15px;">
+            <div class="flot-chart" style="">
+                <div class="flot-chart-content" id="flot-dashboard-chart" style="padding: 0px; position: relative;"><canvas class="flot-base" width="772" height="200" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 772px; height: 200px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 74px; text-align: center;">Jan 03</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 145px; text-align: center;">Jan 06</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 215px; text-align: center;">Jan 09</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 286px; text-align: center;">Jan 12</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 356px; text-align: center;">Jan 15</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 427px; text-align: center;">Jan 18</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 498px; text-align: center;">Jan 21</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 568px; text-align: center;">Jan 24</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 639px; text-align: center;">Jan 27</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 64px; top: 185px; left: 709px; text-align: center;">Jan 30</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 173px; left: 19px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 132px; left: 6px; text-align: right;">250</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 92px; left: 6px; text-align: right;">500</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 52px; left: 6px; text-align: right;">750</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 12px; left: 0px; text-align: right;">1000</div></div><div class="flot-y-axis flot-y2-axis yAxis y2Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 173px; left: 760px;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 144px; left: 760px;">5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 115px; left: 760px;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 87px; left: 760px;">15</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 58px; left: 760px;">20</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 29px; left: 760px;">25</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 1px; left: 760px;">30</div></div></div><canvas class="flot-overlay" width="772" height="200" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 772px; height: 200px;"></canvas><div class="legend"><div style="position: absolute; width: 111px; height: 30px; top: 13px; left: 35px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div><table style="position:absolute;top:13px;left:35px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #000000;padding:1px"><div style="width:4px;height:0;border:5px solid #1ab394;overflow:hidden"></div></div></td><td class="legendLabel">Number of orders</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #000000;padding:1px"><div style="width:4px;height:0;border:5px solid #464f88;overflow:hidden"></div></div></td><td class="legendLabel">Payments</td></tr></tbody></table></div></div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-lg-9" style="background-color:#F3F3F4;min-height:220px;margin-left:15px;">
+        </div>
+    }
+    <div class="col-lg-3" style="width:23%">
+        <ul class="stat-list" style="text-align:center;">
+            <li>
+                <div class="row" style="font-size:14px;display:inline-block;margin: 0 0 7px;padding: 0;text-overflow: ellipsis;font-weight:600;">
+                    Additional Transactions
+                </div>
+            </li>
+        </ul>
+        <ul class="stat-list">
+            <li>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-xs-4">
+                            <small class="stats-label">SMS</small>
+                            <h4>@Model.SMSCost</h4>
+                        </div>
+                        <div class="col-xs-4">
+                            <small class="stats-label">Email</small>
+                            <h4>@Model.EmailCost</h4>
+                        </div>
+                        <div class="col-xs-4">
+                            <small class="stats-label">Cancelled</small>
+                            <h4>@Model.Cancelled</h4>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="form-group">Select clients</div>
+                <div class="col-lg-11" style="padding:0px !important;">
+                    @Html.DropDownList("CampaignChartIndexClientId", (MultiSelectList)ViewBag.chartclient, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Clients" })
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</div>
+<div class="row">&nbsp;</div>
+
+
+
+<script type="text/javascript">
+    $("#CampaignChartIndexClientId").change(function () {
+        var clientId = new Array();
+        $("select#CampaignChartIndexClientId option:selected").each(function () {
+            clientId.push($(this).val());
+        });
+        GraphDetailsbyClientId(clientId);
+    });
+    function GraphDetailsbyClientId(clientId) {
+        $(".spiner-example").show();
+        $.ajax({
+            traditional: true,
+            url: '@Url.Action("GetChartDetailsbyClient", "Dashboard")',
+            type: "POST",
+            data: { CampaignChartIndexClientId: clientId },
+            success: function (data) {
+                if (data == "success") {
+                    $(".spiner-example").hide();
+                    window.location.href = '@Url.Action("Index","Dashboard")'
+                }
+            }
+
+        });
+    }
+    var config = {
+        '.chosen-select': { width: "100%" },
+        '.chosen-select-deselect': { allow_single_deselect: true },
+        '.chosen-select-no-single': { disable_search_threshold: 10 },
+        '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+        '.chosen-select-width': { width: "95%" }
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+
+        var doughnutData = [
+    {
+        value: 250,
+        color: "#1e90ff",
+        highlight: "#1e90ff",
+
+    },
+
+    {
+        value: 150,
+        color: "#b5b8cf",
+        highlight: "#b5b8cf",
+
+    }
+        ];
+        $(document).ready(function () {
+            var doughnutFreePlaysData = [
+        {
+            value: @ViewBag.TotalPlayed,
+            color: "#1e90ff",
+            highlight: "#1e90ff",
+            label:"Played"
+
+        },
+
+        {
+            value: @ViewBag.FreePlays,
+            color: "#b5b8cf",
+            highlight: "#b5b8cf",
+            label:"Free"
+        }
+            ];
+            var doughnutChartbudgetData = [
+       {
+           value: @ViewBag.TotalBudget,
+           color: "#1e90ff",
+           highlight: "#1e90ff",
+           label:"Budget"
+
+       },
+
+       {
+           value: @ViewBag.TotalSpend,
+           color: "#b5b8cf",
+           highlight: "#b5b8cf",
+           label: "Spend"
+       }
+            ];
+            var doughnutMaxBidData = [
+    {
+        value: @ViewBag.MaxBid,
+        color: "#1e90ff",
+        highlight: "#1e90ff",
+        label:"AvgBid"
+
+    },
+
+    {
+        value: @ViewBag.AvgMaxBid,
+        color: "#b5b8cf",
+        highlight: "#b5b8cf",
+        label:"Abid"
+    }
+            ];
+
+            var doughnutOptions = {
+                segmentShowStroke: true,
+                segmentStrokeColor: "#fff",
+                segmentStrokeWidth: 2,
+                percentageInnerCutout: 45, // This is 0 for Pie charts
+                animationSteps: 100,
+                animationEasing: "easeOutBounce",
+                animateRotate: true,
+                animateScale: false,
+                responsive: true,
+            };
+
+            var ctx = document.getElementById("doughnutFreePlays").getContext("2d");
+            var myNewChart = new Chart(ctx).Doughnut(doughnutFreePlaysData, doughnutOptions);
+
+            var ctx = document.getElementById("doughnutChartbudget").getContext("2d");
+            var myNewChart = new Chart(ctx).Doughnut(doughnutChartbudgetData, doughnutOptions);
+            var ctx = document.getElementById("doughnutMaxBid").getContext("2d");
+            var myNewChart = new Chart(ctx).Doughnut(doughnutMaxBidData, doughnutOptions);
+
+            var barchartData = @Html.Raw(Json.Encode(@ViewBag.getbarChartdata));
+            if(barchartData!=null)
+            {
+                $("#sparkline8").sparkline(barchartData, {
+                    type: 'bar',
+                    barWidth: 5,
+                    height: '75px',
+                    barColor: '#1e90ff',
+                    negBarColor: '#1e90ff'
+                });
+            }
+            var sparkResize;
+            var avgbid_plays = @Html.Raw(Json.Encode(@ViewBag.Campaignavgplayresult));
+            if(avgbid_plays!=null)
+            {
+
+                var status=avgbid_plays[0].status;
+                var ticks=[],dataset,options;
+                var playresult=avgbid_plays[0]._playresult;
+                var avgbidresult=avgbid_plays[0]._Avgresult;
+                var _playarrayresult=[];
+                var _avgbidarrayresult=[];
+                var weeks=["Week1","Wek2","Week3","Week4","Week5","Week6","Week7","Week8","Week9","Week10","Week11","Week12","Week13","Week14","Week15",
+                            "Week16","Week17","Week18","Week19","Week20","Week21","Week22","Week23","Week24","Week25","Week26","Week27","Week28","Week29",
+                            "Week30","Week31","Week32","Week33","Week34","Week35","Week36","Week37","Week38","Week39","Week40","Week41","Week42","Week43",
+                    "Week44", "Week45", "Week46", "Week47", "Week48", "Week49", "Week50", "Week51", "Week52"];
+
+                
+
+                for (var i = 0; i < playresult.length; i++) {
+                    _playarrayresult[i]=[
+                        playresult[i].name,playresult[i].value
+                    ]
+                    ticks[i]=[playresult[i].name,weeks[playresult[i].name-1]]
+                }
+                for (var i = 0; i < avgbidresult.length; i++) {
+                    _avgbidarrayresult[i]=[
+                        avgbidresult[i].name,avgbidresult[i].value
+                    ]
+                }
+                var data2 = _playarrayresult;
+
+                var data3 = _avgbidarrayresult;
+
+
+                if(status==1)
+                {
+                    dataset = [
+            {
+                label: "Number of plays (in weeks)",
+                data: data2,
+                color: "#1e90ff",
+                bars: {
+                    show: true,
+                },
+
+            }, {
+                label: "Average Bid (in weeks)",
+                data: data3,
+                yaxis: 2,
+                color: "#464f88",
+                lines: {
+                    lineWidth: 1,
+                    show: true,
+                    fill: true,
+                    fillColor: {
+                        colors: [{
+                            opacity: 0.2
+                        }, {
+                            opacity: 0.2
+                        }]
+                    }
+                },
+                splines: {
+                    show: false,
+                    tension: 0.6,
+                    lineWidth: 1,
+                    fill: 0.1
+                },
+            }
+                    ];
+                    options = {
+                        xaxis: {
+                            ticks: ticks,
+                            tickLength:0,
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 10,
+                            color: "#d5d5d5",
+                            labelAngle: -90,
+                        },
+                        yaxes: [{
+                            tickLength:0,
+                            position: "left",
+                            max: @ViewBag.NoofplayMaxCount,
+                            color: "#d5d5d5",
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 3
+                        }, {
+                            tickLength:0,
+                            max: @ViewBag.AvgbidMaxCount,
+                            position: "right",
+                            clolor: "#d5d5d5",
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: ' Arial',
+                            axisLabelPadding: 3
+                        }
+                        ],
+                        legend: {
+                            noColumns: 1,
+                            labelBoxBorderColor: "#000000",
+                            position: "nw"
+                        },
+                        grid: {
+                            hoverable: false,
+                            borderWidth: 0
+                        },
+                        bars: {
+                            align: "center",
+                            barWidth: 1
+                        }
+                    };
+                }
+                else if(status==2)
+                {
+                    ticks = [
+        [0, "Sunday"],[1, "Monday"],[2, "Tuesday"],[3, "Wednesday"],[4, "Thursday"],[5, "Friday"],[6, "Saturday"]
+                    ];
+                    dataset = [
+            {
+                label: "Number of plays",
+                data: data2,
+                color: "#1e90ff",
+                bars: {
+                    show: true,
+                }
+
+            }, {
+                label: "Average Bid",
+                data: data3,
+                yaxis: 2,
+                color: "#464f88",
+                lines: {
+                    lineWidth: 1,
+                    show: true,
+                    fill: true,
+                    fillColor: {
+                        colors: [{
+                            opacity: 0.2
+                        }, {
+                            opacity: 0.2
+                        }]
+                    }
+                },
+                splines: {
+                    show: false,
+                    tension: 0.6,
+                    lineWidth: 1,
+                    fill: 0.1
+                },
+            }
+                    ];
+                    options = {
+                        xaxis: {
+                            tickLength:0,
+                            ticks: ticks,
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 10,
+                            color: "#d5d5d5"
+                        },
+                        yaxes: [{
+                            tickLength:0,
+                            position: "left",
+                            max: @ViewBag.NoofplayMaxCount,
+                            color: "#d5d5d5",
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 3
+                        }, {
+                            tickLength:0,
+                            max: @ViewBag.AvgbidMaxCount,
+                            position: "right",
+                            clolor: "#d5d5d5",
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: ' Arial',
+                            axisLabelPadding: 3
+                        }
+                        ],
+                        legend: {
+                            noColumns: 1,
+                            labelBoxBorderColor: "#000000",
+                            position: "nw"
+                        },
+                        grid: {
+                            hoverable: false,
+                            borderWidth: 0
+                        },
+                        bars: {
+                            align: "center",
+                            barWidth: 1
+                        }
+                    };
+                }
+                else
+                {
+                    var ticks = [
+         [0, "00"],[1, "01"],[2, "02"],[3, "03"],[4, "04"],[5, "05"],[6, "06"],[7, "07"],[8, "08"],[9, "09"],[10, "10"],
+         [11, "11"],[12, "12"],[13, "13"],[14, "14"],[15, "15"],[16, "16"],[17, "17"],[18, "18"],[19, "19"],[20, "20"],
+         [21, "21"],[22, "22"],[23, "23"]
+                    ];
+                    dataset = [
+            {
+                label: "Number of plays (in hours)",
+                data: data2,
+                color: "#1e90ff",
+                bars: {
+                    show: true,
+                }
+
+            }, {
+                label: "Average Bid (in hours)",
+                data: data3,
+                yaxis: 2,
+                color: "#464f88",
+                lines: {
+                    lineWidth: 1,
+                    show: true,
+                    fill: true,
+                    fillColor: {
+                        colors: [{
+                            opacity: 0.2
+                        }, {
+                            opacity: 0.2
+                        }]
+                    }
+                },
+                splines: {
+                    show: false,
+                    tension: 0.6,
+                    lineWidth: 1,
+                    fill: 0.1
+                },
+            }
+                    ];
+                    options = {
+                        xaxis: {
+                            tickLength:0,
+                            ticks: ticks,
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 10,
+                            color: "#d5d5d5"
+                        },
+                        yaxes: [{
+                            tickLength:0,
+                            position: "left",
+                            max: @ViewBag.NoofplayMaxCount,
+                            color: "#d5d5d5",
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 3
+                        }, {
+                            tickLength:0,
+                            max: @ViewBag.AvgbidMaxCount,
+                            position: "right",
+                            clolor: "#d5d5d5",
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: ' Arial',
+                            axisLabelPadding: 3
+                        }
+                        ],
+                        legend: {
+                            noColumns: 1,
+                            labelBoxBorderColor: "#000000",
+                            position: "nw"
+                        },
+                        grid: {
+                            hoverable: false,
+                            borderWidth: 0
+                        },
+                        bars: {
+                            align: "center",
+                            barWidth: 1
+                        }
+                    };
+                }
+                
+                $.plot($("#flot-dashboard-chart"), dataset, options);
+            }
+
+        });
+</script>
+
+

@@ -1,0 +1,21 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileTimeSettingFormModel
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    @using (Html.BeginForm("SaveTimeSettings", "Profile"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CreateOrEditTimeSettings", Model)
+
+        <p>
+            <input type="submit" value="Submit" class="font12" />
+        </p>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

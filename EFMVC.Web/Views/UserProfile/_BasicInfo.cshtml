@@ -1,0 +1,320 @@
+﻿@using EFMVC.Web.ViewModels
+@model UserProfileInfo
+<style>
+    .dot {
+        height: 25px;
+        width: 25px;
+        background-color: green;
+        border-radius: 50%;
+        display: inline-block;
+    }
+</style>
+<div class="col-lg-12">
+    <div class="ibox float-e-margins">
+       
+        <div class="ibox-title">
+            <h5>Basic Info</h5>
+
+        </div>
+        <div class="ibox-content">
+            <div class="preloader" style="display:none"></div>
+            <div class="alert alert-success alert-dismissable" id="dvuserinfosuc" style="display:none;">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <span id="cbudsuceess">Record updated successfully</span>
+            </div>
+
+
+            <div class="alert alert-danger alert-dismissable" id="dvuserinfoerror" style="display:none;">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <span id="userinfoerrror"></span>
+            </div>
+            <form class="form-horizontal">
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Email <label class="lbldanger">*</label></label>
+
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(Model => Model.Email, new { @class = "form-control trimmed", @placeholder = "Email", id = "txtemailaddress" })
+                        <label class="label label-warning">Important - Changing your email will need verification.</label><br />
+                        <input type="hidden" id="hdnemail" value='@ViewBag.emailAddress' />
+                        <span class="btn-danger" id="spemail" style="display:none;">The Email field is required.</span>
+                        <span class="btn-danger" id="spvalemail" style="display:none;">The Email field is not a valid e-mail address.</span>
+                    </div>
+                    @if (ViewBag.IsEmailVerified == false)
+                    {
+                        <span class="dot" style="background-color: red;"></span>
+                        <button class="btn btn-sm btn-blue" style="margin-left: 20px;" type="button" onclick="ResendEmail()">Resend verification</button>
+                        <button class="btn btn-sm btn-success" type="button" style="background-color:green" id="btnVerifyEmailCode">Add code</button>
+                    }
+                    else
+                    {
+
+                        <span class="dot"></span>
+                    }
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">First Name <label class="lbldanger">*</label></label>
+
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(Model => Model.FirstName, new { @class = "form-control trimmed txtOnly", @placeholder = "First Name", id = "txtfirstname" })
+                        <span class="btn-danger" id="spfirstname" style="display:none;">The First name field is required</span>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Last Name <label class="lbldanger">*</label></label>
+
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(Model => Model.LastName, new { @class = "form-control trimmed txtOnly", @placeholder = "Last Name", id = "txtlastname" })
+                        <span class="btn-danger" id="splastname" style="display:none;">The Last name field is required</span>
+
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    <label class="col-lg-3 control-label">Organisation</label>
+
+                    <div class="col-lg-6">
+                        @Html.TextBoxFor(Model => Model.Organisation, new { @class = "form-control", @placeholder = "Organisation", id = "txtOrganisation" })
+                        <span class="btn-danger" id="spOrganisation" style="display:none;">The Organisation field is required</span>
+
+                    </div>
+                </div>*@
+
+                @if (ViewBag.Provider != "")
+                {
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Provider</label>
+                        <div class="col-lg-6">
+                            <label class="control-label">@ViewBag.Provider</label>
+                        </div>
+                    </div>
+                }
+                
+                <div class="form-group">
+                    <div class="col-lg-offset-3 col-lg-9">
+                        <button class="btn btn-sm btn-blue" type="button" onclick="savechanges();">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    function ResendEmail() {
+        var emailAddress = $("#txtemailaddress").val();
+
+        if (emailAddress == "" || emailAddress == null) {
+            swal("Oops!", "Please enter the email", "error");
+            return false;
+        }
+        else {
+            $(".preloader").show();
+            $.ajax({
+                url: '@Url.Action("ResendEmail", "UserProfile")',
+                data: { emailAddress: emailAddress },
+                success: function (data) {
+                    $(".preloader").hide();
+                    if (data == "Success") {
+                        swal("Done", "The verification email has been re-sent to your email address.", "success");
+                        return false;
+                    }
+                    else {
+                        swal("Oops!", "Something went wrong please try again!", "error");
+                        return false;
+                    }
+                }
+            });
+        }
+    }
+
+    $("#btnVerifyEmailCode").click(function () {
+
+        swal({
+            title: "Verification Code",
+            // text: "Verification Code",
+            type: "input",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            inputPlaceholder: "Verification Code"
+
+
+        }, function (inputValue) {
+
+            if (inputValue === false) return false;
+            if (inputValue === "") {
+                alert("Please enter the verification code");
+                return false
+            }
+            else {
+                var len = $(".verificationcodeformat").val().length
+                if (parseInt(len) < 8) {
+                    alert("Please enter 6 digit verification code");
+                    return false;
+                }
+                else {
+                    $(".preloader").show();
+                    $.ajax({
+                        url: '@Url.Action("ConfirmEmailVerificationCode", "UserProfile")',
+                        data: { confirmEmailCode: inputValue },
+                        success: function (data) {
+                            $(".preloader").hide();
+                            if (data == "Success") {
+                                swal({
+                                    title: "Done",
+                                    text: "Your code is verified.",
+                                    type: "success",
+                                    // showCancelButton: true,
+                                    // confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "Ok",
+                                    // closeOnConfirm: false
+                                }, function () {
+                                    window.location.href = "/UserProfile/Index";
+                                });
+
+                            }
+                            else {
+                                swal("Oops!", "I'm sorry this code was not recognised - please re-enter the code.", "error");
+                                return false;
+                            }
+                        }
+                    });
+                }
+            }
+
+
+
+
+        });
+
+        $("fieldset input").addClass("verificationcodeformat")
+        $('.verificationcodeformat').mask('00-00-00');
+
+    });
+
+    function savechanges() {
+        var validationstatus = 0;
+        if ($("#txtemailaddress").val() != "") {
+            var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+            if (!emailReg.test($("#txtemailaddress").val())) {
+                $("#spvalemail").show();
+                $("#spemail").hide();
+                validationstatus = 1;
+            }
+            else {
+                $("#spemail").hide();
+                $("#spvalemail").hide();
+            }
+        }
+        else {
+            if ($("#txtemailaddress").val() != "") {
+                var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+                if (!emailReg.test($("#txtemailaddress").val())) {
+                    $("#spvalemail").show();
+                    validationstatus = 1;
+                }
+            }
+            else {
+                $("#spemail").show();
+                $("#spvalemail").hide();
+                validationstatus = 1;
+            }
+        }
+        if ($("#txtfirstname").val() != "") {
+            $("#spfirstname").hide();
+        }
+        else {
+            $("#spfirstname").show();
+            validationstatus = 1;
+        }
+        if ($("#txtOrganisation").val() != "") {
+            $("#spOrganisation").hide();
+        }
+        else {
+            $("#spOrganisation").show();
+            validationstatus = 1;
+        }
+        if ($("#txtlastname").val() != "") {
+            $("#splastname").hide();
+        }
+        else {
+            $("#splastname").show();
+            validationstatus = 1;
+        }
+        if (validationstatus == 1)
+        {
+            return false;
+        }
+        if (validationstatus == 0) {
+            $(".spiner-example").show();
+            var userinfo = new Object();
+            userinfo.firstname = $("#txtfirstname").val();
+            userinfo.lastname = $("#txtlastname").val();
+            userinfo.Organisation = $("#txtOrganisation").val();
+            userinfo.oldemail = $("#hdnemail").val();
+            userinfo.email = $("#txtemailaddress").val();
+            var previousemail = $("#hdnemail").val();
+            var currentemail = $("#txtemailaddress").val();
+            if (previousemail != "") {
+                if (previousemail != currentemail) {
+
+                    swal({
+                        title: "Are you sure want to change email address?",
+                        text: "Changing your registered email address will also change the email address you use to login with.",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, change it!",
+                        closeOnConfirm: false
+                    }, function () {
+                        $.post('@Url.Action("UpdateUserInfo", "UserProfile")', userinfo, function (data) {
+                            if (data == "success") {
+                                $("#dvuserinfosuc").show();
+                                $("#dvuserinfoerror").hide();
+                                $(".sweet-alert").hide();
+                                $(".sweet-overlay").hide();
+                                $("#hdnemail").val($("#txtemailaddress").val());
+                            } else {
+                                if (data == "notauthorise") {
+                                    window.location.href = '@Url.Action("Index","Landing")';
+                                }
+                                $("#userinfoerrror").html(data);
+                                $("#dvuserinfosuc").hide();
+                                $("#dvuserinfoerror").show();
+                                $(".sweet-alert").hide();
+                                $(".sweet-overlay").hide();
+                            }
+                        });
+
+                        //
+                    });
+                }
+                else {
+                    $.post('@Url.Action("UpdateUserInfo", "UserProfile")', userinfo, function (data) {
+                        if (data == "success") {
+                            $("#dvuserinfosuc").show();
+                            $("#dvuserinfoerror").hide();
+                            $(".sweet-alert").hide();
+                            $(".sweet-overlay").hide();
+                            $("#hdnemail").val($("#txtemailaddress").val());
+                        } else {
+                            if (data == "notauthorise") {
+                                window.location.href = '@Url.Action("Index","Landing")';
+                            }
+                            $("#userinfoerrror").html(data);
+                            $("#dvuserinfosuc").hide();
+                            $("#dvuserinfoerror").show();
+                            $(".sweet-alert").hide();
+                            $(".sweet-overlay").hide();
+                        }
+                    });
+
+                }
+            }
+
+        }
+        $(".spiner-example").hide();
+    }
+</script>

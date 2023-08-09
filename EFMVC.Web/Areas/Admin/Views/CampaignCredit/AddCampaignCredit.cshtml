@@ -1,0 +1,103 @@
+﻿@model EFMVC.Web.Areas.Admin.ViewModel.CampaignCreditFormModel
+ @{
+     ViewBag.Title = "AddCampaignCredit";
+     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="spiner-example loader" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <h2>Add Campaign Credit</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "CampaignCredit",new {area="Admin" })">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>Add Campaign Credit</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Add Campaign Credit</h5>
+
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("AddCampaignCredit", "CampaignCredit", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Advertiser <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(Model => Model.UserId, ViewBag.userdetails as IEnumerable<SelectListItem>, "--Select User--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.UserId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Campaign <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(Model => Model.CampaignProfileId, ViewBag.campaignDetails as IEnumerable<SelectListItem>, new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.CampaignProfileId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Credit Period</label>
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.CreditPeriod, new { @class = "form-control trimmed", @placeholder = "Credit Period"})
+                                @Html.ValidationMessageFor(Model => Model.CreditPeriod, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit" id="btnreceivepayment">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index","CampaignCredit",new {area="Admin" })'">Cancel</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $("#UserId").change(function () {
+            $(".loader").show();
+            $("#CampaignProfileId").empty();
+            $.post('@Url.Action("GetCampaignDetails", "CampaignCredit", new {area="Admin" })', { userId: $("#UserId").val() }, function (campaigns) {
+                $("#CampaignProfileId").append('<option value="">--Select Campaign--</option>');
+                if (campaigns.length > 0)
+                {
+                    $.each(campaigns, function (i, data) {
+                        $("#CampaignProfileId").append('<option value="' + data.Value + '">' +
+                            data.Text + '</option>');
+                        $(".loader").hide();
+                    });
+                }
+                $(".loader").hide();
+               
+            });
+        });
+    </script>
+}
+

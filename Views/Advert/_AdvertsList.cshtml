@@ -1,0 +1,109 @@
+﻿@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model List<AdvertResult>
+<div class="row">
+    @if (TempData["msgsuccess"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["msgsuccess"]
+        </div>
+    }
+</div>
+<div class="row">
+
+    <div class="html5buttons"><div class="dt-buttons btn-group"><a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Copy</span></a><a class="btn btn-default buttons-csv buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>CSV</span></a><a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span></a><a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span></a><a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span></a></div></div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-adverts">
+        <thead>
+            <tr>
+                <th>Advert Name</th>
+                <th>Client</th>
+                <th>Number of Campaigns</th>
+                <th>Created Date</th>
+                <th>Play functionality</th>
+                <th>Status</th>
+                <th>Total Plays</th>
+                <th>Average Bid</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (AdvertResult advert in Model)
+            {
+                string mediaLocation = @"~" + advert.MediaFileLocation;
+
+                <tr class="gradeX">
+
+                    <td><a href='@Url.Action("AdvertDetails","Advert",new {@id=advert.AdvertId })'>@advert.Name</a></td>
+                    <td><a>@advert.ClientName</a></td>
+                    @if (@advert.NoOfCompaign > 0)
+                    {
+                        <td><a>@advert.NoOfCompaign</a></td>
+                    }
+                    else
+                    {
+                        <td>@advert.NoOfCompaign</td>
+                    }
+                    <td>@advert.CreatedDate.ToString("dd/mm/yyyy")</td>
+                    <td>
+                        @*<audio controls="controls">
+                            </audio>*@
+                        @Html.Html5().Media.Audio(advert.Name, mediaLocation, "", new { @class = "audio-small" })
+
+                    </td>
+                    <td>
+                        @advert.Status
+                    </td>
+                    <td>
+                        @advert.TotalPlays
+
+                    </td>
+                    <td>
+                        @advert.AvgBid
+                    </td>
+                    <td>
+                        @if (advert.NoOfCompaign == 0)
+                        {
+                            <a class="btn btn-danger btn-xs" onclick="opendialog(this);" id='@advert.AdvertId'>Delete</a>
+
+                        }
+                    </td>
+                    
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+
+</div>
+<script>
+
+    function opendialog(info) {
+        var id = info.id;
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this advert record!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function () {
+            $.post('@Url.Action("DeleteAdvert", "Advert")', { id: id }, function (data) {
+                if (data == "success") {
+                    //  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                    window.location.href = '@Url.Action("Index","Advert")';
+
+                } else {
+                    alert(data);
+                }
+            });
+
+            //
+        });
+
+    }
+</script>

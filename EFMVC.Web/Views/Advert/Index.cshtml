@@ -1,0 +1,83 @@
+﻿@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model Tuple<List<AdvertResult>, AdvertFilter, KeyFeatureAdvert>
+@{
+    ViewBag.Title = "Adverts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/custom.css" rel="stylesheet" />
+@*<div class="row wrapper border-bottom white-bg page-heading">*@
+@*<div class="wrapper wrapper-content animated fadeIn">*@
+<div class="spiner-example loader" style="display:none;">
+    <div class="sk-spinner sk-spinner-three-bounce">
+        <div class="sk-bounce1"></div>
+        <div class="sk-bounce2"></div>
+        <div class="sk-bounce3"></div>
+    </div>
+</div>
+@*</div>*@
+@*<div class="wrapper wrapper-content animated fadeIn">
+    <div class="preloader" style="display:none"></div>*@
+<div class="p-w-md m-t-sm">
+    @Html.Partial("_KeyFigures", Model.Item3)
+
+    @Html.Partial("_AdvertsManagement", Tuple.Create<List<AdvertResult>, AdvertFilter>(Model.Item1, Model.Item2))
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @*@Styles.Render("~/plugins/dataPickerStyles")*@
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/sweetAlertStyles")
+    @Styles.Render("~/plugins/daterangepickerNewStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @*@Scripts.Render("~/plugins/dataPicker")*@
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @*@Scripts.Render("~/plugins/dateRange")*@
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/sweetAlert")
+    @Scripts.Render("~/plugins/daterangepickerNew")
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function() {
+
+            var $image = $(".image-crop > img")
+            $($image).cropper({
+                aspectRatio: 1.618,
+                preview: ".img-preview",
+                done: function(data) {
+                    // Output the result data for cropping image.
+                }
+            });
+        });
+    </script>
+}

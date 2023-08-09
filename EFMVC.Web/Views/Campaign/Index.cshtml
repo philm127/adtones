@@ -1,0 +1,17 @@
+﻿@using EFMVC.Web.ViewModels
+@model IEnumerable<EFMVC.Web.ViewModels.CampaignProfileFormModel>
+
+@{
+    ViewBag.Title = "Index";
+    var user = ViewData["User"] as UserFormModel;
+}
+
+<div class="row">
+   
+    <div class="large-12 columns">
+                    
+        @Html.Partial("_CampaignList", Model)
+
+    </div>
+   
+</div>

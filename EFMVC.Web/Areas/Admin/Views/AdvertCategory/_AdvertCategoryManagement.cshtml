@@ -1,0 +1,143 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.Models;
+@model Tuple<List<AdvertCategoryResult>, AdvertCategoryFilter>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title" style="border-style:none;">
+                <h5>AdvertCategory</h5>
+                <div style="text-align:right">
+                    <a class="btn btn-blue" href='@Url.Action("AddAdvertCategory","AdvertCategory",new {area="Admin"})'><i class="fa fa-plus"></i>&nbsp;Advert Category</a>
+                </div>
+            </div>
+
+            @using (Ajax.BeginForm("SearchAdvertCategory", "AdvertCategory", null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getrewardresult", OnBegin = "progressbar" },
+null))
+            {
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Countries</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("CountryId", (MultiSelectList)ViewBag.countrydetails, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Countries" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Advert Category Name</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(Model2 => Model2.Item2.Name, new { @class = "form-control", placeholder = "Advert Category Name" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 col-lg-12">
+                            <div class="col-sm-12 center">
+                                <button class="btn btn-blue" type="submit">Search</button>
+                                <button class="btn btn-white" type="button" id="advertcategoryreset">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="advertCategoryList">
+                        @{
+                            Html.RenderPartial("_AdvertCategoryDetails", Model.Item1);
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getrewardresult = function (data) {
+        if (data != "notauthorise") {
+            $(".spiner-example").hide();
+            $('.dataTables-advertcategory').remove();
+            $("#advertCategoryList").html(data);
+            dataTableSetup();
+        }
+        else {
+            window.location.href = '@Url.Action("Index","Landing",new { area = "" })';
+        }
+    };
+    function dataTableSetup() {
+        $('.dataTables-advertcategory').DataTable({
+            "preDrawCallback": function (settings) {
+                $(".spiner-example").show();
+            },
+            "info": false,
+            bFilter: false,
+            "searching": false,
+            "bLengthChange": false,
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            aoColumnDefs: [
+               {
+                   bSortable: false,
+                   aTargets: [-1]
+               }
+            ],
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                {
+                    extend: 'copy',
+                    title: 'AdvertCategoryDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'csv',
+                    title: 'AdvertCategoryDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'excel',
+                    title: 'AdvertCategoryDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: 'AdvertCategoryDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    title: 'AdvertCategoryDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    },
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                    }
+                }
+            ],
+            "drawCallback": function (settings) {
+                $(".spiner-example").hide();
+            },
+            "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+        });
+    }
+</script>

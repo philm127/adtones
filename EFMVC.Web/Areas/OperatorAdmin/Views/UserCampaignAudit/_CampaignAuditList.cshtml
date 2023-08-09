@@ -1,0 +1,116 @@
+﻿@using EFMVC.Web.Models;
+@model List<CampaignAuditResult>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-audit">
+        <thead>
+            <tr>
+                <th>Play ID</th>
+                <th>User ID</th>
+                <th>Start Date/Time</th>
+                <th>End Date/Time</th>
+                <th>Length of Play(in seconds)</th>
+                <th>Ad name</th>
+
+                <th>Status of Play</th>
+                <th>Play Cost</th>
+                <th>SMS</th>
+                <th>SMS Cost</th>
+                <th>Email</th>
+                <th>Email Cost</th>
+                <th>Total Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (CampaignAuditResult campaignaudit in Model)
+                {
+                    if (campaignaudit.PlayID != 0)
+                    {
+                        <tr class="gradeX">
+
+                            <td>
+                                @campaignaudit.PlayID
+                            </td>
+                            <td>@campaignaudit.UserID</td>
+                            @if (campaignaudit.DisplayStartDate != null)
+                            {
+                                <td>
+                                    @campaignaudit.DisplayStartDate
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @campaignaudit.DisplayStartDate
+                                </td>
+                            }
+
+                            @if (campaignaudit.DisplayEndDate != null)
+                            {
+                                <td>
+                                    @campaignaudit.DisplayEndDate
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @campaignaudit.DisplayEndDate
+                                </td>
+                            }
+
+                            <td>
+
+                                @campaignaudit.LengthOfPlay
+                            </td>
+                            <td>@campaignaudit.AdvertName</td>
+                            <td>
+                                @campaignaudit.Status
+                            </td>
+                            @if (campaignaudit.CurrencyId == 4 || campaignaudit.CurrencyId == 7)
+                            {
+                                <td>@campaignaudit.PlayCost.ToString("F2") @campaignaudit.CurrencyCode</td>
+                            }
+                            else
+                            {
+                                <td>@campaignaudit.CurrencyCode @campaignaudit.PlayCost</td>
+                            }
+                            <td>
+                                @campaignaudit.SMS
+
+                            </td>
+                            @if (campaignaudit.CurrencyId == 4 || campaignaudit.CurrencyId == 7)
+                            {
+                                <td>@campaignaudit.SMSCost.ToString("F2") @campaignaudit.CurrencyCode</td>
+                            }
+                            else
+                            {
+                                <td>@campaignaudit.CurrencyCode @campaignaudit.SMSCost</td>
+                            }
+                            <td>
+                                @campaignaudit.Email
+                            </td>
+                            @if (campaignaudit.CurrencyId == 4 || campaignaudit.CurrencyId == 7)
+                            {
+                                <td>@campaignaudit.EmailCost.ToString("F2") @campaignaudit.CurrencyCode</td>
+                            }
+                            else
+                            {
+                                <td>@campaignaudit.CurrencyCode @campaignaudit.EmailCost</td>
+                            }
+                            @if (campaignaudit.CurrencyId == 4 || campaignaudit.CurrencyId == 7)
+                            {
+                                <td>@campaignaudit.TotalCost.ToString("F2") @campaignaudit.CurrencyCode</td>
+                            }
+                            else
+                            {
+                                <td>@campaignaudit.CurrencyCode @campaignaudit.TotalCost</td>
+                            }
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>

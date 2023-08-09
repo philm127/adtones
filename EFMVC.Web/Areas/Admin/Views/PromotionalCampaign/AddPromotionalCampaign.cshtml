@@ -1,0 +1,308 @@
+﻿@model EFMVC.Web.Areas.Admin.ViewModel.PromotionalCampaignFormModel
+@{
+    ViewBag.Title = "Add Promotional Campaign";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <h2>Add Promotional Campaign</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "PromotionalCampaign",new {area="Admin" })">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>Add Promotional Campaign</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Add Promotional Campaign</h5>
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("AddPromotionalCampaign", "PromotionalCampaign", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        @Html.HiddenFor(model => model.Status)
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Country <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(Model => Model.CountryId, ViewBag.countrydetails as IEnumerable<SelectListItem>, "--Select Country--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.CountryId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Operator <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(Model => Model.OperatorId, ViewBag.operatordetails as IEnumerable<SelectListItem>, "--Select Operator--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.OperatorId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Batch ID <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(Model => Model.BatchID, ViewBag.batchiddetails as IEnumerable<SelectListItem>, "--Select BatchID--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.BatchID, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Campaign Name <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.CampaignName, new { @class = "form-control trimmed", @placeholder = "Campaign Name" })
+                                @Html.ValidationMessageFor(Model => Model.CampaignName, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Max Daily <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.MaxDaily, new { @class = "form-control trimmed", @onkeypress = "return isNumber(event)", @placeholder = "Max Daily" })
+                                @Html.ValidationMessageFor(Model => Model.MaxDaily, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Max Weekly<label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.MaxWeekly, new { @class = "form-control trimmed", @onkeypress = "return isNumber(event)", @placeholder = "Max Weekly" })
+                                @Html.ValidationMessageFor(Model => Model.MaxWeekly, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Advert Name<label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.AdvertName, new { @class = "form-control trimmed", @placeholder = "Advert Name" })
+                                @Html.ValidationMessageFor(Model => Model.AdvertName, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" style="word-wrap:break-word;">Upload Media File <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                <label title="Upload image file" for="inputMediaFile" class="btn btn-blue">
+                                    <input type="file" name="mediaFile" id="inputMediaFile" class="hide" onchange="get_filename(this);">
+                                    Upload Media File
+                                </label>
+                                <span id="errmsgfile" class="field-validation-valid btn-danger" data-valmsg-for="File" data-valmsg-replace="true"></span>
+                                <label id="filename">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit" id="btnSubmit">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index", "PromotionalCampaign", new { area = "Admin" })'">Cancel</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            trimmed();
+            $("#btnSubmit").click(function () {
+                var valida = validation();
+                if (valida == true) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+        });
+
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+        function validation() {
+            var returnval = true;
+            var countryId = $("#CountryId").val();
+            var operatorId = $("#OperatorId").val();
+            var batchId = $("#BatchID").val();
+            var campaignName = $("#CampaignName").val();
+            var maxDaily = $("#MaxDaily").val();
+            var maxWeekly = $("#MaxWeekly").val();
+            var advertName = $("#AdvertName").val();
+            var mediaFileName = $("#filename").text().trim();
+            if (countryId == "" || countryId == "0") {
+                $("#CountryId")[0].nextElementSibling.innerHTML = "The Country Field is required.";
+                returnval = false;
+            }
+            if (operatorId == "" || operatorId == "0") {
+                $("#OperatorId")[0].nextElementSibling.innerHTML = "The Opertor Field is required.";
+                returnval = false;
+            }
+            if (batchId == "") {
+                $("#BatchID")[0].nextElementSibling.innerHTML = "The Batch ID Field is required.";
+                returnval = false;
+            }
+            if (campaignName == "") {
+                $("#CampaignName")[0].nextElementSibling.innerHTML = "The Campaign Name Field is required.";
+                returnval = false;
+            }
+            if (maxDaily == "") {
+                $("#MaxDaily")[0].nextElementSibling.innerHTML = "The Max Daily Field is required.";
+                returnval = false;
+            }
+            if (maxWeekly == "") {
+                $("#MaxWeekly")[0].nextElementSibling.innerHTML = "The Max Weekly Field is required.";
+                returnval = false;
+            }
+            if (advertName == "") {
+                $("#AdvertName")[0].nextElementSibling.innerHTML = "The Advert Name Field is required.";
+                returnval = false;
+            }
+            if (mediaFileName == "") {
+                $("#filename").text("");
+                $("#errmsgfile")[0].innerHTML = "Please upload media file.";
+                returnval = false;
+            }
+            return returnval;
+        }
+
+        function get_filename(obj) {
+
+            var fileName = obj.value;
+            var iSize;
+            if (fileName != "") {
+                iSize = (obj.files[0].size / 1024);
+            }
+            var allowed_extensions = new Array("aac", "ac3", "aif", "aifc", "aiff", "amr", "au", "caf",
+                "flac", "m4a", "m4b", "mp3", "oga", "ogg", "sfark", "voc", "wav", "weba", "wma");
+
+            var file_extension = fileName.split('.').pop().toLowerCase(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+
+            var isValid = false;
+            for (var i = 0; i <= allowed_extensions.length; i++) {
+                if (allowed_extensions[i] == file_extension) {
+                    isValid = true;
+                    break;
+                }
+            }
+            if (isValid) {
+                $("#errmsgfile")[0].innerHTML = "";
+                var array = fileName.split('\\');
+                $("#filename").html(array[array.length - 1]);
+            }
+            else {
+                $("#filename").text("");
+                $("#errmsgfile")[0].innerHTML = "Please upload audio file formats.";
+                return false;
+            }
+            if (fileName != "") {
+                if (iSize != "" || iSize != null) {
+                    if (iSize / 1024 > 1) {
+                        iSize = (Math.round((iSize / 1024) * 100) / 100)
+                        if (iSize > 1) {
+                            $("#filename").text("");
+                            $("#errmsgfile")[0].innerHTML = "Please upload file size upto 1MB.";
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        $("#CountryId").change(function () {
+            $(".spiner-example").show();
+            $("#OperatorId").empty(); //remove all child nodes
+            $("#OperatorId").trigger("chosen:updated");
+            var id = $("#CountryId").val();
+            var operatorId = $("#OperatorId").val();
+            if (id == null || id === "")
+                id = 0;
+            if (operatorId == null || operatorId === "")
+                operatorId = 0;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("FillOperator", "PromotionalCampaign", new { area = "Admin" })',
+                data: { countryId: id, operatorId: operatorId },
+                success: function (data) {
+                    if (data.length == 0) {
+                        $("#OperatorId").empty(); //remove all child nodes
+                        $("#OperatorId").trigger("chosen:updated");
+                        $("#OperatorId").append('<option value="' + 0 + '">' + '--Select Operator--' + '</option>');
+                    }
+                    else {
+                        $("#OperatorId").append('<option value="' + 0 + '">' + '--Select Operator--' + '</option>');
+                        $.each(data, function (i, data) {
+                            $("#OperatorId").append('<option value="' + data.Value + '">' +
+                                data.Text + '</option>');
+                        });
+                        $("#OperatorId").trigger("chosen:updated");
+                    }
+                    $(".spiner-example").hide();
+                }
+            });
+        });
+
+        $("#OperatorId").change(function () {
+            $(".spiner-example").show();
+            $("#BatchID").empty(); //remove all child nodes
+            $("#BatchID").trigger("chosen:updated");
+            var id = $("#OperatorId").val();
+            if (id == null)
+                id = 0;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("FillBatchID", "PromotionalCampaign", new { area = "Admin" })',
+                data: { operatorId: id },
+                success: function (data) {
+                    if (data.length == 0) {
+                        $("#BatchID").empty(); //remove all child nodes
+                        $("#BatchID").trigger("chosen:updated");
+                        $("#BatchID").append('<option value="' + 0 + '">' + '--Select BatchID--' + '</option>');
+                    }
+                    else {
+                        $("#BatchID").append('<option value="' + 0 + '">' + '--Select BatchID--' + '</option>');
+                        $.each(data, function (i, data) {
+                            $("#BatchID").append('<option value="' + data.Value + '">' +
+                                data.Text + '</option>');
+                        });
+                        $("#BatchID").trigger("chosen:updated");
+                    }
+                    $(".spiner-example").hide();
+                }
+            });
+        });
+
+    </script>
+}

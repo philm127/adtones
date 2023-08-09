@@ -1,0 +1,525 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileAdvertFormModel
+@*<script src="~/Scripts/jquery-1.5.1.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.validate.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>*@
+
+@Html.HiddenFor(model => model.CampaignProfileAdvertsId)
+@Html.HiddenFor(model => model.CampaignProfileId)
+<div class="row">
+    <div class="large-6 columns">
+        <h4>Adverts</h4>
+        <h6 class="font14">Please select the profile matching criteria for the following</h6><h6 class="font11">Select one or more answers for each question.</h6><h6 class="font11">If more than one answer for each question is selected then profiles that match one of the answers chosen will be selected.</h6>
+    </div>
+</div>
+
+<div class="clr10"></div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FoodQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.FoodQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.SweetSaltySnacksQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.SweetSaltySnacksQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.AlcoholicDrinksQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.AlcoholicDrinksQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NonAlcoholicDrinksQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.NonAlcoholicDrinksQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.HouseholdproductsQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.HouseholdproductsQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ToiletriesCosmeticsQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ToiletriesCosmeticsQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PharmaceuticalChemistsProductsQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PharmaceuticalChemistsProductsQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.TobaccoProductsQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.TobaccoProductsQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PetsPetFoodQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.PetsPetFoodQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ShoppingRetailClothingQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ShoppingRetailClothingQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.DIYGardeningQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.DIYGardeningQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.AppliancesOtherHouseholdDurablesQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.AppliancesOtherHouseholdDurablesQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ElectronicsOtherPersonalItemsQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ElectronicsOtherPersonalItemsQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CommunicationsInternetQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CommunicationsInternetQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FinancialServicesQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.FinancialServicesQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.HolidaysTravelQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.HolidaysTravelQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.SportsLeisureQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.SportsLeisureQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MotoringQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MotoringQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NewspapersQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.NewspapersQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MagazinesQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MagazinesQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.TVQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.TVQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.RadioQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.RadioQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CinemaQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CinemaQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.SocialNetworkingQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.SocialNetworkingQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.GeneralUseQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.GeneralUseQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ShoppingQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ShoppingQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FitnessQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.FitnessQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.HolidaysQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.HolidaysQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.EnvironmentQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.EnvironmentQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.GoingOutQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.GoingOutQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FinancialProductsQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.FinancialProductsQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ReligionQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ReligionQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FashionQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.FashionQuestion)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MusicQuestion)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MusicQuestion)
+            </div>
+        </div>
+    </div>
+</div>

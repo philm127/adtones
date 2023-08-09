@@ -1,0 +1,21 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileDemographicsFormModel
+@{
+    ViewBag.Title = "Demographics";
+}
+<div class="row">
+    @using (Html.BeginForm("SaveDemographics", "Campaign"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CreateOrEditDemographics", Model)
+
+        <p>
+            <input type="submit" value="Submit" class="font12" />
+        </p>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

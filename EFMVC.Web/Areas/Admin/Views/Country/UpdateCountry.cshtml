@@ -1,0 +1,123 @@
+﻿@model EFMVC.Web.ViewModels.CountryFormModel
+@{
+    ViewBag.Title = "AddCountry";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="~/Content/Common.css" rel="stylesheet" />
+</head>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Country Details</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Country",new {area="Admin" })">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>@ViewBag.name</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Update Country</h5>
+
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("UpdateCountry", "Country", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        @Html.HiddenFor(Model => Model.Id)
+                        @Html.HiddenFor(Model => Model.TermAndConditionFileName)
+                        @Html.HiddenFor(Model => Model.CreatedDate)
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Name <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.Name, new { @class = "form-control trimmed", @placeholder = "Name" })
+                                @Html.ValidationMessageFor(Model => Model.Name, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Short Name <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.ShortName, new { @class = "form-control trimmed", @placeholder = "Short Name" })
+                                @Html.ValidationMessageFor(Model => Model.ShortName, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Code <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.CountryCode, new { @class = "form-control trimmed", @placeholder = "Code" })
+                                @Html.ValidationMessageFor(Model => Model.CountryCode, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Term & Condition</label>
+
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.TermAndConditionFileName, new { @class = "form-control trimmed", @type = "file", @onchange = "get_filename(this);" })
+                                @Html.ValidationMessageFor(Model => Model.TermAndConditionFileName, null, new { @class = "btn-danger" })
+                            </div>
+                            @if (ViewBag.TermAndCondition != "" && ViewBag.TermAndCondition != null)
+                            {
+                                <a href="~/TermAndCondition/@Model.TermAndConditionFileName" target="_blank">View File</a>
+                            }
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index","Country",new {area="Admin" })'">Cancel</button>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    
+    <script type="text/javascript">
+        function get_filename(obj) {
+            var fileName = obj.value;
+
+            var file_extension = fileName.split('.').pop().toLowerCase();
+            if (file_extension != "pdf") {
+                alert("Please upload pdf file only.")
+                return false;
+            }
+        }
+
+        $(document).ready(function () {
+            trimmed();
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+    </script>
+}

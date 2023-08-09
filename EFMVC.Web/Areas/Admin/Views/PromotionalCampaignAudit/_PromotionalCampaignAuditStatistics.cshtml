@@ -1,0 +1,8 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.SearchClass.Models;
+@model PromotionalCampaignAuditMapping
+
+<div class="row">&nbsp;</div>
+@Html.Partial("_PromotionalCampaignAuditDetailsStatistics", Model)
+
+@Html.Partial("_PromotionalCampaignAuditManagement", Tuple.Create<List<PromotionalCampaignAuditResult>, PromotionalCampaignAuditFilter>(Model.promotionalCampaignAuditResult, Model.promotionalCampaignAuditFilter))

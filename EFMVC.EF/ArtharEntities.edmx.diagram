@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e607b715829e48278c855788e49721f0" Name="Diagram1">
+        <EntityTypeShape EntityType="ArtharModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.Advert" Width="1.5" PointX="8.25" PointY="79.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.Billing" Width="1.5" PointX="8.25" PointY="72.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.BillingDetail" Width="1.5" PointX="10.5" PointY="72.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.BlockedNumber" Width="1.5" PointX="3" PointY="34.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.BucketAuditRow" Width="1.5" PointX="8.25" PointY="63.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.BucketAudit" Width="1.5" PointX="6" PointY="38.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignAdvert" Width="1.5" PointX="10.5" PointY="69.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignAudit" Width="1.5" PointX="5.25" PointY="41.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfile" Width="1.5" PointX="3" PointY="58.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileAdvert" Width="1.5" PointX="5.25" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileAttitude" Width="1.5" PointX="5.25" PointY="46.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileCinema" Width="1.5" PointX="5.25" PointY="50.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileDateSetting" Width="1.5" PointX="5.25" PointY="61.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileDemographic" Width="1.5" PointX="5.25" PointY="64.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileInternet" Width="1.5" PointX="5.25" PointY="68.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileMobile" Width="1.5" PointX="5.25" PointY="71.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileMSISDN" Width="1.5" PointX="7.5" PointY="88.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfilePress" Width="1.5" PointX="5.25" PointY="74.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileProductsService" Width="1.5" PointX="5.25" PointY="77.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileRadio" Width="1.5" PointX="5.25" PointY="83.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileReport" Width="1.5" PointX="5.25" PointY="86.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileTimeSetting" Width="1.5" PointX="5.25" PointY="92.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileTv" Width="1.5" PointX="5.25" PointY="95.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CampaignProfileUserProfile" Width="1.5" PointX="5.25" PointY="99.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.Client" Width="1.5" PointX="3" PointY="94.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CompanyDetail" Width="1.5" PointX="8.25" PointY="93.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.Contact" Width="1.5" PointX="3" PointY="102.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.Country" Width="1.5" PointX="3" PointY="105.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.CountryTax" Width="1.5" PointX="8.25" PointY="97.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.PaymentMethod" Width="1.5" PointX="9" PointY="85" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.Question" Width="1.5" PointX="11.25" PointY="77.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.QuestionComment" Width="1.5" PointX="13.5" PointY="79" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.QuestionCommentImage" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.QuestionImage" Width="1.5" PointX="13.5" PointY="82.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.QuestionSubject" Width="1.5" PointX="9" PointY="60.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.SystemConfig" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfile" Width="1.5" PointX="3" PointY="129.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileAdvert" Width="1.5" PointX="5.25" PointY="112.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileAdvertsReceived" Width="1.5" PointX="5.25" PointY="109.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileAttitude" Width="1.5" PointX="5.25" PointY="121.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileCinema" Width="1.5" PointX="5.25" PointY="125.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileCreditsReceived" Width="1.5" PointX="5.25" PointY="128.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileInternet" Width="1.5" PointX="5.25" PointY="131.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileMobile" Width="1.5" PointX="5.25" PointY="134.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfilePress" Width="1.5" PointX="5.25" PointY="137.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileProductsService" Width="1.5" PointX="5.25" PointY="140.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileRadio" Width="1.5" PointX="5.25" PointY="146.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileTimeSetting" Width="1.5" PointX="5.25" PointY="149.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UserProfileTv" Width="1.5" PointX="5.25" PointY="153.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.User" Width="1.5" PointX="0.75" PointY="80.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UsersCredit" Width="1.5" PointX="3" PointY="156.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtharModel.UsersCreditPayment" Width="1.5" PointX="13.5" PointY="75.25" IsExpanded="true" />
+        <AssociationConnector Association="ArtharModel.FK_Advert_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_Advert_dbo_CampaignProfile_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_Advert_dbo_Users_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignAdverts_dbo_Advert_AdvertId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_Billing_CampaignProfile" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_Billing_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_Billing_PaymentMethod" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_Billing_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_BillingDetails_Billing" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_UsersCreditPayment_Billing" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_BlockedNumbers_dbo_Users_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_BucketAuditRows_dbo_BucketAudits_BucketAuditId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_BucketAuditRows_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignAdverts_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignAudit_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfile_dbo_Users_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileAdvert_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileAttitude_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileCinema_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileDateSettings_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileDemographics_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileInternet_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileMobile_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfilePress_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileProductsService_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileRadio_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileReport_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileTimeSetting_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileTv_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileUserProfile_dbo_CampaignProfile_CampaignProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_Question_CampaignProfile" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileMSISDNs_dbo_CampaignProfileReports_CampaignProfileReportId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_CampaignProfileUserProfile_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_Client_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_Question_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_CompanyDetails_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_CompanyDetails_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_Contacts_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_Country_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_CountryTax_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_CountryTax_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_Question_PaymentMethod" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_Question_QuestionSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_Question_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_QuestionComment_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_QuestionImages_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_QuestionComment_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfile_dbo_Users_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileAdvert_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileAdvertsReceiveds_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileAttitude_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileCinema_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileCreditsReceiveds_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileInternet_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileMobile_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfilePress_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileProductsService_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileRadio_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileTimeSetting_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_dbo_UserProfileTv_dbo_UserProfile_UserProfileId" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_UsersCredit_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtharModel.FK_UsersCreditPayment_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

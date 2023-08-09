@@ -1,0 +1,88 @@
+﻿@using EFMVC.Web.ViewModels
+@model NewCampaignDateandInteraction
+
+<style>
+    select.input-sm1 {
+        height: 40px;
+        line-height: 30px;
+    }
+</style>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Campaign Date and Interaction Information</h5>
+
+                </div>
+                <div class="ibox-content">
+                    <div class="alert alert-success alert-dismissable" id="campaigndatedvcaminfosuc" style="display:none;">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" id="campaigndateclosesuccess" type="button">×</button>
+                        <span id="campaigndatecsuceess">Record updated successfully</span>
+                    </div>
+                    <div class="alert alert-danger alert-dismissable" id="campaigndatedvcaminfoerror" style="display:none;">
+                        <button aria-hidden="true" class="close" id="campaigndatecloseerror" type="button">×</button>
+                        <span id="campaigndatecerrror"></span>
+                    </div>
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Start Date</label>
+                            <div class="col-lg-6" id="data_1">
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control trimmed", @readonly = "readonly" })
+                                </div>
+                                <span class="field-validation-valid btn-danger" id="startdateerrmsg"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">End Date</label>
+                            <div class="col-lg-6" id="data_1">
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control trimmed", @readonly = "readonly" })
+                                </div>
+                                <span class="field-validation-valid btn-danger" id="enddateerrmsg"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">SMS Message Originator</label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(Model => Model.SmsOriginator, new { @class = "form-control trimmed", @placeholder = "SMS Message Originator" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">SMS Message</label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.SmsBody, new { @class = "form-control trimmed", @placeholder = "SMS Message" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Email Subject</label>
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(model => model.EmailSubject, new { @class = "form-control trimmed", @placeholder = "Email Subject" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Email Content</label>
+                            <div class="col-lg-10">
+                                @*<pre id="editor" style="height:500px;width:80%"></pre>*@
+                                @Html.TextAreaFor(model => model.EmailBody, new { @class = "form-control", id = "textarea", @placeholder = "Email Content" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit" id="campaigndatenextbtn">Next</button>
+                                <button class="btn btn-sm btn-blue" type="button" id="campaigndatebackbtn">Back</button>
+                                <button class="btn btn-sm btn-blue" type="submit" id="campaigndatesubmit">Save</button>
+                                <button class="btn btn-sm btn-white" type="button" id="campaigndatecancelbtn">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@using EFMVC.Web.Areas.Admin.Models;
+@model List<OperatorMaxAdvertsResult>
+<div class="row">
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["status"]
+        </div>
+    }
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-operatorMaxAdverts">
+        <thead>
+            <tr>
+                <th>Operator Name</th>
+                <th>Key Name</th>
+                <th>Key Value</th>
+                <th>Created Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model)
+            {
+            <tr class="gradeX">
+                <td>@result.OperatorName</td>
+                <td>@result.KeyName</td>
+                <td>@result.KeyValue</td>
+                <td>@result.Addeddate</td>
+                <td>
+                    <a class="btn btn-danger btn-xs" href='@Url.Action("UpdateOperatorMaxAdverts", "OperatorMaxAdverts", new { @id = result.OperatorMaxAdvertId })'>Update</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

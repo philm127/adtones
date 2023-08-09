@@ -1,0 +1,106 @@
+﻿@using EFMVC.Web.Areas.Users.Models;
+@model List<TicketResult>
+<div class="row">
+    @if (TempData["msgsuccess"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["msgsuccess"]
+        </div>
+    }
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-question">
+        <thead>
+            <tr>
+                <th>Ticket ID</th>
+                <th>Ticket Date/Time</th>
+                <th>Ticket Title</th>
+                <th>Ticket Subject</th>
+                <th>Method of Payment</th>
+                <th>Status</th>
+                <th>Last Response Date/Time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TicketResult result in Model)
+            {
+                EFMVC.Web.Common.DateTimeFormat dateTimeConvert = new EFMVC.Web.Common.DateTimeFormat();
+                //DateTime QuestionDateTime1 = DateTime.ParseExact(result.QuestionDateTime, "dd/MM/yyyy HH:mm:ss", null);
+                //string QuestionDateTime = dateTimeConvert.Format(QuestionDateTime1);
+
+                <tr class="gradeX">
+                    <td><a href='@Url.Action("TicketDetails", "Ticket",new {@id=result.Id,area= "Users" })'>@result.QANumber</a></td>
+
+                    @*<td>@result.QuestionDateTime.Value.ToString("dd/MM/yyyy hh:mm")</td>*@
+                    <td>@result.QuestionDateTime</td>
+                    <td>
+
+                        @result.QuestionTitle
+                    </td>
+                    <td>
+                        @result.QuestionSubject
+                    </td>
+
+                @if (result.PaymentMethodId == 1)
+                {
+                    <td>Credit</td>
+                }
+                else if (result.PaymentMethodId == 2)
+                {
+                    <td>Card</td>
+                }
+                else if (result.PaymentMethodId == 3)
+                {
+                    <td>Paypal</td>
+                }
+                else if (result.PaymentMethodId == 5)
+                {
+                    <td>CoinBase</td>
+                }
+                else if (result.PaymentMethodId == 6)
+                {
+                    <td>Mpesa</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+                <td>
+                    @if (result.Status == 3 || result.Status == 4)
+                    {
+                        <label class="label label-danger">@result.fStatus</label>
+                    }
+                    else
+                    {
+                        <label class="label label-primary">@result.fStatus</label>
+                    }
+                </td>
+
+                    @if (@result.LastResponseDateTimeByUser != null)
+                    {
+                        @*<td>@result.LastResponseDatetime.Value.ToString("dd/MM/yyyy hh:mm")</td>*@
+                        //DateTime LastResponseDateTimeByUser1 = DateTime.ParseExact(result.LastResponseDateTimeByUser, "dd/MM/yyyy HH:mm:ss", null);
+                        //string LastResponseDateTimeByUser = dateTimeConvert.Format(LastResponseDateTimeByUser1);
+                        <td>@result.LastResponseDateTimeByUser</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                    @if (result.Status == 3)
+                    {
+                        <td>
+                            <a class="btn btn-danger btn-xs" onclick="deleteQuestion('@result.Id')">Archive</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

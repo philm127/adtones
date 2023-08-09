@@ -1,0 +1,234 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.SearchClass.Models;
+@model Tuple<List<ProfileInformationResult>, ProfileInformationFilter>
+@*@using EFMVC.Model.Entities;
+    @model List<ProfileMatchInformation>*@
+@{
+    ViewBag.Title = "Profile Information";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    @*<div class="ibox-title" style="border-style:none;">
+                        <h5>Profile Information Management</h5>
+                        <div style="text-align:right">
+                            <a class="btn btn-blue" href='@Url.Action("AddProfileInfo","ProfileMatchInformation",new {area="Admin"})'><i class="fa fa-plus"></i>&nbsp;Add</a>
+                        </div>
+                    </div>*@
+                    <div class="ibox-content">
+                        @Html.Partial("_ProfileInformationManagement", Tuple.Create<List<ProfileInformationResult>, ProfileInformationFilter>(Model.Item1, Model.Item2))
+                    </div>
+                    @*<div class="ibox-content">
+                            @Html.Partial("_ProfileInfoDetails")
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('body').bind('keyup', function (event) {
+                if (event.keyCode === 13) {
+                    $('#form0').submit();
+                }
+            });
+            $(".chosen-container").bind('keyup', function (e) {
+                if (e.which === 13) {
+                    $('#form0').submit();
+                    // or your stuff here...
+                }
+            });
+            $('.dataTables-profileInfo').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                "bLengthChange": false,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [-1]
+                    }
+                ],
+                exportOptions: {
+                    columns: ':not(:last-child)',
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+
+                    {
+                        extend: 'copy',
+                        text: 'Copy',
+                        titleAttr: 'Copy',
+                        title: 'ProfileInformationDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+
+                    },
+
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        titleAttr: 'Excel',
+                        title: 'ProfileInformationDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        text: 'CSV',
+                        titleAttr: 'CSV',
+                        title: 'ProfileInformationDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        titleAttr: 'PDF',
+                        title: 'ProfileInformationDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        },
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        },
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    setTimeout(function () {
+                        $(".spiner-example").hide();
+                    }, 1000);
+                    //$(".spiner-example").hide();
+                },
+                "fnInitComplete": function () {
+                    setTimeout(function () {
+                        $(".spiner-example").hide();
+                    }, 1000);
+                    //$(".spiner-example").hide();
+                }	// Hide processingDiv when loading table is complete
+            });
+
+            var config = {
+                '.chosen-select': { width: "100%" },
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+
+            $("#profilereset").click(function () {
+                $(".spiner-example").show();
+                $("#CountryId").val('0');
+                $("#CountryId").trigger("chosen:updated");
+                $("#ProfileType").val('0');
+                $("#ProfileType").trigger("chosen:updated");
+                $("#Item2_ProfileName").val('');
+
+                $.ajax({
+                    data: null,
+                    datatype: "text/plain",
+                    type: "POST",
+                    url: '@Url.Action("SearchProfileMatchInformation", "ProfileMatchInformation", new {area="Admin"})',
+                    cache: false,
+                    success: function (data) {
+                        $(".spiner-example").hide();
+                        $("#profileList").html(data);
+                        dataTableSetup();
+                    }
+                });
+            });
+
+            $(".btnDelete").click(function () {
+                var id = $(this).attr("id");
+                if (confirm('Are you sure want to delete this record? Deleting operator\'s data will remove operator related users and their information.')) {
+                    $.ajax({
+                        url: "@Url.Action("DeleteOperator","Operator",new { Area ="Admin" })",
+                        data: { id: id },
+                        success: function (data) {
+                            if (data == true) {
+                                window.location.href = "@Url.Action("Index", "Operator", new { Area = "Admin" })";
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+}

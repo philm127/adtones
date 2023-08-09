@@ -1,0 +1,255 @@
+﻿@using System.Web.Optimization
+@model EFMVC.Web.ViewModels.UserProfileFormModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Users/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Personal Info</h2>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Personal Info</h5>
+
+                </div>
+                @if (Model.LocationList.Count() > 0 || Model.GenderList.Count() > 0 || Model.HouseholdStatusList.Count() > 0 || Model.RelationshipStatusList.Count() > 0 || Model.IncomeBracketList.Count() > 0 || Model.EducationList.Count() > 0 || Model.WorkingStatusList.Count() > 0)
+                {
+                    <div class="ibox-content">
+
+                        @using (Html.BeginForm("Save", "PersonalInfo", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+                            if (TempData["sucess"] != null)
+                            {
+                                <div class="alert alert-success alert-dismissable">
+                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                    <span id="cbudsuceess">@TempData["sucess"]</span>
+                                </div>
+                            }
+                            if (TempData["error"] != null)
+                            {
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                    <span id="cbudsuceess">@TempData["error"]</span>
+                                </div>
+                            }
+                            @Html.HiddenFor(m => m.UserProfileId);
+
+                            @*<div class="form-group">
+                                    <label class="col-lg-3 control-label">Mobile Number</label>
+
+                                    <div class="col-lg-4">
+                                        @Html.TextBoxFor(model => model.MSISDN, new { @class = "input-sm form-control", @placeholder = "Mobile Number" })
+                                        @Html.ValidationMessageFor(model => model.MSISDN)
+                                        <label class="label label-danger">Important - Changing your registered mobile phone will change where you hear advertisements.</label>
+                                    </div>
+                                </div>*@
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">DOB</label>
+
+                                <div class="col-lg-4" id="data_1">
+                                    @{
+                                        string parameterValue = string.Empty;
+                                        if (Model.DOB != null)
+                                        {
+                                            //parameterValue = Model.DOB.Value.ToString("dd/MM/yyyy");
+                                            parameterValue = Model.DOB.Value.ToString("MM/dd/yyyy");
+                                        }
+
+                                    }
+                                    @if (String.IsNullOrEmpty(parameterValue))
+                                    {
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control trimmed", @readonly = "readonly" })
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            @Html.TextBoxFor(model => parameterValue, new { @class = "form-control" })
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            @* code commented on 30-03-2017
+                                    <div class="form-group">
+                                    <label class="col-lg-3 control-label">Location</label>
+
+                                    <div class="col-lg-4">
+                                        @Html.DropDownListFor(model => model.Location, Model.LocationList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                        @Html.ValidationMessageFor(model => model.Location)
+                                    </div>
+                                </div>*@
+
+                            //Code added on 30-03-2017
+
+                            if (Model.DisplayLocation == true)
+                            {
+                                if (Model.LocationList.Count() > 0)
+                                {
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Location</label>
+
+                                        <div class="col-lg-4">
+                                            @Html.DropDownListFor(model => model.Location, Model.LocationList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                            @Html.ValidationMessageFor(model => model.Location)
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            @*else
+                                {
+                                        <div class="form-group">
+                                            <label class="col-lg-3 control-label">Postcode</label>
+
+                                            <div class="col-lg-4">
+                                                @Html.TextBoxFor(model => model.Postcode, new { @class = "input-sm form-control", @placeholder = "Postcode" })
+                                                @Html.ValidationMessageFor(model => model.Postcode, null, new { @class = "btn-danger" })
+                                            </div>
+                                        </div>
+
+                                }*@
+
+                            if (Model.DisplayGender == true)
+                            {
+                                if (Model.GenderList.Count() > 0)
+                                {
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Gender</label>
+
+                                        <div class="col-lg-4">
+                                            @Html.DropDownListFor(model => model.Gender, Model.GenderList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                            @Html.ValidationMessageFor(model => model.Gender)
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            if (Model.DisplayHouseholdStatus == true)
+                            {
+                                if (Model.HouseholdStatusList.Count() > 0)
+                                {
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Household Status</label>
+
+                                        <div class="col-lg-4">
+                                            @Html.DropDownListFor(model => model.HouseholdStatus, Model.HouseholdStatusList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                            @Html.ValidationMessageFor(model => model.HouseholdStatus)
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            if (Model.DisplayRelationshipStatus == true)
+                            {
+                                if (Model.RelationshipStatusList.Count() > 0)
+                                {
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Relationship Status</label>
+
+                                        <div class="col-lg-4">
+                                            @Html.DropDownListFor(model => model.RelationshipStatus, Model.RelationshipStatusList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                            @Html.ValidationMessageFor(model => model.RelationshipStatus)
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            if (ViewBag.Country != "Kenya")
+                            {
+                                if (Model.IncomeBracketList.Count() > 0)
+                                {
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Income Bracket</label>
+
+                                        <div class="col-lg-4">
+
+                                            @Html.DropDownListFor(model => model.IncomeBracket, Model.IncomeBracketList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                            @Html.ValidationMessageFor(model => model.IncomeBracket)
+                                        </div>
+                                    </div>
+                                }
+                            }
+
+
+                            if (Model.DisplayEducation == true)
+                            {
+                                if (Model.EducationList.Count() > 0)
+                                {
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Education</label>
+
+                                        <div class="col-lg-4">
+                                            @Html.DropDownListFor(model => model.Education, Model.EducationList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                            @Html.ValidationMessageFor(model => model.Education)
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            if (Model.DisplayWorkingStatus == true)
+                            {
+                                if (Model.WorkingStatusList.Count() > 0)
+                                {
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Working Status</label>
+
+                                        <div class="col-lg-4">
+                                            @Html.DropDownListFor(model => model.WorkingStatus, Model.WorkingStatusList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                            @Html.ValidationMessageFor(model => model.WorkingStatus)
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            <div class="form-group">
+                                <div class="col-lg-offset-3 col-lg-1">
+                                    <button class="btn btn-blue" type="submit">Save</button>
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+
+    @Styles.Render("~/plugins/dataPickerStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/dataPicker")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                endDate: "today"
+            });
+
+            trimmed();
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+    </script>
+}
+

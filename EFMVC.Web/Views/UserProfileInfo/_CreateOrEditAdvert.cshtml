@@ -1,0 +1,1181 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileAdvertAdvertiserFormModel
+@*@using EFMVC.Web.Areas.Users.Models;
+    @model UserProfileResult*@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvadvertsuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvadverterror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cadverterrror"></span>
+                </div>
+                @*@using (Ajax.BeginForm("SaveAdverts", "UserProfileInfo",
+                    null,
+                    new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultadvertprofile", OnBegin = "progressbar" },
+                    new { @class = "form-horizontal" }))
+                                    {*@
+                @*@Html.HiddenFor(model => model.Id)*@
+                @*@Html.HiddenFor(model => model.UserProfileAdvertFormModel.Id);
+                    @Html.HiddenFor(model => model.UserProfileAdvertFormModel.UserProfileId)
+                    @Html.HiddenFor(model => model.UserProfileAdvertFormModel.UserId)*@
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="row">
+                            @*@if (Model.Food == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Food_Advert)</h3>
+                            @*}
+                                @if (Model.SweetsSnacks == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SweetSaltySnacks_Advert)</h3>
+                            @*}
+                                @if (Model.AlcoholicDrinks == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.AlcoholicDrinks_Advert)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.Food == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Food_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Food_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Food_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Food_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.SweetsSnacks == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.SweetSaltySnacks_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.SweetSaltySnacks_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.SweetSaltySnacks_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.SweetSaltySnacks_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.AlcoholicDrinks == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.AlcoholicDrinks_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.AlcoholicDrinks_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.AlcoholicDrinks_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.AlcoholicDrinks_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.NonAlcoholicDrinks == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.NonAlcoholicDrinks_Advert)</h3>
+                            @*}
+                                @if (Model.HouseholdAppliancesProducts == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Householdproducts_Advert)</h3>
+                            @*}
+                                @if (Model.ToiletriesCosmetics == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ToiletriesCosmetics_Advert)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.NonAlcoholicDrinks == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.NonAlcoholicDrinks_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.NonAlcoholicDrinks_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.NonAlcoholicDrinks_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.NonAlcoholicDrinks_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.HouseholdAppliancesProducts == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Householdproducts_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Householdproducts_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Householdproducts_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Householdproducts_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.ToiletriesCosmetics == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.ToiletriesCosmetics_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.ToiletriesCosmetics_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.ToiletriesCosmetics_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.ToiletriesCosmetics_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.PharmaceuticalChemistsProducts == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.PharmaceuticalChemistsProducts_Advert)</h3>
+                            @*}
+                                @if (Model.TobaccoProducts == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.TobaccoProducts_Advert)</h3>
+                            @*}
+                                @if (Model.Pets == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.PetsPetFood_Advert)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+
+                            @*@if (Model.PharmaceuticalChemistsProducts == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.PharmaceuticalChemistsProducts_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.PharmaceuticalChemistsProducts_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.PharmaceuticalChemistsProducts_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.PharmaceuticalChemistsProducts_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.TobaccoProducts == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.TobaccoProducts_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.TobaccoProducts_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.TobaccoProducts_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.TobaccoProducts_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Pets == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.PetsPetFood_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.PetsPetFood_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.PetsPetFood_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.PetsPetFood_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.ClothingFashion == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ShoppingRetailClothing_Advert)</h3>
+                            @*}
+                                @if (Model.DIYGardening == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.DIYGardening_Advert)</h3>
+                            @*}
+                                @if (Model.ElectronicsOtherPersonalItems == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ElectronicsOtherPersonalItems_Advert)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.ClothingFashion == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.ShoppingRetailClothing_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.ShoppingRetailClothing_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.ShoppingRetailClothing_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.ShoppingRetailClothing_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.DIYGardening == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.DIYGardening_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.DIYGardening_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.DIYGardening_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.DIYGardening_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.ElectronicsOtherPersonalItems == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.ElectronicsOtherPersonalItems_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.ElectronicsOtherPersonalItems_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.ElectronicsOtherPersonalItems_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.ElectronicsOtherPersonalItems_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.CommunicationsInternetTelecom == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.CommunicationsInternet_Advert)</h3>
+                            @*}
+                                @if (Model.FinancialServices == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.FinancialServices_Advert)</h3>
+                            @*}
+                                @if (Model.HolidaysTravelTourism == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.HolidaysTravel_Advert)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.CommunicationsInternetTelecom == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.CommunicationsInternet_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.CommunicationsInternet_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.CommunicationsInternet_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.CommunicationsInternet_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.FinancialServices == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.FinancialServices_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.FinancialServices_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.FinancialServices_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.FinancialServices_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.HolidaysTravelTourism == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.HolidaysTravel_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.HolidaysTravel_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.HolidaysTravel_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.HolidaysTravel_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.SportsLeisure == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SportsLeisure_Advert)</h3>
+                            @*}
+                                @if (Model.MotoringAutomotive == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Motoring_Advert)</h3>
+                            @*}
+                                @if (Model.NewspapersMagazines == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Newspapers_Advert)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.SportsLeisure == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.SportsLeisure_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.SportsLeisure_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.SportsLeisure_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.SportsLeisure_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.MotoringAutomotive == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Motoring_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Motoring_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Motoring_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Motoring_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.NewspapersMagazines == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Newspapers_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Newspapers_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Newspapers_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Newspapers_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.TvVideoRadio == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.TV_Advert)</h3>
+                            @*}
+                                @if (Model.Cinema == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Cinema_Advert)</h3>
+                            @*}
+                                @if (Model.SocialNetworking == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SocialNetworking_Advert)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.TvVideoRadio == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.TV_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.TV_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.TV_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.TV_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Cinema == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Cinema_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Cinema_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Cinema_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Cinema_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.SocialNetworking == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.SocialNetworking_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.SocialNetworking_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.SocialNetworking_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.SocialNetworking_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.Shopping == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Shopping_Advert)</h3>
+                            @*}
+                                @if (Model.Fitness == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Fitness_Advert)</h3>
+                            @*}
+                                @if (Model.Environment == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Environment_Advert)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.Shopping == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Shopping_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Shopping_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Shopping_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Shopping_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Fitness == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Fitness_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Fitness_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Fitness_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Fitness_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Environment == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Environment_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Environment_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Environment_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Environment_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.GoingOutEntertainment == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.GoingOut_Advert)</h3>
+                            @*}
+                                @if (Model.Religion == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Religion_Advert)</h3>
+                            @*}
+                                @if (Model.Music == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Music_Advert)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.GoingOutEntertainment == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.GoingOut_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.GoingOut_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.GoingOut_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.GoingOut_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Religion == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Religion_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Religion_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Religion_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Religion_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Music == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Music_Advert == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Music_Advert == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Music_Advert == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Music_Advert == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+
+
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.BusinessOpportunities == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.BusinessOrOpportunities_AdType)</h3>
+                            @*}
+                                @if (Model.Over18Gambling == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Gambling_AdType)</h3>
+                            @*}
+                                @if (Model.Restaurants == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Restaurants_AdType)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.BusinessOpportunities == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.BusinessOrOpportunities_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.BusinessOrOpportunities_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.BusinessOrOpportunities_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.BusinessOrOpportunities_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Over18Gambling == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Gambling_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Gambling_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Gambling_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Gambling_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Restaurants == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Restaurants_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Restaurants_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Restaurants_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Restaurants_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.Insurance == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Insurance_AdType)</h3>
+                            @*}
+                                @if (Model.Furniture == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Furniture_AdType)</h3>
+                            @*}
+                                @if (Model.Informationtechnology == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.InformationTechnology_AdType)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.Insurance == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Insurance_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Insurance_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Insurance_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Insurance_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Furniture == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Furniture_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Furniture_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Furniture_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Furniture_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Informationtechnology == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.InformationTechnology_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.InformationTechnology_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.InformationTechnology_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.InformationTechnology_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.Energy == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Energy_AdType)</h3>
+                            @*}
+                                @if (Model.Supermarkets == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Supermarkets_AdType)</h3>
+                            @*}
+                                @if (Model.Healthcare == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Healthcare_AdType)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.Energy == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Energy_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Energy_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Energy_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Energy_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Supermarkets == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Supermarkets_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Supermarkets_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Supermarkets_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Supermarkets_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Healthcare == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Healthcare_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Healthcare_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Healthcare_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Healthcare_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.JobsandEducation == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.JobsAndEducation_AdType)</h3>
+                            @*}
+                                @if (Model.Gifts == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Gifts_AdType)</h3>
+                            @*}
+                                @if (Model.AdvocacyLegal == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.AdvocacyOrLegal_AdType)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.JobsandEducation == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.JobsAndEducation_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.JobsAndEducation_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.JobsAndEducation_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.JobsAndEducation_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Gifts == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Gifts_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Gifts_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Gifts_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Gifts_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.AdvocacyLegal == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.AdvocacyOrLegal_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.AdvocacyOrLegal_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.AdvocacyOrLegal_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.AdvocacyOrLegal_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+                            @*@if (Model.DatingPersonal == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.DatingAndPersonal_AdType)</h3>
+                            @*}
+                                @if (Model.RealEstateProperty == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.RealEstate_AdType)</h3>
+                            @*}
+                                @if (Model.Games == true)
+                                {*@
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Games_AdType)</h3>
+                            @*}*@
+                        </div>
+                        <div class="row">
+                            @*@if (Model.DatingPersonal == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.DatingAndPersonal_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.DatingAndPersonal_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.DatingAndPersonal_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.DatingAndPersonal_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.RealEstateProperty == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.RealEstate_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.RealEstate_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.RealEstate_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.RealEstate_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}
+                                @if (Model.Games == true)
+                                {*@
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                @if (Model.Games_AdType == "A")
+                                {
+                                    <div class="radio i-checks"><label>Don't Want</label></div>
+                                }
+                                else if (Model.Games_AdType == "B")
+                                {
+                                    <div class="radio i-checks"><label>Neutral</label></div>
+                                }
+                                else if (Model.Games_AdType == "C")
+                                {
+                                    <div class="radio i-checks"><label>Want</label></div>
+                                }
+                                else if (Model.Games_AdType == null)
+                                {
+                                    <div class="radio i-checks"><label>-</label></div>
+                                }
+                            </div>
+                            @*}*@
+                        </div>
+                    </div>
+                </div>
+                @*<div class="form-group">
+                            <div class="col-lg-1">
+                                <button class="btn btn-blue" type="submit">Save</button>
+
+                            </div>
+                        </div>
+                    }*@
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .checkbox label, .radio label {
+        padding-left: 0px !important;
+    }
+</style>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultadvertprofile = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvadvertsuc").show();
+            $("#dvadverterror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing",new {Area="" })';
+            }
+            $("#cadverterrror").html(data);
+            $("#dvadvertsuc").hide();
+            $("#dvadverterror").show();
+        }
+    };
+</script>

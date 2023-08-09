@@ -1,0 +1,49 @@
+﻿@using System.Globalization
+@using EFMVC.Web.Common
+@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model List<CampaignProfileResult>
+@{
+
+    CultureInfo danishCulture = new CultureInfo("da");
+}
+<div class="row">
+    @if (TempData["msgsuccess"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["msgsuccess"]
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="alert alert-success alert-dismissable" style="display:none;" id="succesdivcampaign">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <div id="succesdivcampaignmsg"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="alert alert-danger alert-dismissable" style="display:none;" id="errordivcampaign">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        <div id="errordivcampaignmsg"></div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-campaign" id="campaigndatatable" style="width:100%">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Campaign</th>
+                <th>Advert</th>
+                <th>Plays</th>
+                <th>Reach</th>
+                <th>Budget</th>
+                <th>Spend</th>
+                <th>Funds Available</th>
+                <th>Average Bid</th>
+                <th>Matched Users</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+    </table>
+</div>

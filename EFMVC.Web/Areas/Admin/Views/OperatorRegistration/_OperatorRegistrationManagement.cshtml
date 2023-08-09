@@ -1,0 +1,180 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.Models;
+@model Tuple<List<OperatorRegistrationResult>, OperatorRegistrationFilter>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title" style="border-style:none;">
+                <h5>Operator Admin Registration</h5>
+                <div style="text-align:right">
+                    <a class="btn btn-blue" href='@Url.Action("AddOperatorRegistration","OperatorRegistration",new {area="Admin"})'><i class="fa fa-plus"></i>&nbsp;Operator Admin Registration</a>
+                </div>
+            </div>
+
+            @using (Ajax.BeginForm("SearchOperatorRegistration", "OperatorRegistration", null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getoperatoradminresult", OnBegin = "progressbar" },
+null))
+            {
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">First Name</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(Model2 => Model2.Item2.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Last Name</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(Model2 => Model2.Item2.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Email</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(Model2 => Model2.Item2.Email, new { @class = "form-control", placeholder = "Email" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Organisation</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(Model2 => Model2.Item2.Organisation, new { @class = "form-control", placeholder = "Organisation" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Countries</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("CountryId", (MultiSelectList)ViewBag.countrydetails, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Countries" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Operators</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("OperatorId", (MultiSelectList)ViewBag.operatordetails, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Operators" })
+                                    @*@Html.DropDownList("OperatorId", ViewBag.operatordetails as IEnumerable<SelectListItem>, new { @class = "form-control input-s-sm inline" })*@
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 col-lg-12">
+                            <div class="col-sm-12 center">
+                                <button class="btn btn-blue" type="submit">Search</button>
+                                <button class="btn btn-white" type="button" id="operatoradminreset">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="operatoradminList">
+                        @{
+                            Html.RenderPartial("_OperatorRegistrationDetails", Model.Item1);
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getoperatoradminresult = function (data) {
+        if (data != "notauthorise") {
+            $(".spiner-example").hide();
+            $('.dataTables-operatoradmin').remove();
+            $("#operatoradminList").html(data);
+            dataTableSetup();
+        }
+        else {
+            window.location.href = '@Url.Action("Index","Landing",new { area = "" })';
+        }
+    };
+    function dataTableSetup() {
+        $('.dataTables-operatoradmin').DataTable({
+            "preDrawCallback": function (settings) {
+                $(".spiner-example").show();
+            },
+            "info": false,
+            bFilter: false,
+            "searching": false,
+            "bLengthChange": false,
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            aoColumnDefs: [
+               {
+                   bSortable: false,
+                   aTargets: [-1]
+               }
+            ],
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                {
+                    extend: 'copy',
+                    title: 'OperatorAdminDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'csv',
+                    title: 'OperatorAdminDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'excel',
+                    title: 'OperatorAdminDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: 'OperatorAdminDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+
+                {
+                    extend: 'print',
+                    title: 'OperatorAdminDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    },
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                    }
+                }
+            ],
+            "drawCallback": function (settings) {
+                $(".spiner-example").hide();
+            },
+            "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+        });
+    }
+</script>

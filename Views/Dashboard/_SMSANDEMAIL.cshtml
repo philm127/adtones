@@ -1,0 +1,88 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>SMS and email</h5>
+
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email From Address</label>
+
+                        <div class="col-lg-9">
+
+                            @Html.TextBoxFor(Model => Model.EmailSenderAddress, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email Subject</label>
+
+                        <div class="col-lg-9">
+                            @Html.TextBoxFor(Model => Model.EmailSubject, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email Body Text</label>
+
+                        <div class="col-lg-9">
+                            @Html.TextBoxFor(Model => Model.EmailBody, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Upload Html Email</label>
+
+                        <div class="col-lg-1">
+                            <div class="btn-group">
+                                <label title="Upload image file" for="inputImage" class="btn btn-gray">
+                                    <input type="file" name="mediaFile" id="inputImage" class="hide">
+                                    Upload file
+                                </label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">SMS Originator</label>
+
+                        <div class="col-lg-9">
+                            @Html.TextBoxFor(Model => Model.SmsOriginator, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">SMS Text</label>
+
+                        <div class="col-lg-9">
+                            @Html.TextBoxFor(Model => Model.SmsBody, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Upload SMS Coupon/Image</label>
+
+                        <div class="col-lg-1">
+                            <div class="btn-group">
+                                <label title="Upload image file" for="inputImage" class="btn btn-gray">
+                                    <input type="file" name="mediaFile" id="inputImage" class="hide">
+                                    Upload file
+                                </label>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-1">
+                            <button class="btn btn-blue" type="submit">Update</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>

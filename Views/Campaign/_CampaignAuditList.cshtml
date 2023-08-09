@@ -1,0 +1,50 @@
+﻿@using EFMVC.Web.ViewModels
+@model IEnumerable<EFMVC.Web.ViewModels.CampaignAuditFormModel>
+
+<div class="large-6">
+    <table>
+        <tr>
+            <th>Id</th> 
+            <th>Campaign Id</th> 
+            <th>User Id</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Play Length (Seconds)</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        @{
+            var oddEven = new List<string> {"oddRow", "evenRow"};
+            int i = 1;
+        } 
+        @if (Model != null)
+        {
+            foreach (CampaignAuditFormModel item in Model)
+            {
+                <tr class="@oddEven[i++%2]">
+                    <td>@item.CampaignAuditId</td>
+                    <td>@item.CampaignProfileId</td>
+                    <td>@item.UserProfileId</td>
+                    <td>@item.StartTime</td>
+                    <td>@item.EndTime</td>
+                    <td>@item.PlayLength.Seconds</td>
+                    <td>
+                        @Html.ActionLink("View", "CampaignAudit", new {id = item.CampaignProfileId, auditId = item.CampaignAuditId})          
+                    </td>
+                    @*                    <td>*@
+                    @*                        @Html.ActionLink(" ", "Edit", new {id = item.Id}, new {@class = "editLinkImg"})          *@
+                    @*                    </td>*@
+                    @*                    <td>*@
+                    @*                        @Ajax.ActionLink(" ", "Delete", new {id = item.Id},*@
+                    @*                                         new AjaxOptions*@
+                    @*                                             {*@
+                    @*                                                 Confirm = "Delete Blocked Number?", HttpMethod = "Post",*@
+                    @*                                                 UpdateTargetId = "divBlockedNumberList"*@
+                    @*                                             },*@
+                    @*                                         new {@class = "deleteLinkImg", @alt = "Delete?"})    *@
+                    @*                    </td>*@
+                </tr>
+            }
+        }
+    </table>
+    
+</div>

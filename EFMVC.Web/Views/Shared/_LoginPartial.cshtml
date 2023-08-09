@@ -1,0 +1,146 @@
+﻿@model EFMVC.Web.ViewModels.LogOnFormModel
+
+@*<script type="text/javascript">
+             var oa = document.createElement('script');
+             oa.type = 'text/javascript'; oa.async = true;
+             oa.src = '//adtones.api.oneall.com/socialize/library.js'
+             var s = document.getElementsByTagName('script')[0];
+             s.parentNode.insertBefore(oa, s)
+    </script>*@
+@{
+    <style>
+        .btn-green {
+            background-color: #1ab394;
+            border-color: #1ab394;
+            color: #FFFFFF;
+            font-size: 14px;
+            padding: 10px 20px;
+            font-weight: 600;
+        }
+        .btn-green:hover {
+            background-color: #1ab394;
+            border-color: #1ab394;
+            color: #FFFFFF;
+        }
+        .fa-sign-in:before {
+            content: "\f090";
+            display: block;
+            text-align: center;
+            width: 100%;
+            margin: 0 auto;
+        }
+    </style>
+}
+<div id="modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 clearfix">
+                        <div class="col-sm-6 b-r">
+                            <h3 class="m-t-none m-b">Sign in</h3>
+
+                            @*<p>Sign in today for more expirience.</p>*@
+                            @using (Ajax.BeginForm("JsonLogin", "Landing",
+                            null,
+                            new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresult", UpdateTargetId = "result", },
+                            null))
+                            {
+                                <span id="result" class="btn-danger" style="display:none;"></span>
+                                <div class="form-group">@Html.LabelFor(m => m.UserName)@Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Enter email" })@Html.ValidationMessageFor(m => m.UserName, null, new { @class = "btn-danger" })</div>
+
+                                <div class="form-group">@Html.LabelFor(m => m.Password) @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })@Html.ValidationMessageFor(m => m.Password, null, new { @class = "btn-danger" })</div>
+                                <div>
+                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Log in</strong></button>
+
+                                    <label>@Html.CheckBoxFor(m => m.RememberMe, new { @class = "i-checks" }) Remember me</label>
+                                </div>
+                                <div class="form-group" style="clear:both;">
+                                    <a href='@Url.Action("ForgotPassword","AdvertRegister")'><small>Forgot password?</small></a>
+                                </div>
+
+
+
+                            }
+
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>Sign up with your email</h3>
+                            @*<p>You can create an account:</p>*@
+                            <p class="text-center">
+                                <div>
+                                    <a style="cursor:unset;"><i class="fa fa-sign-in big-icon" style="font-size:144px !important; width: 100%;"></i></a><br />
+                                    <a href='@Url.Action("RegisterAdvertiser","AdvertRegister")' class="btn btn-sm btn-green pull-left m-t-n-xs"><strong>Sign Up</strong></a>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <hr />
+                        <p class="text-muted text-center"><small>OR Sign in / Sign Up using one of the following networks:</small></p>
+                        <div id="oa_social_login"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    var getresult = function (data) {
+        $("#result").html('');
+        $("#result").empty();
+        if (data != null) {
+            $("#result").hide();
+            if (data.success == true) {
+                window.location.href = data.redirect;
+
+            }
+            else {
+                $("#result").show();
+                if (data.errors.length > 1) {
+                    $("#result").html(data.errors[0]);
+                }
+                else {
+                    $("#result").html(data.errors);
+                }
+
+            }
+        }
+    };
+
+    /*
+    OLD One all login
+    var user_token = '';
+
+    var _oneall = _oneall || [];
+    _oneall.push(['social_link', 'set_providers', ['amazon', 'facebook', 'google', 'instagram', 'linkedin', 'paypal', 'pinterest', 'reddit', 'tumblr', 'twitter', 'windowslive', 'yahoo']]);
+    // _oneall.push(['social_link', 'set_providers', ['amazon', 'facebook']]);
+    _oneall.push(['social_link', 'set_callback_uri', window.location.href]);
+    _oneall.push(['social_link', 'set_user_token', user_token]);
+    _oneall.push(['social_link', 'do_render_ui', 'oa_social_login']);
+    // _oneall.push(['social_login', 'set_custom_css_uri', 'https://oneallcdn.com/css/api/socialize/themes/buildin/connect/large-v1.css']);
+    */
+
+    // New
+    var _oneall = _oneall || [];
+    _oneall.push(['social_login', 'set_providers', ['amazon', 'facebook', 'google', 'linkedin', 'paypal', 'pinterest', 'reddit', 'tumblr', 'twitter', 'windowslive', 'yahoo']]);//'instagram',
+    _oneall.push(['social_login', 'set_callback_uri', window.location.href]);
+    _oneall.push(['social_login', 'do_render_ui', 'oa_social_login']);
+
+</script>
+
+<script>
+    window.onload = function () {
+        //var es = document.getElementsByTagName('iframe');
+        //es.namedItem('OneAll Social Login').style.cssText = 'height: 120px !important;';
+        $("#oa_social_login").css("min-height", "200px");
+        $("#oa_social_login iframe").css("height", "200px");
+    };
+</script>
+
+

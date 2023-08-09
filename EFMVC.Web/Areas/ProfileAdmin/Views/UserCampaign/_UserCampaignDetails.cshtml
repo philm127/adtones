@@ -1,0 +1,37 @@
+﻿@using EFMVC.Web.Areas.ProfileAdmin.Models;
+@model List<UserCampaignResult>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-usercampaign" id="usercampaign">
+        <thead>
+            <tr>
+                <th>Campaign</th>
+                <th>Advert</th>
+                <th>Play</th>
+                <th>Country</th>
+                <th>Operator</th>
+                <th>Profile Type</th>
+                <th>Profile Name</th>
+                <th>Expected Response</th>
+                <th>Listen</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() > 0)
+            {
+                foreach (UserCampaignResult result in Model)
+                {
+                <tr class="gradeX">
+                    <td>@result.CampaignName</td>
+                    <td>@result.AdvertName</td>
+                    <td>@result.TotalPlayCount</td>
+                    <td>@result.CountryName</td>
+                    <td>@result.OperatorName</td>
+                    <td><a class="btn btn-danger btn-xs" href="/ProfileAdmin/UserCampaign/UpdateProfileAdminRegistration?id=' + row.Id + '">Update Audio File</a></td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

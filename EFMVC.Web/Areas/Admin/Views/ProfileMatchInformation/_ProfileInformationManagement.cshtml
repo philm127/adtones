@@ -1,0 +1,165 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.SearchClass.Models;
+@model Tuple<List<ProfileInformationResult>, ProfileInformationFilter>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title" style="border-style:none;">
+                <h5>Profile Information Management</h5>
+                <div style="text-align:right">
+                    <a class="btn btn-blue" href='@Url.Action("AddProfileInfo","ProfileMatchInformation",new {area="Admin"})'><i class="fa fa-plus"></i>&nbsp;Add</a>
+                </div>
+            </div>
+
+            @using (Ajax.BeginForm("SearchProfileMatchInformation", "ProfileMatchInformation", null,
+  new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getprofileresult", OnBegin = "progressbar" },
+  null))
+            {
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Profile Types</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("ProfileType", (MultiSelectList)ViewBag.profileType, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Profile Types" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Countries</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("CountryId", (MultiSelectList)ViewBag.country, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Countries" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Profile Name</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(Model2 => Model2.Item2.ProfileName, new { @class = "form-control", placeholder = "Profile Name" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 col-lg-12">
+                            <div class="col-sm-12 center">
+                                <button class="btn btn-blue" type="submit">Search</button>
+                                <button class="btn btn-white" type="button" id="profilereset">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="profileList">
+                        @{
+                            Html.RenderPartial("_ProfileInfoDetails", Model.Item1);
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getprofileresult = function (data) {
+        if (data != "notauthorise") {
+            $(".spiner-example").hide();
+            $('.dataTables-country').remove();
+            $("#profileList").html(data);
+            dataTableSetup();
+        }
+        else {
+            window.location.href = '@Url.Action("Index","Landing",new { area = "" })';
+        }
+    };
+    function dataTableSetup() {
+        $('.dataTables-profileInfo').DataTable({
+            "preDrawCallback": function (settings) {
+                $(".spiner-example").show();
+            },
+            "aaSorting": [],
+            "info": false,
+            bFilter: false,
+            "searching": false,
+            "bLengthChange": false,
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            aoColumnDefs: [
+                {
+                    bSortable: false,
+                    aTargets: [-1]
+                }
+            ],
+            exportOptions: {
+                columns: ':not(:last-child)',
+            },
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+
+                {
+                    extend: 'copy',
+                    text: 'Copy',
+                    titleAttr: 'Copy',
+                    title: 'ProfileInformationDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+
+                },
+
+                {
+                    extend: 'excel',
+                    text: 'Excel',
+                    titleAttr: 'Excel',
+                    title: 'ProfileInformationDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: 'CSV',
+                    titleAttr: 'CSV',
+                    title: 'ProfileInformationDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'PDF',
+                    titleAttr: 'PDF',
+                    title: 'ProfileInformationDetails',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    },
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                    },
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ],
+            "drawCallback": function (settings) {
+                $(".spiner-example").hide();
+            },
+            "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+        });
+    }
+</script>

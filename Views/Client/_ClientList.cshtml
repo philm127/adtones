@@ -1,0 +1,132 @@
+﻿@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model List<ClientResult>
+<div class="row">
+    @if (TempData["msgsuccess"] != null)
+    {
+    <div class="alert alert-success alert-dismissable">
+        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        @TempData["msgsuccess"]
+    </div>
+    }
+</div>
+<div class="row">
+    <div class="html5buttons">
+        <div class="dt-buttons btn-group">
+
+            <a class="btn btn-default buttons-copy buttons-html5" tabindex="0" aria-controls="DataTables_Table_0">
+                <span>Copy</span>
+            </a>
+            @*@Html.ActionLink("CSV", "ExportClientsListToCSV", new { @class = "btn btn-default buttons-csv buttons-html5" })*@
+            <a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0">
+                <span>CSV</span>
+            </a><a class="btn btn-default buttons-excel buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>Excel</span></a><a class="btn btn-default buttons-pdf buttons-html5" tabindex="0" aria-controls="DataTables_Table_0"><span>PDF</span></a><a class="btn btn-default buttons-print" tabindex="0" aria-controls="DataTables_Table_0"><span>Print</span></a>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-client">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Number of Campaigns</th>
+                <th>Created Date</th>
+                <th>Total Budget</th>
+                <th>Total Spend</th>
+                <th>Total Plays</th>
+
+                <th>Average Bid</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (ClientResult clientResult in Model)
+                {
+                    <tr class="gradeX">
+                        <td><a href='@Url.Action("EditClient","Client",new {@id=clientResult.Id })'>@clientResult.Name</a></td>
+                        @if (clientResult.NoOfCompaign == 0)
+                        {
+                            <td>@clientResult.NoOfCompaign</td>
+                        }
+                        else
+                        {
+                            if (@clientResult.NoOfCompaign > 0)
+                            {
+                            <td><a>@clientResult.NoOfCompaign</a></td>
+                            }
+                            else
+                            {
+                                <td>@clientResult.NoOfCompaign</td>
+                            }
+                        }
+                        <td>
+
+                            @clientResult.CreatedDate.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @clientResult.TotalBudget
+                        </td>
+                        <td>
+
+                            @clientResult.TotalSpend
+                        </td>
+                        <td>
+                            @clientResult.TotalPlays
+                        </td>
+                        <td>
+                            @clientResult.AvgBid
+                        </td>
+
+                        <td>
+                            @clientResult.Status
+
+                        </td>
+                        <td>
+                            @if (clientResult.NoOfCompaign == 0)
+                            {
+                                <a class="btn btn-danger btn-xs" onclick="opendialog(this);" id='@clientResult.Id'>Delete</a>
+
+                            }
+
+                        </td>
+                    </tr>
+                }
+
+            }
+
+        </tbody>
+    </table>
+</div>
+<script>
+
+    function opendialog(info) {
+        var id = info.id;
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this client record!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function () {
+            $.post('@Url.Action("DeleteClient", "Client")', { id: id }, function (data) {
+                if (data == "success") {
+                    //  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                    window.location.href = '@Url.Action("Index","Client")';
+
+                } else {
+                    alert(data);
+                }
+            });
+
+            //
+        });
+
+    }
+</script>
+

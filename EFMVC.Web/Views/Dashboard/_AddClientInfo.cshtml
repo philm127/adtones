@@ -1,0 +1,114 @@
+﻿@using EFMVC.Web.ViewModels
+@model NewClientFormModel
+
+<style>
+    select.input-sm1 {
+        height: 40px;
+        line-height: 30px;
+    }
+</style>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Client Information</h5>
+
+                </div>
+                <div class="ibox-content">
+                    <div class="alert alert-success alert-dismissable" id="clientdvcaminfosuc" style="display:none;">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" id="clientclosesuccess" type="button">×</button>
+                        <span id="clientcsuceess">Record updated successfully</span>
+                    </div>
+                    <div class="alert alert-danger alert-dismissable" id="clientdvcaminfoerror" style="display:none;">
+                        <button aria-hidden="true" class="close" id="clientcloseerror" type="button">×</button>
+                        <span id="clientcerrror"></span>
+                    </div>
+                    @*, InsertionMode = InsertionMode.Replace, OnSuccess = "getresultclient"*@
+                    @*@using (Ajax.BeginForm("AddClientInfo", "Dashboard", null,
+                        new AjaxOptions() { HttpMethod = "post" }, new { @class = "form-horizontal" }))
+                                            {*@
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Client ID</label>
+                            <div class="col-lg-4">
+                                <label class="control-label" id="ClientPhoneticAlphabet" data-toggle="tooltip2" title="@ViewBag.ClientPhonetic">@ViewBag.ClientPhoneticAlphabet</label>
+                                @*@Html.HiddenFor(model => model.ClientPhoneticAlphabet)*@
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Client</label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(model => model.ClientId, ViewBag.allClientList as IEnumerable<SelectListItem>, new { @class = "form-control input-sm1 input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.ClientId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Name</label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.ClientName, new { @class = "form-control", @placeholder = "Client Name" })
+                                @Html.ValidationMessageFor(model => model.ClientName, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Description</label>
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(model => model.ClientDescription, new { @class = "form-control", @placeholder = "Client Description" })
+                                @Html.ValidationMessageFor(model => model.ClientDescription, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Email</label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.ClientEmail, new { @class = "form-control", @placeholder = "Client Email" })
+                                @Html.ValidationMessageFor(model => model.ClientEmail, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Contact Info</label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.ClientContactInfo, new { @class = "form-control", @placeholder = "Client Contact Info" })
+                                @Html.ValidationMessageFor(model => model.ClientContactInfo, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit" id="clientnextbtn">Next</button>
+                                <button class="btn btn-sm btn-blue" type="submit" id="clientbackbtn">Back</button>
+                                <button class="btn btn-sm btn-blue" type="submit" id="clientsubmit">Save</button>
+                                <button class="btn btn-sm btn-white" type="button" id="clientcancelbtn">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    @*}*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    $('[data-toggle="tooltip2"]').tooltip();
+    //});
+
+    @*$("#submit").click(function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AddClient", "Dashboard")',
+            success: function (data) {
+                if (data == "Success") {
+                    $('#errormsg').css("display", "none");
+                }
+                else {
+                    $('#errormsg').css("display", "block");
+                }
+            }
+        });
+    });
+    $("#close").click(function () {
+        $('#errormsg').css("display", "none");
+    });*@
+</script>
+

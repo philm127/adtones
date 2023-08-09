@@ -1,0 +1,8 @@
+﻿@model EFMVC.Web.ViewModels.QuestionOptionModel
+
+    @Html.HiddenFor(x => x.QuestionValue)
+    @Html.HiddenFor(x => x.QuestionName)
+    @Html.Hidden("DefaultAnswer", Model.DefaultAnswer)
+
+<li class="advertitems">@Html.CheckBoxFor(x => x.Selected,new {@class="i-checks"}) @Model.QuestionName</li> 
+

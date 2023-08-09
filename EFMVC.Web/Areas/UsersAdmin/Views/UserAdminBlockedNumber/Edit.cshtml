@@ -1,0 +1,99 @@
+﻿@model EFMVC.Web.ViewModels.BlockedNumberFormModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/UsersAdmin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Edit Blocked Number</h2>
+        <p>Add a telephone number you would like to be excluded from this service.</p>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "UserAdminBlockedNumber",new {area= "UsersAdmin" })">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>Blocked Number</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Edit Blocked Number</h5>
+
+                </div>
+                <div class="ibox-content">
+                    @*@using (Html.BeginForm("Save", "AdminBlockedNumber", FormMethod.Post, new { @class = "form-horizontal" }))*@
+
+                    @*Add 15-02-2019*@
+                    @using (Html.BeginForm("Save", "UserAdminBlockedNumber", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        @Html.HiddenFor(x => x.Id)
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Telephone Number</label>
+
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.TelephoneNumber, new { @class = "form-control", @placeholder = "TelephoneNumber" })
+                                @Html.ValidationMessageFor(Model => Model.TelephoneNumber, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Name</label>
+
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.Name, new { @class = "form-control", @placeholder = "Name" })
+                                @Html.ValidationMessageFor(Model => Model.Name, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Active</label>
+
+                            <div class="col-lg-4">
+                                @Html.EditorFor(Model => Model.Active, new { @class = "form-control", @placeholder = "Description" })
+                                @Html.ValidationMessageFor(Model => Model.Active, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index","UserAdminBlockedNumber",new {area="UsersAdmin" })'">Cancel</button>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $("#TelephoneNumber").keypress(function (e) {
+            var telephoneNumber = $(this).val();
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+            else if (telephoneNumber.length >= 10) {
+                return false;
+            }
+        });
+    </script>
+}
+
+
+

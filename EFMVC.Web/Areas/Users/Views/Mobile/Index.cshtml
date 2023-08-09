@@ -1,0 +1,94 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileMobileFormModel
+@{
+    ViewBag.Title = "Mobile";
+    Layout = "~/Areas/Users/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Airtime Usage</h2>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Airtime Usage</h5>
+
+                </div>
+                @if (Model.ContractTypeList.Count() > 0 || Model.SpendList.Count() > 0)
+                {
+                    <div class="ibox-content">
+
+                        @using (Html.BeginForm("SaveMobile", "Mobile", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+                            if (ViewBag.UserProfileId == 0)
+                            {
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                    <span id="cbudsuceess">Please update personal info</span>
+                                </div>
+                            }
+                            if (TempData["error"] != null)
+                            {
+                                <div class="alert alert-danger alert-dismissable">
+                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                    <span id="cbudsuceess">@TempData["error"]</span>
+                                </div>
+                            }
+                            if (TempData["sucess"] != null)
+                            {
+                                <div class="alert alert-success alert-dismissable">
+                                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                    <span id="cbudsuceess">@TempData["sucess"]</span>
+                                </div>
+                            }
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.HiddenFor(model => model.UserProfileId)
+                            if (Model.DisplayContractType)
+                            {
+                                if (Model.ContractTypeList.Count() > 0)
+                                {
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ContractType_Mobile, new { @class = "col-lg-2 control-label" })
+
+                                        <div class="col-lg-4">
+                                            @Html.DropDownListFor(model => model.ContractType_Mobile, Model.ContractTypeList, new { @class = "form-control input-s-sm inline" })
+                                            @Html.ValidationMessageFor(model => model.ContractType_Mobile)
+                                        </div>
+
+                                    </div>
+                                }
+                            }
+                            if (Model.DisplaySpend)
+                            {
+                                if (Model.SpendList.Count() > 0)
+                                {
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Spend_Mobile, new { @class = "col-lg-2 control-label" })
+
+                                        <div class="col-lg-4">
+                                            @Html.DropDownListFor(model => model.Spend_Mobile, Model.SpendList, new { @class = "form-control input-s-sm inline" })
+                                            @Html.ValidationMessageFor(model => model.Spend_Mobile)
+
+                                        </div>
+
+                                    </div>
+                                }
+                            }
+                            if (ViewBag.UserProfileId != 0)
+                            {
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-1">
+                                        <button class="btn btn-blue" type="submit">Save</button>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

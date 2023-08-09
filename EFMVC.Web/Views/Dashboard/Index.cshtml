@@ -1,0 +1,1346 @@
+﻿@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model Tuple<List<CampaignProfileResult>, FilterCritearea, CampaignDashboardChartResult>
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div style="text-align:left">
+            @*<button class="btn btn-blue " type="button" onclick="window.location.href='@Url.Action("AddNewCampaign","Dashboard")'">Add Campaign</button>*@
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div id="dashboardChartData">
+            @Html.Partial("_DashboardStatistics", Model.Item3)
+        </div>
+        @Html.Partial("_CampaignManagement", Tuple.Create<List<CampaignProfileResult>, FilterCritearea>(Model.Item1, Model.Item2))
+    </div>
+</div>
+
+<style>
+    table.table-bordered.dataTable tbody td {
+        letter-spacing: 1.1px !important;
+    }
+</style>
+
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @*@Styles.Render("~/plugins/dateRangeStyles")*@
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @*@Styles.Render("~/plugins/dataPickerStyles")*@
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/daterangepickerNewStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @*@Scripts.Render("~/plugins/dataPicker")*@
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @*@Scripts.Render("~/plugins/dateRange")*@
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/chartJs")
+    @Scripts.Render("~/plugins/daterangepickerNew")
+
+    <script type="text/javascript">
+
+        //$(".dataTables_paginate paginate_button").click(function () {
+        //    $(".spiner-example").show();
+        //})
+
+        var tableContainer;
+        var oTable;
+        function loaddatatable() {
+            var date = new Date();
+            var month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : "0" + (date.getMonth() + 1);
+            var day = (date.getDate() + 1) > 9 ? (date.getDate() + 1) : "0" + (date.getDate() + 1);
+            var hours = (date.getHours()) > 9 ? (date.getHours()) : "0" + (date.getHours());
+            var minutes = (date.getMinutes()) > 9 ? (date.getMinutes()) : "0" + (date.getMinutes());
+            var seconds = (date.getSeconds()) > 9 ? (date.getSeconds()) : "0" + (date.getSeconds());
+
+            var dateString =
+                day + "-" +
+                month + "-" +
+                date.getFullYear() + " " +
+                hours + "-" +
+                minutes;
+
+            tableContainer = $("#campaigndatatable");
+            oTable = tableContainer.DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "destroy": true,
+                "info": true,
+                "pageLength": 10,
+                "bLengthChange": true,
+                "processing": true, // for show processing bar
+                "serverSide": false, // for process on server side
+                "orderMulti": false, // for disable multi column order
+                "searching": true,
+                "aaSorting": [],
+                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+                "bFilter": true,
+                "filter": true,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                "dom": '<"html5buttons"B>lTfgtpi',// '<"html5buttons"B>lTfgtpi', // for hide default global search box // little confusion? don't worry I explained in the tutorial website
+                "buttons": [
+                    {
+                        extend: 'copy', title: 'Adtones-Campaigns', filename: 'Adtones-Campaigns-' + dateString,
+                        exportOptions: { columns: ':visible' }
+                    },
+                    {
+                        extend: 'csv', title: 'Adtones-Campaigns', filename: 'Adtones-Campaigns-' + dateString,
+                        exportOptions: {columns: ':visible' }
+                    },
+                    {
+                        extend: 'excel', title: 'Adtones-Campaigns', filename: 'Adtones-Campaigns-' + dateString,
+                        exportOptions: { columns: ':visible' }
+                    },
+                    {
+                        extend: 'pdf', title: 'Adtones-Campaigns', filename: 'Adtones-Campaigns-' + dateString,
+                        exportOptions: { columns: ':visible' }
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Adtones-Campaigns',
+                        filename: 'Adtones-Campaigns-' + dateString,
+                        //exportOptions: {  },
+                        exportOptions: { columns: ':visible' }
+                    }
+                ],
+                "ajax": {
+                    "url": "/Dashboard/LoadDataAll",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+
+                "aoColumns": [
+                    {
+                        "data": "ClientName", "name": "ClientName", "autoWidth": false, "bSortable": true, "bSearchable": true, 
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return row.ClientName;
+                            if (row.ClientName === '-') {
+                                return '<td>'+ row.ClientName + '</td>';
+                            }
+                            else {
+                                return '<td><a href=/Client/EditClient/' + row.ClientId + ' class="ClientID_' + row.ClientId + '">' + row.ClientName + '</a></td>';
+                            }
+                        }
+
+                    }, //index 1
+                    {
+                        "data": "CampaignName", "name": "CampaignName", "autoWidth": false, "bSortable": true,
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return row.CampaignName;
+                            if (row.IsAdminApproval == false && row.Status == 7) {
+                                //return '<td>' + row.CampaignName + '</td>';
+                                return '<td><a href=/Dashboard/Campaign/' + row.CampaignProfileId + ' class="ClientID_' + row.ClientId + '">' + row.CampaignName + '</a></td>';
+                            }
+                            else {
+                                if (row.IsAdminApproval == false) {
+                                    return '<td class="ClientID_' + row.ClientId + '">' + row.CampaignName + '</td>';
+                                }
+                                else if (row.Status == 5) {
+                                    return '<td class="ClientID_' + row.ClientId + '">' + row.CampaignName + '</td>';
+                                }
+                                else {
+                                    return '<td><a href=/Dashboard/Campaign/' + row.CampaignProfileId + ' class="ClientID_' + row.ClientId + '">' + row.CampaignName + '</a></td>';
+                                }
+                            }
+
+                        }
+
+                    }, //index 2
+                    {
+                        "data": "advertname", "name": "advertname", "autoWidth": false, "bSortable": true,
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return row.advertname;
+                            if (row.advertname === "-") {
+                                return '-';
+                            }
+                            else {
+                                return '<td><a href=/Advert/AdvertDetails/' + row.AdvertId + ' class="ClientID_' + row.ClientId + '">' + row.advertname + '</a></td>';
+                            }
+                        }
+
+                    }, //index 3
+                    {
+                        "data": "finaltotalplays", "name": "finaltotalplays", "autoWidth": false, "bSortable": true, "sType": "numeric", "className":"dt-body-right",
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return row.finaltotalplays;
+                            if (row.IsAdminApproval == false) {
+                                return '<td class="ClientID_' + row.ClientId + '">' + row.finaltotalplays + '</td>';
+                            }
+                            else {
+                                if (row.finaltotalplays > 0) {
+                                    return '<td><a href=/Dashboard/Campaign/' + row.CampaignProfileId + '?plays=True' + ' class="ClientID_' + row.ClientId + '">' + row.finaltotalplays + '</a></td>';
+                                }
+                                else {
+                                    return '<td class="ClientID_' + row.ClientId + '">' + row.finaltotalplays + '</td>';
+                                }
+                            }
+
+                        }
+                    },
+                    {
+                        "data": "Reach", "name": "Reach", "autoWidth": false, "bSortable": true, "sType": "numeric", "className": "dt-body-right",
+                        "mRender": function (data, type, row) {
+                            return type === 'display' ? '<td class="ClientID_' + row.ClientId + '">' + row.Reach + '</td >' : row.Reach;
+                        }
+                    },
+                    {
+                        "data": "TotalBudget", "name": "TotalBudget", "autoWidth": false, "bSortable": true, "sType": "numeric", "className": "dt-body-right",
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return data;
+                            return '<td><a href=/Dashboard/Campaign/' + row.CampaignProfileId + '?avgbid=True' + ' class="ClientID_' + row.ClientId + '">' + campaignListMoneyRenderer(data,type,row) + '</a></td>';
+                        }
+
+                    },
+                    {
+                        "data": "totalspend", "name": "totalspend", "autoWidth": false, "bSortable": true, "bSearchable": true, "sType": "formatted-num", "className": "dt-body-right",
+                        "mRender": campaignListMoneyRenderer
+                    },
+                    {
+                        "data": "FundsAvailable", "name": "FundsAvailable", "autoWidth": false, "bSortable": true, "bSearchable": true, "sType": "formatted-num", "className": "dt-body-right",
+                        "mRender": campaignListMoneyRenderer
+                    },
+                    {
+                        "data": "totalaveragebid", "name": "totalaveragebid", "autoWidth": false, "bSortable": true, "sType": "formatted-num", "className": "dt-body-right",
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return data;
+                            return '<td><a href=/Dashboard/Campaign/' + row.CampaignProfileId + '?avgbid=True' + ' class="ClientID_' + row.ClientId + '">' + campaignListMoneyRenderer(data, type, row) + '</a></td>';
+                        }
+                    },
+                    {
+                        "data": "UserMatchedStatus", "name": "UserMatchedStatus", "autoWidth": false, "bSortable": true, "sType": "numeric", "className": "dt-body-center",
+                        "mRender": function (data, type, row) {
+                            return row.UserMatchedStatus === 1
+                                ? row.NumUsersMatched
+                                : '-';
+                        }
+                    },
+                    {
+                        "data": "Status", "name": "Status", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            if (type !== 'display')
+                                return row.Status;
+                            if (row.IsAdminApproval === true && row.Status === 8)
+                            {
+                                return '<td class="ClientID_' + row.ClientId + '"><label class="label label-danger">Campaign Paused Due To Insufficient Funds</label></td>';
+                            }
+                            else if (row.Status == 8) {
+                                return '<td class="ClientID_' + row.ClientId + '"><label class="label label-danger">Campaign Paused Due To Insufficient Funds</label></td>';
+                            }
+                            else if (row.IsAdminApproval === false && row.Status === 7) {
+                                return '<td class="ClientID_' + row.ClientId + '"><label class="label label-info">In Progress</label></td>';
+                                //return '<td><label class=label label-primary>Waiting for admin approval</label></td>';
+                            }
+                            else {
+                                if (row.IsAdminApproval === false) {
+                                    //return '<td><label class=label label-primary>In Progress</label></td>';
+                                    return '<td class="ClientID_' + row.ClientId + '"><label class="label label-success">Waiting for approval</label></td>';
+                                }
+                                else if (row.Status !== 6) {
+                                    var dd = '<td><select class="form-control input-s-sm inline statusId ClientID_' +
+                                        row.ClientId +
+                                        '" onchange="updateCampaignStatus(' +
+                                        row.CampaignProfileId +
+                                        ',this,' +
+                                        row.NumberInBatch +
+                                        ');">';
+                                    //var dd = '<td><select class=form-control input-s-sm inline>'
+                                    if (row.Status === 1) {
+
+                                        var s1 = '<option value=1 selected=selected>Planned</option>' +
+                                            '<option value=2>Play</option>' +
+                                            '<option value=3>Pause</option>' +
+                                            '<option value=4>Stop</option>' +
+                                            '<option value=5>Archive</option>';
+
+                                        dd = dd + s1;
+                                    }
+                                    else if (row.Status === 2) {
+
+                                        var s2 = '<option value=1 >Planned</option>' +
+                                            '<option value=2 selected=selected>Play</option>' +
+                                            '<option value=3>Pause</option>' +
+                                            '<option value=4>Stop</option>' +
+                                            '<option value=5>Archive</option>';
+                                        dd = dd + s2;
+                                    }
+                                    else if (row.Status === 3) {
+                                        var s3 = '<option value=1 >Planned</option>' +
+                                            '<option value=2 >Play</option>' +
+                                            '<option value=3 selected=selected>Pause</option>' +
+                                            '<option value=4>Stop</option>' +
+                                            '<option value=5>Archive</option>';
+
+                                        dd = dd + s3;
+                                    }
+                                    else if (row.Status === 4) {
+
+                                        var s4 = '<option value=1 >Planned</option>' +
+                                            '<option value=2 >Play</option>' +
+                                            '<option value=3 >Pause</option>' +
+                                            '<option value=4 selected=selected>Stop</option>' +
+                                            '<option value=5>Archive</option>';
+                                        dd = dd + s4;
+                                    }
+                                    else {
+                                        var s5 = '<option value=1 >Planned</option>' +
+                                            '<option value=2 >Play</option>' +
+                                            '<option value=3 >Pause</option>' +
+                                            '<option value=4 >Stop</option>' +
+                                            '<option value=5 selected=selected>Archive</option>';
+                                        dd = dd + s5;
+                                    }
+                                    dd += '</select></td>';
+
+                                    return dd;
+                                }
+                                else {
+                                    return '<td><label class="label label-success">Waitingforapproval</label></td>';//label-primary
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "data": "totalspend", "name": "_totatlspend", "visible": false
+                    },
+                    {
+                        "data": "totalaveragebid", "name": "_totalaveragebid", "visible": false
+                    },
+                    {
+                        "data": "CampaignProfileId", "name": "_CampaignProfileId", "visible": false
+                    },
+                    {
+                        "data": "AdvertId", "name": "_AdvertId", "visible": false
+                    },
+                    {
+                        "data": "Status", "name": "_Status", "visible": false
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+            });
+            //oTable = $('#campaigndatatable').DataTable();
+            $.fn.dataTableExt.afnFiltering.push(
+                function( oSettings, aData, iDataIndex ) {
+                    var filtered = true;
+
+                    filtered = filtered && applyFilterPlays(aData[3]);
+                    filtered = filtered && applyFilterSpend(aData[11]);
+                    filtered = filtered && applyFilterBid(aData[12]);
+                    filtered = filtered && applyFilterContains(aData[13], mapSelectedOptions($("#CampaignProfileId option:selected")));
+                    filtered = filtered && applyFilterContains(aData[14], mapSelectedOptions($("#CampaignAdvertId option:selected")));
+                    filtered = filtered && applyFilterContains(aData[15], mapSelectedOptions($("#CampaingStatusId option:selected")));
+                    return filtered;
+                }
+            );
+
+            function mapSelectedOptions(selector) {
+                return [].map.call(selector,
+                    function(el) {
+                        return el.value;
+                    });
+            }
+
+            function applyFilterContains(aData, checkArray) {
+                if (checkArray == null || checkArray.length === 0)
+                    return true;
+                return checkArray.includes(aData);
+            }
+
+            function applyFilterPlays(aData) {
+                var fromPlay = $('#Item2_FromPlays').val();
+                var toPlay = $('#Item2_ToPlays').val();
+                return applyMinMax(aData, fromPlay, toPlay);
+            }
+
+            function applyFilterBid(aData) {
+                var from = $('#Item2_FromAvgbid').val();
+                var to = $('#Item2_ToAvgbid').val();
+                return applyMinMax(aData, from, to);
+            }
+
+            function applyFilterSpend(aData) {
+                var fromPlay = $('#Item2_FromSpend').val();
+                var toPlay = $('#Item2_ToSpend').val();
+                return applyMinMax(aData, fromPlay, toPlay);
+            }
+
+            function applyMinMax(data, minVal, maxVal) {
+                var min = minVal != null ? Number(minVal) : 0;
+                var max = maxVal != null ? Number(maxVal) : 0;
+                var iVersion = data === "-" || data == null ? 0 : Number(data);
+                if ( minVal === "" && maxVal === "" )
+                {
+                    return true;
+                }
+                else if ( minVal === "" && iVersion <= max )
+                {
+                    return true;
+                }
+                else if ( min <= iVersion && "" === maxVal )
+                {
+                    return true;
+                }
+                else if ( min <= iVersion && iVersion <= max )
+                {
+                    return true;
+                }
+                return false;
+            }
+            
+        }
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        $(document).ready(function () {
+            $("#Item2_FromSpend").keypress(function (event) {
+                return isNumber(event, this);
+            });
+
+            $("#Item2_ToSpend").keypress(function (event) {
+                return isNumber(event, this);
+            });
+
+            $("#Item2_FromPlays").keypress(function (event) {
+                return isNumber(event, this);
+            });
+
+            $("#Item2_ToPlays").keypress(function (event) {
+                return isNumber(event, this);
+            });
+
+            $("#Item2_FromAvgbid").keypress(function (event) {
+                return isNumber(event, this);
+            });
+
+            $("#Item2_ToAvgbid").keypress(function (event) {
+                return isNumber(event, this);
+            });
+
+            $.ajax({
+
+                url: '@Url.Action("FillChartDataAjax", "Dashboard")', success: function (result) {
+                    $("#dashboardChartData").html(result);
+                }
+            });
+            $("#CampaignChartIndexClientId").change(function () {
+                var clientId = new Array();
+                $("select#CampaignChartIndexClientId option:selected").each(function () {
+                    clientId.push($(this).val());
+                });
+                GraphDetailsbyClientId(clientId);
+            });
+            var advertId = getParameterByName('advertid');
+            if (advertId != '' && advertId !=null) {
+
+                var clientId = getParameterByName('clientId');
+                if (clientId != null && clientId != '') {
+                    getAdvertByClient(clientId);
+                    getCampaignByClient(clientId);
+                }
+                else {
+                    getAdvertByClient();
+                    getCampaignByClient();
+                }
+            }
+            else
+            {
+                var clientId = getParameterByName('clientId');
+                if (clientId != null && clientId != '') {
+                    getAdvertByClient(clientId);
+                    getCampaignByClient(clientId);
+                }
+                else {
+                    getAdvertByClient();
+                    getCampaignByClient();
+                }
+            }
+
+            $("#CampaignClientId").change(function () {
+                $(".spiner-example").show();
+                var clientId = new Array();
+                $("select#CampaignClientId option:selected").each(function () {
+                    clientId.push($(this).val());
+                });
+                if (clientId != null && clientId != '') {
+                    getAdvertByClient(clientId);
+                    getCampaignByClient(clientId);
+                }
+                else {
+                    getAdvertByClient();
+                    getCampaignByClient();
+                }
+                //getAdvertByClient(clientId, null);
+                //getCampaignByClient(clientId);
+                $(".spiner-example").hide();
+            });
+            $("#CampaignProfileId").change(function(){
+                var campaignId = new Array();
+                $("select#CampaignProfileId option:selected").each(function () {
+                    campaignId.push($(this).val());
+                });
+                if (campaignId != null && campaignId != '') {
+                    getAdvertByCampaign(campaignId);
+                }
+                else {
+                    var clientId = new Array();
+                    $("select#CampaignClientId option:selected").each(function () {
+                        clientId.push($(this).val());
+                    });
+                    if (clientId != null && clientId != '') {
+                        getAdvertByClient(clientId);
+                    }
+                    else {
+                        getAdvertByCampaign();
+                    }
+                }
+            });
+        });
+        function GraphDetailsbyClientId(clientId) {
+            $(".spiner-example").show();
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("GetChartDetailsbyClient", "Dashboard")',
+                type: "POST",
+                data: { CampaignChartIndexClientId: clientId },
+                success: function (data) {
+                    if (data == "success") {
+                        $(".spiner-example").hide();
+                        window.location.href = '@Url.Action("Index","Dashboard")'
+                    }
+                }
+
+            });
+        }
+
+        //$("#campaigndatatable").click(function () {
+        //    //var table = $('#campaigndatatable').DataTable({});
+        //    var data = tableContainer.row($(this).parents('tr')).data();
+        //    alert(data[0] + "'s salary is: " + data[5]);
+        //    alert("Hi!");
+        //});
+
+        function updateCampaignStatus(campaignId, campaignStatus, NumberInBatch) {
+            $(".spiner-example").show();
+            var campaignObject = new Object();
+            campaignObject.id = campaignId;
+            campaignObject.status = campaignStatus.value;
+            campaignObject.NumberInBatch = NumberInBatch;
+            $.post('@Url.Action("UpdateStatus", "Dashboard")', campaignObject, function (data) {
+                if (data.success == "success") {
+                    $(".spiner-example").hide();
+                    oTable.draw();
+                    var msg = data.value1 + " status successfully changed to " + data.value;
+                    $("#succesdivcampaignmsg").html(msg);
+                    $("#succesdivcampaign").show();
+                    $("#errordivcampaignmsg").html();
+                    $("#errordivcampaign").hide();
+                }
+                else {
+                    $(".spiner-example").hide();
+                    oTable.draw();
+                    $("#succesdivcampaignmsg").html();
+                    $("#succesdivcampaign").hide();
+                    $("#errordivcampaignmsg").html(data.value);
+                    $("#errordivcampaign").show();
+                }
+            });
+        }
+        function getAdvertByCampaign(campaignId) {
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("GetCampaignAdvert", "Dashboard")',
+                type: "POST",
+                data: { campaignId: campaignId },
+                success: function (data) {
+                    $("#CampaignAdvertId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, advert) {
+                            if (advert != null) {
+                                $("#CampaignAdvertId").append('<option value="' + advert.AdvertId + '">' +
+                             advert.AdvertName + '</option>');
+                            }
+                            else {
+                                $("#CampaignAdvertId").append('<option value="' + advert.AdvertId + '">' +
+                                                           advert.AdvertName + '</option>');
+                            }
+                        });
+                    }
+                    $("#CampaignAdvertId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+
+        }
+        function getAdvertByClient(clientId) { //advertId
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("GetClientAdvert", "Dashboard")',
+                type: "POST",
+                data: { clientId: clientId },
+                success: function (data) {
+                    $("#CampaignAdvertId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, advert) {
+                            $("#CampaignAdvertId").append('<option  value="' + advert.AdvertId + '">' +
+                             advert.AdvertName + '</option>');
+                        });
+                    }
+                    $("#CampaignAdvertId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+
+        }
+        function getCampaignByClient(clientId) {
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("GetClientCampaign", "Dashboard")',
+                type: "POST",
+                data: { clientId: clientId },
+                success: function (data) {
+                    $("#CampaignProfileId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        //$("#CampaignProfileId").html("");
+                        //var items = "";
+                        //$.each(data, function (i, campaign) {
+                        //    items += "<option value='" + campaign.CampaignProfileId + "'>" + campaign.CampaignName + "</option>";
+                        //});
+                        //$('#CampaignProfileId').html(items);
+                        $.each(data, function (i, campaign) {
+                            if (typeof(campaign.Value) != "undefined") {
+                                $("#CampaignProfileId").append('<option value="' + campaign.Value + '">' +
+                                    campaign.Text + '</option>');
+                            } else {
+                                $("#CampaignProfileId").append('<option value="' + campaign.CampaignProfileId + '">' +
+                                    campaign.CampaignName + '</option>');
+                            }
+
+                        });
+                    }
+                    $("#CampaignProfileId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        function getcurrentTime()
+        {
+            var date = new Date();
+            var month = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : "0" + (date.getMonth()+1);
+            var day = (date.getDate()+1) > 9 ? (date.getDate()+1) : "0" + (date.getDate()+1);
+            var hours = (date.getHours()) > 9 ? (date.getHours()) : "0" + (date.getHours());
+            var minutes = (date.getMinutes()) > 9 ? (date.getMinutes()) : "0" + (date.getMinutes());
+            var seconds = (date.getSeconds()) > 9 ? (date.getSeconds()) : "0" + (date.getSeconds());
+
+            var dateString =
+                day + "-" +
+                month + "-" +
+                date.getFullYear() + " " +
+                hours + "-" +
+                minutes;
+            return dateString;
+        }
+
+
+        $(document).ready(function () {
+
+            var date = new Date();
+            var month = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : "0" + (date.getMonth()+1);
+            var day = (date.getDate()+1) > 9 ? (date.getDate()+1) : "0" + (date.getDate()+1);
+            var hours = (date.getHours()) > 9 ? (date.getHours()) : "0" + (date.getHours());
+            var minutes = (date.getMinutes()) > 9 ? (date.getMinutes()) : "0" + (date.getMinutes());
+            var seconds = (date.getSeconds()) > 9 ? (date.getSeconds()) : "0" + (date.getSeconds());
+
+            var dateString =
+                day + "-" +
+                month + "-" +
+                date.getFullYear() + " " +
+                hours + "-" +
+                minutes;
+            $("#btnSearch").click(function () {
+                $(".spiner-example").show();
+                
+                //hit search on server
+                 oTable.draw();
+                 
+            });
+
+            $("#reset").click(function () {
+
+                $(".spiner-example").show();
+
+                $("#Item2_ClientId").val('0');
+                $("#CampaignClientId").val('0');
+                $("#CampaignClientId").trigger("chosen:updated");
+                $("#CampaignClientId").val('0');
+                $("#CampaignClientId").trigger("chosen:updated");
+                $("#CampaignAdvertId").val('0');
+                $("#CampaignAdvertId").trigger("chosen:updated");
+                $("#CampaignProfileId").val('0');
+                $("#CampaignProfileId").trigger("chosen:updated");
+                $("#CampaingStatusId").val('0');
+                $("#CampaingStatusId").trigger("chosen:updated");
+                $("#Item2_ClientId").val('0');
+                $("#Item2_AdvertId").val('0');
+                $("#Item2_CampaignName").val('');
+                $("#Item2_Fromdate").val('');
+                $("#Item2_Todate").val('');
+                $("#Item2_Status").val('0');
+                $("#Item2_FromSpend").val('');
+                $("#Item2_ToSpend").val("");
+                $("#Item2_FromPlays").val("");
+                $("#Item2_ToPlays").val("");
+                $("#Item2_FromAvgbid").val("");
+                $("#Item2_ToAvgbid").val("");
+
+                getAdvertByCampaign();
+                getCampaignByClient();
+
+                
+                oTable.draw();
+
+            });
+
+
+
+             function myajax()
+             {
+                 //alert("hi")
+			   $.ajax({
+                     url: '@Url.Action("GetAvgPlayTimeForChart", "Dashboard")', success: function (result2) {
+
+                         $("#avgPlayTime").text(result2);
+                    }
+                 });
+			 }
+
+
+
+            $(".spiner-example").show();
+            loaddatatable();
+            $(".dataTables_filter label:first-child").hide();
+
+            var $image = $(".image-crop > img");
+            $($image).cropper({
+                aspectRatio: 1.618,
+                preview: ".img-preview",
+                done: function (data) {
+                    // Output the result data for cropping image.
+                }
+            });
+
+            //$('#data_5 .input-daterange').datepicker({
+            //    keyboardNavigation: false,
+            //    forceParse: false,
+            //    autoclose: true
+            //});
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $(".touchspin2").TouchSpin({
+                min: 0,
+                max: 100,
+                step: 0.1,
+                decimals: 2,
+                boostat: 5,
+                maxboostedstep: 10,
+                postfix: '%',
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+            $(".touchspin3").TouchSpin({
+                verticalbuttons: true,
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+
+        });
+
+        var config = {
+            '.chosen-select': { width: "100%" },
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#ionrange_1").ionRangeSlider({
+            min: 0,
+            max: 5000,
+            type: 'double',
+            prefix: "$",
+            maxPostfix: "+",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_2").ionRangeSlider({
+            min: 0,
+            max: 10,
+            type: 'single',
+            step: 0.1,
+            postfix: " carats",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_3").ionRangeSlider({
+            min: -50,
+            max: 50,
+            from: 0,
+            postfix: "°",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_4").ionRangeSlider({
+            values: [
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
+            ],
+            type: 'single',
+            hasGrid: true
+        });
+
+        $("#ionrange_5").ionRangeSlider({
+            min: 10000,
+            max: 100000,
+            step: 100,
+            postfix: " km",
+            from: 55000,
+            hideMinMax: true,
+            hideFromTo: false
+        });
+
+
+
+        @*$.ajax({
+            url: '@Url.Action("FillChartDataTest", "Dashboard")',
+            success: function (data) {
+                //$("#dashboardChartData").html(data);
+
+                if (data != "notauthorise") {
+                    $("#dashboardChartData").html(data);
+                }
+                else {
+                    window.location.href = '@Url.Action("Index","Landing")';
+                }
+            }
+        });*@
+
+    </script>
+    <script type="text/javascript">
+    $("#CampaignChartIndexClientId").change(function () {
+        var clientId = new Array();
+        $("select#CampaignChartIndexClientId option:selected").each(function () {
+            clientId.push($(this).val());
+        });
+        GraphDetailsbyClientId(clientId);
+    });
+    function GraphDetailsbyClientId(clientId) {
+        $(".spiner-example").show();
+        $.ajax({
+            traditional: true,
+            url: '@Url.Action("GetChartDetailsbyClient", "Dashboard")',
+            type: "POST",
+            data: { CampaignChartIndexClientId: clientId },
+            success: function (data) {
+                if (data == "success") {
+                    $(".spiner-example").hide();
+                    window.location.href = '@Url.Action("Index","Dashboard")'
+                }
+            }
+
+        });
+    }
+    var config = {
+        '.chosen-select': { width: "100%" },
+        '.chosen-select-deselect': { allow_single_deselect: true },
+        '.chosen-select-no-single': { disable_search_threshold: 10 },
+        '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+        '.chosen-select-width': { width: "95%" }
+    }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+
+    var doughnutData = [
+        {
+            value: 250,
+            color: "#1e90ff",
+            highlight: "#1e90ff",
+        },
+
+        {
+            value: 150,
+            color: "#b5b8cf",
+            highlight: "#b5b8cf",
+        }
+    ];
+
+    $(document).ready(function () {
+        var doughnutFreePlaysData = [
+            {
+                value: @ViewBag.TotalPlayed,
+                color: "#1e90ff",
+                highlight: "#1e90ff",
+                label:"Played"
+
+            },
+
+            {
+                value: @ViewBag.FreePlays,
+                color: "#b5b8cf",
+                highlight: "#b5b8cf",
+                label:"Free"
+            }
+        ];
+
+        var doughnutChartbudgetData = [
+           {
+               value: @ViewBag.TotalSpend,
+               color: "#1e90ff",
+               highlight: "#1e90ff",
+               label:"Spent"
+
+           },
+
+           {
+               value: parseFloat(@ViewBag.TotalBudget - @ViewBag.TotalSpend),
+               color: "#b5b8cf",
+               highlight: "#b5b8cf",
+               label: "Available"
+           }
+        ];
+
+        var doughnutMaxBidData = [
+            {
+                value: @ViewBag.MaxBid,
+                color: "#1e90ff",
+                highlight: "#1e90ff",
+                label: "AvgMaxBid"
+
+            },
+
+            {
+                value: @ViewBag.AvgMaxBid,
+                color: "#b5b8cf",
+                highlight: "#b5b8cf",
+                label: "Averagebid"
+            }
+        ];
+
+        var doughnutOptions = {
+                segmentShowStroke: true,
+                segmentStrokeColor: "#fff",
+                segmentStrokeWidth: 2,
+                percentageInnerCutout: 45, // This is 0 for Pie charts
+                animationSteps: 100,
+                animationEasing: "easeOutBounce",
+                animateRotate: true,
+                animateScale: false,
+                responsive: true,
+        };
+
+        var ctx = document.getElementById("doughnutFreePlays").getContext("2d");
+        var myNewChart = new Chart(ctx).Doughnut(doughnutFreePlaysData, doughnutOptions);
+
+        var ctx = document.getElementById("doughnutChartbudget").getContext("2d");
+        var myNewChart = new Chart(ctx).Doughnut(doughnutChartbudgetData, doughnutOptions);
+        var ctx = document.getElementById("doughnutMaxBid").getContext("2d");
+        var myNewChart = new Chart(ctx).Doughnut(doughnutMaxBidData, doughnutOptions);
+
+        var barchartData = @Html.Raw(Json.Encode(@ViewBag.getbarChartdata));
+            if(barchartData!=null)
+            {
+                $("#sparkline8").sparkline(barchartData, {
+                    type: 'bar',
+                    barWidth: 5,
+                    height: '75px',
+                    barColor: '#1e90ff',
+                    negBarColor: '#1e90ff'
+                });
+            }
+            var sparkResize;
+            var avgbid_plays = @Html.Raw(Json.Encode(@ViewBag.Campaignavgplayresult));
+            if(avgbid_plays!=null)
+            {
+
+                var status=avgbid_plays[0].status;
+                var ticks=[],dataset,options;
+                var playresult=avgbid_plays[0]._playresult;
+                var avgbidresult=avgbid_plays[0]._Avgresult;
+                var _playarrayresult=[];
+                var _avgbidarrayresult=[];
+                var weeks=["Week1","Wek2","Week3","Week4","Week5","Week6","Week7","Week8","Week9","Week10","Week11","Week12","Week13","Week14","Week15",
+                            "Week16","Week17","Week18","Week19","Week20","Week21","Week22","Week23","Week24","Week25","Week26","Week27","Week28","Week29",
+                            "Week30","Week31","Week32","Week33","Week34","Week35","Week36","Week37","Week38","Week39","Week40","Week41","Week42","Week43",
+                    "Week44", "Week45", "Week46", "Week47", "Week48", "Week49", "Week50", "Week51", "Week52"];
+
+                for (var i = 0; i < playresult.length; i++) {
+                    _playarrayresult[i]=[
+                        playresult[i].name,playresult[i].value
+                    ]
+                    ticks[i]=[playresult[i].name,weeks[playresult[i].name-1]]
+                }
+                for (var i = 0; i < avgbidresult.length; i++) {
+                    _avgbidarrayresult[i]=[
+                        avgbidresult[i].name,avgbidresult[i].value
+                    ]
+                }
+                var data2 = _playarrayresult;
+                var data3 = _avgbidarrayresult;
+                if(status==1)
+                {
+                    dataset = [
+                        {
+                            label: "Number of plays",
+                            data: data2,
+                            color: "#1e90ff",
+                            bars: {
+                                show: true,
+                            },
+                        },
+                        {
+                            label: "Average Bid",
+                            data: data3,
+                            yaxis: 2,
+                            color: "#464f88",
+                            lines: {
+                                lineWidth: 1,
+                                show: true,
+                                fill: true,
+                                fillColor: {
+                                    colors: [{
+                                        opacity: 0.2
+                                    }, {
+                                        opacity: 0.2
+                                    }]
+                                }
+                            },
+                            splines: {
+                                show: false,
+                                tension: 0.6,
+                                lineWidth: 1,
+                                fill: 0.1
+                            },
+                        }
+                    ];
+                    options = {
+                        xaxis: {
+                            ticks: ticks,
+                            tickLength:0,
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 10,
+                            color: "#d5d5d5",
+                            labelAngle: -90,
+                        },
+                        yaxes: [
+                            {
+                                tickLength:0,
+                                position: "left",
+                                max: @ViewBag.NoofplayMaxCount,
+                                color: "#d5d5d5",
+                                axisLabelUseCanvas: true,
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Arial',
+                                axisLabelPadding: 3
+                            },
+                            {
+                                tickLength:0,
+                                max: @ViewBag.AvgbidMaxCount,
+                                position: "right",
+                                clolor: "#d5d5d5",
+                                axisLabelUseCanvas: true,
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: ' Arial',
+                                axisLabelPadding: 3
+                            }
+                        ],
+                        legend: {
+                            noColumns: 1,
+                            labelBoxBorderColor: "#000000",
+                            position: "nw"
+                        },
+                        grid: {
+                            hoverable: false,
+                            borderWidth: 0
+                        },
+                        bars: {
+                            align: "center",
+                            barWidth: 1
+                        }
+                    };
+                }
+                else if(status==2)
+                {
+                     ticks = [
+                        [0, "Sunday"],[1, "Monday"],[2, "Tuesday"],[3, "Wednesday"],[4, "Thursday"],[5, "Friday"],[6, "Saturday"]
+                     ];
+                     dataset = [
+                        {
+                            label: "Number of plays",
+                            data: data2,
+                            color: "#1e90ff",
+                            bars: {
+                                show: true,
+                                   }
+                        },
+                        {
+                            label: "Average Bid",
+                            data: data3,
+                            yaxis: 2,
+                            color: "#464f88",
+                            lines: {
+                                lineWidth: 1,
+                                show: true,
+                                fill: true,
+                                fillColor: {
+                                    colors: [{
+                                        opacity: 0.2
+                                    }, {
+                                        opacity: 0.2
+                                    }]
+                                }
+                            },
+                            splines: {
+                                show: false,
+                                tension: 0.6,
+                                lineWidth: 1,
+                                fill: 0.1
+                            }
+                        }
+                     ];
+                     options = {
+                        xaxis: {
+                            tickLength:0,
+                            ticks: ticks,
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 10,
+                            color: "#d5d5d5"
+                        },
+                        yaxes: [
+                            {
+                                tickLength:0,
+                                position: "left",
+                                max: @ViewBag.NoofplayMaxCount,
+                                color: "#d5d5d5",
+                                axisLabelUseCanvas: true,
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Arial',
+                                axisLabelPadding: 3
+                            },
+                            {
+                                tickLength:0,
+                                max: @ViewBag.AvgbidMaxCount,
+                                position: "right",
+                                clolor: "#d5d5d5",
+                                axisLabelUseCanvas: true,
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: ' Arial',
+                                axisLabelPadding: 3
+                            }
+                        ],
+                        legend: {
+                            noColumns: 1,
+                            labelBoxBorderColor: "#000000",
+                            position: "nw"
+                        },
+                        grid: {
+                            hoverable: false,
+                            borderWidth: 0
+                        },
+                        bars: {
+                            align: "center",
+                            barWidth: 1
+                        }
+                     };
+                }
+                else
+                {
+                     var ticks = [
+                             [0, "00"],[1, "01"],[2, "02"],[3, "03"],[4, "04"],[5, "05"],[6, "06"],[7, "07"],[8, "08"],[9, "09"],[10, "10"],
+                             [11, "11"],[12, "12"],[13, "13"],[14, "14"],[15, "15"],[16, "16"],[17, "17"],[18, "18"],[19, "19"],[20, "20"],
+                             [21, "21"],[22, "22"],[23, "23"]
+                     ];
+                     dataset = [
+                         {
+                            label: "Number of plays",
+                            data: data2,
+                            color: "#1e90ff",
+                            bars: {
+                                show: true,
+                            }
+                         },
+                         {
+                            label: "Average Bid",
+                            data: data3,
+                            yaxis: 2,
+                            color: "#464f88",
+                            lines: {
+                                lineWidth: 1,
+                                show: true,
+                                fill: true,
+                                fillColor: {
+                                    colors: [{
+                                        opacity: 0.2
+                                    }, {
+                                        opacity: 0.2
+                                    }]
+                                }
+                            },
+                            splines: {
+                                show: false,
+                                tension: 0.6,
+                                lineWidth: 1,
+                                fill: 0.1
+                            },
+                         }
+                     ];
+                     options = {
+                        xaxis: {
+                            tickLength:0,
+                            ticks: ticks,
+                            axisLabelUseCanvas: true,
+                            axisLabelFontSizePixels: 12,
+                            axisLabelFontFamily: 'Arial',
+                            axisLabelPadding: 10,
+                            color: "#d5d5d5"
+                        },
+                         yaxes: [
+                             {
+                                tickLength:0,
+                                position: "left",
+                                max: @ViewBag.NoofplayMaxCount,
+                                color: "#d5d5d5",
+                                axisLabelUseCanvas: true,
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: 'Arial',
+                                axisLabelPadding: 3
+                             },
+                             {
+                                tickLength:0,
+                                max: @ViewBag.AvgbidMaxCount,
+                                position: "right",
+                                clolor: "#d5d5d5",
+                                axisLabelUseCanvas: true,
+                                axisLabelFontSizePixels: 12,
+                                axisLabelFontFamily: ' Arial',
+                                axisLabelPadding: 3
+                             }
+                         ],
+                         legend: {
+                            noColumns: 1,
+                            labelBoxBorderColor: "#000000",
+                            position: "nw"
+                         },
+                         grid: {
+                            hoverable: false,
+                            borderWidth: 0
+                         },
+                         bars: {
+                            align: "center",
+                            barWidth: 1
+                         }
+                     };
+                }
+
+                $.plot($("#flot-dashboard-chart"), dataset, options);
+            }
+        });
+    </script>
+
+    @* 12345 *@
+
+}
+
+

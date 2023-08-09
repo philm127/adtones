@@ -1,0 +1,316 @@
+﻿@using EFMVC.Web.ViewModels
+@model QuestionFormModel
+@{
+    ViewBag.Title = "AddQuestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Add Question</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Dashboard")">Dashboard</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Help")">Help</a>
+            </li>
+            <li class="active">
+                <strong>Add Question</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Add Question</h5>
+
+                </div>
+                <div class="ibox-content">
+                    @if (TempData["error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissable">
+                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                            @TempData["error"]
+                        </div>
+                    }
+                    @using (Html.BeginForm("AddQuestion", "Help", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Subject <label class="lbldanger">*</label></label>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    @*@Html.DropDownListFor(Model => Model.SubjectId, ViewBag.Qsubject as IEnumerable<SelectListItem>, "--Select Subject--", new { @class = "form-control input-s-sm inline", id = "drpsubject" })*@
+                                    @Html.DropDownListFor(Model => Model.SubjectId, ViewBag.Qsubject as IEnumerable<SelectListItem>, new { @class = "form-control input-s-sm inline", id = "drpsubject" })
+                                    @*@Html.ValidationMessageFor(Model => Model.SubjectId, null, new { @class = "btn-danger" })*@
+                                    <span class="btn-danger field-validation-error" id="subjecterror"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="billing" style="display:none;">
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Client</label>
+
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(Model => Model.ClientId, ViewBag.client as IEnumerable<SelectListItem>, new { @class = "form-control input-s-sm inline", id = "clientId" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Campaign <label class="lbldanger">*</label></label>
+
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(Model => Model.CampaignProfileId, ViewBag.campaign as IEnumerable<SelectListItem>, new { @class = "form-control input-s-sm inline", id = "campaign" })
+                                        <span class="btn-danger field-validation-error" id="campaignerror"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Method of payment <label class="lbldanger">*</label></label>
+
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(Model => Model.PaymentMethodId, ViewBag.paymentMethod as IEnumerable<SelectListItem>, new { @class = "form-control input-s-sm inline" })
+                                        <span class="btn-danger field-validation-error" id="paymentmethoderror"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Title <label class="lbldanger">*</label></label>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(Model => Model.Title, new { @class = "form-control trimmed", placeholder = "Title" })
+                                    @Html.ValidationMessageFor(Model => Model.Title, null, new { @class = "btn-danger" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Description <label class="lbldanger">*</label></label>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.TextAreaFor(Model => Model.Description, new { @class = "form-control trimmed", placeholder = "Description", rows = "6", cols = "10" })
+                                    @Html.ValidationMessageFor(Model => Model.Description, null, new { @class = "btn-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Upload Image</label>
+                            <div class="col-lg-6">
+                                <div class="btn-group">
+                                    <label title="Upload image file" class="btn btn-gray">
+                                        <input type="file" name="questionfile" id="questionfile" class="hide">
+                                        Select Image
+                                    </label>
+                                </div>
+                                <label id="filename">
+
+                                </label><br/>
+                                <span class="field-validation-valid btn-danger" id="questionfileerrmsg"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit" id="btnsubmit">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index", "Help")'">Cancel</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#questionfile").change(function () {
+
+                var files = $(this)[0].files;
+                var iSize;
+                if (files.length  > 0) {
+                    iSize = ($(this)[0].files.size / 1024);
+                } else {
+                    $("#filename").html("");
+                    return false;
+                }
+                for (var i = 0; i < files.length; i++) {
+                    //if ($("#filename").html().trim() == "") {
+                    if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                        $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                        return false;
+                    }
+                    else if (iSize != "" || iSize != null) {
+                        iSize = (Math.round(iSize * 100) / 100)
+                        if (iSize > 250) {
+                            $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                            return false;
+                        }
+                        else {
+                            $("#questionfileerrmsg")[0].innerHTML = "";
+                            $("#filename").html("");
+                            $("#filename").append(files[i].name.trim());
+                        }
+                    }
+                    else {
+                        $("#questionfileerrmsg")[0].innerHTML = "";
+                        $("#filename").html("");
+                        $("#filename").append(files[i].name.trim());
+                    }
+                    //}
+                    //Add 29-05-2019
+                    //else {
+                    //    $("#questionfileerrmsg")[0].innerHTML = "";
+                    //    $("#filename").html("");
+                    //    $("#filename").append(files[i].name.trim());
+                    //}
+
+                    //Comment 29-05-2019
+                    //else {
+                    //    if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                    //        $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                    //        return false;
+                    //    }
+                    //    else if (iSize != "" || iSize != null) {
+                    //        iSize = (Math.round(iSize * 100) / 100)
+                    //        if (iSize > 250) {
+                    //            $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                    //            return false;
+                    //        }
+                    //        else {
+                    //            $("#questionfileerrmsg")[0].innerHTML = "";
+                    //            $("#filename").append(files[i].name.trim());
+                    //        }
+                    //    }
+                    //    else {
+                    //        $("#questionfileerrmsg")[0].innerHTML = "";
+                    //        //$("#filename").append(" , " + files[i].name.trim());
+                    //        $("#filename").append(files[i].name.trim());
+                    //    }
+                    //}
+                }
+            });
+            $("#drpsubject").change(function () {
+                var selected = $("#drpsubject").val();
+                if (selected == "2") {
+                    $("#billing").show();
+                }
+                else {
+                    $("#billing").hide();
+                }
+            });
+            $("#clientId").change(function () {
+                $("#campaign").empty();
+                var ClientId = $("#clientId").val();;
+                $.post('@Url.Action("GetCampaign", "Help")', { ClientId: ClientId }, function (campaigns) {
+                    $.each(campaigns, function (i, campaign) {
+                        $("#campaign").append('<option value="' + campaign.Value + '">' +
+                             campaign.Text + '</option>');
+                    });
+
+                });
+            });
+
+            trimmed();
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+        $("#btnsubmit").click(function () {
+            var ret = true;
+            var subject = $("#drpsubject").val();
+            if (subject == "" || subject == "0") {
+                $("#subjecterror")[0].innerHTML = "The Subject field is required.";
+                //("#subjecterror").show();
+                //return false;
+                ret = false;
+            }
+            else if (subject == "2") {
+                var campaignProfileId = $("#campaign").val();
+                var paymentMethodId = $("#PaymentMethodId").val();
+                if (campaignProfileId == " " || campaignProfileId == "0") {
+                    $("#campaignerror")[0].innerHTML = "The Campaign field is required.";
+                    //return false;
+                    ret = false;
+                }
+                else {
+                    $("#campaignerror")[0].innerHTML = "";
+                    //return true;
+                }
+                if (paymentMethodId == "" || paymentMethodId == "0") {
+                    $("#paymentmethoderror")[0].innerHTML = "The Method of Payment field is required.";
+                    ret = false;
+                }
+                else {
+                    $("#paymentmethoderror")[0].innerHTML = "";
+                }
+            }
+            else {
+                $("#subjecterror")[0].innerHTML = "";
+                //return true;
+            }
+
+            if (ret == true) {
+                var files = $("#questionfile")[0].files;
+                if (files.length > 0) {
+                    var iSize = (files[0].size / 1024);
+                    for (var i = 0; i < files.length; i++) {
+                        if ($("#filename").html().trim() == "") {
+                            if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                                $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                                return false;
+                            }
+                            else if (iSize != "" || iSize != null) {
+                                iSize = (Math.round(iSize * 100) / 100)
+                                if (iSize > 250) {
+                                    $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                                    return false;
+                                }
+                            }
+                        }
+                        else {
+                            if (files[0].type != "image/jpeg" && files[0].type != "image/png") {
+                                $("#questionfileerrmsg")[0].innerHTML = "Please upload .jpeg or .png image formats";
+                                return false;
+                            }
+                            else if (iSize != "" || iSize != null) {
+                                iSize = (Math.round(iSize * 100) / 100)
+                                if (iSize > 250) {
+                                    $("#questionfileerrmsg")[0].innerHTML = "Please upload image size upto 250KB";
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                return false;
+            }
+        });
+
+    </script>
+}

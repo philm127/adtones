@@ -1,0 +1,23 @@
+﻿@model IEnumerable<EFMVC.Model.BlockedNumber>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+
+    <div>
+        <h5>Blocked Number List</h5>
+        
+        <div class="clr10"></div>
+
+        @Html.ActionLink(" ", "Create", null, new {@class = "addLinkImg", @alt = "Create New"})
+        
+        <div class="clr20"></div>
+
+    </div>
+    <div id="divBlockedNumberList">          
+        @Html.Partial("_BlockedNumberList", Model)
+    </div>
+    
+</div>

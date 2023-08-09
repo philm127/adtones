@@ -1,0 +1,94 @@
+﻿@using EFMVC.Web.Areas.Admin.Models;
+@model List<OperatorRegistrationResult>
+<div class="row">
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success alert-dismissable" id="status">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["status"]
+        </div>
+    }
+    <div class="alert alert-success alert-dismissable" id="operatoradminlabelfosuc" style="display:none;">
+        <button aria-hidden="true" data-dismiss="alert" class="close" id="operatoradminlabelclosesuccess" type="button">×</button>
+        <span id="operatoradminlabelsuceess">Record updated successfully</span>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-operatoradmin">
+        <thead>
+            <tr>
+
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Organisation</th>
+                <th>Country</th>
+                <th>Operator</th>
+                <th>IsActive</th>
+                <th>Created Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (OperatorRegistrationResult result in Model)
+            {
+            <tr class="gradeX">
+
+                <td width="10%">@result.FirstName</td>
+                <td width="10%">@result.LastName</td>
+                <td width="20%">@result.Email</td>
+                <td width="10%">@result.Organisation</td>
+                <td width="10%">@result.CountryName</td>
+                <td width="10%">@result.OperatorName</td>
+                <td width="10%">@result.IsActive</td>
+                <td width="10%">@result.CreatedDate</td>
+                <td width="10%">
+                    <a class="btn btn-danger btn-xs" href='@Url.Action("UpdateOperatorRegistration", "OperatorRegistration", new { @id = result.Id })'>Update</a>
+                    @*<button class="btn btn-danger btn-xs deleteButton" type="button" data-id="@result.Id" data-name="@result.FirstName">Delete</button>*@
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+    $(".deleteButton").click(function () {
+        $(".spiner-example").show();
+        var operatorAdminId = $(this).data('id');
+        var operatorAdminName = $(this).data('name');
+        var r = confirm("Are you sure you want to delete this " + operatorAdminName + " operator admin?");
+        if (r == true) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("DeleteOperatorRegistration", "OperatorRegistration", new { area = "Admin" })',
+                data: { id: operatorAdminId },
+                success: function (data) {
+                    if (data == "Fail") {
+                        $("#status").css("display", "none");
+                        $("#operatoradminlabelsuceess").html(data);
+                        $('#operatoradminlabelfosuc').css("display", "block");
+                        $(".spiner-example").hide();
+                    }
+                    else if (data != "Fail") {
+                        $("#status").css("display", "none");
+                        $("#operatoradminList").html(data);
+                        dataTableSetup();
+                        var operatorAdminLabel = "Record deleted successfully.";
+                        $("#operatoradminlabelsuceess").html(operatorAdminLabel);
+                        $('#operatoradminlabelfosuc').css("display", "block");
+                        $(".spiner-example").hide();
+                    }
+                }
+            });
+        }
+        $(".spiner-example").hide();
+    });
+
+    $("#operatoradminlabelclosesuccess").click(function () {
+        $("#operatoradminlabelsuceess").html("");
+        $('#operatoradminlabelfosuc').css("display", "none");
+    });
+
+</script>

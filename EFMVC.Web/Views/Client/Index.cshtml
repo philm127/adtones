@@ -1,0 +1,1154 @@
+﻿@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model Tuple<List<ClientResult>, ClientFilter>
+@{
+    ViewBag.Title = "Clients";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="row wrapper border-bottom white-bg page-heading">*@
+@*<div class="wrapper wrapper-content animated fadeIn">*@
+<div class="spiner-example loader" style="display:none;">
+    <div class="sk-spinner sk-spinner-three-bounce">
+        <div class="sk-bounce1"></div>
+        <div class="sk-bounce2"></div>
+        <div class="sk-bounce3"></div>
+    </div>
+</div>
+@*</div>*@
+
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="preloader" style="display:none"></div>
+    <div class="p-w-md m-t-sm">
+        @*<div class="row">
+
+                <div class="col-sm-4">
+                    <h1 class="m-b-xs">
+                        26,900
+                    </h1>
+                    <small>
+                        Sales in current month
+                    </small>
+                    <div id="sparkline1" class="m-b-sm"></div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <small class="stats-label">Pages / Visit</small>
+                            <h4>236 321.80</h4>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <small class="stats-label">% New Visits</small>
+                            <h4>46.11%</h4>
+                        </div>
+                        <div class="col-xs-4">
+                            <small class="stats-label">Last week</small>
+                            <h4>432.021</h4>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    <h1 class="m-b-xs">
+                        98,100
+                    </h1>
+                    <small>
+                        Sales in last 24h
+                    </small>
+                    <div id="sparkline2" class="m-b-sm"></div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <small class="stats-label">Pages / Visit</small>
+                            <h4>166 781.80</h4>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <small class="stats-label">% New Visits</small>
+                            <h4>22.45%</h4>
+                        </div>
+                        <div class="col-xs-4">
+                            <small class="stats-label">Last week</small>
+                            <h4>862.044</h4>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-4">
+
+                    <div class="row m-t-xs">
+                        <div class="col-xs-6">
+                            <h5 class="m-b-xs">Income last month</h5>
+                            <h1 class="no-margins">160,000</h1>
+                            <div class="font-bold text-navy">98% <i class="fa fa-bolt"></i></div>
+                        </div>
+                        <div class="col-xs-6">
+                            <h5 class="m-b-xs">Sales current year</h5>
+                            <h1 class="no-margins">42,120</h1>
+                            <div class="font-bold text-navy">98% <i class="fa fa-bolt"></i></div>
+                        </div>
+                    </div>
+
+
+                    <table class="table small m-t-sm">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>142</strong> Projects
+
+                                </td>
+                                <td>
+                                    <strong>22</strong> Messages
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>61</strong> Comments
+                                </td>
+                                <td>
+                                    <strong>54</strong> Articles
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>154</strong> Companies
+                                </td>
+                                <td>
+                                    <strong>32</strong> Clients
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+
+            </div>*@
+
+        @*Old Commented*@
+        @*<div class="row">
+                <div class="col-lg-12">
+                    <div class="small pull-left col-md-3 m-l-lg m-t-md">
+                        <strong>Sales char</strong> have evolved over the years sometimes.
+                    </div>
+                    <div class="small pull-right col-md-3 m-t-md text-right">
+                        <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
+                    </div>
+                    <div class="flot-chart m-b-xl">
+                        <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
+                    </div>
+                </div>
+            </div>*@
+
+
+        @Html.Partial("_ClientManagement", Tuple.Create<List<ClientResult>, ClientFilter>(Model.Item1, Model.Item2))
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @*@Styles.Render("~/plugins/dateRangeStyles")*@
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @*@Styles.Render("~/plugins/dataPickerStyles")*@
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/sweetAlertStyles")
+    @Styles.Render("~/plugins/daterangepickerNewStyles")
+
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @*@Scripts.Render("~/plugins/dataPicker")*@
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @*@Scripts.Render("~/plugins/dateRange")*@
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/sweetAlert")
+    @Scripts.Render("~/plugins/daterangepickerNew")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('body').bind('keyup', function (event) {
+                if (event.keyCode === 13) {
+                    $('#form0').submit();
+                }
+            });
+            $(".chosen-container").bind('keyup', function (e) {
+                if (e.which === 13) {
+                    $('#form0').submit();
+                    // or your stuff here...
+                }
+            });
+            var sparklineCharts = function () {
+                $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
+                    type: 'line',
+                    width: '100%',
+                    height: '50',
+                    lineColor: '#1e90ff',
+                    fillColor: "transparent"
+                });
+
+                $("#sparkline2").sparkline([32, 11, 25, 37, 41, 32, 34, 42], {
+                    type: 'line',
+                    width: '100%',
+                    height: '50',
+                    lineColor: '#1e90ff',
+                    fillColor: "transparent"
+                });
+
+                $("#sparkline3").sparkline([34, 22, 24, 41, 10, 18, 16, 8], {
+                    type: 'line',
+                    width: '100%',
+                    height: '50',
+                    lineColor: '#1e90ff',
+                    fillColor: "transparent"
+                });
+            };
+
+            var sparkResize;
+
+            $(window).resize(function (e) {
+                clearTimeout(sparkResize);
+                sparkResize = setTimeout(sparklineCharts, 500);
+            });
+
+            sparklineCharts();
+
+
+
+
+            var data1 = [
+                [0, 4], [1, 8], [2, 5], [3, 10], [4, 4], [5, 16], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7], [15, 8], [16, 12]
+            ];
+            var data2 = [
+                [0, 0], [1, 2], [2, 7], [3, 4], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5], [15, 2], [16, 0]
+            ];
+            $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [
+                data1, data2
+            ],
+                {
+                    series: {
+                        lines: {
+                            show: false,
+                            fill: true
+                        },
+                        splines: {
+                            show: true,
+                            tension: 0.4,
+                            lineWidth: 1,
+                            fill: 0.4
+                        },
+                        points: {
+                            radius: 0,
+                            show: true
+                        },
+                        shadowSize: 2
+                    },
+                    grid: {
+                        hoverable: true,
+                        clickable: true,
+
+                        borderWidth: 2,
+                        color: 'transparent'
+                    },
+                    colors: ["#1e90ff", "#1e90ff"],
+                    xaxis: {
+                    },
+                    yaxis: {
+                    },
+                    tooltip: false
+                }
+            );
+
+
+        });
+    </script>
+    <script type="text/javascript">
+    function dataTableSetup() {
+        $('.dataTables-client').DataTable({
+            "preDrawCallback": function (settings) {
+                $(".loader").show();
+            },
+            "aaSorting": [],
+            "info": false,
+            bFilter: false,
+            "pageLength": 10,
+            "searching": false,
+            //"lengthMenu": [[20, 50, -1], [20, 50, "All"]],
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            aoColumnDefs: [
+                {
+                    bSortable: false,
+                    aTargets: [-1, -2]
+                }
+            ],
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                //{ extend: 'copy', title: 'Client', exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7] } },
+                //{ extend: 'csv', title: 'Client', exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7] } },
+                //{ extend: 'excel', title: 'Client', exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7] } },
+                //{ extend: 'pdf', title: 'Client', exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7] } },
+                //{
+                //    extend: 'print',
+                //    exportOptions: { columns: [0, 1, 2, 3, 4, 5, 6, 7] },
+                //    title: 'Client',
+                //    customize: function (win) {
+                //        $(win.document.body).addClass('white-bg');
+                //        $(win.document.body).css('font-size', '10px');
+
+                //        $(win.document.body).find('table')
+                //            .addClass('compact')
+                //            .css('font-size', 'inherit');
+                //    }
+                //}
+                {
+                    extend: 'copy', title: 'Client',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                },
+                {
+                    extend: 'csv', title: 'Client',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                },
+                {
+                    extend: 'excel', title: 'Client',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                },
+                {
+                    extend: 'pdf', title: 'Client',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                },
+
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                    //exportOptions: {columns: [0,1, 2,3,4,5,6,7]},
+                    title: 'Client',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ],
+            "drawCallback": function (settings) {
+                $(".loader").hide();
+            },
+            "fnInitComplete": function () { $(".loader").hide(); }	// Hide processingDiv when loading table is complete
+        });
+        $(".dataTables_length label:first-child").hide();
+    }
+    $(document).ready(function () {
+        $('#createdFrom').datetimepicker({ ignoreReadonly: true });
+
+        $('#createdTo').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            ignoreReadonly: true
+        });
+
+        $("#createdFrom").on("dp.change", function (e) {
+            $('#createdTo').data("DateTimePicker").minDate(e.date);
+        });
+
+        $("#createdTo").on("dp.change", function (e) {
+            $('#createdFrom').data("DateTimePicker").maxDate(e.date);
+        });
+        $('#fromdate').css({ "height": "34px" });
+        $('#todate').css({ "height": "34px" });
+
+        $("#Item2_FromBudget").keypress(function (event) {
+            return isNumber(event, this)
+        });
+
+        $("#Item2_ToBudget").keypress(function (event) {
+            return isNumber(event, this)
+        });
+
+        $("#Item2_FromSpend").keypress(function (event) {
+            return isNumber(event, this)
+        });
+
+        $("#Item2_ToSpend").keypress(function (event) {
+            return isNumber(event, this)
+        });
+
+        $("#Item2_Frombid").keypress(function (event) {
+            return isNumber(event, this)
+        });
+
+        $("#Item2_Tobid").keypress(function (event) {
+            return isNumber(event, this)
+        });
+
+        //$('#fromdate').datepicker({
+        //    keyboardNavigation: false,
+        //    forceParse: false,
+        //    autoclose: true,
+        //    dateFormat: 'dd/mm/yy'
+        //});
+
+        //$('#todate').datepicker({
+        //    keyboardNavigation: false,
+        //    forceParse: false,
+        //    autoclose: true,
+        //    dateFormat: 'dd/mm/yy'
+        //});
+
+        $("#reset").click(function () {
+            $(".loader").show();
+            //$("#Item2_ClientId").val('0');
+            $("#fromdate").val('');
+            $("#todate").val('');
+            $("#Item2_FromBudget").val('');
+            $("#Item2_ToBudget").val('');
+            $("#Item2_FromSpend").val('');
+            $("#Item2_ToSpend").val("");
+            //$("#Item2_Status").val('0');
+            $("#ClientId").val('0');
+            $("#ClientId").trigger("chosen:updated");
+            $("#clientStatusId").val('0');
+            $("#clientStatusId").trigger("chosen:updated");
+            $("#Item2_Frombid").val('');
+            $("#Item2_Tobid").val('');
+            $.ajax({
+                data: null,
+                datatype: "text/plain",
+                type: "POST",
+                url: '@Url.Action("SearchClient","Client")',
+                cache: false,
+                success: function (data) {
+                    if (data != "notauthorise") {
+                        $("#clientList").html(data);
+                        dataTableSetup();
+                        $(".loader").hide();
+                    }
+                    else
+                    {
+                        window.location.href = '@Url.Action("Index","Landing")';
+                    }
+                }
+            });
+        });
+        $('.dataTables-client').DataTable({
+            "preDrawCallback": function (settings) {
+                $(".spiner-example").show();
+            },
+            "aaSorting": [],
+            "info": false,
+            bFilter: false,
+            "searching": false,
+            "pageLength": 10,
+            "lengthMenu": [[20, 50, -1], [20, 50, "All"]],
+            "serverSide": true, // for process on server side
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+            aoColumnDefs: [
+                {
+                    bSortable: false,
+                    aTargets: [-1, -2]
+                }
+            ],
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                {
+                    extend: 'copy', title: 'Client',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    extend: 'csv', title: 'Client',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                },
+                {
+                    extend: 'excel', title: 'Client',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                },
+                {
+                    extend: 'pdf', title: 'Client',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                },
+
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                    //exportOptions: {columns: [0,1, 2,3,4,5,6,7]},
+                    title: 'Client',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                    }
+                }
+            ],
+            "ajax": {
+                "url": "/Client/LoadData",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "aoColumns": [
+
+                {
+                    "data": "Name", "name": "Name", "autoWidth": false,
+                    "mRender": function (data, type, row) {
+                        return '<td><a href="/Client/EditClient/' + row.Id + '">' + row.Name + '</a></td>';
+                    }
+                },//index-0
+                {
+                    "data": "NoOfCompaign", "name": "NoOfCompaign", "autoWidth": false,
+                    "mRender": function (data, type, row) {
+                        if (row.NoOfCompaign == 0) {
+                            return '<td><span class="tdlabel">' + row.NoOfCompaign + '</span ></td >';
+                        }
+                        else {
+                            if (row.NoOfCompaign > 0)
+                            {
+                                return '<td><a class="label1" href="/Dashboard/Index?clientid=' + row.Id + '">' + row.NoOfCompaign + '</a></td>';
+                            }
+                            else
+                            {
+                                return '<td><span class="tdlabel">' + row.NoOfCompaign + '</span></td>';
+                            }
+                        }
+                    }
+                },//index-1
+                {
+                    "data": "CreatedDate", "name": "CreatedDate", "autoWidth": false,
+                    "mRender": function (data, type, row) {
+                        return row.CreatedDate;
+                    }
+                },//index-2
+                {
+                    "data": "TotalBudget", "name": "TotalBudget", "autoWidth": false,
+                    "mRender": function (data, type, row) {
+                        if (row.userCurrencyId == 4 || row.userCurrencyId == 7) {
+                            return parseFloat(row.TotalBudget).toFixed(2) + " " + row.CurrencySymbol;
+                        }
+                        else {
+                            return row.CurrencySymbol + " " + parseFloat(row.TotalBudget).toFixed(2);
+                        }
+                    }
+                },//index-3
+                {
+                    "data": "TotalSpend", "name": "TotalSpend", "autoWidth": false,
+                    "mRender": function (data, type, row) {
+                        if (row.userCurrencyId == 4 || row.userCurrencyId == 7) {
+                            return parseFloat(row.TotalSpend).toFixed(2) + " " + row.CurrencySymbol;
+                        }
+                        else {
+                            return row.CurrencySymbol + " " + parseFloat(row.TotalSpend).toFixed(2);
+                        }
+                    }
+                },//index-4
+                { "data": "TotalPlays", "name": "TotalPlays", "autoWidth": false },//index-5
+                {
+                    "data": "AvgBid", "name": "AvgBid", "autoWidth": false,
+                    "mRender": function (data, type, row) {
+                        if (row.userCurrencyId == 4 || row.userCurrencyId == 7) {
+                            return parseFloat(row.AvgBid).toFixed(2) + " " + row.CurrencySymbol;
+                        }
+                        else {
+                            return row.CurrencySymbol + " " + parseFloat(row.AvgBid).toFixed(2);
+                        }
+                    }
+                },//index-6
+                {
+                    "data": "fStatus", "name": "fStatus", "autoWidth": false,
+                    "mRender": function (data, type, row) {
+                        var dd = '<select class="form-control input-s-sm inline" onchange="updateClientStatus(' + row.Id + ',this)">'
+                        if (row.fStatus == 1) {
+
+                            var s1 = '<option value="1" selected="selected">Live</option>' +
+                                '<option value = "2" > Suspended</option>' +
+                                '<option value="3">Archived</option>' +
+                                '<option value="4">In Progress</option>';
+
+                            dd = dd + s1;
+                        }
+                        else if (row.fStatus == 2) {
+
+                            var s2 = '<option value="1">Live</option>' +
+                                '<option value = "2" selected = "selected" > Suspended</option>' +
+                                '<option value="3">Archived</option>' +
+                                '<option value="4">In Progress</option>';
+                            dd = dd + s2;
+                        }
+                        else if (row.fStatus == 3) {
+                            var s3 = '<option value="1">Live</option>' +
+                                '<option value = "2" > Suspended</option>' +
+                                '<option value="3" selected="selected">Archived</option>' +
+                                '<option value="4">In Progress</option>';
+
+                            dd = dd + s3;
+                        }
+                        else {
+                            var s4 = '<option value="1">Live</option>' +
+                                '<option value = "2" > Suspended</option>' +
+                                '<option value="3">Archived</option>' +
+                                '<option value="4" selected="selected">In Progress</option>';
+                            dd = dd + s4;
+                        }
+                        '</select>'
+
+                        return dd;
+                    }
+                },//index-7
+                {
+                    "data": "Action", "name": "Action", "autoWidth": false,
+                    "mRender": function (data, type, row) {
+                        if (row.NoOfCompaign == 0) {
+                            return '<a class="btn btn-danger btn-xs" onclick="opendialog(' + row.Id + ');">Delete</a>';
+                        }
+                        else {
+                            return '<td>-</td>';
+                        }
+                    }
+                }//index-8
+            ],
+            "drawCallback": function (settings) {
+                $(".spiner-example").hide();
+            },
+            "fnInitComplete": function () { $(".loader").hide(); }
+        });
+
+        $(".dataTables_length label:first-child").hide();
+
+            var $image = $(".image-crop > img")
+            $($image).cropper({
+                aspectRatio: 1.618,
+                preview: ".img-preview",
+                done: function (data) {
+                    // Output the result data for cropping image.
+                }
+            });
+
+
+
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+
+            $(".touchspin2").TouchSpin({
+                min: 0,
+                max: 100,
+                step: 0.1,
+                decimals: 2,
+                boostat: 5,
+                maxboostedstep: 10,
+                postfix: '%',
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+            $(".touchspin3").TouchSpin({
+                verticalbuttons: true,
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+            });
+
+
+        });
+
+
+        var config = {
+            '.chosen-select': { width: "100%" },
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+        $("#ionrange_1").ionRangeSlider({
+            min: 0,
+            max: 5000,
+            type: 'double',
+            prefix: "$",
+            maxPostfix: "+",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_2").ionRangeSlider({
+            min: 0,
+            max: 10,
+            type: 'single',
+            step: 0.1,
+            postfix: " carats",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_3").ionRangeSlider({
+            min: -50,
+            max: 50,
+            from: 0,
+            postfix: "°",
+            prettify: false,
+            hasGrid: true
+        });
+
+        $("#ionrange_4").ionRangeSlider({
+            values: [
+                "January", "February", "March",
+                "April", "May", "June",
+                "July", "August", "September",
+                "October", "November", "December"
+            ],
+            type: 'single',
+            hasGrid: true
+        });
+
+        $("#ionrange_5").ionRangeSlider({
+            min: 10000,
+            max: 100000,
+            step: 100,
+            postfix: " km",
+            from: 55000,
+            hideMinMax: true,
+            hideFromTo: false
+        });
+
+        function updateClientStatus(clientId, curelement) {
+            $(".loader").show();
+            var clientObject = new Object();
+            clientObject.clientId = clientId;
+            clientObject.status = curelement.value;
+            $.post('@Url.Action("updateClientStatus", "Client")', clientObject, function (data) {
+                if (data.success == "success") {
+                    //$(".loader").hide();
+                    //window.location.href = '@Url.Action("Index", "Client")';
+                    $(".loader").hide();
+                    //dataTableSetup();
+                    var msg = data.value1 + " status successfully changed to " + data.value;
+                    $("#succesdivclientmsg").html(msg);
+                    $("#succesdivclient").show();
+                    $("#errordivclientmsg").html();
+                    $("#errordivclient").hide();
+                    $(".dataTables-client").ajax.reload();
+                    $(".dataTables_length label:first-child").hide();
+                    
+                }
+                else {
+                    $(".loader").hide();
+                    //dataTableSetup();
+                    $("#succesdivclientmsg").html();
+                    $("#succesdivclient").hide();
+                    $("#errordivclientmsg").html(data.value);
+                    $("#errordivclient").show();
+                    $(".dataTables-client").ajax.reload();
+                    $(".dataTables_length label:first-child").hide();
+                }
+            });
+        }
+
+        function opendialog(id) {
+            var id = id;
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this client record!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }, function () {
+                $.post('@Url.Action("DeleteClient", "Client")', { id: id }, function (data) {
+                    if (data == "success") {
+                        //  swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        window.location.href = '@Url.Action("Index","Client")';
+
+                    } else {
+                        alert(data);
+                    }
+                });
+
+                //
+            });
+
+        }
+
+    </script>
+}

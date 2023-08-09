@@ -1,0 +1,107 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Campaign Information</h5>
+
+            </div>
+
+          
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvcaminfosuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="csuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvcaminfoerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cerrror"></span>
+                </div>
+
+                @using (Ajax.BeginForm("UpdateCampaignInfo", "Dashboard",
+      null,
+      new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultcampaign" },
+      new { @class = "form-horizontal" }))
+                {
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Name</label>
+                        @Html.HiddenFor(Model=>Model.Status,new {@id= "hdnstatus" })
+                        <div class="col-lg-4">
+                            @Html.HiddenFor(Model=>Model.CampaignProfileId, new { @id = "hdncampaignid" })
+                            @Html.TextBoxFor(Model => Model.CampaignName, new { @class = "form-control", @placeholder = "Name" })
+                            @Html.ValidationMessageFor(Model => Model.CampaignName, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Description</label>
+
+                        <div class="col-lg-4">
+                            @Html.TextAreaFor(Model => Model.CampaignDescription, new { @class = "form-control", @placeholder = "Description" })
+                            @Html.ValidationMessageFor(Model => Model.CampaignDescription, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Client</label>
+
+                        <div class="col-lg-4">
+                            @Html.DropDownListFor(Model => Model.ClientId, ViewBag.client as IEnumerable<SelectListItem>, "--Select Client--", new { @class = "input-sm form-control input-s-sm inline" })
+                            @Html.ValidationMessageFor(Model => Model.ClientId, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-1">
+                            <button class="btn btn-blue" type="submit">Update</button>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Status</label>
+
+                        <div class="col-lg-1"><label class="control-label" id="camstatus" style="text-transform:capitalize;">@ViewData["status"]</label></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label"></label>
+                        @Html.HiddenFor(Model => Model.Status, new { @id = "hdnstatus" })
+                        @Html.HiddenFor(Model => Model.CampaignProfileId)
+                        <div class="col-lg-6">
+                            <div id="wizard1">
+                                <h1>Play</h1>
+                                <div class="step-content">
+
+                                </div>
+
+                                <h1>Pause</h1>
+                                <div class="step-content">
+
+                                </div>
+                                <h1>Archive</h1>
+                                <div class="step-content">
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var getresultcampaign = function (data) {
+        if (data == "success") {
+            $("#dvcaminfosuc").show();
+            $("#dvcaminfoerror").hide();
+        }
+        else
+        {
+            $("#cerrror").html(data);
+            $("#dvcaminfosuc").hide();
+            $("#dvcaminfoerror").show();
+        }
+    };
+</script>

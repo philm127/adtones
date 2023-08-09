@@ -1,0 +1,135 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileAttitudeFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+          
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvattitudesuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvattitudeerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cattitudeerrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveAttitude", "UserAdminProfile",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultattitude", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                   @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.UserProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Fitness_Attitude)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Holidays_Attitude)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Environment_Attitude)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Fitness_Attitude, "A")Not Important</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Fitness_Attitude, "B")Neutral</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Fitness_Attitude, "C")Important</label></div>
+                                @Html.ValidationMessageFor(model => model.Fitness_Attitude)
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Holidays_Attitude, "A")Not Important</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Holidays_Attitude, "B")Neutral</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Holidays_Attitude, "C")Important</label></div>
+                                @Html.ValidationMessageFor(model => model.Holidays_Attitude)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Environment_Attitude, "A")Not Important</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Environment_Attitude, "B")Neutral</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Environment_Attitude, "C")Important</label></div>
+                                @Html.ValidationMessageFor(model => model.Environment_Attitude)
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.GoingOut_Attitude)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.FinancialStabiity_Attitude)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Religion_Attitude)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.GoingOut_Attitude, "A")Not Important</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.GoingOut_Attitude, "B")Neutral</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.GoingOut_Attitude, "C")Important</label></div>
+                                @Html.ValidationMessageFor(model => model.GoingOut_Attitude)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FinancialStabiity_Attitude, "A")Not Important</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FinancialStabiity_Attitude, "B")Neutral</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FinancialStabiity_Attitude, "C")Important</label></div>
+                                @Html.ValidationMessageFor(model => model.FinancialStabiity_Attitude)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Religion_Attitude, "A")Not Important</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Religion_Attitude, "B")Neutral</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Religion_Attitude, "C")Important</label></div>
+                                @Html.ValidationMessageFor(model => model.Religion_Attitude)
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Fashion_Attitude)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Music_Attitude)</h3>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Fashion_Attitude, "A")Not Important</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Fashion_Attitude, "B")Neutral</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Fashion_Attitude, "C")Important</label></div>
+                                @Html.ValidationMessageFor(model => model.Fashion_Attitude)
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Music_Attitude, "A")Not Important</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Music_Attitude, "B")Neutral</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Music_Attitude, "C")Important</label></div>
+                                @Html.ValidationMessageFor(model => model.Music_Attitude)
+                            </div>
+
+                        </div>
+                    </div>
+                  
+                    <div class="form-group">
+                        <div class="col-lg-1">
+                            <button class="btn btn-blue" type="submit">Save</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .checkbox label, .radio label {
+        padding-left: 0px !important;
+    }
+</style>
+
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultattitude = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvattitudesuc").show();
+            $("#dvattitudeerror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing", new { Area = "" })';
+            }
+            $("#cattitudeerrror").html(data);
+            $("#dvattitudesuc").hide();
+            $("#dvattitudeerror").show();
+        }
+    };
+</script>

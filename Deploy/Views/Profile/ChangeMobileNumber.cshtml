@@ -1,0 +1,15 @@
+﻿@model EFMVC.Web.ViewModels.ChangeMSISDNFormModel
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+
+    @using (Html.BeginForm("ChangeMSISDN", "Profile"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_ChangeMSISDN", Model)
+    }
+
+</div>

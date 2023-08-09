@@ -1,0 +1,161 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileFormModel
+<div class="row" id="smsInfo">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>SMS and email</h5>
+
+            </div>
+            <div class="ibox-content">
+                @*@if (TempData["commusuccess"] != null)
+                {
+                <div class="alert alert-success alert-dismissable" id="dvcomminfosuc">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">@TempData["commusuccess"]</span>
+                </div>
+                }
+                @if (TempData["commuerror"] != null)
+                {
+                <div class="alert alert-danger alert-dismissable" id="dvcomminfoerror">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="ccommerrror">@TempData["commuerror"]</span>
+                </div>
+                }*@
+                <div class="alert alert-success alert-dismissable" id="dvcomminfosuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="csuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvcomminfoerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cerrror"></span>
+                </div>
+                @*@using (Html.BeginForm("UpdateCommunicationInfo", "CampaignAdvertDetails", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))*@
+
+                @using (Ajax.BeginForm("UpdateCommunicationInfo", "CampaignAdvertDetails",
+                                  null,
+                                  new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultsms" },
+                                  new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                {
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email From Address</label>
+
+                        <div class="col-lg-9">
+                            @Html.HiddenFor(Model => Model.CampaignProfileId)
+                            @Html.HiddenFor(Model => Model.ClientId)
+                            @Html.HiddenFor(Model => Model.CampaignName)
+                            @Html.HiddenFor(Model => Model.CampaignDescription)
+                            @Html.TextBoxFor(Model => Model.EmailSenderAddress, new { @class = "form-control trimmed" })
+                            @Html.ValidationMessageFor(Model => Model.EmailSenderAddress, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email Subject</label>
+
+                        <div class="col-lg-9">
+                            @Html.TextBoxFor(Model => Model.EmailSubject, new { @class = "form-control trimmed" })
+                            @Html.ValidationMessageFor(Model => Model.EmailSubject, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Email Body Text</label>
+
+                        <div class="col-lg-9">
+                            @Html.TextAreaFor(Model => Model.EmailBody, new { @class = "form-control trimmed" })
+                            @Html.ValidationMessageFor(Model => Model.EmailBody, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Upload Html Email</label>
+
+                        <div class="col-lg-6">
+                            <div class="btn-group">
+                                <label title="Upload image file"  class="btn btn-gray">
+                                    <input type="file" name="emailfile" id="inputImage" class="hide" onchange="get_filename(this);">
+                                    Upload file
+                                </label>
+                                @if (!String.IsNullOrEmpty(ViewData["emailfilelocation"].ToString()))
+                                {
+                                    <div>
+                                       <a href='@ViewData["emailfilelocation"]' target="_blank">View File</a>
+                                        
+                                    </div>
+                                }
+                                
+                            </div>
+                            <label id="filename"></label>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">SMS Originator</label>
+
+                        <div class="col-lg-9">
+                            @Html.TextBoxFor(Model => Model.SmsOriginator, new { @class = "form-control trimmed" })
+                            @Html.ValidationMessageFor(Model => Model.SmsOriginator, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">SMS Text</label>
+
+                        <div class="col-lg-9">
+                            @Html.TextBoxFor(Model => Model.SmsBody, new { @class = "form-control trimmed" })
+                            @Html.ValidationMessageFor(Model => Model.SmsBody, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Upload SMS Coupon/Image</label>
+
+                        <div class="col-lg-6">
+                            <div class="btn-group">
+                                <label title="Upload image file"  class="btn btn-gray">
+                                    <input type="file" name="smsfile" id="inputSMS" class="hide" onchange="get_filecouponname(this);">
+                                    Upload file
+                                </label>
+                                @if (!String.IsNullOrEmpty(ViewData["smsfilelocation"].ToString()))
+                                {
+                                    <div>
+                                        <a href='@ViewData["smsfilelocation"]' target="_blank">View File</a>
+
+                                    </div>
+                                }
+                            </div>
+                            <label id="filecouponname"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-offset-3 col-lg-1">
+                            <button class="btn btn-blue" type="submit">Update</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+    var getresultsms = function (data) {
+        if (data == "success") {
+            $("#dvcomminfosuc").show();
+            $("#dvcomminfoerror").hide();
+        }
+        else
+        {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing")';
+            }
+            $("#cerrror").html(data);
+            $("#dvcomminfosuc").hide();
+            $("#dvcomminfoerror").show();
+        }
+    };
+</script>

@@ -1,0 +1,135 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>adtones | Register</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/Content/custom.css" rel="stylesheet" />
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style_campaign.css" rel="stylesheet">
+    <link href="~/Content/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
+    <style>
+        .middle-box-text {
+            max-width: 406px;
+            z-index: 100;
+            margin: 0 auto;
+            padding-top: 40px;
+        }
+
+        .loginscreen.middle-box-text {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="preloader" style="display:none"></div>
+    <div class="middle-box-text text-center loginscreen   animated fadeInDown">
+        <div>
+
+            <h3>@*Adtones email verification code*@</h3>
+            <h3>
+                Adtones has sent a verification code to: @ViewBag.email sent from support@adtones.com Please check your SPAM / JUNK folder if you cannot find this
+            </h3>
+            <div class="form-group">
+                @Html.TextBox("Confirm", null, new { @class = "form-control" })
+                <div class="col-md-12" style="margin-top:10px;">
+                    <div class="col-md-6">
+                        <button type="button" id="btnConfirm" class="btn btn-blue block full-width m-b">Confirm</button>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="button" id="btnResend" class="btn btn-primary block full-width m-b" value="Resend" />
+                    </div>
+                </div>
+            </div>
+            <p class="m-t"> <small id="copyright" style="font-family: sans-serif;"></small> </p>
+        </div>
+    </div>
+
+</body>
+</html>
+@Scripts.Render("~/bundles/jquery")
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="~/Scripts/jquery.mask.js"></script>
+<script src="~/Scripts/plugins/sweetalert/sweetalert.min.js"></script>
+@Scripts.Render("~/plugins/unobtrusive")
+@Scripts.Render("~/plugins/validate")
+@Scripts.Render("~/bundles/validateunobtrusive")
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '@Url.Action("GetCopyRight", "Landing")',
+            success: function (data) {
+                $("#copyright").text(data);
+            }
+        });
+    });
+
+    $('#Confirm').mask('00-00-00');
+
+    $("#btnConfirm").click(function () {
+
+        var confirmCode = $("#Confirm").val();
+        if (confirmCode == "" || confirmCode == null)
+        {
+            swal("Oops!", "Please enter the verification code", "error");
+            return false;
+        }
+        else
+        {
+            var len = $("#Confirm").val().length
+            if (parseInt(len) < 8) {
+                swal("Oops!", "Please enter 6 digit verification code", "error");
+                return false;
+            }
+            else
+            {
+                $(".preloader").show();
+                $.ajax({
+                    url: '@Url.Action("VeifyEmailCode", "Landing")',
+                    data: { confirmCode: confirmCode},
+                    success: function (data) {
+                        if (data == "Success") {
+                            window.location.href = "/Dashboard/Index";
+                        }
+                        else {
+                            $(".preloader").hide();
+                            swal("Oops!", "I'm sorry this code was not recognised - please re-enter the code or press the code re-send button below", "error");
+                            return false;
+                        }
+                    }
+                });
+            }
+        }
+    })
+
+    $("#btnResend").click(function () {
+        $(".preloader").show();
+        $.ajax({
+            url: '@Url.Action("ResendEmailVerificationCode", "Landing")',
+            success: function (data) {
+                $(".preloader").hide();
+                if (data == "Success") {
+                    swal("Verification code is sent. Please enter the verification code");
+                }
+                else {
+                    swal("Oops!", "something went wrong, please try again ", "error");
+                    return false;
+                }
+            }
+        });
+    });
+</script>

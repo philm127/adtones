@@ -1,0 +1,350 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.Models;
+@model Tuple<List<OperatorRegistrationResult>, OperatorRegistrationFilter>
+@{
+    ViewBag.Title = "OperatorRegistration";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        @Html.Partial("_OperatorRegistrationManagement", Tuple.Create<List<OperatorRegistrationResult>, OperatorRegistrationFilter>(Model.Item1, Model.Item2))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @*@Styles.Render("~/Content/css")*@
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+
+}
+@section Scripts {
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    
+    <script type="text/javascript">
+        function dataTableSetup() {
+            $('.dataTables-operatoradmin').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [-1]
+                    }
+                ],
+                "bLengthChange": false,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        title: 'OperatorAdminDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        title: 'OperatorAdminDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        title: 'OperatorAdminDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        title: 'OperatorAdminDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+
+                    {
+                        extend: 'print',
+                        title: 'OperatorAdminDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        },
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+            });
+        }
+
+        $(document).ready(function () {
+
+            var config = {
+                '.chosen-select': { width: "100%" },
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+
+            $("#operatoradminreset").click(function () {
+                $(".spiner-example").show();
+                $("#CountryId").val('');
+                $("#CountryId").trigger("chosen:updated");
+                $("#OperatorId").val('');
+                $("#OperatorId").trigger("chosen:updated");
+                $("#Item2_FirstName").val('');
+                $("#Item2_LastName").val('');
+                $("#Item2_Email").val('');
+                $("#Item2_Organisation").val('');
+                getOperatorByCountryId(0);
+
+                $.ajax({
+                    data: null,
+                    datatype: "text/plain",
+                    type: "POST",
+                    url: '@Url.Action("SearchOperatorRegistration", "OperatorRegistration", new {area="Admin"})',
+                    cache: false,
+                    success: function (data) {
+                        $(".spiner-example").hide();
+                        $("#operatoradminList").html(data);
+                        dataTableSetup();
+                    }
+                });
+            });
+
+            $('.dataTables-operatoradmin').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                "bLengthChange": false,
+                "serverSide": true, // for process on server side
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [-1]
+                    }
+                ],
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        title: 'OperatorAdminDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        title: 'OperatorAdminDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        title: 'OperatorAdminDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        title: 'OperatorAdminDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        }
+                    },
+
+                    {
+                        extend: 'print',
+                        title: 'OperatorAdminDetails',
+                        exportOptions: {
+                            columns: ':not(:last-child)',
+                        },
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "ajax": {
+                    "url": "/Admin/OperatorRegistration/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "aoColumns": [
+
+                    { "data": "FirstName", "name": "FirstName", "autoWidth": false },//index-0
+                    { "data": "LastName", "name": "LastName", "autoWidth": false },//index-1
+                    { "data": "Email", "name": "Email", "autoWidth": false },//index-2
+                    { "data": "Organisation", "name": "Organisation", "autoWidth": false },//index-3
+                    { "data": "CountryName", "name": "CountryName", "autoWidth": false },//index-4
+                    { "data": "OperatorName", "name": "OperatorName", "autoWidth": false },//index-5
+                    { "data": "IsActive", "name": "IsActive", "autoWidth": false },//index-6
+                    { "data": "CreatedDate", "name": "CreatedDate", "autoWidth": false },//index-7
+                    {
+                        "data": "Action", "name": "Action", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            return '<td><a class="btn btn-danger btn-xs" href="/Admin/OperatorRegistration/UpdateOperatorRegistration?id=' + row.Id + '"})>Update</a></td>';
+                        }
+                    }//index-8
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () { $(".spiner-example").hide(); }
+            });
+        });
+
+        function getOperatorByCountryId(countryid) {
+            $("#OperatorId").empty(); //remove all child nodes
+            $("#OperatorId").trigger("chosen:updated");
+            var countryId = new Array();
+            $.each(countryid, function (i, countryid) {
+                countryId.push(parseInt(countryid));
+            });
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("FillOperator", "OperatorRegistration", new {area="Admin" })',
+                type: "POST",
+                data: { countryId: countryId },
+                success: function (data) {
+                    if (data.length == 0) {
+                        $("#OperatorId").empty(); //remove all child nodes
+                        $("#OperatorId").trigger("chosen:updated");
+                    }
+                    else {
+                        $.each(data, function (i, data) {
+                            $("#OperatorId").append('<option value="' + data.Value + '">' +
+                                data.Text + '</option>');
+                        });
+                        $("#OperatorId").trigger("chosen:updated");
+                    }
+                    $(".loader").hide();
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+
+        }
+
+        $("#operatoradminlabelclosesuccess").click(function () {
+            $("#operatoradminlabelsuceess").html("");
+            $('#operatoradminlabelfosuc').css("display", "none");
+        });
+
+        $("#CountryId").change(function () {
+            $(".loader").show();
+            $("#OperatorId").empty(); //remove all child nodes
+            $("#OperatorId").trigger("chosen:updated");
+            var id = $("#CountryId").val();
+            var countryId = new Array();
+            if (id == null)
+                id = 0;
+            $.each(id, function (i, id) {
+                countryId.push(parseInt(id));
+            });
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("FillOperator", "OperatorRegistration", new { area = "Admin" })',
+                data: { countryId: countryId },
+                success: function (data) {
+                    if (data.length == 0) {
+                        $("#OperatorId").empty(); //remove all child nodes
+                        $("#OperatorId").trigger("chosen:updated");
+                    }
+                    else {
+                        $.each(data, function (i, data) {
+                            $("#OperatorId").append('<option value="' + data.Value + '">' +
+                                data.Text + '</option>');
+                        });
+                        $("#OperatorId").trigger("chosen:updated");
+                    }
+                    $(".loader").hide();
+                }
+            });
+        });
+
+    </script>
+}

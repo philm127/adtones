@@ -1,0 +1,736 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileAdvertFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvadvertsuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvadverterror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cadverterrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveAdverts", "UserAdminProfile",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultadvertprofile", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.UserProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            @if (Model.Food == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Food_Advert)</h3>
+                            }
+                            @if (Model.SweetsSnacks == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SweetSaltySnacks_Advert)</h3>
+                            }
+                            @if (Model.AlcoholicDrinks == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.AlcoholicDrinks_Advert)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.Food == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Food_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Food_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Food_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Food_Advert)
+
+                                </div>
+                            }
+                            @if (Model.SweetsSnacks == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SweetSaltySnacks_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SweetSaltySnacks_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SweetSaltySnacks_Advert, "C")Want</label></div>
+                                </div>
+                            }
+                            @if (Model.AlcoholicDrinks == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AlcoholicDrinks_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AlcoholicDrinks_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AlcoholicDrinks_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.AlcoholicDrinks_Advert)
+                                </div>
+                            }
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.NonAlcoholicDrinks == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.NonAlcoholicDrinks_Advert)</h3>
+                            }
+                            @if (Model.HouseholdAppliancesProducts == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Householdproducts_Advert)</h3>
+                            }
+                            @if (Model.ToiletriesCosmetics == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ToiletriesCosmetics_Advert)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.NonAlcoholicDrinks == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.NonAlcoholicDrinks_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.NonAlcoholicDrinks_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.NonAlcoholicDrinks_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.NonAlcoholicDrinks_Advert)
+
+                                </div>
+                            }
+                            @if (Model.HouseholdAppliancesProducts == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Householdproducts_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Householdproducts_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Householdproducts_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Householdproducts_Advert)
+                                </div>
+                            }
+                            @if (Model.ToiletriesCosmetics == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ToiletriesCosmetics_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ToiletriesCosmetics_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ToiletriesCosmetics_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.ToiletriesCosmetics_Advert)
+                                </div>
+                            }
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.PharmaceuticalChemistsProducts == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.PharmaceuticalChemistsProducts_Advert)</h3>
+                            }
+                            @if (Model.TobaccoProducts == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.TobaccoProducts_Advert)</h3>
+                            }
+                            @if (Model.Pets == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.PetsPetFood_Advert)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.PharmaceuticalChemistsProducts == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PharmaceuticalChemistsProducts_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PharmaceuticalChemistsProducts_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PharmaceuticalChemistsProducts_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.PharmaceuticalChemistsProducts_Advert)
+
+                                </div>
+                            }
+                            @if (Model.TobaccoProducts == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.TobaccoProducts_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.TobaccoProducts_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.TobaccoProducts_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.TobaccoProducts_Advert)
+                                </div>
+                            }
+                            @if (Model.Pets == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PetsPetFood_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PetsPetFood_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.PetsPetFood_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.TobaccoProducts_Advert)
+                                </div>
+                            }
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.ClothingFashion == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ShoppingRetailClothing_Advert)</h3>
+                            }
+                            @if (Model.DIYGardening == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.DIYGardening_Advert)</h3>
+                            }
+                            @if (Model.ElectronicsOtherPersonalItems == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.ElectronicsOtherPersonalItems_Advert)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.ClothingFashion == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ShoppingRetailClothing_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ShoppingRetailClothing_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ShoppingRetailClothing_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.ShoppingRetailClothing_Advert)
+
+                                </div>
+                            }
+                            @if (Model.DIYGardening == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DIYGardening_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DIYGardening_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DIYGardening_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.DIYGardening_Advert)
+                                </div>
+                            }
+                            @if (Model.ElectronicsOtherPersonalItems == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ElectronicsOtherPersonalItems_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ElectronicsOtherPersonalItems_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.ElectronicsOtherPersonalItems_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.ElectronicsOtherPersonalItems_Advert)
+
+                                </div>
+                            }
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.CommunicationsInternetTelecom == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.CommunicationsInternet_Advert)</h3>
+                            }
+                            @if (Model.FinancialServices == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.FinancialServices_Advert)</h3>
+                            }
+                            @if (Model.HolidaysTravelTourism == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.HolidaysTravel_Advert)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.CommunicationsInternetTelecom == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.CommunicationsInternet_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.CommunicationsInternet_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.CommunicationsInternet_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.CommunicationsInternet_Advert)
+                                </div>
+                            }
+                            @if (Model.FinancialServices == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FinancialServices_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FinancialServices_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.FinancialServices_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.FinancialServices_Advert)
+                                </div>
+                            }
+                            @if (Model.HolidaysTravelTourism == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.HolidaysTravel_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.HolidaysTravel_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.HolidaysTravel_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.HolidaysTravel_Advert)
+
+                                </div>
+                            }
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.SportsLeisure == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SportsLeisure_Advert)</h3>
+                            }
+                            @if (Model.MotoringAutomotive == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Motoring_Advert)</h3>
+                            }
+                            @if (Model.NewspapersMagazines == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Newspapers_Advert)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.SportsLeisure == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SportsLeisure_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SportsLeisure_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SportsLeisure_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.SportsLeisure_Advert)
+                                </div>
+                            }
+                            @if (Model.MotoringAutomotive == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Motoring_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Motoring_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Motoring_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Motoring_Advert)
+                                </div>
+                            }
+                            @if (Model.NewspapersMagazines == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Newspapers_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Newspapers_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Newspapers_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Newspapers_Advert)
+
+                                </div>
+                            }
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.TvVideoRadio == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.TV_Advert)</h3>
+                            }
+                            @if (Model.Cinema == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Cinema_Advert)</h3>
+                            }
+                            @if (Model.SocialNetworking == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SocialNetworking_Advert)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.TvVideoRadio == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.TV_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.TV_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.TV_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.TV_Advert)
+                                </div>
+                            }
+                            @if (Model.Cinema == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Cinema_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Cinema_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Cinema_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Cinema_Advert)
+                                </div>
+                            }
+                            @if (Model.SocialNetworking == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SocialNetworking_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SocialNetworking_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.SocialNetworking_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.SocialNetworking_Advert)
+                                </div>
+                            }
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.Shopping == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Shopping_Advert)</h3>
+                            }
+                            @if (Model.Fitness == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Fitness_Advert)</h3>
+                            }
+                            @if (Model.Environment == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Environment_Advert)</h3>
+                            }
+
+                        </div>
+                        <div class="row">
+                            @if (Model.Shopping == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Shopping_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Shopping_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Shopping_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Shopping_Advert)
+                                </div>
+                            }
+                            @if (Model.Fitness == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Fitness_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Fitness_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Fitness_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Fitness_Advert)
+                                </div>
+                            }
+                            @if (Model.Environment == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Environment_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Environment_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Environment_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Environment_Advert)
+                                </div>
+                            }
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.GoingOutEntertainment == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.GoingOut_Advert)</h3>
+                            }
+                            @if (Model.Religion == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Religion_Advert)</h3>
+                            }
+                            @if (Model.Music == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Music_Advert)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.GoingOutEntertainment == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.GoingOut_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.GoingOut_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.GoingOut_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.GoingOut_Advert)
+                                </div>
+                            }
+                            @if (Model.Religion == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Religion_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Religion_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Religion_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Religion_Advert)
+                                </div>
+                            }
+                            @if (Model.Music == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Music_Advert, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Music_Advert, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Music_Advert, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Music_Advert)
+
+                                </div>
+                            }
+                        </div>
+
+
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.BusinessOpportunities == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.BusinessOrOpportunities_AdType)</h3>
+                            }
+                            @if (Model.Over18Gambling == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Gambling_AdType)</h3>
+                            }
+                            @if (Model.Restaurants == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Restaurants_AdType)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.BusinessOpportunities == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.BusinessOrOpportunities_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.BusinessOrOpportunities_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.BusinessOrOpportunities_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.BusinessOrOpportunities_AdType)
+                                </div>
+                            }
+                            @if (Model.Over18Gambling == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Gambling_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Gambling_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Gambling_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Gambling_AdType)
+                                </div>
+                            }
+                            @if (Model.Restaurants == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Restaurants_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Restaurants_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Restaurants_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Restaurants_AdType)
+
+                                </div>
+                            }
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.Insurance == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Insurance_AdType)</h3>
+                            }
+                            @if (Model.Furniture == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Furniture_AdType)</h3>
+                            }
+                            @if (Model.Informationtechnology == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.InformationTechnology_AdType)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.Insurance == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Insurance_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Insurance_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Insurance_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Insurance_AdType)
+                                </div>
+                            }
+                            @if (Model.Furniture == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Furniture_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Furniture_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Furniture_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Furniture_AdType)
+                                </div>
+                            }
+                            @if (Model.Informationtechnology == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.InformationTechnology_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.InformationTechnology_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.InformationTechnology_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.InformationTechnology_AdType)
+
+                                </div>
+                            }
+                        </div>
+
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.Energy == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Energy_AdType)</h3>
+                            }
+                            @if (Model.Supermarkets == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Supermarkets_AdType)</h3>
+                            }
+                            @if (Model.Healthcare == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Healthcare_AdType)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.Energy == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Energy_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Energy_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Energy_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Energy_AdType)
+                                </div>
+                            }
+                            @if (Model.Supermarkets == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Supermarkets_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Supermarkets_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Supermarkets_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Supermarkets_AdType)
+                                </div>
+                            }
+                            @if (Model.Healthcare == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Healthcare_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Healthcare_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Healthcare_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Healthcare_AdType)
+
+                                </div>
+                            }
+                        </div>
+
+
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.JobsandEducation == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.JobsAndEducation_AdType)</h3>
+                            }
+                            @if (Model.Gifts == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Gifts_AdType)</h3>
+                            }
+                            @if (Model.AdvocacyLegal == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.AdvocacyOrLegal_AdType)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.JobsandEducation == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.JobsAndEducation_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.JobsAndEducation_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.JobsAndEducation_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.JobsAndEducation_AdType)
+                                </div>
+                            }
+                            @if (Model.Gifts == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Gifts_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Gifts_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Gifts_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Gifts_AdType)
+                                </div>
+                            }
+                            @if (Model.AdvocacyLegal == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AdvocacyOrLegal_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AdvocacyOrLegal_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.AdvocacyOrLegal_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.AdvocacyOrLegal_AdType)
+
+                                </div>
+                            }
+                        </div>
+
+
+                        <div class="row" style="padding-top:15px;">
+                            @if (Model.DatingPersonal == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.DatingAndPersonal_AdType)</h3>
+                            }
+                            @if (Model.RealEstateProperty == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.RealEstate_AdType)</h3>
+                            }
+                            @if (Model.Games == true)
+                            {
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Games_AdType)</h3>
+                            }
+                        </div>
+                        <div class="row">
+                            @if (Model.DatingPersonal == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DatingAndPersonal_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DatingAndPersonal_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DatingAndPersonal_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.DatingAndPersonal_AdType)
+                                </div>
+                            }
+                            @if (Model.RealEstateProperty == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.RealEstate_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.RealEstate_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.RealEstate_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.RealEstate_AdType)
+                                </div>
+                            }
+                            @if (Model.Games == true)
+                            {
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Games_AdType, "A")Don't Want</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Games_AdType, "B")Neutral</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Games_AdType, "C")Want</label></div>
+                                    @Html.ValidationMessageFor(model => model.Games_AdType)
+
+                                </div>
+                            }
+                        </div>
+                        @*@if (Model.SkizaProfile == true)
+                        {
+                            <div class="row" style="padding-top:15px;">
+                                <h3 class="col-lg-4 col-lg-wth">Skiza Profile</h3>
+                            </div>
+                            <div class="row" style="padding-top:15px;">
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Hustlers_AdType)</h3>
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Youth_AdType)</h3>
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.DiscerningProfessionals_AdType)</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Hustlers_AdType, "A")Networked Youth</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Hustlers_AdType, "B")Stable Hustler</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Hustlers_AdType, "C")Savvy Loyalist</label></div>
+                                    @Html.ValidationMessageFor(model => model.Hustlers_AdType)
+                                </div>
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Youth_AdType, "A")Tween</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Youth_AdType, "B")Hi-Pot students</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Youth_AdType, "C")Prudent Young</label></div>
+                                    @Html.ValidationMessageFor(model => model.Youth_AdType)
+                                </div>
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, "A")Young Flashers</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, "B")Mature trendies</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, "C")Settled Middle Mgmt</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, "D")Affluent Influencers</label></div>
+                                    @Html.ValidationMessageFor(model => model.DiscerningProfessionals_AdType)
+                                </div>
+                            </div>
+
+
+                            <div class="row" style="padding-top:15px;">
+                                <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Mass_AdType)</h3>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "A")Young cautious caller</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "B")Toa Mpango</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "C")Young progressive worker</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "D")Older Toa Mpango</label></div>
+                                    <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "E")Progressive worker</label></div>
+                                    @Html.ValidationMessageFor(model => model.Mass_AdType)
+                                </div>
+
+                            </div>
+                        }*@
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-1">
+                            <button class="btn btn-blue" type="submit">Save</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .checkbox label, .radio label {
+        padding-left: 0px !important;
+    }
+</style>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultadvertprofile = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvadvertsuc").show();
+            $("#dvadverterror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing",new {Area="" })';
+            }
+            $("#cadverterrror").html(data);
+            $("#dvadvertsuc").hide();
+            $("#dvadverterror").show();
+        }
+    };
+</script>

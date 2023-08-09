@@ -1,0 +1,145 @@
+﻿@using EFMVC.Web.ViewModels;
+@using EFMVC.Web.Models;
+@model Tuple<EFMVC.Web.ViewModels.CampaignProfileFormModel, CampaignProfileMapping>
+<div class="cols-lg-12">
+    <ul class="navigate">
+        <li><a onclick="navigate(1);">Campaign Information</a></li>
+        <li><a onclick="navigate(2);">Budget Management</a></li>
+        <li><a onclick="navigate(3);">SMS and email</a></li>
+        <li><a onclick="navigate(4);">Ads Profile mapping</a></li>
+    </ul>
+</div>
+<div class="row">&nbsp;</div>
+<div class="row">
+    <div class="wrapper-content animated fadeInRight">
+        @Html.Partial("_CampaignInfo", Model.Item1)
+        @Html.Partial("_BudgetInfo", Model.Item1)
+        @Html.Partial("_SMSANDEMAIL", Model.Item1)
+        <div class="row">
+
+            @Html.Partial("_ListOfAdverts", Tuple.Create<EFMVC.Web.ViewModels.CampaignProfileFormModel, IEnumerable<AdvertFormModel>>(Model.Item1, Model.Item2.AdvertFormModel))
+        </div>
+        <div class="row">
+            <div class="col-lg-12" id="profile">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Ads Profile Mapping</h5>
+
+                    </div>
+                    <div class="ibox-content">
+                        <button class="accordion">Geographic</button>
+                        <div class="panel" id="GeographicPanel">
+                            @if (Model.Item2.CampaignProfileGeographicModel.LocationQuestion.Count() > 0)
+                            {
+                                @Html.Partial("_CreateOrEditGeographic", Model.Item2.CampaignProfileGeographicModel)
+                            }
+                        </div>
+
+                        <button class="accordion">Demographic</button>
+                        <div class="panel" id="DemographicPanel">
+                            @if (Model.Item2.CampaignProfileDemographicsmodel.AgeQuestion.Count() > 0 || Model.Item2.CampaignProfileDemographicsmodel.GenderQuestion.Count() > 0 || Model.Item2.CampaignProfileDemographicsmodel.HouseholdStatusQuestion.Count() > 0 || Model.Item2.CampaignProfileDemographicsmodel.WorkingStatusQuestion.Count() > 0 || Model.Item2.CampaignProfileDemographicsmodel.RelationshipStatusQuestion.Count() > 0 || Model.Item2.CampaignProfileDemographicsmodel.EducationQuestion.Count() > 0 || Model.Item2.CampaignProfileDemographicsmodel.IncomeBracketQuestion.Count() > 0)
+                            {
+                                @Html.Partial("_CreateOrEditDemographics", Model.Item2.CampaignProfileDemographicsmodel)
+                            }
+                        </div>
+
+                        <button class="accordion">Ad Types</button>
+                        <div class="panel" id="AdvertPanel">
+                            @*<button class="Nestedaccordion">Advert</button>*@
+                            @*<div class="panel" id="AdvertPanel">*@
+                            @if (Model.Item2.CampaignProfileAd.FoodQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.SweetSaltySnacksQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.AlcoholicDrinksQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.NonAlcoholicDrinksQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.HouseholdproductsQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.ToiletriesCosmeticsQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.PharmaceuticalChemistsProductsQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.TobaccoProductsQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.PetsPetFoodQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.ShoppingRetailClothingQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.DIYGardeningQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.ElectronicsOtherPersonalItemsQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.CommunicationsInternetQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.FinancialServicesQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.HouseholdproductsQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.SportsLeisureQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.MotoringQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.NewspapersQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.TVQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.CinemaQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.SocialNetworkingQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.ShoppingQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.FitnessQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.EnvironmentQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.GoingOutQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.ReligionQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.MusicQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.BusinessOrOpportunitiesQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.GamblingQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.RestaurantsQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.InsuranceQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.FurnitureQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.InformationTechnologyQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.EnergyQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.SupermarketsQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.HealthcareQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.JobsAndEducationQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.GiftsQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.AdvocacyOrLegalQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.DatingAndPersonalQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.RealEstateQuestion.Count() > 0 || Model.Item2.CampaignProfileAd.GamesQuestion.Count() > 0)
+                            {
+                                @Html.Partial("_CreateOrEditAdvert", Model.Item2.CampaignProfileAd)
+                            }
+                            @*</div>*@
+
+                            @*<button class="Nestedaccordion">Attitude</button>
+            <div class="panel" id="AttitudePanel">
+                @Html.Partial("_CreateOrEditAttitude", Model.Item2.campaignProfileAttitude)
+            </div>
+            <button class="Nestedaccordion">Cinema</button>
+            <div class="panel" id="CinemaPanel">
+                @Html.Partial("_CreateOrEditCinema", Model.Item2.CampaignProfileCinemaFormModel)
+            </div>
+            <button class="Nestedaccordion">Internet</button>
+            <div class="panel" id="InternetPanel">
+                @Html.Partial("_CreateOrEditInternet", Model.Item2.CampaignProfileInternetFormModel)
+            </div>
+            <button class="Nestedaccordion">Press</button>
+            <div class="panel" id="PressPanel">
+                @Html.Partial("_CreateOrEditPress", Model.Item2.CampaignProfilePressFormModel)
+            </div>
+            <button class="Nestedaccordion">Products & Services</button>
+            <div class="panel" id="PrdSrcPanel">
+                @Html.Partial("_CreateOrEditProductsServices", Model.Item2.CampaignProfileProductsServiceFormModel)
+            </div>
+            <button class="Nestedaccordion">Radio</button>
+            <div class="panel" id="RadioPanel">
+                @Html.Partial("_CreateOrEditRadio", Model.Item2.CampaignProfileRadioFormModel)
+            </div>
+            <button class="Nestedaccordion">TV</button>
+            <div class="panel" id="TVPanel">
+                @Html.Partial("_CreateOrEditTv", Model.Item2.CampaignProfileTvFormModel)
+            </div>*@
+
+                        </div>
+                        @if (Model.Item2.CampaignProfileSkizaFormModel.HustlersQuestion.Count() > 0 || Model.Item2.CampaignProfileSkizaFormModel.YouthQuestion.Count() > 0 || Model.Item2.CampaignProfileSkizaFormModel.DiscerningProfessionalsQuestion.Count() > 0 || Model.Item2.CampaignProfileSkizaFormModel.MassQuestion.Count() > 0)
+                        {
+                            <button class="accordion">Questionnaire</button>
+                            <div class="panel" id="SkizaProfilePanel">
+
+                                @Html.Partial("_CreateOrEditSkizaProfile", Model.Item2.CampaignProfileSkizaFormModel)
+
+                            </div>
+                        }
+                        <button class="accordion">Airtime Usage</button>
+                        <div class="panel" id="MobilePanel">
+                            @if (Model.Item2.CampaignProfileMobileFormModel.ContractTypeQuestion.Count() > 0 || Model.Item2.CampaignProfileMobileFormModel.SpendQuestion.Count() > 0)
+                            {
+                                @*<button class="NestedaccordionUsage">Mobile</button>*@
+                                @*<div class="panel" id="MobilePanel">*@
+                                @Html.Partial("_CreateOrEditMobile", Model.Item2.CampaignProfileMobileFormModel)
+                                @*</div>*@
+                            }
+                            @*<button class="NestedaccordionUsage">Time Settings</button>
+            <div class="panel" id="TimeSettingsPanel">
+                @Html.Partial("_CreateOrEditTimeSettings", Model.Item2.CampaignProfileTimeSettingFormModel)
+            </div>*@
+                        </div>
+
+                        <button class="accordion">Time Bands</button>
+                        <div class="panel" id="TimeSettingsPanel">
+                            @if (Model.Item2.CampaignProfileTimeSettingFormModel.AvailableTimes != null || Model.Item2.CampaignProfileTimeSettingFormModel.MondaySelectedTimes.Count() > 0 || Model.Item2.CampaignProfileTimeSettingFormModel.TuesdaySelectedTimes.Count() > 0 || Model.Item2.CampaignProfileTimeSettingFormModel.WednesdaySelectedTimes.Count() > 0 || Model.Item2.CampaignProfileTimeSettingFormModel.ThursdaySelectedTimes.Count() > 0 || Model.Item2.CampaignProfileTimeSettingFormModel.FridaySelectedTimes.Count() > 0 || Model.Item2.CampaignProfileTimeSettingFormModel.SaturdaySelectedTimes.Count() > 0 || Model.Item2.CampaignProfileTimeSettingFormModel.SundaySelectedTimes.Count() > 0)
+                            {
+                                <div class="row" style="margin-top: 15px;">
+                                    <h3 class="col-lg-12 col-lg-wth">
+                                        When do you want your adverts to be played?
+                                    </h3>
+                                </div>
+                                @Html.Partial("_CreateOrEditTimeSettings", Model.Item2.CampaignProfileTimeSettingFormModel)
+                            }
+                        </div><br /><br />
+                        <div class="form-group">
+                            <div class="col-lg-offset-6 col-lg-12">
+                                <button class="btn btn-blue" type="button" id="btnlaunchcampaign">Launch Campiagn</button>
+                                <button class="btn btn-sm btn-white" type="button" id="btncancelcampaign">Cancel</button>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        @*<div class="row">
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button class="btn btn-sm btn-blue" type="submit">Save changes</button>
+                        <button class="btn btn-sm btn-white" type="button">Cancel</button>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+</div>

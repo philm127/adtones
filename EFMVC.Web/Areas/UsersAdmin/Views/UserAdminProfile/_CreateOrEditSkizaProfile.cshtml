@@ -1,0 +1,103 @@
+﻿@model EFMVC.Web.ViewModels.SkizaProfileFormModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>Cinema</h5>
+
+                </div>*@
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvcinemasuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvcinemaerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="ccinemaerrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveSkizaProfile", "UserAdminProfile",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultskizaprofile", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.UserProfileId)
+                    <div class="form-group">
+                       
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Hustlers_AdType)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Youth_AdType)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.DiscerningProfessionals_AdType)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Hustlers_AdType, "A")Networked Youth</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Hustlers_AdType, "B")Stable Hustler</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Hustlers_AdType, "C")Savvy Loyalist</label></div>
+                                @Html.ValidationMessageFor(model => model.Hustlers_AdType)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Youth_AdType, "A")Tween</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Youth_AdType, "B")Hi-Pot students</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Youth_AdType, "C")Prudent Young</label></div>
+                                @Html.ValidationMessageFor(model => model.Youth_AdType)
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, "A")Young Flashers</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, "B")Mature trendies</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, "C")Settled Middle Mgmt</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.DiscerningProfessionals_AdType, "D")Affluent Influencers</label></div>
+                                @Html.ValidationMessageFor(model => model.DiscerningProfessionals_AdType)
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.Mass_AdType)</h3>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "A")Young cautious caller</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "B")Toa Mpango</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "C")Young progressive worker</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "D")Older Toa Mpango</label></div>
+                                <div class="radio i-checks"><label>@Html.RadioButtonFor(model => model.Mass_AdType, "E")Progressive worker</label></div>
+                                @Html.ValidationMessageFor(model => model.Mass_AdType)
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-1">
+                            <button class="btn btn-blue" type="submit">Save</button>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultskizaprofile = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvcinemasuc").show();
+            $("#dvcinemaerror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing", new { Area = "" })';
+            }
+            $("#ccinemaerrror").html(data);
+            $("#dvcinemasuc").hide();
+            $("#dvcinemaerror").show();
+        }
+    };
+</script>

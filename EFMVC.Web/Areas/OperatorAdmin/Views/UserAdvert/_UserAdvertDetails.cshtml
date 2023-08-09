@@ -1,0 +1,139 @@
+﻿@using EFMVC.Web.Areas.OperatorAdmin.Models;
+@model List<UserAdvertResult>
+<div class="row">
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["status"]
+        </div>
+    }
+</div>
+
+<div class="table-responsive">
+    <table cellspacing="0" style="width:100%" class="displaytable table-striped table-bordered table-hover dataTables-useradvert">
+        <thead>
+            <tr>
+
+                <th style="width:11%;">Advertiser</th>
+                <th>Advert</th>
+                <th style="width:18%;">Listen</th>
+                <th style="width:8%;">Status</th>
+                <th style="width:8%;">Action</th>
+                <th>Scripts</th>
+                <th>SMS</th>
+                <th>Client</th>
+                <th>Brand</th>
+                <th>Email Text</th>
+                <th>Email</th>
+                <th>Created Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (UserAdvertResult result in Model)
+            {
+                @*string mediaLocation = @"~" + result.MediaFileLocation;
+                    string scriptLocation = result.ScriptsPath;*@
+            <tr class="gradeX">
+                <td>@result.UserName</td>
+                <td><a href='javascript:;;'>@result.Name</a></td>
+                @if (result.MediaFileLocation == null)
+                {
+                    <td><audio class="audio-small" controls controlsList="nodownload" id="@result.Name" src="@result.MediaFileLocation"></audio></td>
+                }
+                else
+                {
+                    @*<td>@Html.Html5().Media.Audio(result.Name, @result.MediaFileLocation, "", new { @class = "audio-small" })</td>*@
+                    <td><audio class="audio-small" controls="controls" id="@result.Name" src="@result.MediaFileLocation"></audio></td>
+                }
+                <td>
+                    @if (result.status == 1)
+                    {
+                        <label class="label label-primary">Live</label>
+
+                    }
+                    else if (result.status == 2)
+                    {
+                        <label class="label label-success">Suspended</label>
+                    }
+                    else if (result.status == 3)
+                    {
+                        <label class="label label-danger">Archived</label>
+                    }
+                    else if (result.status == 4)
+                    {
+                        <label class="label label-default">Waitingforapproval</label>
+                    }
+                    else if (result.status == 8)
+                    {
+                        <label class="label label-danger">Campaign Paused Due To Insufficient Funds</label>
+                    }
+                    else if (result.status == 9)
+                    {
+                        <label class="label label-warning">Pending</label>
+                    }
+                    else
+                    {
+                        <label class="label label-danger">Rejected</label>
+                    }
+                </td>
+                <td>
+                    @if (result.status == 1)
+                    {
+                        <a class="btn btn-success btn-xs" onclick='updatestatus(@result.AdvertId,2,@result.status)'>Suspend</a>@*Suspended*@
+                        @*<a class="btn btn-danger btn-xs" onclick='updatestatus(@result.AdvertId,3,@result.status)'>Archive</a>*@@*Archived*@
+                    }
+                    else if (result.status == 3)
+                    {
+                        <a class="btn btn-blue btn-xs" onclick='updatestatus(@result.AdvertId,1,@result.status)'>Live</a>
+                    }
+                    else if (result.status == 4)
+                    {
+                        <a class="btn btn-blue btn-xs" onclick='updatestatus(@result.AdvertId,1,@result.status)'>Live</a>
+                        @*<a class="btn btn-danger btn-xs" onclick='updatestatus(@result.AdvertId,5,@result.status)'>Rejected</a>*@
+                        <a class="btn btn-danger btn-xs" onclick='showModal(@result.AdvertId)'>Reject</a>@*Rejected*@
+                    }
+                    else if (result.status == 5)
+                    {
+                        <a class="btn btn-blue btn-xs" onclick='updatestatus(@result.AdvertId,1,@result.status)'>Live</a>
+                    }
+                    else if (result.status == 9 && result.UpdatedBy != ViewBag.UserId)
+                    {
+                        <a class="btn btn-blue btn-xs" onclick='updatestatus(@result.AdvertId,1,@result.status)'>Live</a>
+                        <a class="btn btn-danger btn-xs" onclick='showModal(@result.AdvertId)'>Reject</a>@*Rejected*@
+                    }
+                </td>
+                @if (!String.IsNullOrEmpty(result.Scripts))
+                {
+                    <td><a title='@result.Scripts' onclick="getscripts(this);">View</a></td>
+                }
+                else
+                {
+                    if (!String.IsNullOrEmpty(result.ScriptsPath))
+                    {
+                        @*<td><a href='@result.ScriptsPath' download="@result.ScriptsPath" target="_blank">Download</a></td>*@
+                        <td>-</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                }
+                <td>@result.SMSbody</td>
+                <td>@result.ClientName</td>
+                @if (!string.IsNullOrEmpty(result.Brand))
+                {
+                    <td>@result.Brand</td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+                <td><a href='javascript:;;'>@result.Email</a></td>
+                <td>@Html.Raw(result.Emailbody)</td>
+                <td>@result.CreatedDate</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

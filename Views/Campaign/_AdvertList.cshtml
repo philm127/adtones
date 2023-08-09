@@ -1,0 +1,47 @@
+﻿@using EFMVC.Web.ViewModels
+@model IEnumerable<EFMVC.Web.ViewModels.AdvertFormModel>
+
+
+@{
+    var oddEven = new List<string> {"oddRow", "evenRow"};
+    int i = 1;
+
+    @oddEven[i++%2]
+}
+
+<div class="panel">
+    <div class="row">
+        <div class="large-12 columns">
+            <table style="width: 100%">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Desciption</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (AdvertFormModel advert in Model)
+                    {
+                        <tr>
+                            <td>@advert.AdvertName</td>
+                            <td>@advert.AdvertDescription</td>
+                            <td>
+                                @Html.ActionLink(" ", "Edit", new {id = advert.AdvertId}, new {@class = "editLinkImg"})
+                                @Ajax.ActionLink(" ", "Delete", new {id = advert.AdvertId},
+                                                 new AjaxOptions
+                                                     {
+                                                         Confirm = "Delete Advert?",
+                                                         HttpMethod = "Post",
+                                                         UpdateTargetId = "divBlockedNumberList"
+                                                     },
+                                                 new {@class = "deleteLinkImg", @alt = "Delete?"})
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

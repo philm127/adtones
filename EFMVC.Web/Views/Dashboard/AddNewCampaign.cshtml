@@ -1,0 +1,2558 @@
+﻿@using EFMVC.Web.ViewModels;
+@model NewCampaignProfileFormModel
+
+@{
+    ViewBag.Title = "AddCampaign";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    a.disabled {
+        pointer-events: none;
+        cursor: default;
+        border: 1px solid white;
+        border-radius: 10px;
+    }
+</style>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="spiner-example loader" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        @*<h2>Add Campaign</h2>*@
+        <h2>Campaign Wizard</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Dashboard")">Dashboard</a>
+            </li>
+            <li class="active" id="breadcrumbmenu">
+                <strong>Campaigns</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeIn" style="padding-top:0px;">
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="step-content campaingactive">
+                <div>
+                    <div class="cols-lg-12">
+                        <ul class="navigate">
+                            <li><a class="disabled" id="campaigninformation">Campaign Information</a></li>
+                            <li><a class="disabled" id="clientinformation">Client Information</a></li>
+                            <li><a class="disabled" id="budgetmanagement">Budget Management</a></li>
+                            <li><a class="disabled" id="advertinformation">Advert Information</a></li>
+                            <li><a class="disabled" id="smsandemail">SMS and email</a></li>
+                            <li><a class="disabled" id="adsprofilemapping">Ads Profile Mapping</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="wrapper-content animated fadeInRight">
+                <div class="row" id="campaigndiv">
+                    @Html.Partial("_AddNewCampaignInfo", Model)
+                </div>
+                <div class="row" id="clientdiv" style="display:none;">
+                    @Html.Partial("_AddNewClientInfo", Model.newClientFormModel)
+                </div>
+                <div class="row" id="budgetdiv" style="display:none;">
+                    @Html.Partial("_AddNewBudgetInfo", Model.newBudgetFormModel)
+                </div>
+                <div class="row" id="advertdiv" style="display:none;">
+                    @Html.Partial("_AddNewAdvertInfo", Model.newAdvertFormModel)
+                </div>
+                <div class="row" id="campaigndatesandinteractiondiv" style="display:none;">
+                    @Html.Partial("_AddNewCampaignDateandInteraction", Model.newCampaignDateandInteraction)
+                </div>
+                <div class="row" id="adprofilemappingdiv" style="display:none;">
+                    @Html.Partial("_AddNewAdProfileMappingInfo", Model.newAdProfileMappingFormModel)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @*@Styles.Render("~/Content/css")*@
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/wizardStepsStyles")
+    @Styles.Render("~/Content/accordion")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/vectorMap")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/wizardSteps")
+    @Scripts.Render("~/plugins/nestable")
+    @Scripts.Render("~/plugins/chartJs")
+    @Scripts.Render("~/Scripts/tinymce/tinymcejs")
+
+    @*<script src="~/Scripts/ace-builds-master/src-noconflict/ace.js"></script>
+        <script>
+            var editor = ace.edit("editor");
+            editor.session.setMode("ace/mode/css");
+            editor.setTheme("ace/theme/dreamweaver");
+            // enable autocompletion and snippets
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: false
+            });
+            var textarea = $('textarea[name="EmailBody"]').hide();
+            editor.getSession().setValue(textarea.val());
+            editor.getSession().on('change', function () {
+                textarea.val(editor.getSession().getValue());
+            });
+        </script>*@
+
+    <script type="text/javascript">
+
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+
+        $(document).ready(function () {
+            $("#campaigninformation").css('background-color', '#e6e6e6');
+            $("#clientinformation").css('background-color', '');
+            $("#budgetmanagement").css('background-color', '');
+            $("#advertinformation").css('background-color', '');
+            $("#smsandemail").css('background-color', '');
+            $("#adsprofilemapping").css('background-color', '');
+            $('[data-toggle="tooltip1"]').tooltip();
+            $("#ClientPhoneticAlphabet").tooltip();
+            $("#AdvertPhoneticAlphabet").tooltip();
+            $("#budgettooltip").tooltip();
+            $("#adverttooltip").tooltip();
+            $("#clienttooltip").tooltip();
+            trimmed();
+        });
+        //$(document).ready(function () {
+        //    //$('[data-toggle="tooltip2"]').tooltip();
+        //});
+        //$(document).ready(function () {
+        //    //$('[data-toggle="tooltip3"]').tooltip();
+        //});
+        //$(document).ready(function () {
+        //    $("#budgettooltip").tooltip();
+        //});
+
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+            $('.i-checks1').iCheck({
+                checkboxClass: 'icheckbox_square-green1',
+            });
+            //$('.i-checks').iCheck({
+            //    checkboxClass: 'icheckbox_square-green',
+            //    radioClass: 'iradio_square-green',
+            //});
+            $('.i-checks').keyup(function (e) {
+                console.log('keyup called');
+                var code = e.keyCode || e.which;
+                if (code == '9') {
+                    var thi$ = $(this);
+                    if (thi$[0].parentNode.className == "icheckbox_square-green hover checked") {
+                        thi$[0].parentNode.className = 'icheckbox_square-green hover checked';
+                    }
+                    else {
+                        thi$[0].parentNode.className = 'icheckbox_square-green hover';
+                    }
+                }
+            });
+            $('.i-checks').keydown(function (e) {
+                console.log('keyup called');
+                var code = e.keyCode || e.which;
+                if (code == '9') {
+                    var thi$ = $(this);
+                    if (thi$[0].parentNode.className == "icheckbox_square-green hover checked") {
+                        thi$[0].parentNode.className = 'icheckbox_square-green hover checked';
+                    }
+                    else {
+                        thi$[0].parentNode.className = 'icheckbox_square-green';
+                    }
+                }
+            });
+            $('.i-checks1').keyup(function (e) {
+                console.log('keyup called');
+                var code = e.keyCode || e.which;
+                if (code == '9') {
+                    var thi$ = $(this);
+                    if (thi$[0].parentNode.className == "icheckbox_square-green1 hover checked") {
+                        thi$[0].parentNode.className = 'icheckbox_square-green1 hover checked';
+                    }
+                    else {
+                        thi$[0].parentNode.className = 'icheckbox_square-green1 hover';
+                    }
+                }
+            });
+            $('.i-checks1').keydown(function (e) {
+                console.log('keyup called');
+                var code = e.keyCode || e.which;
+                if (code == '9') {
+                    var thi$ = $(this);
+                    if (thi$[0].parentNode.className == "icheckbox_square-green1 hover checked") {
+                        thi$[0].parentNode.className = 'icheckbox_square-green1 hover checked';
+                    }
+                    else {
+                        thi$[0].parentNode.className = 'icheckbox_square-green1';
+                    }
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+        $(function () {
+            tinymce.init({
+                selector: '#textarea',
+                extended_valid_elements: "a[class|name|href|target|title|onclick|rel],script[language|type|src],iframe[src|style|width|height|scrolling|marginwidth|marginheight|frameborder],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]",
+                width: 'auto',
+                height: 'auto',
+                plugins: [
+                    "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+                    "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
+                    "table contextmenu directionality emoticons paste textcolor code"
+                ],
+                toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+                toolbar2: "| link unlink anchor | image media | forecolor backcolor  | print preview code ",
+                image_advtab: true,
+                file_browser_callback: function (field_name, url, type, win) {
+                    var w = window,
+                        d = document,
+                        e = d.documentElement,
+                        g = d.getElementsByTagName('body')[0],
+                        x = w.innerWidth || e.clientWidth || g.clientWidth,
+                        y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+                    var cmsURL = '/mcemanager/index.html?&field_name=' + field_name + '&langCode=' + tinymce.settings.language;
+
+                    if (type == 'image') {
+                        cmsURL = cmsURL + "&type=images";
+                    }
+
+                    tinyMCE.activeEditor.windowManager.open({
+                        file: cmsURL,
+                        title: 'Filemanager',
+                        width: x * 0.9,
+                        height: y * 0.9,
+                        resizable: "yes",
+                        close_previous: "no"
+                    });
+                }
+            });
+        });
+
+        $("#CampaignId").change(function () {
+            $(".loader").show();
+            var campaignId = $(this).val();
+            if (campaignId == "")
+                campaignId = 0;
+            if (campaignId != 0) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetCampaignDetails", "Dashboard")',
+                    data: { campaignId: campaignId },
+                    success: function (data) {
+                        if (data != "Fail") {
+                            var CampaignHTML = $(data).find("#CampaignName").val();
+                            $("#CampaignName").val(CampaignHTML);
+                            var CampaignDescriptionHTML = $(data).find("#CampaignDescription").val();
+                            $("#CampaignDescription").val(CampaignDescriptionHTML);
+                            $("#CountryId").html("");
+                            var CountryHTML = $(data).find("#CountryId").html();
+                            $("#CountryId").append(CountryHTML);
+                            $(".loader").hide();
+                        }
+                        else {
+                            $("#cerrror").html(data);
+                            $('#dvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#CampaignName").val("");
+                $("#CampaignDescription").val("");
+                $('#CountryId').prop('selectedIndex', 0);
+                $(".loader").hide();
+            }
+        });
+
+        $("#CampaignName").change(function () {
+            var CampaignId = $("#CampaignId")[0].value;
+            var CampaignName = $("#CampaignName")[0].value;
+            if (CampaignName != "") {
+                if (CampaignName != "" && CampaignId != "") {
+                    $("#CampaignId").removeAttr("disabled");
+                    return true;
+                }
+                $("#CampaignId").attr('disabled', 'disabled');
+                return true;
+            }
+            else {
+                $("#CampaignId").removeAttr("disabled");
+                return true;
+            }
+        });
+
+        $("#close").click(function () {
+            $("#cerrror").html("");
+            $('#dvcaminfoerror').css("display", "none");
+        });
+
+        function campaignvalidation() {
+            //var campaignId = $("#CampaignId")[0].value;
+            var CampaignName = $("#CampaignName")[0].value;
+            var campaignDescription = $("#CampaignDescription")[0].value;
+            var CountryId = $("#CountryId")[0].value;
+            var returnvalue = true;
+            //if (campaignId == "") {
+            //    $("#CampaignId")[0].nextElementSibling.innerHTML = "The Campaign field is required.";
+            //    returnvalue = false;
+            //}
+            //else {
+            //    $("#CampaignId")[0].nextElementSibling.innerHTML = "";
+            //}
+            if (CampaignName == "") {
+                $("#CampaignName")[0].nextElementSibling.innerHTML = "The Campaign Name field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#CampaignName")[0].nextElementSibling.innerHTML = "";
+            }
+            if (campaignDescription.length > 300) {
+                //$("#CampaignDescription")[0].nextElementSibling.innerHTML = "The Campaign Description field cannot be greater than 300.";
+                $("#CampaignDescription")[0].nextElementSibling.innerHTML = "The Campaign Description field cannot be more than 300 characters.";
+                returnvalue = false;
+            }
+            else {
+                $("#CampaignDescription")[0].nextElementSibling.innerHTML = "";
+            }
+            //if (campaignDescription == "") {
+            //    $("#CampaignDescription")[0].nextElementSibling.innerHTML = "The Campaign Description field is required.";
+            //    returnvalue = false;
+            //}
+            //else if (campaignDescription.length > 300) {
+            //    //$("#CampaignDescription")[0].nextElementSibling.innerHTML = "The Campaign Description field cannot be greater than 300.";
+            //    $("#CampaignDescription")[0].nextElementSibling.innerHTML = "The Campaign Description field cannot be more than 300 characters.";
+            //    returnvalue = false;
+            //}
+            //else {
+            //    $("#CampaignDescription")[0].nextElementSibling.innerHTML = "";
+            //}
+            if (CountryId == "") {
+                $("#CountryId")[0].nextElementSibling.innerHTML = "The Country field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#CountryId")[0].nextElementSibling.innerHTML = "";
+            }
+            return returnvalue;
+        }
+
+        $("#campaignsave").click(function () {
+            $(".loader").show();
+            var campaignvalida = campaignvalidation();
+            if (campaignvalida == true) {
+                var campaignName = $("#CampaignName").val();
+                var campaignDescription = $("#CampaignDescription").val();
+                var campaignId = $("#CampaignId").val();
+                var phoneticAlphabet = $("#PhoneticAlphabet").val();
+                var countryId = $("#CountryId").val();
+                var clientCheck = $(".checkbox")[0].checked;
+                if (clientCheck == undefined)
+                    clientCheck = false;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddNewCampaignInfo", "Dashboard")',
+                    data: { campaignId: campaignId, campaignName: campaignName, campaignDescription: campaignDescription, phoneticAlphabet: phoneticAlphabet, countryId: countryId, clientCheck: clientCheck },
+                    success: function (data) {
+                        if (data == "Exists") {
+                            campaignName = campaignName + " already exists."
+                            $("#cerrror").html(campaignName);
+                            $('#dvcaminfoerror').css("display", "block");
+                            $("#dvcaminfosuc").hide();
+                            $(".loader").hide();
+                        }
+                        else if (data == "fail") {
+                            data = data + " already exists."
+                            $("#cerrror").html(data);
+                            $('#dvcaminfoerror').css("display", "block");
+                            $("#dvcaminfosuc").hide();
+                            $(".loader").hide();
+                        }
+                        else if (data == "success") {
+                            var successmsg = "Campaign " + campaignName + " added successfully.";
+                            $("#csuceess").html(successmsg);
+                            $("#dvcaminfosuc").css("display", "block");
+                            $("#dvcaminfoerror").hide();
+                            $("#CampaignOtherInfo").show();
+                            $(".loader").hide();
+                        }
+                    }
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });
+
+        $("#CountryId").change(function () {
+            $(".loader").show();
+            var id = $(this).val();
+            var label = "country";
+            if (id == "") {
+                $("#errormsg").html("");
+                $("#CurrencyId").val("");
+                $("#lblmonthlybudget").html("");
+                $("#lblweeklybudget").html("");
+                $("#lbldailybudget").html("");
+                $("#lblhourlybudget").html("");
+                $("#lblmaxbid").html("");
+                $(".loader").hide();
+            }
+            else {
+                $.post('@Url.Action("GetCurrencyCode", "Dashboard")', { id: id, label: label }, function (data) {
+                    if (data.data = "success") {
+                        $("#errormsg").html("");
+                        var countrySymbole = data.value;
+                        $("#CurrencyId").val(data.value1);
+                        $("#lblmonthlybudget").html("(" + countrySymbole + ")");
+                        $("#lblweeklybudget").html("(" + countrySymbole + ")");
+                        $("#lbldailybudget").html("(" + countrySymbole + ")");
+                        $("#lblhourlybudget").html("(" + countrySymbole + ")");
+                        $("#lblmaxbid").html("(" + countrySymbole + ")");
+                        $(".loader").hide();
+                    }
+                    else if (data.data = "fail") {
+                        $(".loader").hide();
+                    }
+                });
+            }
+            var countryId = id == "" ? 0 : id;
+            $.ajax({
+                url: '@Url.Action("GetOperatorList", "Dashboard")',
+                data: { countryId: countryId },
+                success: function (data) {
+                    var items = "<option value=''>--Select Operator--</option>";
+                    if (data == "False") {
+                        $('#OperatorId').html(items);
+                    }
+                    else {
+                        $.each(data, function (i, us) {
+                            items += "<option value='" + us.Value + "'>" + us.Text + "</option>";
+                        });
+                        $('#OperatorId').html(items);
+                    }
+                }
+            });
+        });
+
+        $("#CurrencyId").change(function () {
+            $(".loader").show();
+            var id = $(this).val();
+            var label = "currency";
+            if (id == "") {
+                $("#errormsg").html("Please Select a Currency.");
+                $("#lblmonthlybudget").html("");
+                $("#lblweeklybudget").html("");
+                $("#lbldailybudget").html("");
+                $("#lblhourlybudget").html("");
+                $("#lblmaxbid").html("");
+                $(".loader").hide();
+            }
+            else {
+                $.post('@Url.Action("GetCurrencyCode", "Dashboard")', { id: id, label: label }, function (data) {
+                    if (data.data = "success") {
+                        $("#errormsg").html("");
+                        var countrySymbole = data.value;
+                        $("#lblmonthlybudget").html("(" + countrySymbole + ")");
+                        $("#lblweeklybudget").html("(" + countrySymbole + ")");
+                        $("#lbldailybudget").html("(" + countrySymbole + ")");
+                        $("#lblhourlybudget").html("(" + countrySymbole + ")");
+                        $("#lblmaxbid").html("(" + countrySymbole + ")");
+                        $(".loader").hide();
+                    }
+                    else if (data.data = "fail") {
+                        $(".loader").hide();
+                    }
+                });
+            }
+        });
+
+        $("#campaignnextbtn").click(function () {
+            $(".loader").show();
+            var campaignvalida = campaignvalidation();
+            if (campaignvalida == true) {
+                var campaignName = $("#CampaignName").val();
+                var campaignDescription = $("#CampaignDescription").val();
+                var campaignId = $("#CampaignId").val();
+                var phoneticAlphabet = $("#PhoneticAlphabet").val();
+                var countryId = $("#CountryId").val();
+                var clientCheck = $(".checkbox")[0].checked;
+                if (clientCheck == undefined)
+                    clientCheck = false;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddClientData", "Dashboard")',
+                    data: { campaignId: campaignId, campaignName: campaignName, campaignDescription: campaignDescription, phoneticAlphabet: phoneticAlphabet, countryId: countryId, clientCheck: clientCheck },
+                    success: function (data) {
+                        if (data == "Exists") {
+                            campaignName = campaignName + " already exists."
+                            $("#cerrror").html(campaignName);
+                            $('#dvcaminfosuc').css("display", "none");
+                            $('#dvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                        else if (data.success == "successbudget") {
+                            $('#dvcaminfoerror').css("display", "none");
+                            $('#dvcaminfosuc').css("display", "none");
+                            $('#campaigndiv').css("display", "none");
+                            $("#breadcrumbmenu").text("Budget");
+                            $("#breadcrumbmenu").css("font-weight", "Bold");
+                            $('#budgetdiv').css("display", "block");
+                            //$("#countrycode").html(data.value);
+                            $("#CurrencyId").val(data.value1);
+                            $("#lblmonthlybudget").html("(" + data.value + ")");
+                            $("#lblweeklybudget").html("(" + data.value + ")");
+                            $("#lbldailybudget").html("(" + data.value + ")");
+                            $("#lblhourlybudget").html("(" + data.value + ")");
+                            $("#lblmaxbid").html("(" + data.value + ")");
+                            $("#campaigninformation").css('background-color', '#e6e6e6');
+                            $("#clientinformation").css('background-color', '');
+                            $("#budgetmanagement").css('background-color', '#e6e6e6');
+                            $("#advertinformation").css('background-color', '');
+                            $("#smsandemail").css('background-color', '');
+                            $("#adsprofilemapping").css('background-color', '');
+                            $(".loader").hide();
+                        }
+                        else if (data.success == "successjson") {
+                            $('#dvcaminfoerror').css("display", "none");
+                            $('#dvcaminfosuc').css("display", "none");
+                            $('#campaigndiv').css("display", "none");
+                            $("#breadcrumbmenu").text("Clients");
+                            $("#breadcrumbmenu").css("font-weight", "Bold");
+                            $('#clientdiv').css("display", "block");
+                            //$("#ClientPhoneticAlphabet").html(data.value);
+                            //$("#ClientPhoneticAlphabet").prop('title', data.value1);
+                            $("#campaigninformation").css('background-color', '#e6e6e6');
+                            $("#clientinformation").css('background-color', '#e6e6e6');
+                            $("#budgetmanagement").css('background-color', '');
+                            $("#advertinformation").css('background-color', '');
+                            $("#smsandemail").css('background-color', '');
+                            $("#adsprofilemapping").css('background-color', '');
+                            $(".loader").hide();
+                        }
+                        else {
+                            $('#campaigndiv').css("display", "none");
+                            $("#clientdiv").html(data);
+                            $('#clientdiv').css("display", "block");
+                            $(".loader").hide();
+                            $('#dvcaminfoerror').css("display", "none");
+                            $('#dvcaminfosuc').css("display", "none");
+                        }
+                    }
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });
+
+        $("#campaigncancelbtn").click(function () {
+            $("#CampaignId").val("");
+            $("#CampaignName").val("");
+            $("#CampaignDescription").val("");
+            $("#CountryId").val("");
+            $(".checkbox")[0].checked = false;
+            $('.icheckbox_square-green').removeClass("checked");
+            $("#CampaignId")[0].nextElementSibling.innerHTML = "";
+            $("#CampaignName")[0].nextElementSibling.innerHTML = "";
+            $("#CampaignDescription")[0].nextElementSibling.innerHTML = "";
+            $("#CountryId")[0].nextElementSibling.innerHTML = "";
+            $("#CampaignId").removeAttr("disabled");
+            $("#cerrror").html("");
+            $('#dvcaminfoerror').css("display", "none");
+            $('#dvcaminfosuc').css("display", "none");
+        });
+
+        $("#ClientId").change(function () {
+        $(".loader").show();
+        var clientId = $(this).val();
+        if (clientId == "")
+            clientId = 0;
+        if (clientId != 0) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetClientDetails", "Dashboard")',
+                data: { clientId: clientId },
+                success: function (data) {
+                    if (data != "Fail") {
+                        var ClientHTML = $(data).find("#ClientName").val();
+                        $("#ClientName").val(ClientHTML);
+                        var ClientDescriptionHTML = $(data).find("#ClientDescription").val();
+                        $("#ClientDescription").val(ClientDescriptionHTML);
+                        var ClientEmailHTML = $(data).find("#ClientEmail").val();
+                        $("#ClientEmail").val(ClientEmailHTML);
+                        var ClientContactPhoneHTML = $(data).find("#ClientContactPhone").val();
+                        $("#ClientContactPhone").val(ClientContactPhoneHTML);
+                        $(".loader").hide();
+                    }
+                    else {
+                        $("#clientcerrror").html(data);
+                        $('#clientdvcaminfoerror').css("display", "block");
+                        $(".loader").hide();
+                    }
+                }
+            });
+        }
+        else {
+            $("#ClientName").val("");
+            $("#ClientDescription").val("");
+            $("#ClientEmail").val("");
+            $("#ClientContactPhone").val("");
+            $(".loader").hide();
+        }
+        });
+
+        $("#ClientContactPhone").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errormsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+
+        function clientvalidation() {
+            var clientId = $("#ClientId")[0].value;
+            var clientName = $("#ClientName")[0].value;
+            var clientDescription = $("#ClientDescription")[0].value;
+            var clientEmail = $("#ClientEmail")[0].value;
+            var clientContactPhone = $("#ClientContactPhone")[0].value;
+            var filter = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+            var returnvalue = true;
+            if (clientId == "") {
+                $("#ClientId")[0].nextElementSibling.innerHTML = "The Client field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#ClientId")[0].nextElementSibling.innerHTML = "";
+            }
+            if (clientName == "") {
+                $("#ClientName")[0].nextElementSibling.innerHTML = "The Client Name field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#ClientName")[0].nextElementSibling.innerHTML = "";
+            }
+            //if (clientDescription == "") {
+            //    $("#ClientDescription")[0].nextElementSibling.innerHTML = "The Client Description field is required.";
+            //    returnvalue = false;
+            //}
+            if (clientDescription.length > 300) {
+                //$("#ClientDescription")[0].nextElementSibling.innerHTML = "The Client Description field cannot be greater than 300.";
+                $("#ClientDescription")[0].nextElementSibling.innerHTML = "The Client Description field cannot be more than 300 characters.";
+                returnvalue = false;
+            }
+            else {
+                $("#ClientDescription")[0].nextElementSibling.innerHTML = "";
+            }
+            if (clientEmail == "") {
+                $("#ClientEmail")[0].nextElementSibling.innerHTML = "The Client Email field is required.";
+                returnvalue = false;
+            }
+            else if (!filter.exec(clientEmail))
+            {
+                $("#ClientEmail")[0].nextElementSibling.innerHTML = "Please type your e-mail address in the format yourname@example.com.";
+                returnvalue = false;
+            }
+            else {
+                $("#ClientEmail")[0].nextElementSibling.innerHTML = "";
+            }
+            if (clientContactPhone == "") {
+                $("#ClientContactPhone")[0].nextElementSibling.innerHTML = "The Client Contact Phone field is required.";
+                returnvalue = false;
+            }
+            else if (clientContactPhone.length < 10)
+            {
+                //$("#ClientContactPhone")[0].nextElementSibling.innerHTML = "The Client Contact Phone field must be at least 10 characters long.";
+                $("#ClientContactPhone")[0].nextElementSibling.innerHTML = "The Client Contact Phone field must be 10 characters long.";
+                returnvalue = false;
+            }
+            else {
+                $("#ClientContactPhone")[0].nextElementSibling.innerHTML = "";
+            }
+            return returnvalue;
+        }
+
+        $("#clientsubmit").click(function () {
+            $(".loader").show();
+            var clientvalida = clientvalidation();
+            if (clientvalida == true) {
+                var campaignName = $("#CampaignName").val();
+                var clientId = $("#ClientId").val();
+                var clientName = $("#ClientName").val();
+                var clientDescription = $("#ClientDescription").val();
+                var clientEmail = $("#ClientEmail").val();
+                var clientContactPhone = $("#ClientContactPhone").val();
+                var phoneticAlphabet = $("#ClientPhoneticAlphabet")[0].innerHTML;
+                var countryId = $("#CountryId").val();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddClientInfo", "Dashboard")',
+                    data: { campaignName: campaignName, clientId: clientId, clientName: clientName, clientDescription: clientDescription, clientEmail: clientEmail, clientContactPhone: clientContactPhone, phoneticAlphabet: phoneticAlphabet, countryId: countryId },
+                    success: function (data) {
+                        if (data == "Exists") {
+                            clientName = clientName + " already exists."
+                            $("#clientcerrror").html(clientName);
+                            $('#clientdvcaminfoerror').css("display", "block");
+                            $("#clientdvcaminfosuc").hide();
+                            $(".loader").hide();
+                        }
+                        else if (data == "fail") {
+                            data = data + " already exists."
+                            $("#clientcerrror").html(data);
+                            $('#clientdvcaminfoerror').css("display", "block");
+                            $("#clientdvcaminfosuc").hide();
+                            $(".loader").hide();
+                        }
+                        else if (data == "success") {
+                            var successmsg = "Client " + clientName + " added successfully.";
+                            $("#clientcsuceess").html(successmsg);
+                            $("#clientdvcaminfosuc").css("display", "block");
+                            $("#clientdvcaminfoerror").hide();
+                            $("#CampaignOtherInfo").show();
+                            $(".loader").hide();
+                        }
+                    }
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });
+
+        $("#clientcloseerror").click(function () {
+            $("#clientcerrror").html("");
+            $('#clientdvcaminfoerror').css("display", "none");
+        });
+
+        $("#clientclosesuccess").click(function () {
+            $('#clientdvcaminfosuc').css("display", "none");
+        });
+
+        var getresultclient = function (data) {
+
+            if (data == "success") {
+                $("#clientdvcaminfosuc").show();
+                $("#clientdvcaminfoerror").hide();
+                $("#CampaignOtherInfo").show();
+
+            }
+            else {
+                var clientName = $("#ClientName").val();
+                clientName = clientName + " already exists."
+                $("#clientcerrror").html(clientName);
+                $("#clientdvcaminfosuc").hide();
+                $('#clientdvcaminfoerror').css("display", "block");
+            }
+        };
+
+        $("#clientbackbtn").click(function () {
+            $(".loader").show();
+            $("#breadcrumbmenu").text("Campaigns");
+            $("#breadcrumbmenu").css("font-weight", "Bold");
+            $('#campaigndiv').css("display", "block");
+            $("#ClientId")[0].nextElementSibling.innerHTML = "";
+            $("#ClientName")[0].nextElementSibling.innerHTML = "";
+            $("#ClientDescription")[0].nextElementSibling.innerHTML = "";
+            $("#ClientEmail")[0].nextElementSibling.innerHTML = "";
+            $("#ClientContactPhone")[0].nextElementSibling.innerHTML = "";
+            $("#clientdvcaminfosuc").css("display", "none");
+            $("#clientdvcaminfoerror").css("display", "none");
+            $('#clientdiv').css("display", "none");
+            $("#campaigninformation").css('background-color', '#e6e6e6');
+            $("#clientinformation").css('background-color', '');
+            $("#budgetmanagement").css('background-color', '');
+            $("#advertinformation").css('background-color', '');
+            $("#smsandemail").css('background-color', '');
+            $("#adsprofilemapping").css('background-color', '');
+            $(".loader").hide();
+        });
+
+        $("#clientcancelbtn").click(function () {
+            $("#ClientId").val("");
+            $("#ClientName").val("");
+            $("#ClientDescription").val("");
+            $("#ClientEmail").val("");
+            $("#ClientContactPhone").val("");
+            $("#ClientId")[0].nextElementSibling.innerHTML = "";
+            $("#ClientName")[0].nextElementSibling.innerHTML = "";
+            $("#ClientDescription")[0].nextElementSibling.innerHTML = "";
+            $("#ClientEmail")[0].nextElementSibling.innerHTML = "";
+            $("#ClientContactPhone")[0].nextElementSibling.innerHTML = "";
+            $("#clientdvcaminfosuc").css("display", "none");
+            $("#clientdvcaminfoerror").css("display", "none");
+        });
+
+        $("#clientnextbtn").click(function () {
+            $(".loader").show();
+            var clientvalida = clientvalidation();
+            if (clientvalida == true) {
+                var campaignName = $("#CampaignName").val();
+                var countryId = $("#CountryId").val();
+                var clientId = $("#ClientId").val();
+                var clientName = $("#ClientName").val();
+                var clientDescription = $("#ClientDescription").val();
+                var clientEmail = $("#ClientEmail").val();
+                var clientContactPhone = $("#ClientContactPhone").val();
+                var clientPhoneticAlphabet = $("#ClientPhoneticAlphabet")[0].innerHTML;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddBudgetData", "Dashboard")',
+                    data: { campaignName: campaignName, clientId: clientId, clientName: clientName, clientDescription: clientDescription, clientEmail: clientEmail, clientContactPhone: clientContactPhone, countryId: countryId, clientPhoneticAlphabet: clientPhoneticAlphabet },
+                    success: function (data) {
+                        if (data.success == "successbudget") {
+                            $('#clientdiv').css("display", "none");
+                            $("#breadcrumbmenu").text("Budget");
+                            $("#breadcrumbmenu").css("font-weight", "Bold");
+                            $('#budgetdiv').css("display", "block");
+                            //$("#countrycode").html(data.value);
+                            $("#CurrencyId").val(data.value1);
+                            $("#lblmonthlybudget").html("(" + data.value + ")");
+                            $("#lblweeklybudget").html("(" + data.value + ")");
+                            $("#lbldailybudget").html("(" + data.value + ")");
+                            $("#lblhourlybudget").html("(" + data.value + ")");
+                            $("#lblmaxbid").html("(" + data.value + ")");
+                            $("#campaigninformation").css('background-color', '#e6e6e6');
+                            $("#clientinformation").css('background-color', '#e6e6e6');
+                            $("#budgetmanagement").css('background-color', '#e6e6e6');
+                            $("#advertinformation").css('background-color', '');
+                            $("#smsandemail").css('background-color', '');
+                            $("#adsprofilemapping").css('background-color', '');
+                            $(".loader").hide();
+                            $('#clientdvcaminfoerror').css("display", "none");
+                            $('#clientdvcaminfosuc').css("display", "none");
+                        }
+                        //if (data != "Exists") {
+                        //    $('#clientdiv').css("display", "none");
+                        //    $("#breadcrumbmenu").text("Budget");
+                        //    $("#breadcrumbmenu").css("font-weight", "Bold");
+                        //    $('#budgetdiv').css("display", "block");
+                        //    $(".loader").hide();
+                        //    $('#clientdvcaminfoerror').css("display", "none");
+                        //    $('#clientdvcaminfosuc').css("display", "none");
+                        //}
+                        else {
+                            clientName = clientName + " already exists."
+                            $("#clientcerrror").html(clientName);
+                            $('#clientdvcaminfosuc').css("display", "none");
+                            $('#clientdvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                    }
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });
+
+        $(document).ready(function () {
+            budgetdecimalfunction();
+        });
+
+        function budgetdecimalfunction() {
+            $("#MonthlyBudget").keypress(function (event) {
+                $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+                if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                    return false;
+                }
+                var monthlyBudget = $(this).val();
+                if ((monthlyBudget.indexOf('.') != -1) &&
+                    (monthlyBudget.substring(monthlyBudget.indexOf('.')).length > 2) &&
+                    (event.which != 0 && event.which != 8) &&
+                    ($(this)[0].selectionStart >= monthlyBudget.length - 2)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+            $("#WeeklyBudget").keypress(function (event) {
+                $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+                if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                    return false;
+                }
+                var weeklyBudget = $(this).val();
+                if ((weeklyBudget.indexOf('.') != -1) &&
+                    (weeklyBudget.substring(weeklyBudget.indexOf('.')).length > 2) &&
+                    (event.which != 0 && event.which != 8) &&
+                    ($(this)[0].selectionStart >= weeklyBudget.length - 2)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+            $("#DailyBudget").keypress(function (event) {
+                $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+                if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                    return false;
+                }
+                var dailyBudget = $(this).val();
+                if ((dailyBudget.indexOf('.') != -1) &&
+                    (dailyBudget.substring(dailyBudget.indexOf('.')).length > 2) &&
+                    (event.which != 0 && event.which != 8) &&
+                    ($(this)[0].selectionStart >= dailyBudget.length - 2)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+            $("#HourlyBudget").keypress(function (event) {
+                $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+                if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                    return false;
+                }
+                var hourlyBudget = $(this).val();
+                if ((hourlyBudget.indexOf('.') != -1) &&
+                    (hourlyBudget.substring(hourlyBudget.indexOf('.')).length > 2) &&
+                    (event.which != 0 && event.which != 8) &&
+                    ($(this)[0].selectionStart >= hourlyBudget.length - 2)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+            $("#MaximumBid").keypress(function (event) {
+                //var maximumbidcompare = $("#MaximumBid")[0].value;
+                $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+                if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                    return false;
+                }
+                var maximumBid = $(this).val();
+                if ((maximumBid.indexOf('.') != -1) &&
+                    (maximumBid.substring(maximumBid.indexOf('.')).length > 2) &&
+                    (event.which != 0 && event.which != 8) &&
+                    ($(this)[0].selectionStart >= maximumBid.length - 2)) {
+                    event.preventDefault();
+                    return false;
+                }
+                else if (maximumBid.length >= 5) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        }
+
+        function budgetvalidation() {
+            var currencyId = $("#CurrencyId").val();
+            var maximumBid = $("#MaximumBid")[0].value;
+            var returnvalue = true;
+            if (currencyId == "0" || currencyId == "") {
+                $("#errormsg").html("Please Select a Currency.");
+                returnvalue = false;
+            }
+            else {
+                $("#errormsg").html("");
+            }
+            if (maximumBid == "") {
+                $("#MaximumBid")[0].nextElementSibling.innerHTML = "The Maximum Bid field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#MaximumBid")[0].nextElementSibling.innerHTML = "";
+            }
+            budgetdecimalfunction();
+            return returnvalue;
+        }
+
+        $("#budgetsubmit").click(function () {
+            $(".loader").show();
+            var budgetvalida = budgetvalidation();
+            if (budgetvalida == true) {
+                var clientName = $("#ClientName").val();
+                var campaignName = $("#CampaignName").val();
+                var countryId = $("#CountryId").val();
+                var currencyId = $("#CurrencyId").val();
+                var monthlyBudget = $("#MonthlyBudget").val();
+                var weeklyBudget = $("#WeeklyBudget").val();
+                var dailyBudget = $("#DailyBudget").val();
+                var hourlyBudget = $("#HourlyBudget").val();
+                var maximumBid = $("#MaximumBid").val();
+                if (monthlyBudget == "")
+                    monthlyBudget = 0;
+                if (weeklyBudget == "")
+                    weeklyBudget = 0;
+                if (dailyBudget == "")
+                    dailyBudget = 0;
+                if (hourlyBudget == "")
+                    hourlyBudget = 0;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddBudgetInfo", "Dashboard")',
+                    data: { campaignName: campaignName, countryId: countryId, currencyId: currencyId, monthlyBudget: monthlyBudget, weeklyBudget: weeklyBudget, dailyBudget: dailyBudget, hourlyBudget: hourlyBudget, maximumBid: maximumBid, clientName: clientName },
+                    success: function (data) {
+                        if (data == "success") {
+                            $("#budgetdvcaminfosuc").css("display", "block");
+                            $("#budgetdvcaminfoerror").hide();
+                            $("#CampaignOtherInfo").show();
+                            $(".loader").hide();
+                        }
+                        else if (data == "fail") {
+                            $("#budgetcerrror").html(data);
+                            $("#budgetdvcaminfosuc").hide();
+                            $('#budgetdvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                    }
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });
+
+        //Old Function Use after resolve payment required error of cloud convert api
+        $("#budgetnextbtn").click(function () {
+            $(".loader").show();
+            var budgetvalida = budgetvalidation();
+            if (budgetvalida == true) {
+                var clientCheck = $(".checkbox")[0].checked;
+                var clientName = $("#ClientName").val();
+                var campaignName = $("#CampaignName").val();
+                var countryId = $("#CountryId").val();
+                var currencyId = $("#CurrencyId").val();
+                var monthlyBudget = $("#MonthlyBudget").val();
+                var weeklyBudget = $("#WeeklyBudget").val();
+                var dailyBudget = $("#DailyBudget").val();
+                var hourlyBudget = $("#HourlyBudget").val();
+                var maximumBid = $("#MaximumBid").val();
+                if (monthlyBudget == "")
+                    monthlyBudget = 0;
+                if (weeklyBudget == "")
+                    weeklyBudget = 0;
+                if (dailyBudget == "")
+                    dailyBudget = 0;
+                if (hourlyBudget == "")
+                    hourlyBudget = 0;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddAdvertData", "Dashboard")',
+                    data: { campaignName: campaignName, countryId: countryId, currencyId: currencyId, monthlyBudget: monthlyBudget, weeklyBudget: weeklyBudget, dailyBudget: dailyBudget, hourlyBudget: hourlyBudget, maximumBid: maximumBid, clientName: clientName },
+                    success: function (data) {
+                        if (data.success == "success") {
+                            $('#budgetdiv').css("display", "none");
+                            $("#breadcrumbmenu").text("Adverts");
+                            $("#breadcrumbmenu").css("font-weight", "Bold");
+                            $('#advertdiv').css("display", "block");
+                            //$("#AdvertPhoneticAlphabet").html(data.value);
+                            //$("#AdvertPhoneticAlphabet").prop('title', data.value1);
+                            $("#Numberofadsinabatch").val(data.value2);
+                            if (data.value3 != "" || data.value3 != null) {
+                                $("#termLink").attr("href", "/TermAndCondition/" + data.value3);
+                            }
+                            else {
+                                $("#termLink").attr("href", "javascript:void(0)");
+                            }
+                            $("#AdvertClientId").html("");
+                            $.each(data.value5, function () {
+                                $("#AdvertClientId").append($("<option></option>").val(this['Value']).html(this['Text']));
+                            });
+                            $("#AdvertClientId option[value='" + data.value4 + "']").attr("selected", "selected");//clientId
+                            if (clientCheck == true) {
+                                $("#campaigninformation").css('background-color', '#e6e6e6');
+                                $("#clientinformation").css('background-color', '#e6e6e6');
+                                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                                $("#advertinformation").css('background-color', '#e6e6e6');
+                                $("#smsandemail").css('background-color', '');
+                                $("#adsprofilemapping").css('background-color', '');
+                            }
+                            else {
+                                $("#campaigninformation").css('background-color', '#e6e6e6');
+                                $("#clientinformation").css('background-color', '');
+                                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                                $("#advertinformation").css('background-color', '#e6e6e6');
+                                $("#smsandemail").css('background-color', '');
+                                $("#adsprofilemapping").css('background-color', '');
+                            }
+                            $(".loader").hide();
+                            $('#budgetdvcaminfoerror').css("display", "none");
+                            $('#budgetdvcaminfosuc').css("display", "none");
+                        }
+                        else if (data == "fail") {
+                            $("#budgetcerrror").html(data);
+                            $("#budgetdvcaminfosuc").hide();
+                            $('#budgetdvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                    }
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });
+
+        //This Function Use for resolve payment required error of cloud convert api
+        @*$("#budgetnextbtn").click(function () {
+            $(".loader").show();
+            var budgetvalida = budgetvalidation();
+            if (budgetvalida == true) {
+                var clientCheck = $(".checkbox")[0].checked;
+                var clientName = $("#ClientName").val();
+                var campaignName = $("#CampaignName").val();
+                var countryId = $("#CountryId").val();
+                var monthlyBudget = $("#MonthlyBudget").val();
+                var weeklyBudget = $("#WeeklyBudget").val();
+                var dailyBudget = $("#DailyBudget").val();
+                var hourlyBudget = $("#HourlyBudget").val();
+                var maximumBid = $("#MaximumBid").val();
+                if (monthlyBudget == "")
+                    monthlyBudget = 0;
+                if (weeklyBudget == "")
+                    weeklyBudget = 0;
+                if (dailyBudget == "")
+                    dailyBudget = 0;
+                if (hourlyBudget == "")
+                    hourlyBudget = 0;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddAdvertData", "Dashboard")',
+                    data: { campaignName: campaignName, countryId: countryId, monthlyBudget: monthlyBudget, weeklyBudget: weeklyBudget, dailyBudget: dailyBudget, hourlyBudget: hourlyBudget, maximumBid: maximumBid, clientName: clientName },
+                    success: function (data) {
+                        if (data.success == "success") {
+                            $('#budgetdiv').css("display", "none");
+                            $("#breadcrumbmenu").text("Campaign Date and Interaction");
+                            $("#breadcrumbmenu").css("font-weight", "Bold");
+                            $('#campaigndatesandinteractiondiv').css("display", "block");
+                            if (clientCheck == true) {
+                                $("#campaigninformation").css('background-color', '#e6e6e6');
+                                $("#clientinformation").css('background-color', '#e6e6e6');
+                                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                                $("#advertinformation").css('background-color', '');
+                                $("#smsandemail").css('background-color', '#e6e6e6');
+                                $("#adsprofilemapping").css('background-color', '');
+                            }
+                            else {
+                                $("#campaigninformation").css('background-color', '#e6e6e6');
+                                $("#clientinformation").css('background-color', '');
+                                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                                $("#advertinformation").css('background-color', '');
+                                $("#smsandemail").css('background-color', '#e6e6e6');
+                                $("#adsprofilemapping").css('background-color', '');
+                            }
+                            $(".loader").hide();
+                        }
+                        else if (data == "fail") {
+                            $("#budgetcerrror").html(data);
+                            $("#budgetdvcaminfosuc").hide();
+                            $('#budgetdvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                    }
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });*@
+
+        $("#budgetcloseerror").click(function () {
+            $("#budgetcerrror").html("");
+            $('#budgetdvcaminfoerror').css("display", "none");
+        });
+
+        $("#budgetclosesuccess").click(function () {
+            $('#budgetdvcaminfosuc').css("display", "none");
+        });
+
+        $("#budgetbackbtn").click(function () {
+            var clientCheck = $(".checkbox")[0].checked;
+            $(".loader").show();
+            if (clientCheck == true) {
+                $('#campaigndiv').css("display", "none");
+                $("#breadcrumbmenu").text("Clients");
+                $("#breadcrumbmenu").css("font-weight", "Bold");
+                $('#clientdiv').css("display", "block");
+                $("#MaximumBid")[0].nextElementSibling.innerHTML = "";
+                $("#budgetdvcaminfosuc").css("display", "none");
+                $("#budgetdvcaminfoerror").css("display", "none");
+                $("#budgetdiv").css("display", "none");
+                $("#campaigninformation").css('background-color', '#e6e6e6');
+                $("#clientinformation").css('background-color', '#e6e6e6');
+                $("#budgetmanagement").css('background-color', '');
+                $("#advertinformation").css('background-color', '');
+                $("#smsandemail").css('background-color', '');
+                $("#adsprofilemapping").css('background-color', '');
+                $(".loader").hide();
+            }
+            else {
+                $("#breadcrumbmenu").text("Campaigns");
+                $("#breadcrumbmenu").css("font-weight", "Bold");
+                $('#campaigndiv').css("display", "block");
+                $('#clientdiv').css("display", "none");
+                $("#MaximumBid")[0].nextElementSibling.innerHTML = "";
+                $("#budgetdvcaminfosuc").css("display", "none");
+                $("#budgetdvcaminfoerror").css("display", "none");
+                $("#budgetdiv").css("display", "none");
+                $("#campaigninformation").css('background-color', '#e6e6e6');
+                $("#clientinformation").css('background-color', '');
+                $("#budgetmanagement").css('background-color', '');
+                $("#advertinformation").css('background-color', '');
+                $("#smsandemail").css('background-color', '');
+                $("#adsprofilemapping").css('background-color', '');
+                $(".loader").hide();
+            }
+        });
+
+        $("#budgetcancelbtn").click(function () {
+            $("#MonthlyBudget").val("");
+            $("#WeeklyBudget").val("");
+            $("#DailyBudget").val("");
+            $("#HourlyBudget").val("");
+            $("#MaximumBid").val("");
+            $("#MaximumBid")[0].nextElementSibling.innerHTML = "";
+            $("#budgetdvcaminfosuc").css("display", "none");
+            $("#budgetdvcaminfoerror").css("display", "none");
+        });
+
+        function get_filename_scripts(obj) {
+
+            if (obj.value == "") {
+                return true;
+            }
+            else {
+                var file = obj.value;
+
+                //Add 21-02-2019
+                var iSize = (obj.files[0].size / 1024);
+                var allowed_extensions = new Array("pdf", "PDF", "doc", "DOC", "docx", "DOCX");
+
+                var file_extension = file.split('.').pop().toLowerCase(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+
+                var isValid = false;
+                for (var i = 0; i <= allowed_extensions.length; i++) {
+                    if (allowed_extensions[i] == file_extension) {
+                        isValid = true;
+                        break;
+                    }
+                }
+                if (isValid) {
+                    var array = file.split('\\');
+                    $("#filenamescripts").html(array[array.length - 1]);
+                    $("#scriptfileerrmsg")[0].innerHTML = "";
+                    if ($("#filenamescripts").html != "") {
+                        $("#Script")[0].nextElementSibling.innerHTML = "";
+                        $("#Script").attr("disabled", "disabled");
+                    }
+                }
+                else {
+                    $("#filenamescripts").text("");
+                    $("#scriptfileerrmsg")[0].innerHTML = "Please upload pdf or doc file formats.";
+                    $("#Script")[0].nextElementSibling.innerHTML = "";
+                    if ($("#filenamescripts").html != "") {
+                        $("#Script").removeAttr("disabled");
+                    }
+                    return false;
+                }
+                if (iSize != "" || iSize != null) {
+                    iSize = (Math.round(iSize * 100) / 100)
+                    if (iSize > 50) {
+                        $("#filenamescripts").text("");
+                        $("#scriptfileerrmsg")[0].innerHTML = "Please upload file size upto 50kb.";
+                        $("#Script")[0].nextElementSibling.innerHTML = "";
+                        if ($("#filenamescripts").html != "") {
+                            $("#Script").removeAttr("disabled");
+                        }
+                        return false;
+                    }
+                }
+            }
+        }
+
+        function get_filename(obj) {
+            if (obj.value == "") {
+                return true;
+            }
+            else {
+                var fileName = obj.value;
+
+                //Add 22-02-2019
+                var iSize = (obj.files[0].size / 1024);
+
+                var allowed_extensions = new Array("aac", "ac3", "aif", "aifc", "aiff", "amr", "au", "caf",
+                    "flac", "m4a", "m4b", "mp3", "oga", "ogg", "sfark", "voc", "wav", "weba", "wma");
+
+                var file_extension = fileName.split('.').pop().toLowerCase(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+
+                var isValid = false;
+                for (var i = 0; i <= allowed_extensions.length; i++) {
+                    if (allowed_extensions[i] == file_extension) {
+                        isValid = true;
+                        break;
+                    }
+                }
+                if (isValid) {
+                    $("#mediafileerrmsg")[0].innerHTML = "";
+                    var array = fileName.split('\\');
+                    $("#filename").html(array[array.length - 1]);
+                }
+                else {
+                    $("#filename").text("");
+                    $("#mediafileerrmsg")[0].innerHTML = "Please upload audio file formats.";
+                    return false;
+                }
+                if (iSize != "" || iSize != null) {
+                    if (iSize / 1024 > 1) {
+                        iSize = (Math.round((iSize / 1024) * 100) / 100)
+                        if (iSize > 1) {
+                            $("#filename").text("");
+                            $("#mediafileerrmsg")[0].innerHTML = "Please upload file size upto 1MB.";
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        //Add 01-05-2019
+        $("#AdvertName").change(function () {
+            var AdvertId = $("#AdvertId")[0].value;
+            var AdvertName = $("#AdvertName")[0].value;
+            if (AdvertName != "") {
+                if (AdvertName != "" && AdvertId != "") {
+                    $("#AdvertId").removeAttr("disabled");
+                    return true;
+                }
+                $("#AdvertId").attr('disabled', 'disabled');
+                return true;
+            }
+            else {
+                $("#AdvertId").removeAttr("disabled");
+                return true;
+            }
+        });
+
+        //Add 01-05-2019
+    $("#AdvertId").change(function () {
+            $(".loader").show();
+            var advertId = $(this).val();
+            var countryId = $("#CountryId").val();
+            if (advertId == "")
+                advertId = 0;
+            if (advertId != 0) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetAdvertDetails", "Dashboard")',
+                    data: { advertId: advertId, countryId: countryId },
+                    success: function (data) {
+                        if (data != "Fail") {
+                            var AdvertNameHTML = $(data).find("#AdvertName").val();
+                            $("#AdvertName").val(AdvertNameHTML);
+                            $("#AdvertClientId").html("");
+                            var AdvertClientIdHTML = $(data).find("#AdvertClientId").html();
+                            $("#AdvertClientId").append(AdvertClientIdHTML);
+                            var BrandNameHTML = $(data).find("#BrandName").val();
+                            $("#BrandName").val(BrandNameHTML);
+                            $("#AdvertCategoryId").html("");
+                            var AdvertCategoryIdHTML = $(data).find("#AdvertCategoryId").html();
+                            $("#AdvertCategoryId").append(AdvertCategoryIdHTML);
+                            var MediaFileNameHTML = $(data).find("#filename").html();
+                            $("#filename").html(MediaFileNameHTML);
+                            var ScriptFileNameHTML = $(data).find("#filenamescripts").html();
+                            $("#filenamescripts").html(ScriptFileNameHTML);
+                            var ScriptHTML = $(data).find("#Script").val();
+                            $("#Script").val(ScriptHTML);
+                            var NumberofadsinabatchHTML = $(data).find("#Numberofadsinabatch").val();
+                            $("#Numberofadsinabatch").val(NumberofadsinabatchHTML);
+                            $("#OperatorId").html("");
+                            var OperatorIdHTML = $(data).find("#OperatorId").html();
+                            $("#OperatorId").append(OperatorIdHTML);
+                            $("#filename").css("display", "none");
+                            $("#filenamescripts").css("display", "none");
+                            $("#scripFile").attr("disabled", "disabled");
+                            $("#inputScriptFile").attr("disabled", "disabled");
+                            $("#mediaFile").attr("disabled", "disabled");
+                            $("#inputMediaFile").attr("disabled", "disabled");
+                            $("#Script").attr("disabled", "disabled");
+                            $(".loader").hide();
+                        }
+                        else {
+                            $("#advertcerrror").html(data);
+                            $('#advertdvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                    }
+                });
+            }
+            else {
+                $("#CampaignName").val("");
+                $("#CampaignDescription").val("");
+                $('#CountryId').prop('selectedIndex', 0);
+                $("#AdvertName").val("");
+                $("#AdvertClientId").prop('selectedIndex', 0);
+                $("#BrandName").val("");
+                $("#AdvertCategoryId").prop('selectedIndex', 0);
+                $("#filename").html("");
+                $("#filenamescripts").html("");
+                $("#Script").val("");
+                $("#Numberofadsinabatch").val("1");
+                $("#OperatorId").prop('selectedIndex', 0);
+                $("#scripFile").removeAttr("disabled");
+                $("#inputScriptFile").removeAttr("disabled");
+                $("#mediaFile").removeAttr("disabled");
+                $("#inputMediaFile").removeAttr("disabled");
+                $("#Script").removeAttr("disabled");
+                $(".loader").hide();
+            }
+        });
+
+        //Add 21-02-2019
+        $("#Script").change(function () {
+            var script = this.value;
+            if (script != "") {
+                $("#filenamescripts").text("");
+                $("#scriptfileerrmsg")[0].innerHTML = "";
+                $("#scripFile").attr("disabled", "disabled");
+                $("#inputScriptFile").attr("disabled", "disabled");
+                if (script.length > 400) {
+                    $("#Script")[0].nextElementSibling.innerHTML = "The Script field cannot be more than 400 characters.";
+                }
+                else {
+                    $("#Script")[0].nextElementSibling.innerHTML = "";
+                }
+            }
+            else {
+                $("#Script")[0].nextElementSibling.innerHTML = "";
+                $("#scripFile").removeAttr("disabled");
+                $("#inputScriptFile").removeAttr("disabled");
+            }
+        });
+
+        function advertvalidation() {
+            var clientId = $("#ClientId").val();
+            var advertName = $("#AdvertName").val();
+            var advertClientId = $("#AdvertClientId").val();
+            var advertCategoryId = $("#AdvertCategoryId").val();
+            var mediaFileName = $("#filename").text().trim();
+            var scriptsFileName = $("#filenamescripts").text().trim();
+            var script = $("#Script").val();
+            var advertCheck = $(".advertcheckbox")[0].checked;
+            var operatorId = $("#OperatorId").val();
+            var returnvalue = true;
+            if (advertName == "") {
+                $("#AdvertName")[0].nextElementSibling.innerHTML = "The Advert Name field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#AdvertName")[0].nextElementSibling.innerHTML = "";
+            }
+            if (clientId != "") {
+                if (advertClientId == "") {
+                    $("#AdvertClientId")[0].nextElementSibling.innerHTML = "The Advert Client field is required.";
+                    returnvalue = false;
+                }
+                else {
+                    $("#AdvertClientId")[0].nextElementSibling.innerHTML = "";
+                }
+            }
+            else {
+                $("#AdvertClientId")[0].nextElementSibling.innerHTML = "";
+            }
+            if (advertCategoryId == "") {
+                $("#AdvertCategoryId")[0].nextElementSibling.innerHTML = "The Advert Category field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#AdvertCategoryId")[0].nextElementSibling.innerHTML = "";
+            }
+            if (mediaFileName == "") {
+                $("#mediafileerrmsg")[0].innerHTML = "Please upload media file.";
+                returnvalue = false;
+            }
+            else {
+                $("#mediafileerrmsg")[0].innerHTML = "";
+            }
+            if ((scriptsFileName == "" && script == "")) {
+                if (scriptsFileName == "") {
+                    $("#scriptfileerrmsg")[0].innerHTML = "Please upload script file.";
+                    returnvalue = false;
+                }
+                //else if (script == "") {
+                //    $("#Script")[0].nextElementSibling.innerHTML = "The Script field is required.";
+                //    returnvalue = false;
+                //}
+            }
+            else {
+                $("#scriptfileerrmsg")[0].innerHTML = "";
+                //$("#Script")[0].nextElementSibling.innerHTML = "";
+            }
+
+            //Add 21-02-2019
+            if (scriptsFileName != "") {
+                $("#Script").attr("disabled", "disabled");
+            }
+            if (script != "") {
+                $("#scripFile").attr("disabled", "disabled");
+                $("#inputScriptFile").attr("disabled", "disabled");
+            }
+
+            //Add 25-02-2019
+            if (script.length > 400) {
+                $("#Script")[0].nextElementSibling.innerHTML = "The Script field cannot be more than 400 characters.";
+                returnvalue = false;
+            }
+            else {
+                $("#Script")[0].nextElementSibling.innerHTML = "";
+            }
+            if (operatorId == "" || operatorId == "0") {
+                $("#OperatorId")[0].nextElementSibling.innerHTML = "The Operator field is required.";
+                returnvalue = false;
+            }
+            else {
+                $("#OperatorId")[0].nextElementSibling.innerHTML = "";
+            }
+            if (advertCheck == false) {
+                $("#istermcheckederrmsg")[0].innerHTML = "Please Accept Terms & Condition.";
+                returnvalue = false;
+            }
+            else {
+                $("#istermcheckederrmsg")[0].innerHTML = "";
+            }
+            return returnvalue;
+        }
+
+        $("#advertsubmit").click(function () {
+            $(".loader").show();
+            var advertvalida = advertvalidation();
+            if (advertvalida == true) {
+                var campaignName = $("#CampaignName").val();
+                var advertPhoneticAlphabet = $("#AdvertPhoneticAlphabet")[0].innerHTML;
+                var advertId = $("#AdvertId").val();
+                var advertName = $("#AdvertName").val();
+                var advertClientId = $("#AdvertClientId").val();
+                var advertBrandName = $("#BrandName").val();
+                var advertCategoryId = $("#AdvertCategoryId").val();
+                var mediaFile = $("#inputMediaFile").get(0).files[0];
+                var scriptFile = $("#inputScriptFile").get(0).files[0];
+                var script = $("#Script").val();
+                var numberofadsinabatch = $("#Numberofadsinabatch").val();
+                var countryId = $("#CountryId").val();
+                var operatorId = $("#OperatorId").val();
+
+                var formData = new FormData($("#testformid")[0]);
+                formData.append("campaignName", campaignName);
+                formData.append("advertPhoneticAlphabet", advertPhoneticAlphabet);
+                formData.append("advertId", advertId);
+                formData.append("advertName", advertName);
+                formData.append("advertClientId", advertClientId);
+                formData.append("advertBrandName", advertBrandName);
+                formData.append("advertCategoryId", advertCategoryId);
+                formData.append("mediaFile", mediaFile);
+                formData.append("scriptFile", scriptFile);
+                formData.append("script", script);
+                formData.append("numberofadsinabatch", numberofadsinabatch);
+                formData.append("countryId", countryId);
+                formData.append("operatorId", operatorId);
+
+                $.ajax({
+                    url: '@Url.Action("AddAdvertInfo", "Dashboard")',
+                    type: 'Post',
+                    beforeSend: function () { },
+                    success: function (data) {
+                        if (data == "Exists") {
+                            advertName = advertName + " already exists."
+                            $("#advertcerrror").html(advertName);
+                            $('#advertdvcaminfoerror').css("display", "block");
+                            $("#advertdvcaminfosuc").hide();
+                            $(".loader").hide();
+                        }
+                        else if (data == "success") {
+                            var successmsg = "Advert " + advertName + " added successfully.";
+                            $("#advertcsuceess").html(successmsg);
+                            $("#advertdvcaminfosuc").css("display", "block");
+                            $("#advertdvcaminfoerror").hide();
+                            $("#CampaignOtherInfo").show();
+                            $(".loader").hide();
+                        }
+                        else if (data == "fail") {
+                            $("#advertcerrror").html(data);
+                            $("#advertdvcaminfosuc").hide();
+                            $('#advertdvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                    },
+                    xhr: function () {  // Custom XMLHttpRequest
+                        var myXhr = $.ajaxSettings.xhr();
+                        if (myXhr.upload) { // Check if upload property exists
+                            // Progress code if you want
+                        }
+                        return myXhr;
+                    },
+                    error: function () { },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });
+
+        $("#advertnextbtn").click(function () {
+            $(".loader").show();
+            var advertvalida = advertvalidation();
+            if (advertvalida == true) {
+                var clientCheck = $(".checkbox")[0].checked;
+                var campaignName = $("#CampaignName").val();
+                var advertPhoneticAlphabet = $("#AdvertPhoneticAlphabet")[0].innerHTML;
+                var advertId = $("#AdvertId").val();
+                var advertName = $("#AdvertName").val();
+                var advertClientId = $("#AdvertClientId").val();
+                var advertBrandName = $("#BrandName").val();
+                var advertCategoryId = $("#AdvertCategoryId").val();
+                var mediaFile = $("#inputMediaFile").get(0).files[0];
+                var scriptFile = $("#inputScriptFile").get(0).files[0];
+                var script = $("#Script").val();
+                var numberofadsinabatch = $("#Numberofadsinabatch").val();
+                var countryId = $("#CountryId").val();
+                var operatorId = $("#OperatorId").val();
+
+                var formData = new FormData($("#testformid")[0]);
+                formData.append("campaignName", campaignName);
+                formData.append("advertPhoneticAlphabet", advertPhoneticAlphabet);
+                formData.append("advertId", advertId);
+                formData.append("advertClientId", advertClientId);
+                formData.append("advertBrandName", advertBrandName);
+                formData.append("advertCategoryId", advertCategoryId);
+                formData.append("mediaFile", mediaFile);
+                formData.append("scriptFile", scriptFile);
+                formData.append("script", script);
+                formData.append("numberofadsinabatch", numberofadsinabatch);
+                formData.append("countryId", countryId);
+                formData.append("operatorId", operatorId);
+
+                $.ajax({
+                    url: '@Url.Action("AddCampaignDateData", "Dashboard")',
+                    type: 'Post',
+                    beforeSend: function () { },
+                    success: function (data) {
+                        if (data == "Exists") {
+                            advertName = advertName + " already exists."
+                            $("#advertcerrror").html(advertName);
+                            $('#advertdvcaminfoerror').css("display", "block");
+                            $("#advertdvcaminfosuc").hide();
+                            $(".loader").hide();
+                        }
+                        else if (data == "success") {
+                            $('#advertdvcaminfoerror').css("display", "none");
+                            $('#advertdvcaminfosuc').css("display", "none");
+                            $('#advertdiv').css("display", "none");
+                            $("#breadcrumbmenu").text("Campaign Date and Interaction");
+                            $("#breadcrumbmenu").css("font-weight", "Bold");
+                            $('#campaigndatesandinteractiondiv').css("display", "block");
+                            if (clientCheck == true) {
+                                $("#campaigninformation").css('background-color', '#e6e6e6');
+                                $("#clientinformation").css('background-color', '#e6e6e6');
+                                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                                $("#advertinformation").css('background-color', '#e6e6e6');
+                                $("#smsandemail").css('background-color', '#e6e6e6');
+                                $("#adsprofilemapping").css('background-color', '');
+                            }
+                            else {
+                                $("#campaigninformation").css('background-color', '#e6e6e6');
+                                $("#clientinformation").css('background-color', '');
+                                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                                $("#advertinformation").css('background-color', '#e6e6e6');
+                                $("#smsandemail").css('background-color', '#e6e6e6');
+                                $("#adsprofilemapping").css('background-color', '');
+                            }
+                            $(".loader").hide();
+                        }
+                        else if (data == "fail") {
+                            $("#advertcerrror").html(data);
+                            $("#advertdvcaminfosuc").hide();
+                            $('#advertdvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+                    },
+                    xhr: function () {  // Custom XMLHttpRequest
+                        var myXhr = $.ajaxSettings.xhr();
+                        if (myXhr.upload) { // Check if upload property exists
+                            // Progress code if you want
+                        }
+                        return myXhr;
+                    },
+                    error: function () { },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });
+
+        $("#advertcloseerror").click(function () {
+            $("#advertcerrror").html("");
+            $('#advertdvcaminfoerror').css("display", "none");
+        });
+
+        $("#advertclosesuccess").click(function () {
+            $('#advertdvcaminfosuc').css("display", "none");
+        });
+
+        $("#advertcancelbtn").click(function () {
+            var clientId = $("#ClientId").val();
+            $("#AdvertName").val("");
+            $("#AdvertClientId").val(clientId);
+            $("#BrandName").val("");
+            $("#AdvertCategoryId").val("");
+            $("#filename").text("");
+            $("#inputMediaFile").val("");
+            $("#filenamescripts").text("");
+            $("#inputScriptFile").val("");
+            $("#Script").val("");
+            $('.icheckbox_square-green1').removeClass("checked");
+            $("#AdvertName")[0].nextElementSibling.innerHTML = "";
+            $("#AdvertClientId")[0].nextElementSibling.innerHTML = "";
+            $("#AdvertCategoryId")[0].nextElementSibling.innerHTML = "";
+            $("#mediafileerrmsg")[0].innerHTML = "";
+            $("#scriptfileerrmsg")[0].innerHTML = "";
+            $("#Script")[0].nextElementSibling.innerHTML = "";
+            $("#Script").removeAttr("disabled");
+            $("#scripFile").removeAttr("disabled");
+            $("#inputScriptFile").removeAttr("disabled");
+            $("#istermcheckederrmsg")[0].innerHTML = "";
+            $("#advertdvcaminfosuc").css("display", "none");
+            $("#advertdvcaminfoerror").css("display", "none");
+        });
+
+        $("#advertbackbtn").click(function () {
+            var clientCheck = $(".checkbox")[0].checked;
+            $(".loader").show();
+            $("#AdvertName")[0].nextElementSibling.innerHTML = "";
+            $("#AdvertClientId")[0].nextElementSibling.innerHTML = "";
+            $("#AdvertCategoryId")[0].nextElementSibling.innerHTML = "";
+            $("#mediafileerrmsg")[0].innerHTML = "";
+            $("#istermcheckederrmsg")[0].innerHTML = "";
+            $("#advertdvcaminfosuc").css("display", "none");
+            $("#advertdvcaminfoerror").css("display", "none");
+            $('#advertdiv').css("display", "none");
+            $("#breadcrumbmenu").text("Budgets");
+            $("#breadcrumbmenu").css("font-weight", "Bold");
+            $("#budgetdiv").css("display", "block");
+            if (clientCheck == true) {
+                $("#campaigninformation").css('background-color', '#e6e6e6');
+                $("#clientinformation").css('background-color', '#e6e6e6');
+                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                $("#advertinformation").css('background-color', '');
+                $("#smsandemail").css('background-color', '');
+                $("#adsprofilemapping").css('background-color', '');
+            }
+            else {
+                $("#campaigninformation").css('background-color', '#e6e6e6');
+                $("#clientinformation").css('background-color', '');
+                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                $("#advertinformation").css('background-color', '');
+                $("#smsandemail").css('background-color', '');
+                $("#adsprofilemapping").css('background-color', '');
+            }
+            $(".loader").hide();
+        });
+
+        function datevalidation() {
+            var startdate = Date.parse($("#StartDate").val().toString("mm/dd/yyyy"));
+            var enddate = Date.parse($("#EndDate").val().toString("mm/dd/yyyy"));
+            var returnvalue = true;
+            if ($("#StartDate").val() != "" && $("#EndDate").val() == "") {
+                $("#enddateerrmsg")[0].innerHTML = "Please Select End Date.";
+                $("#startdateerrmsg")[0].innerHTML = "";
+                returnvalue = false;
+            }
+            else if (startdate > enddate) {
+                $("#startdateerrmsg")[0].innerHTML = "Start Date must be less than End Date.";
+                $("#enddateerrmsg")[0].innerHTML = "";
+                returnvalue = false;
+            }
+            else if ($("#startdateerrmsg")[0].innerHTML == "") {
+                $("#startdateerrmsg")[0].innerHTML = "";
+                $("#enddateerrmsg")[0].innerHTML = "";
+            }
+            if ($("#StartDate").val() == "" && $("#EndDate").val() != "") {
+                $("#startdateerrmsg")[0].innerHTML = "Please Select Start Date.";
+                $("#enddateerrmsg")[0].innerHTML = "";
+                returnvalue = false;
+            }
+            else if (enddate < startdate) {
+                $("#enddateerrmsg")[0].innerHTML = "Start Date must be less than End Date.";
+                $("#startdateerrmsg")[0].innerHTML = "";
+                returnvalue = false;
+            }
+            else if ($("#enddateerrmsg")[0].innerHTML == "") {
+                $("#startdateerrmsg")[0].innerHTML = "";
+                $("#enddateerrmsg")[0].innerHTML = "";
+            }
+            return returnvalue;
+        }
+
+        $("#campaigndatesubmit").click(function () {
+            $(".loader").show();
+            var datevalida = datevalidation();
+            if (datevalida == true) {
+                var countryId = $("#CountryId").val();
+                var campaignName = $("#CampaignName").val();
+                var startDate = $("#StartDate").val();
+                var endDate = $("#EndDate").val();
+                var smsOriginator = $("#SmsOriginator").val();
+                var smsBody = $("#SmsBody").val();
+                var emailSubject = $("#EmailSubject").val();
+                var emailBody = tinyMCE.activeEditor.getContent();
+                //var emailBody = $("#EmailBody").val();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddCampaignDateInfo", "Dashboard")',
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        campaignName: campaignName,
+                        startDate: startDate,
+                        endDate: endDate,
+                        smsOriginator: smsOriginator,
+                        smsBody: smsBody,
+                        emailSubject: emailSubject,
+                        emailBody: emailBody,
+                        countryId: countryId
+                    }),
+                    //data: { campaignName: campaignName, startDate: startDate, endDate: endDate, smsOriginator: smsOriginator, smsBody: smsBody, emailSubject: emailSubject, emailBody: emailBody },
+                    success: function (data) {
+                        if (data == "fail") {
+                            $("#campaigndatecerrror").html(data);
+                            $('#campaigndatedvcaminfoerror').css("display", "block");
+                            $("#campaigndatedvcaminfosuc").hide();
+                            $(".loader").hide();
+                        }
+                        else if (data == "success") {
+                            $("#campaigndatedvcaminfosuc").css("display", "block");
+                            $("#campaigndatedvcaminfoerror").hide();
+                            $("#CampaignOtherInfo").show();
+                            $(".loader").hide();
+                        }
+                    }
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });
+
+        $("#campaigndatenextbtn").click(function () {
+            $(".loader").show();
+            var datevalida = datevalidation();
+            if (datevalida == true) {
+                var countryId = $("#CountryId").val();
+                var clientCheck = $(".checkbox")[0].checked;
+                var campaignName = $("#CampaignName").val();
+                var startDate = $("#StartDate").val();
+                var endDate = $("#EndDate").val();
+                var smsOriginator = $("#SmsOriginator").val();
+                var smsBody = $("#SmsBody").val();
+                var emailSubject = $("#EmailSubject").val();
+                var emailBody = tinyMCE.activeEditor.getContent();
+                //var emailBody = $("#EmailBody").val();
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("AddCampaignAdProfileData", "Dashboard")',
+                    //dataType: "json",
+                    contentType: 'application/json',
+                    //contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        campaignName: campaignName,
+                        startDate: startDate,
+                        endDate: endDate,
+                        smsOriginator: smsOriginator,
+                        smsBody: smsBody,
+                        emailSubject: emailSubject,
+                        emailBody: emailBody,
+                        countryId: countryId
+                    }),
+                    //data: { campaignName: campaignName, startDate: startDate, endDate: endDate, smsOriginator: smsOriginator, smsBody: smsBody, emailSubject: emailSubject, emailBody: emailBody },
+                    success: function (data) {
+                        if (data != "fail") {
+                            $('#campaigndatesandinteractiondiv').css("display", "none");
+                            $("#breadcrumbmenu").text("Ad Profile Mapping");
+                            $("#breadcrumbmenu").css("font-weight", "Bold");
+                            $('#adprofilemappingdiv').css("display", "block");
+                            $("#adprofilemappingdiv").html(data);
+                            if (clientCheck == true) {
+                                $("#campaigninformation").css('background-color', '#e6e6e6');
+                                $("#clientinformation").css('background-color', '#e6e6e6');
+                                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                                $("#advertinformation").css('background-color', '#e6e6e6');
+                                $("#smsandemail").css('background-color', '#e6e6e6');
+                                $("#adsprofilemapping").css('background-color', '#e6e6e6');
+                            }
+                            else {
+                                $("#campaigninformation").css('background-color', '#e6e6e6');
+                                $("#clientinformation").css('background-color', '');
+                                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                                $("#advertinformation").css('background-color', '#e6e6e6');
+                                $("#smsandemail").css('background-color', '#e6e6e6');
+                                $("#adsprofilemapping").css('background-color', '#e6e6e6');
+                            }
+                            $(".loader").hide();
+                            $('#campaigndatedvcaminfoerror').css("display", "none");
+                            $('#campaigndatedvcaminfosuc').css("display", "none");
+                        }
+                        else if (data == "fail") {
+                            $("#campaigndatecerrror").html(data);
+                            $("#campaigndatedvcaminfosuc").hide();
+                            $('#campaigndatedvcaminfoerror').css("display", "block");
+                            $(".loader").hide();
+                        }
+
+                        //if (data == "success") {
+                        //    $('#campaigndatesandinteractiondiv').css("display", "none");
+                        //    $("#breadcrumbmenu").text("Ad Profile Mapping");
+                        //    $("#breadcrumbmenu").css("font-weight", "Bold");
+                        //    $('#adprofilemappingdiv').css("display", "block");
+                        //    $(".loader").hide();
+                        //    $('#campaigndatedvcaminfoerror').css("display", "none");
+                        //    $('#campaigndatedvcaminfosuc').css("display", "none");
+                        //}
+                        //else if (data == "fail") {
+                        //    $("#campaigndatecerrror").html(data);
+                        //    $("#campaigndatedvcaminfosuc").hide();
+                        //    $('#campaigndatedvcaminfoerror').css("display", "block");
+                        //    $(".loader").hide();
+                        //}
+                    }
+                });
+            }
+            else {
+                $(".loader").hide();
+                return false;
+            }
+        });
+
+        $("#campaigndatecloseerror").click(function () {
+            $("#campaigndatecerrror").html("");
+            $('#campaigndatedvcaminfoerror').css("display", "none");
+        });
+
+        $("#campaigndateclosesuccess").click(function () {
+            $('#campaigndatedvcaminfosuc').css("display", "none");
+        });
+
+        $("#campaigndatecancelbtn").click(function () {
+            $("#StartDate").val("");
+            $("#EndDate").val("");
+            $("#SmsOriginator").val("");
+            $("#SmsBody").val("");
+            $("#EmailSubject").val("");
+            tinyMCE.activeEditor.setContent('');
+            //$("#EmailBody").val("");
+            //$("#data_1 .input-group.date").data("datepicker").destroy();
+            //$("#data_1 .input-group.date").datepicker("destroy");
+            //$("td").removeClass("active day");
+            $("#campaigndatedvcaminfosuc").css("display", "none");
+            $("#campaigndatedvcaminfoerror").css("display", "none");
+        });
+
+        $("#campaigndatebackbtn").click(function () {
+            var clientCheck = $(".checkbox")[0].checked;
+            $(".loader").show();
+            $('#campaigndatesandinteractiondiv').css("display", "none");
+            $("#breadcrumbmenu").text("Advert");
+            $("#breadcrumbmenu").css("font-weight", "Bold");
+            $("#advertdiv").css("display", "block");
+            if (clientCheck == true) {
+                $("#campaigninformation").css('background-color', '#e6e6e6');
+                $("#clientinformation").css('background-color', '#e6e6e6');
+                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                $("#advertinformation").css('background-color', '#e6e6e6');
+                $("#smsandemail").css('background-color', '');
+                $("#adsprofilemapping").css('background-color', '');
+            }
+            else {
+                $("#campaigninformation").css('background-color', '#e6e6e6');
+                $("#clientinformation").css('background-color', '');
+                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                $("#advertinformation").css('background-color', '#e6e6e6');
+                $("#smsandemail").css('background-color', '');
+                $("#adsprofilemapping").css('background-color', '');
+            }
+            $(".loader").hide();
+        });
+
+        $("#geographicaccordion").click(function () {
+            var geographicPanel = $('#GeographicPanel')[0];
+            var demographicPanel = $('#DemographicPanel')[0];
+            var advertPanel = $('#AdvertPanel')[0];
+            var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+            var timebandsPanel = $('#TimebandsPanel')[0];
+            var mobilePanel = $('#MobilePanel')[0];
+            var current = this.nextElementSibling;
+            if ($(geographicPanel).attr("id") == $(current).attr("id")) {
+                this.classList.toggle("active");
+                this.nextElementSibling.classList.toggle("show");
+
+                //hide other panel
+                $(demographicPanel).removeClass("show");
+                var demographicprevelement = $(demographicPanel).prev();
+                $(demographicprevelement).removeClass("active");
+
+                $(advertPanel).removeClass("show");
+                var adverprevelement = $(advertPanel).prev();
+                $(adverprevelement).removeClass("active");
+
+                $(skizaProfilePanel).removeClass("show");
+                var skizaprofileprevelement = $(skizaProfilePanel).prev();
+                $(skizaprofileprevelement).removeClass("active");
+
+                $(timebandsPanel).removeClass("show");
+                var timebandsprevelement = $(timebandsPanel).prev();
+                $(timebandsprevelement).removeClass("active");
+
+                $(mobilePanel).removeClass("show");
+                var mobileprevelement = $(mobilePanel).prev();
+                $(mobileprevelement).removeClass("active");
+            }
+        });
+
+        $("#demographicaccordion").click(function () {
+            var geographicPanel = $('#GeographicPanel')[0];
+            var demographicPanel = $('#DemographicPanel')[0];
+            var advertPanel = $('#AdvertPanel')[0];
+            var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+            var timebandsPanel = $('#TimebandsPanel')[0];
+            var mobilePanel = $('#MobilePanel')[0];
+            var current = this.nextElementSibling;
+            if ($(demographicPanel).attr("id") == $(current).attr("id")) {
+                this.classList.toggle("active");
+                this.nextElementSibling.classList.toggle("show");
+
+                //hide other panel
+                $(geographicPanel).removeClass("show");
+                var geographicprevelement = $(geographicPanel).prev();
+                $(geographicprevelement).removeClass("active");
+
+                $(advertPanel).removeClass("show");
+                var adverprevelement = $(advertPanel).prev();
+                $(adverprevelement).removeClass("active");
+
+                $(skizaProfilePanel).removeClass("show");
+                var skizaprofileprevelement = $(skizaProfilePanel).prev();
+                $(skizaprofileprevelement).removeClass("active");
+
+                $(timebandsPanel).removeClass("show");
+                var timebandsprevelement = $(timebandsPanel).prev();
+                $(timebandsprevelement).removeClass("active");
+
+                $(mobilePanel).removeClass("show");
+                var mobileprevelement = $(mobilePanel).prev();
+                $(mobileprevelement).removeClass("active");
+            }
+        });
+
+        $("#behaviouralaccordion").click(function () {
+            var geographicPanel = $('#GeographicPanel')[0];
+            var demographicPanel = $('#DemographicPanel')[0];
+            var advertPanel = $('#AdvertPanel')[0];
+            var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+            var timebandsPanel = $('#TimebandsPanel')[0];
+            var mobilePanel = $('#MobilePanel')[0];
+            var current = this.nextElementSibling;
+            if ($(advertPanel).attr("id") == $(current).attr("id")) {
+                this.classList.toggle("active");
+                this.nextElementSibling.classList.toggle("show");
+
+                //hide other panel
+                $(geographicPanel).removeClass("show");
+                var geographicprevelement = $(geographicPanel).prev();
+                $(geographicprevelement).removeClass("active");
+
+                $(demographicPanel).removeClass("show");
+                var demographicprevelement = $(demographicPanel).prev();
+                $(demographicprevelement).removeClass("active");
+
+                $(skizaProfilePanel).removeClass("show");
+                var skizaprofileprevelement = $(skizaProfilePanel).prev();
+                $(skizaprofileprevelement).removeClass("active");
+
+                $(timebandsPanel).removeClass("show");
+                var timebandsprevelement = $(timebandsPanel).prev();
+                $(timebandsprevelement).removeClass("active");
+
+                $(mobilePanel).removeClass("show");
+                var mobileprevelement = $(mobilePanel).prev();
+                $(mobileprevelement).removeClass("active");
+            }
+        });
+
+        $("#questionnaireaccordion").click(function () {
+            var geographicPanel = $('#GeographicPanel')[0];
+            var demographicPanel = $('#DemographicPanel')[0];
+            var advertPanel = $('#AdvertPanel')[0];
+            var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+            var timebandsPanel = $('#TimebandsPanel')[0];
+            var mobilePanel = $('#MobilePanel')[0];
+            var current = this.nextElementSibling;
+            if ($(skizaProfilePanel).attr("id") == $(current).attr("id")) {
+                this.classList.toggle("active");
+                this.nextElementSibling.classList.toggle("show");
+
+                //hide other panel
+                $(geographicPanel).removeClass("show");
+                var geographicprevelement = $(geographicPanel).prev();
+                $(geographicprevelement).removeClass("active");
+
+                $(demographicPanel).removeClass("show");
+                var demographicprevelement = $(demographicPanel).prev();
+                $(demographicprevelement).removeClass("active");
+
+                $(advertPanel).removeClass("show");
+                var adverprevelement = $(advertPanel).prev();
+                $(adverprevelement).removeClass("active");
+
+                $(timebandsPanel).removeClass("show");
+                var timebandsprevelement = $(timebandsPanel).prev();
+                $(timebandsprevelement).removeClass("active");
+
+                $(mobilePanel).removeClass("show");
+                var mobileprevelement = $(mobilePanel).prev();
+                $(mobileprevelement).removeClass("active");
+            }
+        });
+
+        $("#timebandsaccordion").click(function () {
+            var geographicPanel = $('#GeographicPanel')[0];
+            var demographicPanel = $('#DemographicPanel')[0];
+            var advertPanel = $('#AdvertPanel')[0];
+            var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+            var timebandsPanel = $('#TimebandsPanel')[0];
+            var mobilePanel = $('#MobilePanel')[0];
+            var current = this.nextElementSibling;
+            if ($(timebandsPanel).attr("id") == $(current).attr("id")) {
+                this.classList.toggle("active");
+                this.nextElementSibling.classList.toggle("show");
+
+                //hide other panel
+                $(geographicPanel).removeClass("show");
+                var geographicprevelement = $(geographicPanel).prev();
+                $(geographicprevelement).removeClass("active");
+
+                $(demographicPanel).removeClass("show");
+                var demographicprevelement = $(demographicPanel).prev();
+                $(demographicprevelement).removeClass("active");
+
+                $(advertPanel).removeClass("show");
+                var adverprevelement = $(advertPanel).prev();
+                $(adverprevelement).removeClass("active");
+
+                $(skizaProfilePanel).removeClass("show");
+                var skizaprofileprevelement = $(skizaProfilePanel).prev();
+                $(skizaprofileprevelement).removeClass("active");
+
+                $(mobilePanel).removeClass("show");
+                var mobileprevelement = $(mobilePanel).prev();
+                $(mobileprevelement).removeClass("active");
+            }
+        });
+
+        $("#airtimeusageaccordion").click(function () {
+            var geographicPanel = $('#GeographicPanel')[0];
+            var demographicPanel = $('#DemographicPanel')[0];
+            var advertPanel = $('#AdvertPanel')[0];
+            var skizaProfilePanel = $('#SkizaProfilePanel')[0];
+            var timebandsPanel = $('#TimebandsPanel')[0];
+            var mobilePanel = $('#MobilePanel')[0];
+            var current = this.nextElementSibling;
+            if ($(mobilePanel).attr("id") == $(current).attr("id")) {
+                this.classList.toggle("active");
+                this.nextElementSibling.classList.toggle("show");
+
+                //hide other panel
+                $(geographicPanel).removeClass("show");
+                var geographicprevelement = $(geographicPanel).prev();
+                $(geographicprevelement).removeClass("active");
+
+                $(demographicPanel).removeClass("show");
+                var demographicprevelement = $(demographicPanel).prev();
+                $(demographicprevelement).removeClass("active");
+
+                $(advertPanel).removeClass("show");
+                var adverprevelement = $(advertPanel).prev();
+                $(adverprevelement).removeClass("active");
+
+                $(skizaProfilePanel).removeClass("show");
+                var skizaprofileprevelement = $(skizaProfilePanel).prev();
+                $(skizaprofileprevelement).removeClass("active");
+
+                $(timebandsPanel).removeClass("show");
+                var timebandsprevelement = $(timebandsPanel).prev();
+                $(timebandsprevelement).removeClass("active");
+            }
+        });
+
+        $("#selectalldemographic").click(function () {
+            $("#demographicsdiv input:checkbox").iCheck('check');
+            $('#demographicsdiv input:checkbox').iCheck('update');
+
+        });
+        $("#deselectalldemographic").click(function () {
+            $("#demographicsdiv input:checkbox").iCheck('uncheck');
+            $('#demographicsdiv input:checkbox').iCheck('update');
+        });
+
+        $("#selectalladvert").click(function () {
+            $("#advertsdiv input:checkbox").iCheck('check');
+            $('#advertsdiv input:checkbox').iCheck('update');
+
+        });
+        $("#deselectalladvert").click(function () {
+            $("#advertsdiv input:checkbox").iCheck('uncheck');
+            $('#advertsdiv input:checkbox').iCheck('update');
+        });
+
+        $("#selectalltimebands").click(function () {
+            $("#timesettingdiv input:checkbox").iCheck('check');
+            $('#timesettingdiv input:checkbox').iCheck('update');
+
+        });
+        $("#deselectalltimebands").click(function () {
+            $("#timesettingdiv input:checkbox").iCheck('uncheck');
+            $('#timesettingdiv input:checkbox').iCheck('update');
+        });
+
+        $("#selectallmobile").click(function () {
+            $("#mobilediv input:checkbox").iCheck('check');
+            $('#mobilediv input:checkbox').iCheck('update');
+
+        });
+        $("#deselectallmobile").click(function () {
+            $("#mobilediv input:checkbox").iCheck('uncheck');
+            $('#mobilediv input:checkbox').iCheck('update');
+        });
+
+
+            @*$("#adprofilesubmit").click(function () {
+                $(".loader").show();
+                var countryId = $("#CountryId").val();
+                var campaignId = $("#CampaignId").val();
+                var campaignName = $("#CampaignName").val();
+                var campaignPhoneticAlphabet = $("#PhoneticAlphabet").val();
+                var clientId = $("#ClientId").val();
+                var clientName = $("#ClientName").val();
+                var clientPhoneticAlphabet = $("#ClientPhoneticAlphabet")[0].innerHTML;
+                var advertName = $("#AdvertName").val();
+                var advertPhoneticAlphabet = $("#AdvertPhoneticAlphabet")[0].innerHTML;
+                if (campaignId == "")
+                    campaignId = 0;
+                if (clientId == "")
+                    clientId = 0;
+                if (campaignId != 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("UpdateCampaignWizard", "Dashboard")',
+                        data: { campaignId: campaignId, campaignName: campaignName, campaignPhoneticAlphabet: campaignPhoneticAlphabet, clientId: clientId, clientName: clientName, clientPhoneticAlphabet: clientPhoneticAlphabet, advertName: advertName, advertPhoneticAlphabet: advertPhoneticAlphabet, countryId: countryId },
+                        success: function (data) {
+                            if (data == "fail") {
+                                $("#campaignwizardcerrror").html(data);
+                                $('#campaignwizarddvcaminfoerror').css("display", "block");
+                                $("#campaignwizarddvcaminfosuc").hide();
+                                $(".loader").hide();
+                            }
+                            else if (data == "success") {
+                                $("#campaignwizarddvcaminfosuc").css("display", "block");
+                                $("#campaignwizarddvcaminfoerror").hide();
+                                $("#CampaignOtherInfo").show();
+                                $(".loader").hide();
+                                window.location.href = '@Url.Action("Index", "Dashboard")';
+                            }
+                        }
+                    });
+                }
+                else {
+                    $(".loader").hide();
+                    return false;
+                }
+            });*@
+
+
+
+            @*$("#adprofilecancelbtn").click(function () {
+                $(".loader").show();
+
+                var geographicPanel = $('#GeographicPanel')[0];
+                var demographicPanel = $('#DemographicPanel')[0];
+                var advertPanel = $('#AdvertPanel')[0];
+                var timebandsPanel = $('#TimebandsPanel')[0];
+                var mobilePanel = $('#MobilePanel')[0];
+
+                $(geographicPanel).removeClass("show");
+                var geographicprevelement = $(geographicPanel).prev();
+                $(geographicprevelement).removeClass("active");
+
+                $(demographicPanel).removeClass("show");
+                var demographicprevelement = $(demographicPanel).prev();
+                $(demographicprevelement).removeClass("active");
+
+                $(advertPanel).removeClass("show");
+                var adverprevelement = $(advertPanel).prev();
+                $(adverprevelement).removeClass("active");
+
+                $(timebandsPanel).removeClass("show");
+                var timebandsprevelement = $(timebandsPanel).prev();
+                $(timebandsprevelement).removeClass("active");
+
+                $(mobilePanel).removeClass("show");
+                var mobileprevelement = $(mobilePanel).prev();
+                $(mobileprevelement).removeClass("active");
+
+                var countryId = $("#CountryId").val();
+                var campaignId = $("#CampaignId").val();
+                var campaignName = $("#CampaignName").val();
+                var campaignPhoneticAlphabet = $("#PhoneticAlphabet").val();
+                var clientId = $("#ClientId").val();
+                var clientName = $("#ClientName").val();
+                var clientPhoneticAlphabet = $("#ClientPhoneticAlphabet")[0].innerHTML;
+                var advertName = $("#AdvertName").val();
+                var advertPhoneticAlphabet = $("#AdvertPhoneticAlphabet")[0].innerHTML;
+                if (campaignId == "")
+                    campaignId = 0;
+                if (clientId == "")
+                    clientId = 0;
+                if (campaignId != 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("DeleteCampaignWizard", "Dashboard")',
+                        data: { campaignId: campaignId, campaignName: campaignName, campaignPhoneticAlphabet: campaignPhoneticAlphabet, clientId: clientId, clientName: clientName, clientPhoneticAlphabet: clientPhoneticAlphabet, advertName: advertName, advertPhoneticAlphabet: advertPhoneticAlphabet, countryId: countryId },
+                        success: function (data) {
+                            if (data == "fail") {
+                                $("#campaignwizardcerrror").html(data);
+                                $('#campaignwizarddvcaminfoerror').css("display", "block");
+                                $("#campaignwizarddvcaminfosuc").hide();
+                                $(".loader").hide();
+                            }
+                            else if (data == "success") {
+                                window.location.href = '@Url.Action("AddNewCampaign", "Dashboard")';
+
+                                ////Clear Campaign
+                                //$("#CampaignId").val("");
+                                //$("#CampaignName").val("");
+                                //$("#CampaignDescription").val("");
+                                //$("#CountryId").val("");
+                                //$('.icheckbox_square-green').removeClass("checked");
+                                //$("#CampaignId")[0].nextElementSibling.innerHTML = "";
+                                //$("#CampaignName")[0].nextElementSibling.innerHTML = "";
+                                //$("#CampaignDescription")[0].nextElementSibling.innerHTML = "";
+                                //$("#CountryId")[0].nextElementSibling.innerHTML = "";
+                                //$("#cerrror").html("");
+                                //$('#dvcaminfoerror').css("display", "none");
+                                //$('#dvcaminfosuc').css("display", "none");
+
+                                ////Clear Client
+                                //$("#ClientId").val("");
+                                //$("#ClientName").val("");
+                                //$("#ClientDescription").val("");
+                                //$("#ClientEmail").val("");
+                                //$("#ClientContactPhone").val("");
+                                //$("#ClientId")[0].nextElementSibling.innerHTML = "";
+                                //$("#ClientName")[0].nextElementSibling.innerHTML = "";
+                                //$("#ClientDescription")[0].nextElementSibling.innerHTML = "";
+                                //$("#ClientEmail")[0].nextElementSibling.innerHTML = "";
+                                //$("#ClientContactPhone")[0].nextElementSibling.innerHTML = "";
+                                //$("#clientdvcaminfosuc").css("display", "none");
+                                //$("#clientdvcaminfoerror").css("display", "none");
+
+                                ////Clear Budget
+                                //$("#MonthlyBudget").val("");
+                                //$("#WeeklyBudget").val("");
+                                //$("#DailyBudget").val("");
+                                //$("#HourlyBudget").val("");
+                                //$("#MaximumBid").val("");
+                                //$("#MaximumBid")[0].nextElementSibling.innerHTML = "";
+                                //$("#budgetdvcaminfosuc").css("display", "none");
+                                //$("#budgetdvcaminfoerror").css("display", "none");
+
+                                ////Clear Advert
+                                //var clientId = $("#ClientId").val();
+                                //$("#AdvertName").val("");
+                                //$("#AdvertClientId").val(clientId);
+                                //$("#BrandName").val("");
+                                //$("#AdvertCategoryId").val("");
+                                //$("#filename").text("");
+                                //$("#filenamescripts").text("");
+                                //$("#Script").val("");
+                                //$('.icheckbox_square-green1').removeClass("checked");
+                                //$("#AdvertName")[0].nextElementSibling.innerHTML = "";
+                                //$("#AdvertClientId")[0].nextElementSibling.innerHTML = "";
+                                //$("#AdvertCategoryId")[0].nextElementSibling.innerHTML = "";
+                                //$("#mediafileerrmsg")[0].innerHTML = "";
+                                //$("#istermcheckederrmsg")[0].innerHTML = "";
+                                //$("#advertdvcaminfosuc").css("display", "none");
+                                //$("#advertdvcaminfoerror").css("display", "none");
+
+                                ////Clear Campaign Date and Interection
+                                //$("#StartDate").val("");
+                                //$("#EndDate").val("");
+                                //$("#SmsOriginator").val("");
+                                //$("#SmsBody").val("");
+                                //$("#EmailSubject").val("");
+                                //tinyMCE.activeEditor.setContent('');
+                                //$("#campaigndatedvcaminfosuc").css("display", "none");
+                                //$("#campaigndatedvcaminfoerror").css("display", "none");
+
+                                ////Clear Ad Profile Mapping
+                                //$("#demographicsdiv input:checkbox").iCheck('uncheck');
+                                //$('#demographicsdiv input:checkbox').iCheck('update');
+                                //$("#advertsdiv input:checkbox").iCheck('uncheck');
+                                //$('#advertsdiv input:checkbox').iCheck('update');
+                                //$("#mobilediv input:checkbox").iCheck('uncheck');
+                                //$('#mobilediv input:checkbox').iCheck('update');
+
+                                ////Move to Campaign Screen
+                                //$('#adprofilemappingdiv').css("display", "none");
+                                //$("#breadcrumbmenu").text("Campaigns");
+                                //$("#breadcrumbmenu").css("font-weight", "Bold");
+                                //$("#campaigndiv").css("display", "block");
+                                $(".loader").hide();
+                            }
+                        }
+                    });
+                }
+                else {
+                    $(".loader").hide();
+                    return false;
+                }
+                //$(".loader").hide();
+            });*@
+
+
+        //$("#adprofilecancelbtn").click(function () {
+        //    $(".loader").show();
+
+        //    var demographicPanel = $('#DemographicPanel')[0];
+        //    var advertPanel = $('#AdvertPanel')[0];
+        //    var mobilePanel = $('#MobilePanel')[0];
+
+        //    $(demographicPanel).removeClass("show");
+        //    var demographicprevelement = $(demographicPanel).prev();
+        //    $(demographicprevelement).removeClass("active");
+
+        //    $(advertPanel).removeClass("show");
+        //    var adverprevelement = $(advertPanel).prev();
+        //    $(adverprevelement).removeClass("active");
+
+        //    $(mobilePanel).removeClass("show");
+        //    var mobileprevelement = $(mobilePanel).prev();
+        //    $(mobileprevelement).removeClass("active");
+
+        //    $(".loader").hide();
+        //});
+
+        $("#adprofilebackbtn").click(function () {
+            var clientCheck = $(".checkbox")[0].checked;
+            $(".loader").show();
+            $('#adprofilemappingdiv').css("display", "none");
+            $("#breadcrumbmenu").text("Ad Profile Mapping");
+            $("#breadcrumbmenu").css("font-weight", "Bold");
+            $("#campaigndatesandinteractiondiv").css("display", "block");
+            if (clientCheck == true) {
+                $("#campaigninformation").css('background-color', '#e6e6e6');
+                $("#clientinformation").css('background-color', '#e6e6e6');
+                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                $("#advertinformation").css('background-color', '#e6e6e6');
+                $("#smsandemail").css('background-color', '#e6e6e6');
+                $("#adsprofilemapping").css('background-color', '');
+            }
+            else {
+                $("#campaigninformation").css('background-color', '#e6e6e6');
+                $("#clientinformation").css('background-color', '');
+                $("#budgetmanagement").css('background-color', '#e6e6e6');
+                $("#advertinformation").css('background-color', '#e6e6e6');
+                $("#smsandemail").css('background-color', '#e6e6e6');
+                $("#adsprofilemapping").css('background-color', '');
+            }
+            $(".loader").hide();
+        });
+
+    </script>
+
+}

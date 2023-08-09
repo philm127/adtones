@@ -1,0 +1,462 @@
+﻿@using System.Web.Optimization
+@model EFMVC.Web.ViewModels.UserFormModel
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    @*<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">*@
+
+    <meta http-equiv='cache-control' content='no-cache'>
+
+    <meta http-equiv='expires' content='0'>
+
+    <meta http-equiv='pragma' content='no-cache'>
+
+    <title>adtones | Register</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style_campaign.css" rel="stylesheet">
+
+    @*Add 12-03-2019*@
+    <link href="~/Content/Common.css" rel="stylesheet" />
+    <style>
+        .form-control-box {
+            background-color: #FFFFFF;
+            background-image: none;
+            border: 1px solid #e5e6e7;
+            border-radius: 1px;
+            color: inherit;
+            display: inline-block;
+            padding: 6px 12px;
+            transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+            width: 95%;
+            font-size: 14px;
+        }
+
+        .textbox {
+            width: 95%;
+            margin-left: 3px;
+        }
+
+        .btn-full-width {
+            width: 96% !important;
+        }
+    </style>
+
+    @*<script type="text/javascript">
+            /* Replace #your_subdomain# by the subdomain of a Site in your OneAll account */
+            //var oneall_subdomain = '#your_subdomain#';
+            var oneall_subdomain = 'adtones';
+
+
+            /* The library is loaded asynchronously */
+            var oa = document.createElement('script');
+            oa.type = 'text/javascript'; oa.async = true;
+            oa.src = '//' + oneall_subdomain + '.api.oneall.com/socialize/library.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(oa, s);
+        </script>*@
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            @*<div>
+
+                    <h1 class="logo-name">ad+</h1>
+
+                </div>*@
+            <h3>Register to adtones</h3>
+            <p>Create account to see it in action.</p>
+            @using (Html.BeginForm("SaveRegister", "Login", new { @class = "m-t" }))
+            {
+                if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        @TempData["Error"]
+                    </div>
+                }
+                <div class="row">
+                    <div class="large-12 columns">
+                        @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control-box", @placeholder = "Email" })
+                    <label class="lbldanger">*</label>
+                    @Html.ValidationMessageFor(m => m.Email, null, new { @class = "btn-danger" })
+                </div>
+
+
+                <div class="form-group">
+
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control-box txtOnly", @placeholder = "First Name" })
+                    <label class="lbldanger">*</label>
+                    @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "btn-danger" })
+                </div>
+                <div class="form-group">
+
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control-box txtOnly", @placeholder = "Last Name" })
+                    <label class="lbldanger">*</label>
+                    @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "btn-danger" })
+
+                </div>
+                <div class="form-group">
+                    @Html.DropDownListFor(m => m.CountryCode, new List<SelectListItem>
+                        {
+                            new SelectListItem{ Text="UK +44", Value = "44" },
+                            new SelectListItem{ Text="Kenya +254", Value = "254" },
+                            new SelectListItem{ Text="Senegal +221", Value = "221" },
+                            new SelectListItem{ Text="India +91", Value = "91" },
+                            new SelectListItem{ Text="Italy +39", Value = "39" },
+                            new SelectListItem{ Text="France +33", Value = "33" },
+                            new SelectListItem{ Text="Denmark +45", Value = "45" }
+                         }, null, new { @class = "form-control input-s-sm textbox" })@*inline*@
+                    </div>
+                    <div class="form-group">
+
+                        @Html.TextBoxFor(m => m.MSISDN, new { @class = "form-control-box", @placeholder = "Mobile number without the '0' at the start", @onkeypress = "return isNumber(event)" })@*, @maxlength = "10"*@
+                        <label class="lbldanger">*</label>
+                        <span id="msisdnmsg" class="btn-danger field-validation-error"></span>
+                        @*@Html.ValidationMessageFor(m => m.MSISDN, null, new { @class = "btn-danger" })*@
+
+                    </div>
+
+                    <div class="form-group" id="OperatorDiv" style="display:none">
+                        @Html.DropDownListFor(m => m.OperatorId, Enumerable.Empty<SelectListItem>(), new { @class = "form-control input-s-sm textbox" })@*inline*@
+                    </div>
+
+                    <div class="form-group">
+
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control-box", @placeholder = "Password" })
+                        <label class="lbldanger">*</label>
+                        @Html.ValidationMessageFor(m => m.Password, null, new { @class = "btn-danger" })
+                    </div>
+                    <div class="form-group">
+                        <div class="large-12 columns">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control input-s-sm textbox", @placeholder = "Confirm Password" })@*form-control*@
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "btn-danger" })
+                        </div>
+                    </div>
+
+                    <input type="submit" class="btn btn-blue block full-width m-b" value="Register" />
+                }
+            <p class="text-muted text-center"><small>Already have an account?</small></p>
+            <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Index", "Login",new {area = "Users" })">Login</a>
+
+            <p class="m-t"> <small id="copyright" style="font-family: sans-serif;">@*adtones &copy; @DateTime.Now.Year*@</small> </p>
+        </div>
+    </div>
+
+</body>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/plugins/unobtrusive")
+@Scripts.Render("~/plugins/validate")
+@Scripts.Render("~/bundles/validateunobtrusive")
+
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+</html>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '@Url.Action("GetCopyRight", "Login", new { area = "Users" })',
+            success: function (data) {
+                $("#copyright").text(data);
+            }
+        });
+         $(".txtOnly" ).keypress(function(e) {
+            $(this).val($(this).val().replace(/[^a-z]/gi, ''));
+         });
+    });
+
+    $("#MSISDN").change(function () {
+        var countryId = $("#CountryCode").val();
+        var msisdn = $("#MSISDN").val();
+        if (countryId == "254" || countryId == "221") {
+            if (msisdn == "") {
+                $("#msisdnmsg")[0].innerHTML = "The Contact number field is required to be only 9 characters.";
+                return false;
+            }
+            else if (msisdn.length < 9 || msisdn.length > 9) {
+                $("#msisdnmsg")[0].innerHTML = "The Contact number field can only be 9 characters.";
+                return false;
+            }
+            else {
+                $("#msisdnmsg")[0].innerHTML = "";
+            }
+        }
+        else {
+            if (msisdn == "") {
+                $("#msisdnmsg")[0].innerHTML = "The Contact number field is required to be only 10 characters."; /*The Contact number field is required.*/
+                return false;
+            }
+            else if (msisdn.length < 10 || msisdn.length > 10) {
+                $("#msisdnmsg")[0].innerHTML = "The Contact number field can only be 10 characters.";
+                return false;
+            }
+            else {
+                $("#msisdnmsg")[0].innerHTML = "";
+            }
+        }
+    });
+
+    $("form").submit(function () {
+        var error = 0;
+
+        var countryId = $("#CountryCode").val();
+        var msisdn = $("#MSISDN").val();
+
+        $(".preloader").show();
+
+        if (msisdn == "") {
+            if (countryId == "254" || countryId == "221") {
+                $("#msisdnmsg")[0].innerHTML = "The Contact number field is required to be only 9 characters.";
+                error = 1;
+            }
+            else {
+                $("#msisdnmsg")[0].innerHTML = "The Contact number field is required to be only 10 characters.";
+                error = 1;
+            }
+        }
+        else if (countryId == "254" || countryId == "221") {
+            if (msisdn.length < 9 || msisdn.length > 9) {
+                $("#msisdnmsg")[0].innerHTML = "The Contact number field can only be 9 characters.";
+                error = 1;
+            }
+            else {
+                $("#msisdnmsg")[0].innerHTML = "";
+            }
+        }
+        else {
+            if (msisdn.length < 10 || msisdn.length > 10) {
+                $("#msisdnmsg")[0].innerHTML = "The Contact number field can only be 10 characters.";
+                error = 1;
+            }
+            else {
+                $("#msisdnmsg")[0].innerHTML = "";
+            }
+        }
+
+        if (error == 1) {
+            $(".preloader").hide();
+            return false;
+        }
+        else {
+            $(".preloader").hide();
+            $(this).submit();
+        }
+
+    });
+
+    function FillOperatorDrd() {
+        var name = $("#CountryCode option:selected").text();
+        var splitValue = name.split(" ")[0];
+        var countryName = "";
+        if(splitValue == "UK")
+        {
+            countryName = "United Kingdom";
+        }
+        else
+        {
+            countryName = splitValue;
+        }
+
+        $.ajax({
+            url: '@Url.Action("GetOperator", "Login", new {Area="Users" })',
+            data: { countryName: countryName},
+            success: function (data) {
+                var items = '';
+                if (data == "False")
+                {
+                    $('#OperatorId').html("<option value=''>Select Operator</option>");
+                }
+                else
+                {
+                    if (data.length > 1)
+                        $('#OperatorDiv').show();
+                    else
+                        $('#OperatorDiv').hide();
+
+                    $.each(data, function (i, us) {
+                        items += "<option value='" + us.Value + "'>" + us.Text + "</option>";
+                    });
+                    $('#OperatorId').html(items);
+                }
+
+            }
+        });
+
+    }
+
+    $("#CountryCode").change(function () {
+         FillOperatorDrd();
+    });
+
+    FillOperatorDrd();
+
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+		   /* Replace the subdomain with your own subdomain from a Site in your OneAll account */
+        var oneall_subdomain = 'adtones';
+
+		  /* Asynchronously load the library */
+		  var oa = document.createElement('script');
+		  oa.type = 'text/javascript'; oa.async = true;
+		  oa.src = '//' + oneall_subdomain + '.api.oneall.com/socialize/library.js'
+		  var s = document.getElementsByTagName('script')[0];
+		  s.parentNode.insertBefore(oa, s)
+
+		  /* This is an event */
+		  var my_on_login_redirect = function(args) {
+			//console.info("You have logged in with " + args.provider.name);
+			//console.log(args);
+			window.location.href = args.callback_uri + "?userToken=" + args.connection.user_token + "&connectionToken=" + args.connection.connection_token;
+			//window.location.href = "/Users/Login/callback"
+			/* As this is a demo return false to cancel the redirection to the callback_uri */
+		    return false;
+
+		  }
+
+		  /* Initialise the asynchronous queue */
+		  var _oneall = _oneall || [];
+
+		  /* Social Login Example */
+		  _oneall.push(['social_login', 'set_providers', ['facebook', 'twitter', 'linkedin', 'google', 'yahoo', 'foursquare', 'blogger', 'github', 'Amazon']]);
+		  _oneall.push(['social_login', 'set_grid_sizes', [1]]);
+         //_oneall.push(['social_login', 'set_callback_uri', 'http://www.oneall.com/callback/']);
+		  _oneall.push(['social_login', 'set_callback_uri', '/Users/Login/Callback']);
+		  _oneall.push(['social_login', 'set_event', 'on_login_redirect', my_on_login_redirect ]);
+		  _oneall.push(['social_login', 'do_render_ui', 'oa_social_login_container']);
+				  /* Never: Never use popups */
+		_oneall.push(['social_login', 'set_popup_usage', 'never']);
+		 /* css*/
+		_oneall.push(['social_login', 'set_custom_css_uri', 'https://oneallcdn.com/css/api/socialize/themes/buildin/connect/large-v1.css']);
+
+	/* Example on_widget_loaded event is fired when a widget with social network icons has been loaded. */
+	//	var on_widget_loaded = function(arg) {
+	//	  // Name of the event
+	//	  console.log (arg.event);
+	//	  // Name of the service
+	//	  console.log (arg.service);
+	//	  // Reference to the DOM element of the widget
+	//	  console.log (arg.widget);
+	//	}
+	//_oneall.push(['social_login', 'set_event', 'on_widget_loaded', on_widget_loaded]);
+
+/* Example on_login_begin  event is fired when a user clicks on a social network icon to start the authentication process */
+	//var on_login_begin = function(arg) {
+	//  // Name of the event
+	//  console.log (arg.event);
+	//  // Name of the service
+	//  console.log (arg.service);
+	//  // Reference to the DOM element of the widget
+	//  console.log (arg.widget);
+	//  // Name of the social network
+	//  console.log (arg.provider.name);
+	//  // Key of the social network
+	//  console.log (arg.provider.name);
+	//}
+	//_oneall.push(['social_login', 'set_event', 'on_login_begin', on_login_begin]);
+
+	/* Example on_login_end event is fired after the user has completed the authentication process, whether successful or not.*/
+	//var on_login_end = function(arg) {
+	//  // Name of the event
+	//  console.log (arg.event);
+	//  // Name of the service
+	//  console.log (arg.service);
+	//  // Reference to the DOM element of the widget
+	//  console.log (arg.widget);
+	//  // Name of the social network
+	//  console.log (arg.provider.name);
+	//  // Key of the social network
+	//  console.log (arg.provider.name);
+	//  // Status of the connection
+	//  console.log (arg.connection.status);
+	//  // Used connection_token
+	//  // http://docs.oneall.loc/api/resources/connections/
+	//  console.log (arg.connection.connection_token);
+
+	//  // Used user_token
+	//  // http://docs.oneall.loc/api/resources/users/
+	//  console.log (arg.connection.connection_token);
+	//}
+	//_oneall.push(['social_login', 'set_event', 'on_login_end', on_login_end]);
+
+	/*
+		on_login_end_success =>similar to on_login_end but only fired if the authentication process is completed successfully.
+		on_login_end_error	 => similar to on_login_end but only fired if an error occurs during the the authentication process.
+		on_login_end_cancelled =>
+	*/
+
+	/* Example on_login_end_cancelled event is fired if the user cancels the authentication process.*/
+		var provider = '';
+
+		var my_on_login_begin = function(arg) {
+		  provider = arg.provider.name;
+		}
+
+
+		var my_on_login_end_cancelled = function() {
+		    //alert("Login with " + provider+ " cancelled");
+		    alert("Something went wrong.Please try again with " + provider)
+		}
+
+		_oneall.push(['social_login', 'set_event', 'on_login_begin', my_on_login_begin]);
+		_oneall.push(['social_login', 'set_event', 'on_login_end_cancelled', my_on_login_end_cancelled]);
+
+		/* Example	on_login_redirect event is fired after on_login_end and before redirecting the user to your callback_uri. You can abort the redirection to the callback_uri by having this function return false. */
+			//var on_login_end = function(arg) {
+			//  // Name args event
+			//  console.log (arg);
+			//  // Name of the event
+			//  console.log (arg.event);
+
+			//  // Name of the service
+			//  console.log (arg.service);
+
+			//  // Reference to the DOM element of the widget
+			//  console.log (arg.widget);
+
+			//  // Name of the social network
+			//  console.log (arg.provider.name);
+
+			//  // Key of the social network
+			//  console.log (arg.provider.name);
+
+			//  // Status of the connection
+			//  console.log (arg.connection.status);
+
+			//  // Used connection_token
+			//  // http://docs.oneall.loc/api/resources/connections/
+			//  console.log (arg.connection.connection_token);
+
+			//  // Used user_token
+			//  // http://docs.oneall.loc/api/resources/users/
+			//  console.log (arg.connection.connection_token);
+
+			//  // Callback URI to which the user will be redirected
+			//  console.log (arg.callback_uri);
+			//}
+			//_oneall.push(['social_login', 'set_event', 'on_login_end', on_login_end]);
+</script>

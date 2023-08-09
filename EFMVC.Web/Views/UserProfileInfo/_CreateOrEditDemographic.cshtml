@@ -1,0 +1,115 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileDemographicAdvertiserFormModel
+@*@using EFMVC.Web.Areas.Users.Models;
+    @model UserProfileResult*@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+
+            <div class="ibox-content">
+                <div class="alert alert-success alert-dismissable" id="dvdemographicsuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvdemographicerror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cmdemographicerror"></span>
+                </div>
+                @*@using (Ajax.BeginForm("SaveDemographic", "UserProfileInfo",
+                    null,
+                    new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresultdemographic", OnBegin = "progressbar" },
+                    new { @class = "form-horizontal" }))
+                                    {*@
+                <div class = "form-horizontal">
+                    @*@Html.HiddenFor(model => model.UserProfileDemographicFormModel.Id)
+                        @Html.HiddenFor(model => model.UserProfileDemographicFormModel.UserProfileId)
+                        @Html.HiddenFor(model => model.UserProfileDemographicFormModel.UserId)
+                        @Html.HiddenFor(model => model.UserProfileDemographicFormModel.DOB)
+                        @Html.HiddenFor(model => model.UserProfileDemographicFormModel.MSISDN)*@
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Location, new { @class = "col-lg-2 control-label" })<label class="col-lg-2" style="margin-top: 5px;width: 0px;">:</label>
+                        <div class="col-lg-4">
+                            @Html.Label(Model.Location_Demographics, new { @class = "control-label" })
+                            @*@Html.DropDownListFor(model => model.UserProfileDemographicFormModel.Location_Demographics, Model.UserProfileDemographicFormModel.LocationList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.UserProfileDemographicFormModel.Location_Demographics)*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Age, new { @class = "col-lg-2 control-label" })<label class="col-lg-2" style="margin-top: 5px;width: 0px;">:</label>
+                        <div class="col-lg-4">
+                            @Html.Label(Model.Age_Demographics, new { @class = "control-label" })
+                            @*@Html.DropDownListFor(model => model.UserProfileDemographicFormModel.Age_Demographics, Model.UserProfileDemographicFormModel.AgeList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.UserProfileDemographicFormModel.Age_Demographics)*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Gender, new { @class = "col-lg-2 control-label" })<label class="col-lg-2" style="margin-top: 5px;width: 0px;">:</label>
+                        <div class="col-lg-4">
+                            @Html.Label(Model.Gender_Demographics, new { @class = "control-label" })
+                            @*@Html.DropDownListFor(model => model.UserProfileDemographicFormModel.Gender_Demographics, Model.UserProfileDemographicFormModel.GenderList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.UserProfileDemographicFormModel.Gender_Demographics)*@
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.HouseholdStatus, new { @class = "col-lg-2 control-label" })<label class="col-lg-2" style="margin-top: 5px;width: 0px;">:</label>
+                        <div class="col-lg-4">
+                            @Html.Label(Model.HouseholdStatus_Demographics, new { @class = "control-label" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RelationshipStatus, new { @class = "col-lg-2 control-label" })<label class="col-lg-2" style="margin-top: 5px;width: 0px;">:</label>
+                        <div class="col-lg-4">
+                            @Html.Label(Model.RelationshipStatus_Demographics, new { @class = "control-label" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IncomeBracket, new { @class = "col-lg-2 control-label" })<label class="col-lg-2" style="margin-top: 5px;width: 0px;">:</label>
+                        <div class="col-lg-4">
+                            @Html.Label(Model.IncomeBracket_Demographics, new { @class = "control-label" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Education, new { @class = "col-lg-2 control-label" })<label class="col-lg-2" style="margin-top: 5px;width: 0px;">:</label>
+                        <div class="col-lg-4">
+                            @Html.Label(Model.Education_Demographics, new { @class = "control-label" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.WorkingStatus, new { @class = "col-lg-2 control-label" })<label class="col-lg-2" style="margin-top: 5px;width: 0px;">:</label>
+                        <div class="col-lg-4">
+                            @Html.Label(Model.WorkingStatus_Demographics, new { @class = "control-label" })
+                        </div>
+                    </div>*@
+                </div>
+                @*<div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-1">
+                                <button class="btn btn-blue" type="submit">Save</button>
+                            </div>
+                        </div>
+                    }*@
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresultdemographic = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvdemographicsuc").show();
+            $("#dvdemographicerror").hide();
+        }
+        else
+        {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Dashboard", new { Area = "" })';
+            }
+            $("#cmdemographicerror").html(data);
+            $("#dvdemographicsuc").hide();
+            $("#dvdemographicerror").show();
+        }
+    };
+</script>

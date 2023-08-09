@@ -1,0 +1,20 @@
+﻿
+@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<!DOCTYPE html>
+Success
+@ViewBag.Error
+<script type="text/javascript">
+    $(document).ready(function () {
+        var viewbagValue = '@ViewBag.Window';
+        if (viewbagValue == 'True') {
+
+            window.open('', '_self', '');
+            window.close();
+            top.close();
+           
+        }
+    });
+</script>

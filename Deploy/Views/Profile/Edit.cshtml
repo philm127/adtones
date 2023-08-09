@@ -1,0 +1,46 @@
+﻿@model EFMVC.Web.ViewModels.UserProfileFormModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+
+    @using (Html.BeginForm("Save", "Profile"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CreateOrEdit", Model)
+
+        <div class="large-3 small-1 columns">
+            &nbsp;
+        </div>
+
+        <div class="large-6 small-10 columns">
+            <div>
+                <p>
+                    <input type="submit" value="Save" />
+                </p>
+            </div>
+        </div>
+
+        <div class="large-3 small-1 columns">
+            &nbsp;
+        </div>
+    }
+</div>
+	
+<div class="row">
+	
+    <div class="large-3 small-1 columns">
+        &nbsp;
+    </div>
+    <div class="large-6 small-10 columns">
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+    <div class="large-3 small-1 columns">
+        &nbsp;
+    </div>
+</div>

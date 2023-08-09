@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="EFMVC.MediaTransfer" GeneratedClassName="Settings1">
+  <Profiles />
+  <Settings>
+    <Setting Name="ftpRoot" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/usr/local/arthar/adds</Value>
+    </Setting>
+    <Setting Name="ftpUserName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">provisioning</Value>
+    </Setting>
+    <Setting Name="ftpPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">adtonespassword</Value>
+    </Setting>
+    <Setting Name="ftpHost" Type="System.String" Scope="User">
+      <Value Profile="(Default)">46.101.4.123</Value>
+    </Setting>
+    <Setting Name="localRoot" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\inetpub\wwwroot\Media</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

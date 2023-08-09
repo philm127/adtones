@@ -1,0 +1,214 @@
+﻿@using EFMVC.Web.Areas.Admin.ViewModel;
+@model ManagementReportModel
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Total Users</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @String.Format("{0:n0}", @Model.NumOfTotalUser)
+                </h1>
+                <small>Total users on system</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Removed Users</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @String.Format("{0:n0}", @Model.NumOfRemovedUser)
+                </h1>
+                <small>Users removed from System</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Text Files Processed</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @String.Format("{0:n0}", @Model.NumOfTextFile)
+                </h1>
+                <small>Text files processed on system</small>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div class="row">
+
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Text Lines Processed</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @String.Format("{0:n0}", @Model.NumOfUpdateToAudit)
+                </h1>
+                <small>Text lines processed on system</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Plays</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @String.Format("{0:n0}", @Model.NumOfPlay)
+                </h1>
+                <small>Total number of plays in period</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Plays(Under 6secs)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @String.Format("{0:n0}", @Model.NumOfPlayUnder6secs)
+                </h1>
+                <small>Total number of plays under 6 secs in period</small>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>SMS</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @String.Format("{0:n0}", @Model.NumOfSMS)
+                </h1>
+                <small>Total number of SMS in period</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Email</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @String.Format("{0:n0}", @Model.NumOfEmail)
+                </h1>
+                <small>Total number of Email in period</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Live Campaign</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @String.Format("{0:n0}", @Model.NumOfLiveCampaign)
+                </h1>
+                <small>Total number of live campaign</small>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Ads provisioned</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @String.Format("{0:n0}", @Model.NumberOfAdsProvisioned)
+                </h1>
+                <small>Total number of ads provisioned</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Total Spend</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @Model.TotalSpend.ToString("N")
+                </h1>
+                <small>Total number of spend</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Total Credit</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @*@String.Format("{0:n0}", @Model.TotalCredit)*@
+                    @Model.TotalCredit.ToString("N")
+                </h1>
+                <small>Total number of Credit</small>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Total Cancel</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @String.Format("{0:n0}", @Model.NumOfCancel)
+                </h1>
+                <small>Total number of cancel</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Average Plays Per User</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins" style="color:#1e90ff;">
+                    @String.Format("{0:n0}", @Model.AveragePlaysPerUser)
+                </h1>
+                <small>Total number of average plays per user in period</small>
+            </div>
+        </div>
+    </div>
+</div>

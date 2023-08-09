@@ -1,0 +1,29 @@
+﻿@model EFMVC.Web.ViewModels.AdvertFormModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+
+    @using (Html.BeginForm("SaveAdvertMedia", "Campaign", FormMethod.Post, new {enctype = "multipart/form-data"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.Partial("_CreateOrEditAdvertMedia", Model)
+        <p>
+            @if (Model.AdvertId != 0)
+            {
+                <input type="submit" value="Save" />
+            }
+            else
+            {
+                <input type="submit" value="Create" />
+            }
+        </p>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

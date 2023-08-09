@@ -1,0 +1,1151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ArtharModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ArtharModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="ArtharModel.Store.__MigrationHistory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BlockedNumbers" EntityType="ArtharModel.Store.BlockedNumbers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfile" EntityType="ArtharModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfileAdverts" EntityType="ArtharModel.Store.UserProfileAdverts" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfileAttitude" EntityType="ArtharModel.Store.UserProfileAttitude" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfileCinema" EntityType="ArtharModel.Store.UserProfileCinema" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfileInternet" EntityType="ArtharModel.Store.UserProfileInternet" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfileMobile" EntityType="ArtharModel.Store.UserProfileMobile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfilePress" EntityType="ArtharModel.Store.UserProfilePress" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfileProductsServices" EntityType="ArtharModel.Store.UserProfileProductsServices" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfileRadio" EntityType="ArtharModel.Store.UserProfileRadio" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfileTimeSettings" EntityType="ArtharModel.Store.UserProfileTimeSettings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfileTv" EntityType="ArtharModel.Store.UserProfileTv" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="ArtharModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_dbo_BlockedNumbers_dbo_Users_UserId" Association="ArtharModel.Store.FK_dbo_BlockedNumbers_dbo_Users_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BlockedNumbers" EntitySet="BlockedNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfile_dbo_Users_UserId" Association="ArtharModel.Store.FK_dbo_UserProfile_dbo_Users_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileAdverts_dbo_UserProfile_UserProfileId" Association="ArtharModel.Store.FK_dbo_UserProfileAdverts_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfileAdverts" EntitySet="UserProfileAdverts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileCinema_dbo_UserProfile_UserProfileId" Association="ArtharModel.Store.FK_dbo_UserProfileCinema_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfileCinema" EntitySet="UserProfileCinema" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileInternet_dbo_UserProfile_UserProfileId" Association="ArtharModel.Store.FK_dbo_UserProfileInternet_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfileInternet" EntitySet="UserProfileInternet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileMobile_dbo_UserProfile_UserProfileId" Association="ArtharModel.Store.FK_dbo_UserProfileMobile_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfileMobile" EntitySet="UserProfileMobile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfilePress_dbo_UserProfile_UserProfileId" Association="ArtharModel.Store.FK_dbo_UserProfilePress_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfilePress" EntitySet="UserProfilePress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileProductsServices_dbo_UserProfile_UserProfileId" Association="ArtharModel.Store.FK_dbo_UserProfileProductsServices_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfileProductsServices" EntitySet="UserProfileProductsServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileRadio_dbo_UserProfile_UserProfileId" Association="ArtharModel.Store.FK_dbo_UserProfileRadio_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfileRadio" EntitySet="UserProfileRadio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileTimeSettings_dbo_UserProfile_UserProfileId" Association="ArtharModel.Store.FK_dbo_UserProfileTimeSettings_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfileTimeSettings" EntitySet="UserProfileTimeSettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileTv_dbo_UserProfile_UserProfileId" Association="ArtharModel.Store.FK_dbo_UserProfileTv_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfileTv" EntitySet="UserProfileTv" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfileAttitude_UserProfile" Association="ArtharModel.Store.FK_UserProfileAttitude_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserProfileAttitude" EntitySet="UserProfileAttitude" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" Nullable="false" MaxLength="32" />
+        </EntityType>
+        <EntityType Name="BlockedNumbers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="TelephoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserProfileId" />
+          </Key>
+          <Property Name="UserProfileId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="IncomeBracket" Type="nvarchar" MaxLength="50" />
+          <Property Name="WorkingStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="RelationshipStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="Education" Type="nvarchar" MaxLength="50" />
+          <Property Name="HouseholdStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="Location" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserProfileAdverts">
+          <Key>
+            <PropertyRef Name="UserProfileAdvertsId" />
+          </Key>
+          <Property Name="UserProfileAdvertsId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="Food" Type="int" />
+          <Property Name="SweetSaltySnacks" Type="int" />
+          <Property Name="AlcoholicDrinks" Type="int" />
+          <Property Name="NonAlcoholicDrinks" Type="int" />
+          <Property Name="Householdproducts" Type="int" />
+          <Property Name="ToiletriesCosmetics" Type="int" />
+          <Property Name="PharmaceuticalChemistsProducts" Type="int" />
+          <Property Name="TobaccoProducts" Type="int" />
+          <Property Name="PetsPetFood" Type="int" />
+          <Property Name="ShoppingRetailClothing" Type="int" />
+          <Property Name="DIYGardening" Type="int" />
+          <Property Name="AppliancesOtherHouseholdDurables" Type="int" />
+          <Property Name="ElectronicsOtherPersonalItems" Type="int" />
+          <Property Name="CommunicationsInternet" Type="int" />
+          <Property Name="FinancialServices" Type="int" />
+          <Property Name="HolidaysTravel" Type="int" />
+          <Property Name="SportsLeisure" Type="int" />
+          <Property Name="Motoring" Type="int" />
+          <Property Name="Newspapers" Type="int" />
+          <Property Name="Magazines" Type="int" />
+          <Property Name="TV" Type="int" />
+          <Property Name="Radio" Type="int" />
+          <Property Name="Cinema" Type="int" />
+          <Property Name="SocialNetworking" Type="int" />
+          <Property Name="GeneralUse" Type="int" />
+          <Property Name="Shopping" Type="int" />
+          <Property Name="Fitness" Type="int" />
+          <Property Name="Holidays" Type="int" />
+          <Property Name="Environment" Type="int" />
+          <Property Name="GoingOut" Type="int" />
+          <Property Name="FinancialProducts" Type="int" />
+          <Property Name="Religion" Type="int" />
+          <Property Name="Fashion" Type="int" />
+          <Property Name="Music" Type="int" />
+        </EntityType>
+        <EntityType Name="UserProfileAttitude">
+          <Key>
+            <PropertyRef Name="UserProfileAttitudeId" />
+          </Key>
+          <Property Name="UserProfileAttitudeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="Fitness" Type="int" />
+          <Property Name="Holidays" Type="int" />
+          <Property Name="Environment" Type="int" />
+          <Property Name="GoingOut" Type="int" />
+          <Property Name="FinancialStabiity" Type="int" />
+          <Property Name="Religion" Type="int" />
+          <Property Name="Fashion" Type="int" />
+          <Property Name="Music" Type="int" />
+        </EntityType>
+        <EntityType Name="UserProfileCinema">
+          <Key>
+            <PropertyRef Name="UserProfileCinemaId" />
+          </Key>
+          <Property Name="UserProfileCinemaId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="Cinema" Type="int" />
+        </EntityType>
+        <EntityType Name="UserProfileInternet">
+          <Key>
+            <PropertyRef Name="UserProfileInternetId" />
+          </Key>
+          <Property Name="UserProfileInternetId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="SocialNetworking" Type="int" />
+          <Property Name="Video" Type="int" />
+          <Property Name="Research" Type="int" />
+          <Property Name="Auctions" Type="int" />
+          <Property Name="Shopping" Type="int" />
+        </EntityType>
+        <EntityType Name="UserProfileMobile">
+          <Key>
+            <PropertyRef Name="UserProfileMobileId" />
+          </Key>
+          <Property Name="UserProfileMobileId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="ContractType" Type="nvarchar(max)" />
+          <Property Name="Spend" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="UserProfilePress">
+          <Key>
+            <PropertyRef Name="UserProfilePressId" />
+          </Key>
+          <Property Name="UserProfilePressId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="Local" Type="int" />
+          <Property Name="National" Type="int" />
+          <Property Name="FreeNewpapers" Type="int" />
+          <Property Name="Magazines" Type="int" />
+        </EntityType>
+        <EntityType Name="UserProfileProductsServices">
+          <Key>
+            <PropertyRef Name="UserProfileProductsServicesId" />
+          </Key>
+          <Property Name="UserProfileProductsServicesId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="Food" Type="int" />
+          <Property Name="SweetSaltySnacks" Type="int" />
+          <Property Name="AlcoholicDrinks" Type="int" />
+          <Property Name="NonAlcoholicDrinks" Type="int" />
+          <Property Name="Householdproducts" Type="int" />
+          <Property Name="ToiletriesCosmetics" Type="int" />
+          <Property Name="PharmaceuticalChemistsProducts" Type="int" />
+          <Property Name="TobaccoProducts" Type="int" />
+          <Property Name="PetsPetFood" Type="int" />
+          <Property Name="ShoppingRetailClothing" Type="int" />
+          <Property Name="DIYGardening" Type="int" />
+          <Property Name="AppliancesOtherHouseholdDurables" Type="int" />
+          <Property Name="ElectronicsOtherPersonalItems" Type="int" />
+          <Property Name="CommunicationsInternet" Type="int" />
+          <Property Name="FinancialServices" Type="int" />
+          <Property Name="HolidaysTravel" Type="int" />
+          <Property Name="SportsLeisure" Type="int" />
+          <Property Name="Motoring" Type="int" />
+        </EntityType>
+        <EntityType Name="UserProfileRadio">
+          <Key>
+            <PropertyRef Name="UserProfileRadioId" />
+          </Key>
+          <Property Name="UserProfileRadioId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="National" Type="int" />
+          <Property Name="Local" Type="int" />
+          <Property Name="Music" Type="int" />
+          <Property Name="Sport" Type="int" />
+          <Property Name="Talk" Type="int" />
+        </EntityType>
+        <EntityType Name="UserProfileTimeSettings">
+          <Key>
+            <PropertyRef Name="UserProfileTimeSettingsId" />
+          </Key>
+          <Property Name="UserProfileTimeSettingsId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="Monday" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tuesday" Type="nvarchar" MaxLength="50" />
+          <Property Name="Wednesday" Type="nvarchar" MaxLength="50" />
+          <Property Name="Thursday" Type="nvarchar" MaxLength="50" />
+          <Property Name="Friday" Type="nvarchar" MaxLength="50" />
+          <Property Name="Saturday" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sunday" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserProfileTv">
+          <Key>
+            <PropertyRef Name="UserProfileTvId" />
+          </Key>
+          <Property Name="UserProfileTvId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="int" Nullable="false" />
+          <Property Name="Satallite" Type="int" />
+          <Property Name="Cable" Type="int" />
+          <Property Name="Terrestrial" Type="int" />
+          <Property Name="Internet" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginTime" Type="datetime" />
+          <Property Name="Activated" Type="bit" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_BlockedNumbers_dbo_Users_UserId">
+          <End Role="Users" Type="ArtharModel.Store.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BlockedNumbers" Type="ArtharModel.Store.BlockedNumbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BlockedNumbers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfile_dbo_Users_UserId">
+          <End Role="Users" Type="ArtharModel.Store.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfile" Type="ArtharModel.Store.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileAdverts_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.Store.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileAdverts" Type="ArtharModel.Store.UserProfileAdverts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileAdverts">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileCinema_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.Store.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileCinema" Type="ArtharModel.Store.UserProfileCinema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileCinema">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileInternet_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.Store.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileInternet" Type="ArtharModel.Store.UserProfileInternet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileInternet">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileMobile_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.Store.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileMobile" Type="ArtharModel.Store.UserProfileMobile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileMobile">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfilePress_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.Store.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfilePress" Type="ArtharModel.Store.UserProfilePress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfilePress">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileProductsServices_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.Store.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileProductsServices" Type="ArtharModel.Store.UserProfileProductsServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileProductsServices">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileRadio_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.Store.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileRadio" Type="ArtharModel.Store.UserProfileRadio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileRadio">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileTimeSettings_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.Store.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileTimeSettings" Type="ArtharModel.Store.UserProfileTimeSettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileTimeSettings">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileTv_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.Store.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileTv" Type="ArtharModel.Store.UserProfileTv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileTv">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfileAttitude_UserProfile">
+          <End Role="UserProfile" Type="ArtharModel.Store.UserProfile" Multiplicity="1" />
+          <End Role="UserProfileAttitude" Type="ArtharModel.Store.UserProfileAttitude" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileAttitude">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ArtharModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ArtharEntities1" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="ArtharModel.C__MigrationHistory" />
+          <EntitySet Name="BlockedNumbers" EntityType="ArtharModel.BlockedNumber" />
+          <EntitySet Name="UserProfiles" EntityType="ArtharModel.UserProfile" />
+          <EntitySet Name="UserProfileAdverts" EntityType="ArtharModel.UserProfileAdvert" />
+          <EntitySet Name="UserProfileAttitudes" EntityType="ArtharModel.UserProfileAttitude" />
+          <EntitySet Name="UserProfileCinemas" EntityType="ArtharModel.UserProfileCinema" />
+          <EntitySet Name="UserProfileInternets" EntityType="ArtharModel.UserProfileInternet" />
+          <EntitySet Name="UserProfileMobiles" EntityType="ArtharModel.UserProfileMobile" />
+          <EntitySet Name="UserProfilePresses" EntityType="ArtharModel.UserProfilePress" />
+          <EntitySet Name="UserProfileProductsServices" EntityType="ArtharModel.UserProfileProductsService" />
+          <EntitySet Name="UserProfileRadios" EntityType="ArtharModel.UserProfileRadio" />
+          <EntitySet Name="UserProfileTimeSettings" EntityType="ArtharModel.UserProfileTimeSetting" />
+          <EntitySet Name="UserProfileTvs" EntityType="ArtharModel.UserProfileTv" />
+          <EntitySet Name="Users" EntityType="ArtharModel.User" />
+          <AssociationSet Name="FK_dbo_BlockedNumbers_dbo_Users_UserId" Association="ArtharModel.FK_dbo_BlockedNumbers_dbo_Users_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BlockedNumbers" EntitySet="BlockedNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfile_dbo_Users_UserId" Association="ArtharModel.FK_dbo_UserProfile_dbo_Users_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileAdverts_dbo_UserProfile_UserProfileId" Association="ArtharModel.FK_dbo_UserProfileAdverts_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserProfileAdverts" EntitySet="UserProfileAdverts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileCinema_dbo_UserProfile_UserProfileId" Association="ArtharModel.FK_dbo_UserProfileCinema_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserProfileCinema" EntitySet="UserProfileCinemas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileInternet_dbo_UserProfile_UserProfileId" Association="ArtharModel.FK_dbo_UserProfileInternet_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserProfileInternet" EntitySet="UserProfileInternets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileMobile_dbo_UserProfile_UserProfileId" Association="ArtharModel.FK_dbo_UserProfileMobile_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserProfileMobile" EntitySet="UserProfileMobiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfilePress_dbo_UserProfile_UserProfileId" Association="ArtharModel.FK_dbo_UserProfilePress_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserProfilePress" EntitySet="UserProfilePresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileProductsServices_dbo_UserProfile_UserProfileId" Association="ArtharModel.FK_dbo_UserProfileProductsServices_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserProfileProductsServices" EntitySet="UserProfileProductsServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileRadio_dbo_UserProfile_UserProfileId" Association="ArtharModel.FK_dbo_UserProfileRadio_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserProfileRadio" EntitySet="UserProfileRadios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileTimeSettings_dbo_UserProfile_UserProfileId" Association="ArtharModel.FK_dbo_UserProfileTimeSettings_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserProfileTimeSettings" EntitySet="UserProfileTimeSettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserProfileTv_dbo_UserProfile_UserProfileId" Association="ArtharModel.FK_dbo_UserProfileTv_dbo_UserProfile_UserProfileId">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserProfileTv" EntitySet="UserProfileTvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfileAttitude_UserProfile" Association="ArtharModel.FK_UserProfileAttitude_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserProfileAttitude" EntitySet="UserProfileAttitudes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="BlockedNumber">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="TelephoneNumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="ArtharModel.FK_dbo_BlockedNumbers_dbo_Users_UserId" FromRole="BlockedNumbers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserProfileId" />
+          </Key>
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IncomeBracket" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="WorkingStatus" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="RelationshipStatus" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Education" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="HouseholdStatus" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Location" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="User" Relationship="ArtharModel.FK_dbo_UserProfile_dbo_Users_UserId" FromRole="UserProfile" ToRole="Users" />
+          <NavigationProperty Name="UserProfileAdverts" Relationship="ArtharModel.FK_dbo_UserProfileAdverts_dbo_UserProfile_UserProfileId" FromRole="UserProfile" ToRole="UserProfileAdverts" />
+          <NavigationProperty Name="UserProfileCinemas" Relationship="ArtharModel.FK_dbo_UserProfileCinema_dbo_UserProfile_UserProfileId" FromRole="UserProfile" ToRole="UserProfileCinema" />
+          <NavigationProperty Name="UserProfileInternets" Relationship="ArtharModel.FK_dbo_UserProfileInternet_dbo_UserProfile_UserProfileId" FromRole="UserProfile" ToRole="UserProfileInternet" />
+          <NavigationProperty Name="UserProfileMobiles" Relationship="ArtharModel.FK_dbo_UserProfileMobile_dbo_UserProfile_UserProfileId" FromRole="UserProfile" ToRole="UserProfileMobile" />
+          <NavigationProperty Name="UserProfilePresses" Relationship="ArtharModel.FK_dbo_UserProfilePress_dbo_UserProfile_UserProfileId" FromRole="UserProfile" ToRole="UserProfilePress" />
+          <NavigationProperty Name="UserProfileProductsServices" Relationship="ArtharModel.FK_dbo_UserProfileProductsServices_dbo_UserProfile_UserProfileId" FromRole="UserProfile" ToRole="UserProfileProductsServices" />
+          <NavigationProperty Name="UserProfileRadios" Relationship="ArtharModel.FK_dbo_UserProfileRadio_dbo_UserProfile_UserProfileId" FromRole="UserProfile" ToRole="UserProfileRadio" />
+          <NavigationProperty Name="UserProfileTimeSettings" Relationship="ArtharModel.FK_dbo_UserProfileTimeSettings_dbo_UserProfile_UserProfileId" FromRole="UserProfile" ToRole="UserProfileTimeSettings" />
+          <NavigationProperty Name="UserProfileTvs" Relationship="ArtharModel.FK_dbo_UserProfileTv_dbo_UserProfile_UserProfileId" FromRole="UserProfile" ToRole="UserProfileTv" />
+          <NavigationProperty Name="UserProfileAttitudes" Relationship="ArtharModel.FK_UserProfileAttitude_UserProfile" FromRole="UserProfile" ToRole="UserProfileAttitude" />
+        </EntityType>
+        <EntityType Name="UserProfileAdvert">
+          <Key>
+            <PropertyRef Name="UserProfileAdvertsId" />
+          </Key>
+          <Property Name="UserProfileAdvertsId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="Food" Type="Int32" />
+          <Property Name="SweetSaltySnacks" Type="Int32" />
+          <Property Name="AlcoholicDrinks" Type="Int32" />
+          <Property Name="NonAlcoholicDrinks" Type="Int32" />
+          <Property Name="Householdproducts" Type="Int32" />
+          <Property Name="ToiletriesCosmetics" Type="Int32" />
+          <Property Name="PharmaceuticalChemistsProducts" Type="Int32" />
+          <Property Name="TobaccoProducts" Type="Int32" />
+          <Property Name="PetsPetFood" Type="Int32" />
+          <Property Name="ShoppingRetailClothing" Type="Int32" />
+          <Property Name="DIYGardening" Type="Int32" />
+          <Property Name="AppliancesOtherHouseholdDurables" Type="Int32" />
+          <Property Name="ElectronicsOtherPersonalItems" Type="Int32" />
+          <Property Name="CommunicationsInternet" Type="Int32" />
+          <Property Name="FinancialServices" Type="Int32" />
+          <Property Name="HolidaysTravel" Type="Int32" />
+          <Property Name="SportsLeisure" Type="Int32" />
+          <Property Name="Motoring" Type="Int32" />
+          <Property Name="Newspapers" Type="Int32" />
+          <Property Name="Magazines" Type="Int32" />
+          <Property Name="TV" Type="Int32" />
+          <Property Name="Radio" Type="Int32" />
+          <Property Name="Cinema" Type="Int32" />
+          <Property Name="SocialNetworking" Type="Int32" />
+          <Property Name="GeneralUse" Type="Int32" />
+          <Property Name="Shopping" Type="Int32" />
+          <Property Name="Fitness" Type="Int32" />
+          <Property Name="Holidays" Type="Int32" />
+          <Property Name="Environment" Type="Int32" />
+          <Property Name="GoingOut" Type="Int32" />
+          <Property Name="FinancialProducts" Type="Int32" />
+          <Property Name="Religion" Type="Int32" />
+          <Property Name="Fashion" Type="Int32" />
+          <Property Name="Music" Type="Int32" />
+          <NavigationProperty Name="UserProfile" Relationship="ArtharModel.FK_dbo_UserProfileAdverts_dbo_UserProfile_UserProfileId" FromRole="UserProfileAdverts" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="UserProfileAttitude">
+          <Key>
+            <PropertyRef Name="UserProfileAttitudeId" />
+          </Key>
+          <Property Name="UserProfileAttitudeId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="Fitness" Type="Int32" />
+          <Property Name="Holidays" Type="Int32" />
+          <Property Name="Environment" Type="Int32" />
+          <Property Name="GoingOut" Type="Int32" />
+          <Property Name="FinancialStabiity" Type="Int32" />
+          <Property Name="Religion" Type="Int32" />
+          <Property Name="Fashion" Type="Int32" />
+          <Property Name="Music" Type="Int32" />
+          <NavigationProperty Name="UserProfile" Relationship="ArtharModel.FK_UserProfileAttitude_UserProfile" FromRole="UserProfileAttitude" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="UserProfileCinema">
+          <Key>
+            <PropertyRef Name="UserProfileCinemaId" />
+          </Key>
+          <Property Name="UserProfileCinemaId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="Cinema" Type="Int32" />
+          <NavigationProperty Name="UserProfile" Relationship="ArtharModel.FK_dbo_UserProfileCinema_dbo_UserProfile_UserProfileId" FromRole="UserProfileCinema" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="UserProfileInternet">
+          <Key>
+            <PropertyRef Name="UserProfileInternetId" />
+          </Key>
+          <Property Name="UserProfileInternetId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="SocialNetworking" Type="Int32" />
+          <Property Name="Video" Type="Int32" />
+          <Property Name="Research" Type="Int32" />
+          <Property Name="Auctions" Type="Int32" />
+          <Property Name="Shopping" Type="Int32" />
+          <NavigationProperty Name="UserProfile" Relationship="ArtharModel.FK_dbo_UserProfileInternet_dbo_UserProfile_UserProfileId" FromRole="UserProfileInternet" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="UserProfileMobile">
+          <Key>
+            <PropertyRef Name="UserProfileMobileId" />
+          </Key>
+          <Property Name="UserProfileMobileId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="ContractType" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Spend" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="UserProfile" Relationship="ArtharModel.FK_dbo_UserProfileMobile_dbo_UserProfile_UserProfileId" FromRole="UserProfileMobile" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="UserProfilePress">
+          <Key>
+            <PropertyRef Name="UserProfilePressId" />
+          </Key>
+          <Property Name="UserProfilePressId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="Local" Type="Int32" />
+          <Property Name="National" Type="Int32" />
+          <Property Name="FreeNewpapers" Type="Int32" />
+          <Property Name="Magazines" Type="Int32" />
+          <NavigationProperty Name="UserProfile" Relationship="ArtharModel.FK_dbo_UserProfilePress_dbo_UserProfile_UserProfileId" FromRole="UserProfilePress" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="UserProfileProductsService">
+          <Key>
+            <PropertyRef Name="UserProfileProductsServicesId" />
+          </Key>
+          <Property Name="UserProfileProductsServicesId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="Food" Type="Int32" />
+          <Property Name="SweetSaltySnacks" Type="Int32" />
+          <Property Name="AlcoholicDrinks" Type="Int32" />
+          <Property Name="NonAlcoholicDrinks" Type="Int32" />
+          <Property Name="Householdproducts" Type="Int32" />
+          <Property Name="ToiletriesCosmetics" Type="Int32" />
+          <Property Name="PharmaceuticalChemistsProducts" Type="Int32" />
+          <Property Name="TobaccoProducts" Type="Int32" />
+          <Property Name="PetsPetFood" Type="Int32" />
+          <Property Name="ShoppingRetailClothing" Type="Int32" />
+          <Property Name="DIYGardening" Type="Int32" />
+          <Property Name="AppliancesOtherHouseholdDurables" Type="Int32" />
+          <Property Name="ElectronicsOtherPersonalItems" Type="Int32" />
+          <Property Name="CommunicationsInternet" Type="Int32" />
+          <Property Name="FinancialServices" Type="Int32" />
+          <Property Name="HolidaysTravel" Type="Int32" />
+          <Property Name="SportsLeisure" Type="Int32" />
+          <Property Name="Motoring" Type="Int32" />
+          <NavigationProperty Name="UserProfile" Relationship="ArtharModel.FK_dbo_UserProfileProductsServices_dbo_UserProfile_UserProfileId" FromRole="UserProfileProductsServices" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="UserProfileRadio">
+          <Key>
+            <PropertyRef Name="UserProfileRadioId" />
+          </Key>
+          <Property Name="UserProfileRadioId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="National" Type="Int32" />
+          <Property Name="Local" Type="Int32" />
+          <Property Name="Music" Type="Int32" />
+          <Property Name="Sport" Type="Int32" />
+          <Property Name="Talk" Type="Int32" />
+          <NavigationProperty Name="UserProfile" Relationship="ArtharModel.FK_dbo_UserProfileRadio_dbo_UserProfile_UserProfileId" FromRole="UserProfileRadio" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="UserProfileTimeSetting">
+          <Key>
+            <PropertyRef Name="UserProfileTimeSettingsId" />
+          </Key>
+          <Property Name="UserProfileTimeSettingsId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="Monday" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Tuesday" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Wednesday" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Thursday" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Friday" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Saturday" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Sunday" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="UserProfile" Relationship="ArtharModel.FK_dbo_UserProfileTimeSettings_dbo_UserProfile_UserProfileId" FromRole="UserProfileTimeSettings" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="UserProfileTv">
+          <Key>
+            <PropertyRef Name="UserProfileTvId" />
+          </Key>
+          <Property Name="UserProfileTvId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserProfileId" Type="Int32" Nullable="false" />
+          <Property Name="Satallite" Type="Int32" />
+          <Property Name="Cable" Type="Int32" />
+          <Property Name="Terrestrial" Type="Int32" />
+          <Property Name="Internet" Type="Int32" />
+          <NavigationProperty Name="UserProfile" Relationship="ArtharModel.FK_dbo_UserProfileTv_dbo_UserProfile_UserProfileId" FromRole="UserProfileTv" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
+          <Property Name="Activated" Type="Boolean" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BlockedNumbers" Relationship="ArtharModel.FK_dbo_BlockedNumbers_dbo_Users_UserId" FromRole="Users" ToRole="BlockedNumbers" />
+          <NavigationProperty Name="UserProfiles" Relationship="ArtharModel.FK_dbo_UserProfile_dbo_Users_UserId" FromRole="Users" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK_dbo_BlockedNumbers_dbo_Users_UserId">
+          <End Role="Users" Type="ArtharModel.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BlockedNumbers" Type="ArtharModel.BlockedNumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="BlockedNumbers">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfile_dbo_Users_UserId">
+          <End Role="Users" Type="ArtharModel.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfile" Type="ArtharModel.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileAdverts_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileAdverts" Type="ArtharModel.UserProfileAdvert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileAdverts">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileCinema_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileCinema" Type="ArtharModel.UserProfileCinema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileCinema">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileInternet_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileInternet" Type="ArtharModel.UserProfileInternet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileInternet">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileMobile_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileMobile" Type="ArtharModel.UserProfileMobile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileMobile">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfilePress_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfilePress" Type="ArtharModel.UserProfilePress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfilePress">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileProductsServices_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileProductsServices" Type="ArtharModel.UserProfileProductsService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileProductsServices">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileRadio_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileRadio" Type="ArtharModel.UserProfileRadio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileRadio">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileTimeSettings_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileTimeSettings" Type="ArtharModel.UserProfileTimeSetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileTimeSettings">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserProfileTv_dbo_UserProfile_UserProfileId">
+          <End Role="UserProfile" Type="ArtharModel.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProfileTv" Type="ArtharModel.UserProfileTv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileTv">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfileAttitude_UserProfile">
+          <End Role="UserProfile" Type="ArtharModel.UserProfile" Multiplicity="1" />
+          <End Role="UserProfileAttitude" Type="ArtharModel.UserProfileAttitude" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserProfileId" />
+            </Principal>
+            <Dependent Role="UserProfileAttitude">
+              <PropertyRef Name="UserProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ArtharModelStoreContainer" CdmEntityContainer="ArtharEntities1">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="ArtharModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlockedNumbers">
+            <EntityTypeMapping TypeName="ArtharModel.BlockedNumber">
+              <MappingFragment StoreEntitySet="BlockedNumbers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="ArtharModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IncomeBracket" ColumnName="IncomeBracket" />
+                <ScalarProperty Name="WorkingStatus" ColumnName="WorkingStatus" />
+                <ScalarProperty Name="RelationshipStatus" ColumnName="RelationshipStatus" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="HouseholdStatus" ColumnName="HouseholdStatus" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfileAdverts">
+            <EntityTypeMapping TypeName="ArtharModel.UserProfileAdvert">
+              <MappingFragment StoreEntitySet="UserProfileAdverts">
+                <ScalarProperty Name="UserProfileAdvertsId" ColumnName="UserProfileAdvertsId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Food" ColumnName="Food" />
+                <ScalarProperty Name="SweetSaltySnacks" ColumnName="SweetSaltySnacks" />
+                <ScalarProperty Name="AlcoholicDrinks" ColumnName="AlcoholicDrinks" />
+                <ScalarProperty Name="NonAlcoholicDrinks" ColumnName="NonAlcoholicDrinks" />
+                <ScalarProperty Name="Householdproducts" ColumnName="Householdproducts" />
+                <ScalarProperty Name="ToiletriesCosmetics" ColumnName="ToiletriesCosmetics" />
+                <ScalarProperty Name="PharmaceuticalChemistsProducts" ColumnName="PharmaceuticalChemistsProducts" />
+                <ScalarProperty Name="TobaccoProducts" ColumnName="TobaccoProducts" />
+                <ScalarProperty Name="PetsPetFood" ColumnName="PetsPetFood" />
+                <ScalarProperty Name="ShoppingRetailClothing" ColumnName="ShoppingRetailClothing" />
+                <ScalarProperty Name="DIYGardening" ColumnName="DIYGardening" />
+                <ScalarProperty Name="AppliancesOtherHouseholdDurables" ColumnName="AppliancesOtherHouseholdDurables" />
+                <ScalarProperty Name="ElectronicsOtherPersonalItems" ColumnName="ElectronicsOtherPersonalItems" />
+                <ScalarProperty Name="CommunicationsInternet" ColumnName="CommunicationsInternet" />
+                <ScalarProperty Name="FinancialServices" ColumnName="FinancialServices" />
+                <ScalarProperty Name="HolidaysTravel" ColumnName="HolidaysTravel" />
+                <ScalarProperty Name="SportsLeisure" ColumnName="SportsLeisure" />
+                <ScalarProperty Name="Motoring" ColumnName="Motoring" />
+                <ScalarProperty Name="Newspapers" ColumnName="Newspapers" />
+                <ScalarProperty Name="Magazines" ColumnName="Magazines" />
+                <ScalarProperty Name="TV" ColumnName="TV" />
+                <ScalarProperty Name="Radio" ColumnName="Radio" />
+                <ScalarProperty Name="Cinema" ColumnName="Cinema" />
+                <ScalarProperty Name="SocialNetworking" ColumnName="SocialNetworking" />
+                <ScalarProperty Name="GeneralUse" ColumnName="GeneralUse" />
+                <ScalarProperty Name="Shopping" ColumnName="Shopping" />
+                <ScalarProperty Name="Fitness" ColumnName="Fitness" />
+                <ScalarProperty Name="Holidays" ColumnName="Holidays" />
+                <ScalarProperty Name="Environment" ColumnName="Environment" />
+                <ScalarProperty Name="GoingOut" ColumnName="GoingOut" />
+                <ScalarProperty Name="FinancialProducts" ColumnName="FinancialProducts" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="Fashion" ColumnName="Fashion" />
+                <ScalarProperty Name="Music" ColumnName="Music" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfileAttitudes">
+            <EntityTypeMapping TypeName="ArtharModel.UserProfileAttitude">
+              <MappingFragment StoreEntitySet="UserProfileAttitude">
+                <ScalarProperty Name="UserProfileAttitudeId" ColumnName="UserProfileAttitudeId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Fitness" ColumnName="Fitness" />
+                <ScalarProperty Name="Holidays" ColumnName="Holidays" />
+                <ScalarProperty Name="Environment" ColumnName="Environment" />
+                <ScalarProperty Name="GoingOut" ColumnName="GoingOut" />
+                <ScalarProperty Name="FinancialStabiity" ColumnName="FinancialStabiity" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="Fashion" ColumnName="Fashion" />
+                <ScalarProperty Name="Music" ColumnName="Music" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfileCinemas">
+            <EntityTypeMapping TypeName="ArtharModel.UserProfileCinema">
+              <MappingFragment StoreEntitySet="UserProfileCinema">
+                <ScalarProperty Name="UserProfileCinemaId" ColumnName="UserProfileCinemaId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Cinema" ColumnName="Cinema" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfileInternets">
+            <EntityTypeMapping TypeName="ArtharModel.UserProfileInternet">
+              <MappingFragment StoreEntitySet="UserProfileInternet">
+                <ScalarProperty Name="UserProfileInternetId" ColumnName="UserProfileInternetId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="SocialNetworking" ColumnName="SocialNetworking" />
+                <ScalarProperty Name="Video" ColumnName="Video" />
+                <ScalarProperty Name="Research" ColumnName="Research" />
+                <ScalarProperty Name="Auctions" ColumnName="Auctions" />
+                <ScalarProperty Name="Shopping" ColumnName="Shopping" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfileMobiles">
+            <EntityTypeMapping TypeName="ArtharModel.UserProfileMobile">
+              <MappingFragment StoreEntitySet="UserProfileMobile">
+                <ScalarProperty Name="UserProfileMobileId" ColumnName="UserProfileMobileId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="Spend" ColumnName="Spend" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfilePresses">
+            <EntityTypeMapping TypeName="ArtharModel.UserProfilePress">
+              <MappingFragment StoreEntitySet="UserProfilePress">
+                <ScalarProperty Name="UserProfilePressId" ColumnName="UserProfilePressId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Local" ColumnName="Local" />
+                <ScalarProperty Name="National" ColumnName="National" />
+                <ScalarProperty Name="FreeNewpapers" ColumnName="FreeNewpapers" />
+                <ScalarProperty Name="Magazines" ColumnName="Magazines" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfileProductsServices">
+            <EntityTypeMapping TypeName="ArtharModel.UserProfileProductsService">
+              <MappingFragment StoreEntitySet="UserProfileProductsServices">
+                <ScalarProperty Name="UserProfileProductsServicesId" ColumnName="UserProfileProductsServicesId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Food" ColumnName="Food" />
+                <ScalarProperty Name="SweetSaltySnacks" ColumnName="SweetSaltySnacks" />
+                <ScalarProperty Name="AlcoholicDrinks" ColumnName="AlcoholicDrinks" />
+                <ScalarProperty Name="NonAlcoholicDrinks" ColumnName="NonAlcoholicDrinks" />
+                <ScalarProperty Name="Householdproducts" ColumnName="Householdproducts" />
+                <ScalarProperty Name="ToiletriesCosmetics" ColumnName="ToiletriesCosmetics" />
+                <ScalarProperty Name="PharmaceuticalChemistsProducts" ColumnName="PharmaceuticalChemistsProducts" />
+                <ScalarProperty Name="TobaccoProducts" ColumnName="TobaccoProducts" />
+                <ScalarProperty Name="PetsPetFood" ColumnName="PetsPetFood" />
+                <ScalarProperty Name="ShoppingRetailClothing" ColumnName="ShoppingRetailClothing" />
+                <ScalarProperty Name="DIYGardening" ColumnName="DIYGardening" />
+                <ScalarProperty Name="AppliancesOtherHouseholdDurables" ColumnName="AppliancesOtherHouseholdDurables" />
+                <ScalarProperty Name="ElectronicsOtherPersonalItems" ColumnName="ElectronicsOtherPersonalItems" />
+                <ScalarProperty Name="CommunicationsInternet" ColumnName="CommunicationsInternet" />
+                <ScalarProperty Name="FinancialServices" ColumnName="FinancialServices" />
+                <ScalarProperty Name="HolidaysTravel" ColumnName="HolidaysTravel" />
+                <ScalarProperty Name="SportsLeisure" ColumnName="SportsLeisure" />
+                <ScalarProperty Name="Motoring" ColumnName="Motoring" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfileRadios">
+            <EntityTypeMapping TypeName="ArtharModel.UserProfileRadio">
+              <MappingFragment StoreEntitySet="UserProfileRadio">
+                <ScalarProperty Name="UserProfileRadioId" ColumnName="UserProfileRadioId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="National" ColumnName="National" />
+                <ScalarProperty Name="Local" ColumnName="Local" />
+                <ScalarProperty Name="Music" ColumnName="Music" />
+                <ScalarProperty Name="Sport" ColumnName="Sport" />
+                <ScalarProperty Name="Talk" ColumnName="Talk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfileTimeSettings">
+            <EntityTypeMapping TypeName="ArtharModel.UserProfileTimeSetting">
+              <MappingFragment StoreEntitySet="UserProfileTimeSettings">
+                <ScalarProperty Name="UserProfileTimeSettingsId" ColumnName="UserProfileTimeSettingsId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfileTvs">
+            <EntityTypeMapping TypeName="ArtharModel.UserProfileTv">
+              <MappingFragment StoreEntitySet="UserProfileTv">
+                <ScalarProperty Name="UserProfileTvId" ColumnName="UserProfileTvId" />
+                <ScalarProperty Name="UserProfileId" ColumnName="UserProfileId" />
+                <ScalarProperty Name="Satallite" ColumnName="Satallite" />
+                <ScalarProperty Name="Cable" ColumnName="Cable" />
+                <ScalarProperty Name="Terrestrial" ColumnName="Terrestrial" />
+                <ScalarProperty Name="Internet" ColumnName="Internet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ArtharModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="Activated" ColumnName="Activated" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

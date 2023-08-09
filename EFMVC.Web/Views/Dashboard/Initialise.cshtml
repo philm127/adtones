@@ -1,0 +1,372 @@
+﻿@using EFMVC.Web.Common;
+@model EFMVC.Web.ViewModels.CampaignProfileFormModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<div class="spiner-example loader" style="display:none;">
+    <div class="sk-spinner sk-spinner-three-bounce">
+        <div class="sk-bounce1"></div>
+        <div class="sk-bounce2"></div>
+        <div class="sk-bounce3"></div>
+    </div>
+</div>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Add Campaign</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Dashboard")">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>Campaigns</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Add Campaign</h5>
+
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("Save", "Dashboard", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        @Html.HiddenFor(model => model.CreatedDateTime)
+                        @Html.HiddenFor(model => model.UpdatedDateTime)
+                        <input type="hidden" id="hdnstatus" name="hdnstatus" value="Played" />
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        @*Comment 03-04-2019
+                            <div class="form-group">
+                            <label class="col-lg-2 control-label">Campaign</label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(Model => Model.CampaignId, ViewBag.allCampaignList as IEnumerable<SelectListItem>, "--Select Campaign--", new { @class = "input-sm form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.CampaignId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>*@
+                            <div id="BasicCampaign">
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Name <label class="lbldanger">*</label></label>
+
+                                    <div class="col-lg-6">
+                                        @Html.TextBoxFor(Model => Model.CampaignName, new { @class = "form-control trimmed", @placeholder = "Name" })
+                                        @Html.ValidationMessageFor(Model => Model.CampaignName, null, new { @class = "btn-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Description <label class="lbldanger">*</label></label>
+
+                                    <div class="col-lg-6">
+                                        @Html.TextAreaFor(Model => Model.CampaignDescription, new { @class = "form-control trimmed", @placeholder = "Description" })
+                                        @Html.ValidationMessageFor(Model => Model.CampaignDescription, null, new { @class = "btn-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Client</label>
+
+                                    <div class="col-lg-6">
+                                        @Html.DropDownListFor(Model => Model.ClientId, ViewBag.client as IEnumerable<SelectListItem>, "--Select Client--", new { @class = "input-sm form-control input-s-sm inline" })
+                                        @*@Html.ValidationMessageFor(Model => Model.ClientId, null, new { @class = "btn-danger" })*@
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Country <label class="lbldanger">*</label></label>
+
+                                    <div class="col-lg-6">
+                                        @Html.DropDownListFor(Model => Model.CountryId, ViewBag.countryList as IEnumerable<SelectListItem>, "--Select Country--", new { @class = "input-sm form-control input-s-sm inline", @style = "Height:36px" })
+                                        @Html.ValidationMessageFor(Model => Model.CountryId, null, new { @class = "btn-danger" })
+                                    </div>
+                                </div>
+
+                                @*Add 03-04-2019*@
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Currency</label>
+
+                                    <div class="col-lg-6">
+                                        @Html.DropDownListFor(Model => Model.CurrencyId, ViewBag.currencyList as IEnumerable<SelectListItem>, "--Select Currency--", new { @class = "input-sm form-control input-s-sm inline", @style = "Height:36px" })
+                                        <span class="btn-danger" id="errormsg"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Max Daily Budget <label id="lblmaxdailybudget"></label></label>
+
+                                    <div class="col-lg-6">
+                                        @Html.TextBoxFor(Model => Model.MaxDailyBudget, new { @class = "form-control auto trimmed", @placeholder = "Budget", data_a_dec = ".", data_a_sep = "," })
+                                        @Html.ValidationMessageFor(Model => Model.MaxDailyBudget, null, new { @class = "btn-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Total Budget <label id="lbltotalbudget"></label></label>
+
+                                    <div class="col-lg-1">
+                                        <label class="control-label">0</label>
+                                        @*@Html.TextBoxFor(Model => Model.TotalBudget, new { @class = "form-control auto", @placeholder = "TotalBudget", data_a_dec = ".", data_a_sep = "," })
+                @Html.ValidationMessageFor(Model => Model.TotalBudget, null, new { @class = "btn-danger" })*@
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @*<label class="col-lg-2 control-label">Max Bid (cent)</label>*@
+                                    <label class="col-lg-2 control-label">Max Bid <label id="lblmaxbid"></label></label>
+
+                                    <div class="col-lg-6">
+                                        @Html.TextBoxFor(Model => Model.MaxBid, new { @class = "form-control auto trimmed", @placeholder = "MaxBid", data_a_dec = ".", data_a_sep = "," })
+                                        @Html.ValidationMessageFor(Model => Model.MaxBid, null, new { @class = "btn-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Start Date</label>
+
+                                    <div class="col-lg-6" id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control trimmed", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">End Date</label>
+
+                                    <div class="col-lg-6" id="data_1">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control trimmed", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Number In Batch</label>
+
+                                    <div class="col-lg-6">
+                                        @Html.TextBoxFor(model => model.NumberInBatch, new { @class = "form-control trimmed" })
+                                        @Html.ValidationMessageFor(model => model.NumberInBatch, null, new { @class = "btn-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="display:none;">
+                                    <label class="col-lg-2 control-label"></label>
+
+                                    <div class="col-lg-6">
+                                        <div id="wizard">
+                                            <h1>Play</h1>
+                                            <div class="step-content">
+
+                                            </div>
+
+                                            <h1>Pause</h1>
+                                            <div class="step-content">
+
+                                            </div>
+                                            <h1>Archive</h1>
+                                            <div class="step-content">
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <button class="btn btn-sm btn-blue" type="submit">Save</button>
+                                        <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index","Dashboard")'">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                    }
+                    <div id="CampaignData">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @Styles.Render("~/plugins/dateRangeStyles")
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/wizardStepsStyles")
+    @Styles.Render("~/Content/accordion")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/vectorMap")
+    @Scripts.Render("~/plugins/dataPicker")
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @Scripts.Render("~/plugins/dateRange")
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/wizardSteps")
+    @Scripts.Render("~/plugins/nestable")
+    @Scripts.Render("~/plugins/chartJs")
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
+
+        $("#wizard").steps();
+        $(".content.clearfix").remove();
+        $(".number").remove();
+        $("#wizard-t-0").click(function () {
+            wizardt0();
+            $("#hdnstatus").val('@CampaignStatus.Planned.ToString()');
+        });
+        $("#wizard-t-1").click(function () {
+            wizardt1();
+            $("#hdnstatus").val('@CampaignStatus.Pause.ToString()');
+        });
+        $("#wizard-t-2").click(function () {
+            wizardt2();
+            $("#hdnstatus").val('@CampaignStatus.Archive.ToString()');
+        });
+        function wizardt1() {
+            $("#wizard-t-1").parent().removeClass("last");
+            $("#wizard-t-1").parent().addClass("current");
+            $("#wizard-t-0").parent().removeClass("current");
+            $("#wizard-t-0").parent().addClass("disabled last");
+            $("#wizard-t-2").parent().removeClass("current");
+            $("#wizard-t-2").parent().addClass("disabled last");
+
+        }
+        function wizardt0() {
+            $("#wizard-t-0").parent().removeClass("disabled last");
+            $("#wizard-t-0").parent().addClass("current");
+            $("#wizard-t-1").parent().removeClass("current");
+            $("#wizard-t-1").parent().addClass("disabled last");
+            $("#wizard-t-2").parent().removeClass("current");
+            $("#wizard-t-2").parent().addClass("disabled last");
+
+        }
+        function wizardt2() {
+            $("#wizard-t-2").parent().removeClass("disabled last");
+            $("#wizard-t-2").parent().addClass("current");
+            $("#wizard-t-1").parent().removeClass("current");
+            $("#wizard-t-1").parent().addClass("disabled last");
+            $("#wizard-t-0").parent().removeClass("current");
+            $("#wizard-t-0").parent().addClass("disabled last");
+        }
+
+        trimmed();
+    });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+        $("#CountryId").change(function () {
+            $(".loader").show();
+            var id = $(this).val();
+            var label = "country";
+            if (id == "") {
+                $("#errormsg").html("");
+                $("#CurrencyId").val("");
+                $("#lblmaxdailybudget").text("");
+                $("#lbltotalbudget").text("");
+                $("#lblmaxbid").text("");
+                $(".loader").hide();
+            }
+            else {
+                $.post('@Url.Action("GetCurrencyCode", "Dashboard")', { id: id, label: label }, function (data) {
+                    if (data.data = "success") {
+                        $("#errormsg").html("");
+                        var countrySymbole = data.value;
+                        $("#CurrencyId").val(data.value1);
+                        $("#lblmaxdailybudget").text("(" + countrySymbole + ")");
+                        $("#lbltotalbudget").text("(" + countrySymbole + ")");
+                        $("#lblmaxbid").text("(" + countrySymbole + ")");
+                        $(".loader").hide();
+                    }
+                    else if (data.data = "fail") {
+                        $(".loader").hide();
+                    }
+                });
+            }
+        });
+
+        $("#CurrencyId").change(function () {
+            $(".loader").show();
+            var id = $(this).val();
+            var label = "currency";
+            if (id == "") {
+                $("#errormsg").html("Please Select a Currency.");
+                $("#lblmaxdailybudget").text("");
+                $("#lbltotalbudget").text("");
+                $("#lblmaxbid").text("");
+                $(".loader").hide();
+            }
+            else {
+                $.post('@Url.Action("GetCurrencyCode", "Dashboard")', { id: id, label: label }, function (data) {
+                    if (data.data = "success") {
+                        $("#errormsg").html("");
+                        var countrySymbole = data.value;
+                        $("#lblmaxdailybudget").text("(" + countrySymbole + ")");
+                        $("#lbltotalbudget").text("(" + countrySymbole + ")");
+                        $("#lblmaxbid").text("(" + countrySymbole + ")");
+                        $(".loader").hide();
+                    }
+                    else if (data.data = "fail") {
+                        $(".loader").hide();
+                    }
+                });
+            }
+        });
+
+    </script>
+
+}

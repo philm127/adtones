@@ -1,0 +1,177 @@
+﻿@using System.Web.Optimization
+@model EFMVC.Web.ViewModels.UserProfileFormModel
+@{
+    ViewBag.Title = "UserDetails";
+    Layout = "~/Areas/OperatorAdmin/Views/Shared/_Layout.cshtml";
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>User Details</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "UserAccount",new {area="OperatorAdmin" })">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>@ViewBag.fullname</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>User Details</h5>
+                    <div style="float:right;">
+                        <a class="btn-sm btn-blue" href='@Url.Action("ChangePassword", "UserAccount", new {area="OperatorAdmin",@id = ViewBag.UserId })'>Change Password</a>
+                        <a class="btn-sm btn-danger" href='@Url.Action("DeleteUser", "UserAccount", new {area="OperatorAdmin",@id = ViewBag.UserId })'>Delete</a>
+                    </div>
+                </div>
+
+                <div class="ibox-content">
+                    @using (Html.BeginForm("UpdateUserInfo", "UserAccount", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        <input type="hidden" id="userid" name="userid" value='@ViewBag.UserId' />
+                        @Html.HiddenFor(m => m.UserProfileId);
+                        @Html.ValidationSummary(true);
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Mobile Number</label>
+
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(model => model.MSISDN, new { @class = "input-sm form-control", @placeholder = "Mobile Number" })
+                                @Html.ValidationMessageFor(model => model.MSISDN)
+                                <label class="label label-danger">Important - Changing your registered mobile phone will change where you hear advertisements.</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">DOB</label>
+
+                            <div class="col-lg-4" id="data_1">
+                                @{
+                                    string parameterValue = string.Empty;
+                                    if (Model.DOB != null)
+                                    {
+                                        parameterValue = Model.DOB.Value.ToString("dd/MM/yyyy");
+                                    }
+
+                                }
+                                @if (String.IsNullOrEmpty(parameterValue))
+                                {
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        @Html.TextBoxFor(model => model.DOB, new { @class = "form-control" })
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="input-group date">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        @Html.TextBoxFor(model => parameterValue, new { @class = "form-control" })
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                                            @*
+                             //code commented on 30-03-2017
+                            <div class="form-group">
+                            <label class="col-lg-3 control-label">Location</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.Location, Model.LocationList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.Location)
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Gender</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.Gender, Model.GenderList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.Gender)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Household Status</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.HouseholdStatus, Model.HouseholdStatusList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.HouseholdStatus)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Relationship Status</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.RelationshipStatus, Model.RelationshipStatusList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.RelationshipStatus)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Income Bracket</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.IncomeBracket, Model.IncomeBracketList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.IncomeBracket)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Education</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.Education, Model.EducationList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.Education)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Working Status</label>
+
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(model => model.WorkingStatus, Model.WorkingStatusList, "--Select--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(model => model.WorkingStatus)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-3 col-lg-1">
+                                <button class="btn btn-blue" type="submit">Save</button>
+
+                            </div>
+                        </div>
+
+                                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/plugins/dataPickerStyles")
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/iCheck")
+    @Scripts.Render("~/plugins/dataPicker")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+        });
+
+    </script>
+}

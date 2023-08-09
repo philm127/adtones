@@ -1,0 +1,52 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass.Models;
+@model List<ProfileInformationResult>
+@*@using EFMVC.Model.Entities;
+@model List<ProfileMatchInformation>*@
+<div class="row">
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["status"]
+        </div>
+    }
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-profileInfo">
+        <thead>
+            <tr>
+                <th>Profile Name</th>
+                <th>Profile Type</th>
+                <th>Country</th>
+                <th>IsActive</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model)
+            {
+                <tr class="gradeX">
+                    <td>@result.ProfileName</td>
+                    <td>@result.ProfileType</td>
+                    <td>@result.CountryName</td>
+                    <td>@result.Status</td>
+                    <td>
+                        <a class="btn btn-danger btn-xs" href='@Url.Action("UpdateProfileInfo","ProfileMatchInformation",new {@id=result.Id })'>Update</a>
+                        @*<a id="@result.OperatorId" class="btn btn-danger btn-xs btnDelete" href="javascript:void(0)">Delete</a>*@
+                    </td>
+                </tr>
+
+                @*<tr class="gradeX">
+                    <td>@result.ProfileName</td>
+                    <td>@result.Country.Name</td>
+                    <td>@result.IsActive</td>
+                    <td>
+                        <a class="btn btn-danger btn-xs" href='@Url.Action("UpdateProfileInfo","ProfileMatchInformation",new {@id=result.Id })'>Update</a>*@
+                        @*<a id="@result.OperatorId" class="btn btn-danger btn-xs btnDelete" href="javascript:void(0)">Delete</a>*@
+                    @*</td>
+                </tr>*@
+            }
+        </tbody>
+    </table>
+</div>
+

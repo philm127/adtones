@@ -1,0 +1,98 @@
+﻿@using EFMVC.Model
+@using EFMVC.Web.Core.Extensions
+@using EFMVC.Web.Core.Models
+@{
+
+    if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        EFMVCUser efmvcUser = HttpContext.Current.User.GetEFMVCUser();
+
+        <h5>Welcome back, @efmvcUser.DisplayName</h5>
+
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="panel"  style="height: 400px; max-height: 400px; overflow-y: auto;">
+                    <h5>Intro</h5>
+                    <p>Etiam quis magna arcu. Sed rhoncus est nec magna luctus dictum. Pellentesque eu viverra enim, sit amet malesuada sapien. Nunc tempus orci justo, vel sagittis elit condimentum eu. Curabitur blandit massa nec nisl dictum, non tempus purus vulputate. Duis libero ipsum, posuere hendrerit nulla eget, dignissim aliquet nibh. Phasellus aliquet ipsum et magna condimentum, eget venenatis massa sagittis. Phasellus vestibulum tincidunt volutpat. Etiam pharetra placerat porta. Pellentesque nisl lacus, mattis quis faucibus in, sagittis ac massa. Vivamus eget molestie dui. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+                </div>
+            </div>
+            <div class="large-6 columns">
+                <div class="panel" style="height: 400px; max-height: 400px; overflow-y: auto;">
+                    <h5>News</h5>
+                    <label style="font-weight: bold">Donec nec sem tellus - @DateTime.Now.AddDays(-3).ToLongDateString()</label>
+                    <p>Donec nec sem tellus. Nulla facilisi. Donec faucibus gravida justo, in imperdiet magna porttitor nec. Vivamus tincidunt in lectus ac tincidunt. Sed viverra molestie sapien, quis pellentesque libero eleifend sed. Etiam nec congue nisi, ac tempor ligula. Quisque odio libero, sodales ut enim nec, pharetra commodo dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Morbi laoreet nunc imperdiet odio eleifend euismod. Duis a diam in libero mattis posuere quis eu odio. Fusce nibh urna, ultrices in nibh a, dignissim varius sapien. Suspendisse potenti.</p>
+                    <label style="font-weight: bold">Nulla consectetur auctor dapibus - @DateTime.Now.AddDays(-15).ToLongDateString()</label>
+                    <p>Nulla consectetur auctor dapibus. Cras consectetur justo ac magna volutpat, at vehicula leo faucibus. Cras luctus ligula ornare nisl aliquet lacinia. Donec metus ligula, volutpat non auctor ut, dignissim eu ante. Nullam rutrum, metus condimentum rhoncus fermentum, tellus tortor sodales metus, ut elementum mauris massa nec elit. Maecenas lacinia ornare nisl ut molestie. In tincidunt nisi vel dui iaculis vestibulum. Quisque sit amet suscipit velit. Nunc fringilla lacinia tincidunt. Aenean id viverra risus. Morbi vitae leo vel lectus semper ullamcorper sed quis est. Nunc lorem neque, consequat vel mauris in, sollicitudin mattis felis. In hac habitasse platea dictumst. Donec non eros tincidunt, laoreet mauris sed, consequat ante. Praesent magna enim, gravida sed faucibus ut, dictum nec nulla.</p>
+                    <label style="font-weight: bold">Nam vitae blandit velit - @DateTime.Now.AddDays(-24).ToLongDateString()</label>
+                    <p>Nam vitae blandit velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris sed magna fermentum tortor pretium dignissim eget eget enim. Phasellus viverra interdum sem sit amet consectetur. Praesent magna lorem, venenatis eget massa et, interdum dictum purus. Cras non aliquam nisl. Maecenas adipiscing dolor at elit facilisis, non gravida eros feugiat. Nullam sagittis elit urna, a suscipit metus faucibus a. Cras nisi ipsum, vulputate non lacus quis, varius sagittis eros. Ut commodo purus sit amet mi ultricies, id tincidunt sapien convallis.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <div class="panel" style="max-height: 300px; overflow-y: auto;">
+                    <h5>Twitter</h5>
+                    <p>Vivamus consectetur commodo nibh id vestibulum. Donec pellentesque vehicula velit, lacinia elementum urna tempor ac.</p>
+                    <p>Vestibulum et dapibus ligula, eu adipiscing sapien. Praesent non sapien varius, auctor turpis a, malesuada augue.</p>
+                    <p>Aliquam tempor, quam pretium blandit ullamcorper, dolor quam imperdiet ligula, commodo gravida leo nisl eu sem.</p>
+                </div>
+            </div>
+            <div class="large-4 columns">
+                <div class="panel" style="height: 300px; max-height: 300px; overflow-y: auto;">
+                    <h5>Offers</h5>
+                    <p>Quisque quis ligula velit. Phasellus venenatis sem nunc, a pretium augue tristique eu. </p>
+                    <p>Sed auctor leo in ligula auctor interdum in quis lectus. </p>
+                    <p>Nam ultricies consequat lorem, ut facilisis ligula eleifend nec. </p>
+                    <p>Vivamus mattis molestie quam, in posuere quam bibendum in. Aenean eget neque et dolor mollis pharetra. </p>
+                    <p>Sed vehicula arcu purus, nec facilisis eros mollis luctus. </p>
+                </div>
+            </div>
+            <div class="large-4 columns">
+                <div class="panel" style="height: 300px; max-height: 300px; overflow-y: auto;">
+                    <h5>Active Campaigns</h5>
+                    
+                    @if (ViewData["ActiveCampaignProfiles"] != null)
+                    {
+                        IList<CampaignProfile> activeProfiles = (List<CampaignProfile>) ViewData["ActiveCampaignProfiles"];
+
+                        if (activeProfiles.Count != 0)
+                        {
+                            foreach (CampaignProfile activeProfile in activeProfiles)
+                            {
+                                <h6>@Html.ActionLink(activeProfile.CampaignName, "Edit", "Campaign", new {id = activeProfile.CampaignProfileId}, null)</h6>
+                                <p>
+                                    <label><b>Total Budget: </b>@activeProfile.TotalBudget</label>
+                                    <label><b>Max Daily Budget: </b>@activeProfile.MaxDailyBudget</label>
+                                    <label><b>Max Bid: </b>@activeProfile.MaxBid</label>
+                                    <label><b>Plays to Date: </b>@activeProfile.PlaysToDate</label>
+                                    @if (activeProfile.AvailableCredit < activeProfile.MaxDailyBudget)
+                                    {
+                                        <label style="color: red"><b>Available Credit: </b>@activeProfile.AvailableCredit</label>
+                                    }
+                                    else
+                                    {
+                                        <label style="color: green"><b>Available Credit: </b>@activeProfile.AvailableCredit</label>
+                                    }
+                                    
+                                </p>
+                            }
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h5>Welcome to Arthar.</h5>
+        <p>Please login or register.</p>
+
+        <p>Pellentesque euismod gravida nunc eu volutpat. Aenean aliquet, nibh ut auctor volutpat, enim odio convallis ligula, volutpat pretium metus turpis et lacus. Donec iaculis suscipit nisl, varius tincidunt metus egestas sed. Pellentesque felis nibh, egestas in arcu a, tempus vulputate tortor. Quisque ullamcorper dapibus consequat. Vivamus cursus mauris in sapien ultrices, vestibulum vehicula lorem consectetur. Praesent vulputate vel odio et condimentum. Nam blandit ultrices elementum. Sed vitae nisl at neque pretium pretium. Quisque congue, elit at vulputate mollis, nisi neque eleifend arcu, nec iaculis ligula enim consectetur lectus. Donec euismod ipsum quis metus blandit tempus. Nullam sollicitudin, tortor ac consequat tristique, urna nisi ultrices orci, ut condimentum velit mauris consectetur orci. Proin ornare ipsum eget erat varius, nec aliquet tortor congue.</p>
+        <p>Curabitur orci enim, molestie ac nunc eget, tincidunt euismod libero. Vivamus ac dui sollicitudin, sagittis nunc et, lobortis diam. Duis sodales molestie interdum. Vivamus vestibulum faucibus nibh ut scelerisque. Etiam et massa orci. Pellentesque convallis leo in urna venenatis, a volutpat justo dignissim. Donec vulputate vestibulum sem id adipiscing. Integer lectus leo, porta id sapien et, ullamcorper convallis lorem.</p>
+        <p>In hac habitasse platea dictumst. Proin sit amet lacus in ante ultrices euismod. Aenean euismod tellus a velit feugiat gravida. Nulla eleifend nec nisi eu lacinia. Suspendisse convallis tellus ipsum, in vehicula nisi ultricies lacinia. Nulla bibendum ipsum vel risus cursus, quis ullamcorper lectus lobortis. Integer at vestibulum leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>Sed sagittis arcu ante, eget imperdiet risus ultrices in. Nam accumsan arcu nec odio scelerisque, ac commodo mauris venenatis. Aliquam turpis quam, fringilla at orci non, eleifend molestie lacus. Ut id risus in ante pharetra porttitor. Etiam orci risus, auctor at mi nec, mattis lacinia ligula. Etiam hendrerit erat nec placerat dignissim. Phasellus faucibus urna sed semper feugiat. Praesent semper risus in sollicitudin consequat. Duis rhoncus nulla justo, nec imperdiet quam varius id. Etiam condimentum enim massa, sed scelerisque nisl tincidunt vitae. Integer tempus arcu eu arcu tempus, vitae sodales sem dictum. Duis dignissim ornare justo. Aenean laoreet consequat sapien, malesuada sollicitudin dui laoreet at. Mauris sit amet varius urna, quis vehicula dui.</p>
+        <p>Nam sagittis quis purus ut viverra. Pellentesque dignissim et tortor in ultricies. Donec a ultricies magna, quis gravida urna. Pellentesque facilisis ut elit vitae vestibulum. Quisque tortor mi, laoreet a ullamcorper at, laoreet at neque. Pellentesque eleifend accumsan tellus, non tristique sem auctor vitae. Vivamus magna ipsum, facilisis varius porttitor et, porttitor sit amet ligula. Sed dui purus, lacinia quis mauris vestibulum, pulvinar iaculis odio. Vestibulum ultricies dolor ac ligula posuere semper. Nam consectetur tortor nec condimentum convallis. Nam sit amet lectus lectus. Maecenas ac nisi sapien. Fusce id lorem ac diam consequat malesuada. Ut cursus nibh nec mauris hendrerit, et pharetra turpis lacinia. Curabitur cursus volutpat dui ut convallis. Phasellus molestie nisi quis tortor auctor, id cursus orci rutrum.</p>
+    }
+}

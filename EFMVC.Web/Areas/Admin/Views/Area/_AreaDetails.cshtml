@@ -1,0 +1,53 @@
+﻿@using EFMVC.Web.Areas.Admin.Models;
+@model List<AreaResult>
+<div class="row">
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["status"]
+        </div>
+    }
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-area">
+        <thead>
+            <tr>
+                <th width="50%">Area Name</th>
+                <th width="25%">Country</th>
+                <th width="25%">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var result in Model)
+            {
+                <tr class="gradeX">
+                    <td>@result.Name</td>
+                    <td>@result.CountryName</td>
+                    <td>
+                        <a class="btn btn-danger btn-xs" href='@Url.Action("UpdateArea","Area",new {@id=result.AreaId })'>Update</a>
+                        <a id="@result.AreaId" class="btn btn-danger btn-xs btnDelete" href="javascript:void(0)">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(".btnDelete").click(function () {
+        var id = $(this).attr("id");
+        if (confirm('Are you sure want to delete this record? Deleting Area\'s data will remove Area related users and their information.')) {
+            $.ajax({
+                url: "@Url.Action("DeleteArea","Area",new { Area ="Admin" })",
+                data: { id: id },
+                success: function (data) {
+                    if (data == true) {
+                        window.location.href = "@Url.Action("Index", "Area", new { Area = "Admin" })";
+                    }
+                }
+            });
+        }
+    });
+</script>
+

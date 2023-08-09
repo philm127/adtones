@@ -1,0 +1,146 @@
+﻿@model EFMVC.Web.ViewModels.OperatorFormModel
+@{
+    ViewBag.Title = "AddOperator";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Add Operator</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Operator",new {area="Admin" })">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>Add Operator</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Add Operator</h5>
+
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("AddOperator", "Operator", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+                    {
+                        if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                @TempData["Error"]
+                            </div>
+                        }
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Name <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.OperatorName, new { @class = "form-control trimmed", @placeholder = "Operator Name" })
+                                @Html.ValidationMessageFor(Model => Model.OperatorName, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Country <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(Model => Model.CountryId, ViewBag.countrydetails as IEnumerable<SelectListItem>, "--Select Country--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.CountryId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Currency <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.DropDownListFor(Model => Model.CurrencyId, ViewBag.CurrencyDetails as IEnumerable<SelectListItem>, "--Select Currency--", new { @class = "form-control input-s-sm inline" })
+                                @Html.ValidationMessageFor(Model => Model.CurrencyId, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Email Cost <label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.EmailCost, new { @class = "form-control trimmed", @placeholder = "Email Cost" })
+                                @Html.ValidationMessageFor(Model => Model.EmailCost, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">SMS Cost<label class="lbldanger">*</label></label>
+                            <div class="col-lg-4">
+                                @Html.TextBoxFor(Model => Model.SmsCost, new { @class = "form-control trimmed", @placeholder = "Sms Cost" })
+                                @Html.ValidationMessageFor(Model => Model.SmsCost, null, new { @class = "btn-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Active</label>
+                            <div class="col-lg-4">
+                                <div class="radio i-checks">
+                                    <label>@Html.RadioButtonFor(model => model.IsActive, true) Yes</label> &nbsp;
+                                    <label>@Html.RadioButtonFor(model => model.IsActive, false) No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-sm btn-blue" type="submit">Submit</button>
+                                <button class="btn btn-sm btn-white" type="button" onclick="window.location.href='@Url.Action("Index","Operator",new {area="Admin" })'">Cancel</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            trimmed();
+
+            $("#EmailCost").keypress(function (event) {
+                $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+                if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                    return false;
+                }
+                var emailCost = $(this).val();
+                if ((emailCost.indexOf('.') != -1) &&
+                    (emailCost.substring(emailCost.indexOf('.')).length > 2) &&
+                    (event.which != 0 && event.which != 8) &&
+                    ($(this)[0].selectionStart >= emailCost.length - 2)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
+            $("#SmsCost").keypress(function (event) {
+                $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+                if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                    return false;
+                }
+                var smsCost = $(this).val();
+                if ((smsCost.indexOf('.') != -1) &&
+                    (smsCost.substring(smsCost.indexOf('.')).length > 2) &&
+                    (event.which != 0 && event.which != 8) &&
+                    ($(this)[0].selectionStart >= smsCost.length - 2)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+
+        function trimmed() {
+            $(".trimmed").on('blur', function () {
+                // the following function will be executed every half second
+                if ($(this).val() != null) {
+                    $(this).val($(this).val().toString().trim());
+                }
+                var s = $(this).val().replace(/\</g, '');
+                s = s.replace(/\>/g, '');
+                $(this).val(s);
+            });
+        }
+
+    </script>
+}

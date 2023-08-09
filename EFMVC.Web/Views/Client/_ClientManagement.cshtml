@@ -1,0 +1,371 @@
+﻿@using EFMVC.Web.SearchClass
+@using EFMVC.Web.Models;
+@model Tuple<List<ClientResult>, ClientFilter>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Client Management</h5>
+
+                <div style="text-align:right">
+                    <button class="btn btn-blue " type="button" onclick="window.location.href='@Url.Action("AddClient","Client")'"><i class="fa fa-plus"></i>&nbsp; Client</button>
+                </div>
+
+            </div>
+
+            @using (Ajax.BeginForm("SearchClient", "Client",
+  null,
+  new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresult", OnBegin = "progressbar" },
+  null))
+            {
+
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Clients</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("ClientId", (MultiSelectList)ViewBag.client, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Clients" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Created Date</label>
+                            <div class='col-md-12 col-lg-10'>
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        <div class='input-group' id='createdFrom'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.Fromdate, new { @class = "input-sm form-control", @id = "fromdate", @Value = "", @data_date_format = "DD/MM/YYYY", @readonly = "readonly" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                        <span class="input-group-addon" style="background-color: #eeeeee;">to</span>
+                                        <div class='input-group' id='createdTo'>
+                                            @Html.TextBoxFor(Model1 => Model1.Item2.Todate, new { @class = "input-sm form-control", @id = "todate", @Value = "", @data_date_format = "DD/MM/YYYY", @readonly = "readonly" })
+                                            <span class="input-group-addon calendar-icon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Total Budget (@ViewBag.currencyCode)</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.FromBudget, new { @class = "form-control" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.ToBudget, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Total Spend (@ViewBag.currencyCode)</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.FromSpend, new { @class = "form-control" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.ToSpend, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Average Bid (@ViewBag.currencyCode)</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    <div class="input-daterange input-group clsendit">
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.Frombid, new { @class = "form-control" })
+                                        <span class="input-group-addon">to</span>
+                                        @Html.TextBoxFor(Model1 => Model1.Item2.Tobid, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4 ibox-field">
+                            <label class="col-md-12 col-lg-2 control-label">Status</label>
+                            <div class="col-md-12 col-lg-10">
+                                <div class="form-group">
+                                    @Html.DropDownList("clientStatusId", (MultiSelectList)ViewBag.clientStatus, new { @class = "chosen-select", multiple = "multiple", @data_placeholder = "All Client Status" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12 col-lg-12">
+                            <div class="col-sm-12 center">
+                                <button class="btn btn-blue" type="submit" id="btnSearch">Filter</button>
+                                <button class="btn btn-white" type="button" id="reset">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        &nbsp;
+                    </div>
+                    <div id="clientList">
+                        @{ Html.RenderPartial("_ClientList", Model.Item1);}
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+        $(".loader").show();
+
+    };
+
+    var getresult = function (data) {
+        if (data != "notauthorise") {
+            $('.dataTables-client').remove();
+            $("#clientList").html(data);
+            dataTableSetup();
+        }
+        else {
+            window.location.href = '@Url.Action("Index","Landing")';
+        }
+        $(".loader").hide();
+    };
+    function dataTableSetup() {
+        $('.dataTables-client').DataTable({
+            "preDrawCallback": function (settings) {
+                $(".spiner-example").show();
+            },
+            "info": false,
+            bFilter: false,
+            "pageLength": 10,
+            "searching": false,
+            "bLengthChange": false,
+            "language": {
+                "infoEmpty": "No Record Found."
+            },
+
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                {
+                    extend: 'copy', title: 'Client',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                },
+                {
+                    extend: 'csv', title: 'Client',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                },
+                {
+                    extend: 'excel', title: 'Client',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                },
+                {
+                    extend: 'pdf', title: 'Client',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                },
+
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                        format: {
+                            body: function (data, row, column, node) {
+                                if (row == 0) {
+                                    return $(data)[0].innerText;
+                                }
+                                else if (row == 1) {
+                                    if ($(data)[0].className == "label1") {
+                                        return $(data)[0].innerText;
+                                    }
+                                    else {
+                                        return $(data)[0].innerText;
+                                    }
+                                }
+                                else if (row == 2) {
+                                    return data;
+                                }
+                                else if (row == 3) {
+                                    return data;
+                                }
+                                else if (row == 4) {
+                                    return data;
+                                }
+                                else if (row == 5) {
+                                    return data;
+                                }
+                                else if (row == 6) {
+                                    return data;
+                                }
+                                else if (row == 7) {
+                                    return $(data).children("option:selected").text();
+                                }
+                            }
+                        }
+                    },
+                    title: 'Client',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                    }
+                }
+            ],
+            "drawCallback": function (settings) {
+                $(".spiner-example").hide();
+            },
+            "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+        });
+    }
+</script>

@@ -1,0 +1,66 @@
+<div class="row border-bottom white-bg">
+    <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <span class="minimalize-styl-2 topnav-wel">Welcome to adtones users</span>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("User"))
+            {
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                        <li id="useraccountoverview">
+                            <a href='@Url.Action("Index", "AccountOverview",new { area = "Users" })'>Account Overview</a>
+
+                        </li>
+                        <li id="user_profile">
+                            <a href='@Url.Action("Index", "Profile",new { area = "Users" })'>Profile Management</a>
+                        </li>
+                        <li id="userpersonalinfo">
+                            <a href='@Url.Action("Index", "PersonalInfo",new { area = "Users" })'>Personal Info</a>
+
+                        </li>
+                        @*<li id="userblockednumber">
+                            <a href='@Url.Action("Index", "BlockedNumber",new { area = "Users" })'>Blocked Number</a>
+
+                        </li>*@
+                        <li id="usermobile">
+                            @*Commented 01-03-2019*@
+                            @*<a href='@Url.Action("Index", "Mobile",new { area = "Users" })'>Mobile (from usage)</a>*@
+
+                            @*Add 01-03-2019*@
+                            <a href='@Url.Action("Index", "Mobile",new { area = "Users" })'>Airtime Usage</a>
+
+                        </li>
+                        <li id="userTicket">
+                            <a href='@Url.Action("Index", "Ticket",new { area = "Users" })'>Help</a>
+
+                        </li>
+                        @*<li id="usertimesettings">
+                            <a href='@Url.Action("Index", "TimeSettings",new { area = "Users" })'>Time Settings (from usage)</a>
+
+                        </li>*@
+                      
+
+                    </ul>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li id="user_account">
+                            @*<a href="#">@User.Identity.Name</a>*@
+                            <a href='@Url.Action("Index", "Account",new { area = "Users" })'>
+                                    @User.Identity.Name
+                                </a>
+                        </li>
+                        <li>
+                            <a href='@Url.Action("LogOff", "Account",new { area = "Users" })' id="logoutbtn">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            }
+        }
+    </nav>
+</div>

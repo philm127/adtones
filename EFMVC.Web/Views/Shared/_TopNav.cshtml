@@ -1,0 +1,104 @@
+﻿<!-- Header and Nav -->
+@{
+
+}
+
+<nav class="top-bar">
+    <ul class="title-area">
+        <!-- Title Area -->
+        <li class="name">
+            <h1>
+                <a href="#">Arthar
+                </a>
+            </h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+        <!-- Left Nav Section -->
+        <ul class="left">
+            @*        <li class="divider"></li>*@
+            @*        <li class="has-dropdown">*@
+            @*          <a class="active" href="#">Main Item 1</a>*@
+            @*          <ul class="dropdown">*@
+            @*            <li><label>Campaign</label></li>*@
+            @*            <li><a href="#" class="">Dropdown Level 1</a></li>*@
+            @*            <li><a href="#">Dropdown Option</a></li>*@
+            @*            <li><a href="#">Dropdown Option</a></li>*@
+            @*            <li class="divider"></li>*@
+            @*            <li><label>Section Name</label></li>*@
+            @*            <li><a href="#">Dropdown Option</a></li>*@
+            @*            <li><a href="#">Dropdown Option</a></li>*@
+            @*            <li><a href="#">Dropdown Option</a></li>*@
+            @*            <li class="divider"></li>*@
+            @*            <li><a href="#">See all &rarr;</a></li>*@
+            @*          </ul>*@
+            @*        </li>*@
+            <li class="divider"></li>
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    if (User.IsInRole("User") || User.IsInRole("Admin"))
+                    {
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink("Profile", "Index", "Profile")</li>
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink("Blocked Numbers", "Index", "BlockedNumber")</li>
+                    }
+
+                    if (User.IsInRole("Advertiser") || User.IsInRole("Admin"))
+                    {
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink("Campaigns", "Index", "Campaign")</li>
+                        <li class="divider"></li>
+                    }
+                    
+                    if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                        <li class="divider"></li>
+                    }
+                }
+            }
+            @*            <li class="has-dropdown">*@
+            @*                <a href="#">Main Item 3</a>*@
+            @*                <ul class="dropdown">*@
+            @*                    <li><a href="#">Dropdown Option</a></li>*@
+            @*                    <li><a href="#">Dropdown Option</a></li>*@
+            @*                    <li><a href="#">Dropdown Option</a></li>*@
+            @*                    <li class="divider"></li>*@
+            @*                    <li><a href="#">See all &rarr;</a></li>*@
+            @*                </ul>*@
+            @*            </li>*@
+
+        </ul>
+
+        <!-- Right Nav Section -->
+        <ul class="right">
+            <li class="divider"></li>
+            <li class="has-dropdown">
+            @(Request.IsAuthenticated ? Html.ActionLink(User.Identity.Name, "Index", "Profile") : Html.ActionLink("Log in / Register", "Login", "Account"))
+            <ul class="dropdown">
+                @if (Request.IsAuthenticated)
+                {
+                    <li><label>Your Profile</label></li>
+                    <li>@Html.ActionLink("View/Edit Profile", "Index", "Profile")</li>
+                    <li>@Html.ActionLink("Change Password", "ChangePassword", "Account")</li>
+                    <li>@Html.ActionLink("Change Email Address", "ChangeEmail", "Account")</li>
+                    <li>@Html.ActionLink("Log off", "LogOff", "Account")</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Register", "Register", "Account")</li>
+                    <li>@Html.ActionLink("Log in", "Login", "Account")</li>
+                }
+            </ul>
+                    
+        </ul>
+    </section>
+</nav>
+
+
+<!-- End Header and Nav -->

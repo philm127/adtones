@@ -1,0 +1,103 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileTvFormModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            @*<div class="ibox-title">
+                    <h5>TV</h5>
+
+                </div>*@
+            <div class="ibox-content" id="tvdiv">
+                <div class="alert alert-success alert-dismissable" id="dvtvsuc" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="cbudsuceess">Record updated successfully</span>
+                </div>
+
+
+                <div class="alert alert-danger alert-dismissable" id="dvtvrror" style="display:none;">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    <span id="ctverrror"></span>
+                </div>
+                @using (Ajax.BeginForm("SaveTv", "Dashboard",
+null,
+new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, OnSuccess = "getresulttv", OnBegin = "progressbar" },
+new { @class = "form-horizontal" }))
+                {
+                    @Html.HiddenFor(model => model.CampaignProfileTvId)
+                    @Html.HiddenFor(model => model.CampaignProfileId)
+                    <div class="form-group">
+                        <div class="row">
+                            <button class="btn btn-sm btn-blue" type="button" id="selectalltv">Select All</button>
+                            <button class="btn btn-sm btn-blue" type="button" id="deselectalltv">Deselect All</button>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.SatalliteQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.CableQuestion)</h3>
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.TerrestrialQuestion)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.SatalliteQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.CableQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.TerrestrialQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:15px;">
+                            <h3 class="col-lg-4 col-lg-wth">@Html.LabelFor(model => model.InternetQuestion)</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-wth" style="line-height:28px;">
+                                <ul>
+                                    @Html.EditorFor(model => model.InternetQuestion, new { @class = "i-checks", @style = "padding-left:10px;" })
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                       
+                        
+                        <div class="form-group">
+                            <div class="col-lg-1">
+                                <button class="btn btn-blue" type="submit">Update</button>
+
+                            </div>
+                        </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var progressbar = function (data) {
+        $(".spiner-example").show();
+    };
+    var getresulttv = function (data) {
+        $(".spiner-example").hide();
+        if (data == "success") {
+            $("#dvtvsuc").show();
+            $("#dvtvrror").hide();
+        }
+        else {
+            if (data == "notauthorise") {
+                window.location.href = '@Url.Action("Index","Landing")';
+            }
+            $("#ctverrror").html(data);
+            $("#dvtvsuc").hide();
+            $("#dvtvrror").show();
+        }
+    };
+</script>

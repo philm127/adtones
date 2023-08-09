@@ -1,0 +1,580 @@
+﻿@using EFMVC.Web.Areas.Admin.SearchClass;
+@using EFMVC.Web.Areas.Admin.Models;
+@model Tuple<List<UserCreditPaymentResult>, UserCreditPaymentFilter>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="spiner-example" style="display:none;">
+        <div class="sk-spinner sk-spinner-three-bounce">
+            <div class="sk-bounce1"></div>
+            <div class="sk-bounce2"></div>
+            <div class="sk-bounce3"></div>
+        </div>
+    </div>
+    <div class="p-w-md m-t-sm">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        @Html.Partial("_UserCreditPaymentManagement", Tuple.Create<List<UserCreditPaymentResult>, UserCreditPaymentFilter>(Model.Item1, Model.Item2))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/plugins/awesomeCheckboxStyles")
+    @Styles.Render("~/plugins/clockpickerStyles")
+    @*@Styles.Render("~/plugins/dateRangeStyles")*@
+    @Styles.Render("~/Content/plugins/iCheck/custom")
+    @Styles.Render("~/Content/plugins/chosen/chosenStyles")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/nouiSliderStyles")
+    @*@Styles.Render("~/plugins/dataPickerStyles")*@
+    @Styles.Render("~/Content/plugins/ionRangeSlider/ionRangeStyles")
+    @Styles.Render("~/plugins/imagecropperStyles")
+    @Styles.Render("~/Content/plugins/colorpicker/colorpickerStyles")
+    @Styles.Render("~/plugins/select2Styles")
+    @Styles.Render("~/plugins/touchSpinStyles")
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+    @Styles.Render("~/plugins/daterangepickerNewStyles")
+
+}
+@section Scripts {
+    @Scripts.Render("~/plugins/sparkLine")
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/iCheck")
+    @*@Scripts.Render("~/plugins/dataPicker")*@
+    @Scripts.Render("~/plugins/ionRange")
+    @Scripts.Render("~/plugins/nouiSlider")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/plugins/switchery")
+    @Scripts.Render("~/plugins/chosen")
+    @Scripts.Render("~/plugins/knob")
+    @Scripts.Render("~/plugins/imagecropper")
+    @Scripts.Render("~/plugins/colorpicker")
+    @Scripts.Render("~/plugins/clockpicker")
+    @*@Scripts.Render("~/plugins/dateRange")*@
+    @Scripts.Render("~/plugins/select2")
+    @Scripts.Render("~/plugins/touchSpin")
+    @Scripts.Render("~/plugins/jeditable")
+    @Scripts.Render("~/plugins/dataTables")
+    @Scripts.Render("~/plugins/daterangepickerNew")
+    <script type="text/javascript">
+         $(window).load(function () {
+
+                $("#UserId").select2({
+                    placeholder: "All Users",
+                    containerCssClass: "userdrp",
+                    allowClear: true,
+                    ajax: {
+                    //url: "https://api.github.com/search/repositories",
+                    //dataType: 'json',
+
+                    traditional: true,
+                    url: '@Url.Action("FillUserDropdownAJAX", "UserPayment", new { area = "Admin" })',
+                    type: "POST",
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            UserName: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        // parse the results into the format expected by Select2
+                        // since we are using custom formatting functions we do not need to
+                        // alter the remote JSON data, except to indicate that infinite
+                        // scrolling can be used
+
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }, // let our custom formatter work
+                minimumInputLength: 1,
+                templateResult: formatRepo, // omitted for brevity, see the source of this page
+                templateSelection: formatRepoSelection, // omitted for brevity, see the source of this page
+                width: '100%'
+                });
+
+            function formatRepo(repo) {
+                if (repo.loading) {
+
+                    return repo.text
+                };
+
+            var markup =
+                    '<div class="avatar">' +
+                    '<div class="info">' +
+
+                   '<div class="col-sm-16">' + repo.name + '</div>';
+
+             markup += '</div></div> ';
+
+            return markup;
+                }
+
+                function formatRepoSelection(repo) {
+                    return repo.name || repo.text;
+                }
+
+
+
+});
+        function dataTableSetup() {
+            $('.dataTables-usercreditpayment').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "aaSorting": [],
+                "pageLength": 10,
+                "info": false,
+                bFilter: false,
+                "searching": false,
+                "bLengthChange": false,
+                "language": {
+                    "infoEmpty": "No Record Found."
+                },
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy', title: 'UserCreditPaymentDetails'},
+                    { extend: 'csv', title: 'UserCreditPaymentDetails'},
+                    { extend: 'excel', title: 'UserCreditPaymentDetails'},
+                    { extend: 'pdf', title: 'UserCreditPaymentDetails'},
+
+                    {
+                        extend: 'print',
+                        title: 'UserCreditPaymentDetails',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () { $(".spiner-example").hide(); }	// Hide processingDiv when loading table is complete
+            });
+        }
+        function getClientByUserId(userId) {
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("GetClientsUser", "UserPayment", new {area="Admin" })',
+                type: "POST",
+                data: { userId: userId },
+                success: function (data) {
+                    $("#ClientId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, client) {
+                            $("#ClientId").append('<option value="' + client.Id + '">' +
+                                                            client.Name + '</option>');
+
+                        });
+                    }
+                    $("#ClientId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+
+        }
+        function getCampaignByUserId(userId) {
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("GetUsersCampaign", "UserPayment", new {area="Admin" })',
+                type: "POST",
+                data: { userId: userId },
+                success: function (data) {
+                    $("#CampaignId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, campaigns) {
+                            $("#CampaignId").append('<option value="' + campaigns.Id + '">' +
+                                                            campaigns.Name + '</option>');
+
+                        });
+                    }
+                    $("#CampaignId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+
+        }
+        function getCampaignByClientId(clientId, userId) {
+            $.ajax({
+                traditional: true,
+                url: '@Url.Action("GetClientsCampaign", "UserPayment", new {area="Admin" })',
+                type: "POST",
+                data: { clientId: clientId, userId: userId },
+                success: function (data) {
+                    $("#CampaignId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, campaigns) {
+                            $("#CampaignId").append('<option value="' + campaigns.Id + '">' +
+                                                            campaigns.Name + '</option>');
+
+                        });
+                    }
+                    $("#CampaignId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });
+
+        }
+        $(document).ready(function () {
+            $('body').bind('keyup', function (event) {
+                if (event.keyCode === 13) {
+                    $("#btnSearch").click();
+                  //  $('#form0').submit();
+                }
+            });
+            $(".chosen-container").bind('keyup', function (e) {
+                if (e.which === 13) {
+                    $("#btnSearch").click();
+                    //$('#form0').submit();
+                    // or your stuff here...
+                }
+            });
+            $('#createdFrom').datetimepicker({ ignoreReadonly: true });
+
+            $('#createdTo').datetimepicker({
+                useCurrent: false, //Important! See issue #1075
+                ignoreReadonly: true
+            });
+
+            $("#createdFrom").on("dp.change", function (e) {
+                $('#createdTo').data("DateTimePicker").minDate(e.date);
+            });
+
+            $("#createdTo").on("dp.change", function (e) {
+                $('#createdFrom').data("DateTimePicker").maxDate(e.date);
+            });
+            $('#fromdate').css({ "height": "34px" });
+            $('#todate').css({ "height": "34px" });
+
+            $("#Item2_Fromamount").keypress(function (event) {
+                return isNumber(event, this)
+            });
+
+            $("#Item2_Toamount").keypress(function (event) {
+                return isNumber(event, this)
+            });
+
+            //Add 26-02-2019
+            @*$.ajax({
+                traditional: true,
+                url: '@Url.Action("FillUserDropdownAJAX", "UserPayment", new {area="Admin" })',
+                type: "POST",
+                data: { },
+                success: function (data) {
+                    $("#UserId").empty();
+                    if (data == "nodata" || data == "error") {
+
+                    }
+                    else {
+                        $.each(data, function (i, users) {
+                            $("#UserId").append('<option value="' + users.Value + '">' +
+                                users.Text + '</option>');
+
+                        });
+                    }
+                    $("#UserId").trigger("chosen:updated");
+                },
+                error: function (jqXHR, exception) {
+                    alert('Internal server error.Please try again.');
+                }
+            });*@
+
+            //Comment 31-05-2019
+            //$("#btnSearch").click(function () {
+            //    oTable.columns(0).search($('#UserId').val());
+            //    oTable.columns(1).search($('#ClientId').val());
+            //    oTable.columns(2).search($('#CampaignId').val());
+            //    oTable.columns(3).search($('#Item2_InvoiceNumber').val());
+            //    if ($("#Item2_Fromamount").val() != '') {
+            //        oTable.columns(4).search($("#Item2_Fromamount").val() + ',' + $("#Item2_Toamount").val());
+            //    }
+            //    else {
+            //        oTable.columns(4).search(null);
+            //    }
+            //    if ($("#fromdate").val() != '') {
+            //        oTable.columns(5).search($("#fromdate").val() + ',' + $("#todate").val());
+            //    }
+            //    else {
+            //        oTable.columns(5).search(null);
+            //    }
+            //    //oTable.columns(3).search($('#AdvertId').val());
+            //    //oTable.columns(4).search($('#CampaignStatusId').val());
+            //    //if ($("#Item2_Fromdate").val() != '') {
+            //    //    oTable.columns(5).search($("#Item2_Fromdate").val() + ',' + $("#Item2_Todate").val());
+            //    //}
+            //    //else {
+            //    //    oTable.columns(5).search(null);
+            //    //}
+
+            //    //hit search on server
+            //    oTable.draw();
+            //});
+            $("#usercreditpaymentreset").click(function () {
+                $(".spiner-example").show();
+                $('#fromdate').val('');
+                $('#todate').val('');
+                $("#UserId").select2("val", "");
+                $("#ClientId").val('0');
+                $("#ClientId").trigger("chosen:updated");
+                $("#CampaignId").val('0');
+                $("#CampaignId").trigger("chosen:updated");
+                $("#Item2_InvoiceNumber").val('');
+                $("#Item2_Fromamount").val('');
+                $("#Item2_Toamount").val('');
+                $("#Item2_Fromdate").val('');
+                $("#Item2_Todate").val('');
+
+                //Add 31-05-2019
+                $.ajax({
+                    data: null,
+                    datatype: "text/plain",
+                    type: "POST",
+                    url: '@Url.Action("SearchUsersCreditPayment", "UserPayment", new { area = "Admin" })',
+                    cache: false,
+                    success: function (data) {
+                        $(".spiner-example").hide();
+                        $("#userpaymentList").html(data);
+                        dataTableSetup();
+                    }
+                });
+
+                //Comment 31-05-2019
+                //oTable.columns(0).search(null);
+                //oTable.columns(1).search(null);
+                //oTable.columns(2).search(null);
+                //oTable.columns(3).search(null);
+                ////Apply search for Status // DataTable column index 3
+                //oTable.columns(4).search(null);
+                //oTable.columns(5).search(null);
+                ////hit search on server
+                //oTable.draw();
+                //$(".spiner-example").hide();
+
+            });
+            $("#UserId").change(function () {
+                var userId = new Array();
+                $("select#UserId option:selected").each(function () {
+                    userId.push($(this).val());
+                });
+                getClientByUserId(userId);
+                getCampaignByUserId(userId);
+            });
+            $("#ClientId").change(function () {
+                var clientId = new Array();
+                $("select#ClientId option:selected").each(function () {
+                    clientId.push($(this).val());
+                });
+                var userId = new Array();
+                $("select#UserId option:selected").each(function () {
+                    userId.push($(this).val());
+                });
+                getCampaignByClientId(clientId, userId);
+            });
+            //$('#data_5 .input-daterange').datepicker({
+            //    keyboardNavigation: false,
+            //    forceParse: false,
+            //    autoclose: true
+            //});
+            var config = {
+                '.chosen-select': { width: "100%" },
+                '.chosen-select-deselect': { allow_single_deselect: true },
+                '.chosen-select-no-single': { disable_search_threshold: 10 },
+                '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+                '.chosen-select-width': { width: "95%" }
+            }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+
+
+            $('.dataTables-usercreditpayment').DataTable({
+                "preDrawCallback": function (settings) {
+                    $(".spiner-example").show();
+                },
+                "info": false,
+                "pageLength": 10,
+                "aaSorting": [],
+                bFilter: false,
+                "bLengthChange": false,
+                //"processing": true, // for show processing bar
+                "serverSide": true, // for process on server side
+                "orderMulti": false, // for disable multi column order
+                //"dom": '<"top"i>rt<"bottom"lp><"clear">', // for hide default global search box // little confusion? don't worry I explained in the tutorial website
+                //dom: 'Bfrtip',
+                dom: '<"floatRight"B><"clear">frtip',
+                buttons: [
+                    { extend: 'copy', title: 'UserCreditPaymentDetails' },
+                    { extend: 'csv', title: 'UserCreditPaymentDetails' },
+                    { extend: 'excel', title: 'UserCreditPaymentDetails' },
+                    { extend: 'pdf', title: 'UserCreditPaymentDetails' },
+
+                    {
+                        extend: 'print',
+                        title: 'UserCreditPaymentDetails',
+                        customize: function (win) {
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                .addClass('compact')
+                                .css('font-size', 'inherit');
+                        }
+                    }
+                ],
+                "ajax": {
+                    "url": "/Admin/UserPayment/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "aoColumns": [
+
+                    {
+                        "data": "Email", "name": "Email", "autoWidth": true,
+                        "mRender": function (data, type, row) {
+                                return '<td><a href=/Admin/UserManagement/UserDetails?id=' + row.UserId + '>' + row.Email + '</a></td>';
+                        }
+                    },//index-0
+                    { "data": "Name", "name": "Name", "autoWidth": true },
+                    {
+                        "data": "Organisation", "name": "Organisation", "autoWidth": true,
+                        "mRender": function (data, type, row) {
+                            if (row.Organisation === null || row.Organisation === "") {                                
+                                return '<td>-</td>';
+                            }
+                            else {
+                                return '<td>' + row.Organisation + '</td>';
+                            }
+                        }
+                    },//index-1
+                    //{ "data": "Organisation", "name": "Organisation", "autoWidth": true },
+                    //{
+                    //    "data": "ClientName", "name": "ClientName", "autoWidth": true,
+                    //    "mRender": function (data, type, row) {
+                    //        return '<td><a href=/Admin/Client/ClientDetails?id=' + row.UserId + '>' + row.ClientName + '</a></td>';
+                    //    }
+                    //},
+                    {
+                        "data": "ClientName", "name": "ClientName", "autoWidth": true,
+                        "mRender": function (data, type, row) {
+                            if (row.ClientName != "-") {
+                                return '<td><a href=/Admin/AdminClient/ClientDetails?id=' + row.ClientId + '>' + row.ClientName + '</a></td>';
+                            }
+                            else {
+                                return '<td>' + row.ClientName + '</td>';
+                            }
+                        }
+                    },//index-2
+                    {
+                        "data": "CampaignName", "name": "CampaignName", "autoWidth": true,
+                        "mRender": function (data, type, row) {
+                            return '<td><a href=/Admin/Campaign/Index?campaignId=' + row.CampaignProfileId + '>' + row.CampaignName + '</a></td>';
+                        }
+                    },//index-3
+                    { "data": "InvoiceNumber", "name": "InvoiceNumber", "autoWidth": true },//index-4
+                    {
+                        "data": "TotalAmount", "name": "TotalAmount", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            return '<td>' + parseFloat(row.TotalAmount).toFixed(2) + '</td>';
+                        }
+                    },//index-5
+                    {
+                        "data": "Amount", "name": "Amount", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            return '<td>' + parseFloat(row.Amount).toFixed(2) + '</td>';
+                        }
+                    },//index-6
+                    {
+                        "data": "OutstandingAmount", "name": "OutstandingAmount", "autoWidth": false,
+                        "mRender": function (data, type, row) {
+                            return '<td>' + parseFloat(row.OutstandingAmount).toFixed(2) + '</td>';
+                        }
+                    },//index-7
+                    //{ "data": "TotalAmount", "name": "TotalAmount", "autoWidth": true },//index-5
+                    //{ "data": "Amount", "name": "Amount", "autoWidth": true },//index-6
+                    //{ "data": "OutstandingAmount", "name": "OutstandingAmount", "autoWidth": true },//index-7
+                    { "data": "Description", "name": "Description", "autoWidth": true },//index-8
+                    //{
+                    //    "data": "CreatedDate", "type": "date ", "name": "CreatedDate",
+                    //    "render": function (value) {
+                    //        if (value === null) return "";
+                    //        var pattern = /Date\(([^)]+)\)/;//date format from server side
+                    //        var results = pattern.exec(value);
+                    //        var dt = new Date(parseFloat(results[1]));
+
+                    //        return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+                    //    }, "autoWidth": true
+                    //},//index-9
+                    { "data": "CreatedDate", "type": "date ", "name": "CreatedDate", "autoWidth": true },//index-9
+                    {
+                        "data": "Status", "name": "Status", "autoWidth": true,
+                        "mRender": function (data, type, row) {
+                            //if (row.Status == "1") {
+                            //    return '<label class="label label-primary">Partially paid</label>';
+                            //}
+                            //else {
+                            //    return '<label class="label label-danger">Fail</label>';
+                            //}
+
+                            if (row.Status == "1") {
+                                return '<label class="label label-primary">Partially paid</label>';
+                            }
+                            else {
+                                return '<label class="label label-danger">Not Paid</label>';
+                            }
+                        }
+                    }//index-10
+                ],
+                "drawCallback": function (settings) {
+                    $(".spiner-example").hide();
+                },
+                "fnInitComplete": function () {
+                    $(".spiner-example").hide();
+                    $(".floatRight").css('float', 'right');
+                    $(".floatRight").css('padding-bottom', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                    $(".floatRight .btn").css('font-size', '12px');
+                }
+            });
+            oTable = $('.dataTables-usercreditpayment').DataTable();
+        });
+
+    </script>
+}

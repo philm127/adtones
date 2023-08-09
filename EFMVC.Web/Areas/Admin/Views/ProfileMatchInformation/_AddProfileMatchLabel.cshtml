@@ -1,0 +1,89 @@
+﻿@using EFMVC.Web.ViewModels;
+@model ProfileMatchInformationFormModel
+
+<style>
+    .table1 {
+        width: 50%;
+        max-width: 50%;
+        margin-left: 12%;
+    }
+</style>
+
+<div class="row">
+    <div class="ibox-content">
+        @if (TempData["ProfileLabelError"] != null)
+        {
+            <div class="alert alert-danger alert-dismissable" id="profilelabelerror">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                @TempData["ProfileLabelError"]
+            </div>
+        }
+            <div class="alert alert-success alert-dismissable" id="profilelabelfosuc" style="display:none;">
+                <button aria-hidden="true" data-dismiss="alert" class="close" id="profilelabelclosesuccess" type="button">×</button>
+                @*<span id="profilelabelsuceess">Record updated successfully</span>*@
+                <span id="profilelabelsuceess"></span>
+            </div>
+        <div class="alert alert-danger alert-dismissable" id="profilelabelfoerror" style="display:none;">
+            <button aria-hidden="true" class="close" id="profilelabelcloseerror" type="button">×</button>
+            <span id="profilelabelerror"></span>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive table1">
+    <table class="table table-striped table-bordered table-hover dataTables-profilelabel">
+        <thead>
+            <tr>
+                <th width="50%">Profile Label <label class="lbldanger">*</label></th>
+                <th width="25%">Created Date</th>
+                <th width="25%">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var date = DateTime.Now.Date.ToString("dd/MM/yyyy");
+            }
+
+            @if (Model.profileMatchLabelFormModels.Count() > 0)
+            {
+                for (int i = 0; i < Model.profileMatchLabelFormModels.Count(); i++)
+                {
+                    <tr class="gradeX" id="@i">
+                        <td>
+                            @Html.Label(Model.profileMatchLabelFormModels[i].ProfileLabel)
+                            @Html.TextBoxFor(model => model.profileMatchLabelFormModels[i].ProfileLabel, new { @class = "form-control profilelabel trimmed", @id = @i, @placeholder = "Profile Label", style = "display:none;" })
+                            <span id="profileerrormsg"></span>
+                            @Html.HiddenFor(model => model.profileMatchLabelFormModels[i].Id)
+                        </td>
+                        <td>@Html.Label(Model.profileMatchLabelFormModels[i].CreatedDate.Value.Date.ToString("dd/MM/yyyy"))</td>
+                        <td>
+                            <a class="btn btn-danger btn-xs" id="@i" onclick="editProfileLabel(this)">Edit</a>
+                            <a class="btn btn-danger btn-xs" id="@i" style="display:none;" onclick="updateProfileLabel(this)">Update</a>@*href='@Url.Action("UpdateProfileLabel", "ProfileMatchInformation", new { @id = result.Id })'*@
+                            <a class="btn btn-danger btn-xs btnDelete" id="@i" onclick="deleteProfileLabel(this)">Delete</a>
+                            <a class="btn btn-danger btn-xs btncancel" id="@i" style="display:none;" onclick="cancelProfileLabel(this)">Cancel</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="gradeX" id="1">
+                    <td>
+                        @Html.Label("ProfileLabel", new { style = "display:none;" })
+                        @Html.TextBoxFor(model => model.profileMatchLabelFormModel.ProfileLabel, new { @class = "form-control profilelabel trimmed", @id = "1", @placeholder = "Profile Label" })
+                        <span id="profileerrormsg"></span>
+                    </td>
+                    <td>@Html.Label(date, new { @class = "control-label" })</td>
+                    <td>
+                        <a class="btn btn-danger btn-xs addprofilelabel" id="addprofilelabelId" onclick="addProfileLabel(this)">Add</a>@*onclick="myFunction()" href='@Url.Action("AddProfileLabel", "ProfileMatchInformation")'*@
+                        <a class="btn btn-danger btn-xs btncancel" id="btnCancelId" onclick="cancelAddProfileLabel(this)">Cancel</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="button" id="btnaddprofilelabeltable" onclick="addProfileLabelPanel(this)" class="btn btn-sm btn-blue">
+        Add Profile Label
+    </button>
+</div>
+

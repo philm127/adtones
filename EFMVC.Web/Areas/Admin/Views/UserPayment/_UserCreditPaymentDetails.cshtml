@@ -1,0 +1,76 @@
+﻿@using EFMVC.Web.Areas.Admin.Models;
+@model List<UserCreditPaymentResult>
+<div class="row">
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            @TempData["status"]
+        </div>
+    }
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover dataTables-usercreditpayment">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>User</th>
+                <th>Organisation</th>
+                <th>Client</th>
+                <th>Campaign</th>
+                <th>Invoice Number</th>
+                <th>Total Amount</th>
+                <th>Paid Amount</th>
+                <th>Outstanding Amount</th>
+                <th>Description</th>
+                <th>Created Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (UserCreditPaymentResult result in Model)
+            {
+                <tr class="gradeX">
+                    <td><a href='@Url.Action("UserDetails", "UserManagement", new { @id = result.UserId })'>@result.Email</a></td>
+                    <td>@result.Name</td>
+                    @if (result.Organisation != null && result.Organisation != "")
+                    {
+                        <td>@result.Organisation</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                    @*<td><a href='@Url.Action("ClientDetails", "Client", new { @id = result.ClientId })'>@result.ClientName</a></td>*@
+                    @if (result.ClientName != "-")
+                    {
+                        <td><a href='@Url.Action("ClientDetails", "AdminClient", new { @id = result.ClientId })'>@result.ClientName</a></td>;
+                    }
+                    else
+                    {
+                        <td>-</td>;
+                    }
+                    <td><a href='@Url.Action("Index", "Campaign", new { @campaignId = result.CampaignProfileId })'>@result.CampaignName</a></td>
+                    <td>@result.InvoiceNumber</td>
+                    <td>@result.TotalAmount.ToString("F2")</td>
+                    <td>@result.Amount.ToString("F2")</td>
+                    <td>@result.OutstandingAmount.ToString("F2")</td>
+                    <td>@result.Description</td>
+                    <td>@result.CreatedDate</td>
+                    <td>
+                        @if (result.Status == 1)
+                        {
+                            <label class="label label-primary">Partially paid</label>
+                        }
+                        else
+                        {
+                            @*<label class="label label-danger">Fail</label>*@
+                            <label class="label label-danger">Not Paid</label>
+                        }
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,506 @@
+﻿@model EFMVC.Web.ViewModels.CampaignProfileFormModel
+@*<script src="~/Scripts/jquery-1.5.1.min.js" type="text/javascript"></script>*@
+@*<script src="~/Scripts/jquery.validate.min.js" type="text/javascript"></script>*@
+@*<script src="~/Scripts/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>*@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"> </script>
+<script type="text/javascript" src="~/Scripts/autoNumeric/autoNumeric.js"> </script>
+<script type="text/javascript">
+    jQuery(function($) {
+        $('.auto').autoNumeric('init');
+    });
+</script>
+
+@Html.HiddenFor(model => model.CreatedDateTime)
+@Html.HiddenFor(model => model.UpdatedDateTime)
+
+<div class="row">
+    <div class="large-12 columns">
+        <h4>Campaign</h4>
+        
+        @{
+            if (Model.CampaignProfileId == 0)
+            {
+                <h6>Setup your new campaign profile.</h6>
+            }
+            else
+            {
+                <h6>Edit your campaign profile.</h6>
+            }
+        }
+
+    </div>
+</div>
+
+<div class="clr10"></div>
+<div class="row">
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CampaignName)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CampaignName)
+                @Html.ValidationMessageFor(model => model.CampaignName)
+            </div>
+                
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CampaignDescription)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CampaignDescription)
+                @Html.ValidationMessageFor(model => model.CampaignDescription)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MaxDailyBudget)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.MaxDailyBudget, new {@class = "auto", data_a_dec = ".", data_a_sep = ","})
+                @Html.ValidationMessageFor(model => model.MaxDailyBudget)
+            </div>
+                
+            <div class="editor-label">
+                @Html.LabelFor(model => model.TotalBudget)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.TotalBudget, new {@class = "auto", data_a_dec = ".", data_a_sep = ","})
+                @Html.ValidationMessageFor(model => model.TotalBudget)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MaxBid)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.MaxBid, new {@class = "auto", data_a_dec = ".", data_a_sep = ","})
+                @Html.ValidationMessageFor(model => model.MaxBid)
+            </div>
+                
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Active)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.CheckBoxFor(model => model.Active)
+                @Html.ValidationMessageFor(model => model.Active)
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="large-6 columns">
+        <div class="panel">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.EmailSenderAddress)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.EmailSenderAddress)
+                @Html.ValidationMessageFor(model => model.EmailSenderAddress)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.EmailSubject)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.EmailSubject)
+                @Html.ValidationMessageFor(model => model.EmailSubject)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.EmailBody)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.EmailBody)
+                @Html.ValidationMessageFor(model => model.EmailBody)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.SmsOriginator)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.SmsOriginator)
+                @Html.ValidationMessageFor(model => model.SmsOriginator)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.SmsBody)
+            </div>
+            <div class="clr10"></div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.SmsBody)
+                @Html.ValidationMessageFor(model => model.SmsBody)
+            </div>
+        </div>
+    </div>
+
+</div>
+
+        
+<div class="panel">
+    <div class="row">
+        <div class="large-6 columns">
+        
+            <div class="row">
+                <div class="large-5 columns">
+                    <label>Available Credit:</label>
+                </div>
+                <div class="large-1 columns">
+                    <label>@Model.AvailableCredit</label>
+                </div>
+            </div>
+                
+            <div class="clr17"></div>
+
+            <div class="row">
+                <div class="large-5 columns"><label>
+                                                 Plays To Date:</label> 
+                </div>
+                <div class="large-1 columns">
+                    <label>@ViewData["totalPlayCount"]</label>
+                </div>
+            </div>
+            
+            <div class="clr17"></div>
+
+            <div class="row">
+                <div class="large-5 columns"><label>
+                                                 Plays Last Month:</label> 
+                </div>
+                <div class="large-1 columns">
+                    <label>@ViewData["previousMonthPlayCount"]</label>
+                </div>
+            </div>
+            
+            <div class="clr17"></div>
+
+            <div class="row">
+                <div class="large-5 columns"><label>
+                                                 Plays Current Month:</label> 
+                </div>
+                <div class="large-1 columns">
+                    <label>@ViewData["currentMonthPlayCount"]</label>
+                </div>
+            </div>
+            
+            <div class="clr17"></div>
+
+            <div class="row">
+                <div class="large-5 columns"><label>
+                                                 Cancelled To Date:</label> 
+                </div>
+                <div class="large-1 columns">
+                    <label>@Model.CancelledToDate</label>
+                </div>
+            </div>
+            
+            <div class="clr17"></div>
+
+            <div class="row">
+                <div class="large-5 columns"><label>
+                                                 Cancelled Last Month:</label> 
+                </div>
+                <div class="large-1 columns">
+                    <label>@Model.CancelledLastMonth</label>
+                </div>
+            </div>
+            
+            <div class="clr17"></div>
+
+            <div class="row">
+                <div class="large-5 columns"><label>
+                                                 Cancelled Current Month:</label> 
+                </div>
+                <div class="large-1 columns">
+                    <label>@Model.CancelledCurrentMonth</label>
+                </div>
+            </div>
+        </div>
+
+            
+        <div class="large-6 columns">
+            
+            <div class="clr17"></div>
+
+            <div class="row">
+                <div class="large-5 columns"><label>
+                                                 SMS To Date:</label> 
+                </div>
+                <div class="large-1 columns">
+                    <label>@ViewData["totalSMSCount"]</label>
+                </div>
+            </div>
+            
+            <div class="clr17"></div>
+
+            <div class="row">
+                <div class="large-5 columns"><label>
+                                                 Sms Last Month:</label> 
+                </div>
+                <div class="large-1 columns">
+                    <label>@ViewData["previousMonthSMSCount"]</label>
+                </div>
+            </div>
+            
+            <div class="clr17"></div>
+
+            <div class="row">
+                <div class="large-5 columns"><label>
+                                                 Sms Current Month:</label> 
+                </div>
+                <div class="large-1 columns">
+                    <label>@ViewData["currentMonthSMSCount"]</label>
+                </div>
+            </div>
+            
+            <div class="clr17"></div>
+
+            <div class="row">
+                <div class="large-5 columns"><label>
+                                                 Emails To Date:</label> 
+                </div>
+                <div class="large-1 columns">
+                    <label>@ViewData["totalEmailCount"]</label>
+                </div>
+            </div>
+            
+            <div class="clr17"></div>
+
+            <div class="row">
+                <div class="large-5 columns"><label>
+                                                 Emails Last Month:</label> 
+                </div>
+                <div class="large-1 columns">
+                    <label>@ViewData["previousMonthEmailCount"]</label>
+                </div>
+            </div>
+            
+            <div class="clr17"></div>
+
+            <div class="row">
+                <div class="large-5 columns"><label>
+                                                 Emails Current Month:</label> 
+                </div>
+                <div class="large-1 columns">
+                    <label>@ViewData["currentMonthEmailCount"]</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="panel">
+    <div class="row">
+        <div class="large-12 columns">
+            @Html.ActionLink("Assign Adverts", "CreateCampaignAdvert", new {id = Model.CampaignProfileId})
+        </div>
+    </div>
+</div>
+
+<div class="panel">
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="panel">
+                
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>
+                            Demographics - 
+                            <div class="right">@Html.ActionLink(
+                                                   " ",
+                                                   "EditDemographics",
+                                                   new {id = Model.CampaignProfileId},
+                                                   new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="clr10"></div>
+
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>
+                            Advert - 
+                            <div class="right">@Html.ActionLink(
+                                                   " ",
+                                                   "EditAdverts",
+                                                   new {id = Model.CampaignProfileId},
+                                                   new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="clr10"></div>
+            
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>
+                            Attitude - 
+                            <div class="right">@Html.ActionLink(
+                                                   " ",
+                                                   "EditAttitude",
+                                                   new {id = Model.CampaignProfileId},
+                                                   new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="clr10"></div>
+            
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>
+                            Cinema - 
+                            <div class="right">
+                                @Html.ActionLink(
+                                    " ",
+                                    "EditCinema",
+                                    new {id = Model.CampaignProfileId},
+                                    new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                    
+                <div class="clr10"></div>
+            
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>
+                            Internet - 
+                            <div class="right">
+                                @Html.ActionLink(
+                                    " ",
+                                    "EditInternet",
+                                    new {id = Model.CampaignProfileId},
+                                    new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="clr10"></div>
+            
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>
+                            Mobile - 
+                            <div class="right">
+                                @Html.ActionLink(
+                                    " ",
+                                    "EditMobile",
+                                    new {id = Model.CampaignProfileId},
+                                    new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="clr10"></div>
+            
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>
+                            Press - 
+                            <div class="right">
+                                @Html.ActionLink(
+                                    " ",
+                                    "EditPress",
+                                    new {id = Model.CampaignProfileId},
+                                    new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="clr10"></div>
+            
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>
+                            Products & Services - 
+                            <div class="right">
+                                @Html.ActionLink(
+                                    " ",
+                                    "EditProductsServices",
+                                    new {id = Model.CampaignProfileId},
+                                    new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="clr10"></div>
+            
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>
+                            Radio - 
+                            <div class="right">
+                                @Html.ActionLink(
+                                    " ",
+                                    "EditRadio",
+                                    new {id = Model.CampaignProfileId},
+                                    new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="clr10"></div>
+            
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>
+                            Time Settings - 
+                            <div class="right">
+                                @Html.ActionLink(
+                                    " ",
+                                    "EditTimeSettings",
+                                    new {id = Model.CampaignProfileId},
+                                    new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="clr10"></div>
+            
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>
+                            TV - 
+                            <div class="right">
+                                @Html.ActionLink(
+                                    " ",
+                                    "EditTv",
+                                    new {id = Model.CampaignProfileId},
+                                    new {@class = "editLinkImg", @alt = "Edit", @title = "Edit"})
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel">
+    <div class="row">
+        <div class="large-12 columns">
+            @Html.ActionLink("Campaign Audit", "CampaignAuditList", new {id = Model.CampaignProfileId})
+        </div>
+    </div>
+</div>
